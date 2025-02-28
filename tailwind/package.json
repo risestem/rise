@@ -1,6 +1,0 @@
-{
-    "dependencies": {
-        "clean-css-cli": "*",
-        "tailwindcss": "*"
-    }
-}
