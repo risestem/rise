@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="https://braydenwatt.github.io/Rise-Website/public/logo1.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rise Engineering & Coding</title>
+    <link href="/src/style.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
+  </head>
+  <header id="home" class="fixed top-0 bg-white shadow-md flex items-center px-32 py-1.5 w-full z-50">
+    <nav class="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200 shadow-md">
+      <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <a href="#home" class="flex items-center px-0">
+          <img src="https://braydenwatt.github.io/Rise-Website/public/logo1.svg" alt="Rise Engineering & Coding" class="h-16 mr-3" />
+        </a>
+        <div class="flex justify-center items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+          <button type="button" class="text-white bg-purple-950 hover:bg-white hover:outline-1 hover:outline-purple-950 hover:text-purple-950 font-semibold rounded-md text-md px-6 py-3.5 sm:mr-2 lg:mr-0">Contact Us</button>
+          <button id="hamburger-btn" data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+            </svg>
+          </button>
+          <script>
+            document.getElementById("hamburger-btn").addEventListener("click", function() {
+              const navbar = document.getElementById("navbar-sticky");
+              const isExpanded = this.getAttribute("aria-expanded") === "true";
+
+              // Toggle the class to show or hide the menu
+              navbar.classList.toggle("hidden", isExpanded);
+
+              // Toggle the aria-expanded attribute
+              this.setAttribute("aria-expanded", !isExpanded);
+            });
+          </script>
+        </div>
+        <div class="hidden w-full md:flex md:w-auto md:order-1 justify-start" id="navbar-sticky">
+          <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:mt-0 md:border-0 md:bg-white">
+            <li>
+              <a href="#home" class="px-4 font-bold text-gray-500 hover:text-purple-950" aria-current="page">Home</a>
+            </li>
+            <li>
+              <a href="#curriculum" class="px-4 font-bold text-gray-500 hover:text-purple-950">Curriculum</a>
+            </li>
+            <li>
+              <a href="#faq" class="px-4 font-bold text-gray-500 hover:text-purple-950">Questions</a>
+            </li>
+            <li>
+              <a href="#about" class="px-4 font-bold text-gray-500 hover:text-purple-950">About</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+  <!-- Main Content Section Below Header -->
+  <section class="min-h-screen bg-white w-full">
+    <div class="w-full h-[80vh] bg-[url('https://braydenwatt.github.io/Rise-Website/public/children-having-technology-education-class.jpg')] bg-cover bg-top bg-no-repeat flex items-center">
+      <!-- Gradient Overlay -->
+      <div class="h-[80vh] absolute inset-0 bg-black opacity-50 z-0"></div>
+      <div class="flex flex-col text-left items-center px-6 sm:px-16 md:px-32 z-10">
+      <h1 class="text-3xl font-extrabold text-white md:text-4xl xl:text-5xl self-start">
+          Rise Engineering & <br> Coding
+        </h1>
+        <p class="text-white font-semibold md:text-xl lg:text-2xl self-start">
+          We are a group of 2 students who <br> are dedicated to giving back to <br> our community by providing free <br> access to STEM learning and <br> projects.
+        </p>
+      </div>
+    </div>
+    <div class="w-full px-6 sm:px-6 md:px-16 lg:px-28 -mt-8 z-20 relative">
+      <!-- Rounded Box with content that will change -->
+      <div class="bg-white p-4 rounded-2xl border border-gray-300 shadow-md justify-center">
+        <div class="flex justify-center text-center">
+          <h2 class="text-3xl font-normal text-purple-900 md:text-4xl">
+            Our <span class="font-extrabold">Curriculum</span>
+          </h2>
+        </div>
+
+        <!-- Buttons to toggle between Engineering and Coding -->
+        <div id="curriculum" class="flex justify-center mt-4 space-x-8 md:space-x-44 lg:space-x-60">
+          <!-- Engineering Button with SVG -->
+          <button id="engineeringBtn" onclick="switchCurriculum('engineering')" class="curriculum-button text-gray-500 px-6 py-2 focus:outline-none outline-0 flex flex-col items-center">
+            <!-- Engineering SVG Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="currentColor">
+              <path d="M42-120v-112q0-33 17-62t47-44q51-26 115-44t141-18q77 0 141 18t115 44q30 15 47 44t17 62v112H42Zm80-80h480v-32q0-11-5.5-20T582-266q-36-18-92.5-36T362-320q-71 0-127.5 18T142-266q-9 5-14.5 14t-5.5 20v32Zm240-240q-66 0-113-47t-47-113h-10q-9 0-14.5-5.5T172-620q0-9 5.5-14.5T192-640h10q0-45 22-81t58-57v38q0 9 5.5 14.5T302-720q9 0 14.5-5.5T322-740v-54q9-3 19-4.5t21-1.5q11 0 21 1.5t19 4.5v54q0 9 5.5 14.5T422-720q9 0 14.5-5.5T442-740v-38q36 21 58 57t22 81h10q9 0 14.5 5.5T552-620q0 9-5.5 14.5T532-600h-10q0 66-47 113t-113 47Zm0-80q33 0 56.5-23.5T442-600H282q0 33 23.5 56.5T362-520Zm300 160-6-30q-6-2-11.5-4.5T634-402l-28 10-20-36 22-20v-24l-22-20 20-36 28 10q4-4 10-7t12-5l6-30h40l6 30q6 2 12 5t10 7l28-10 20 36-22 20v24l22 20-20 36-28-10q-5 5-10.5 7.5T708-390l-6 30h-40Zm20-70q12 0 21-9t9-21q0-12-9-21t-21-9q-12 0-21 9t-9 21q0 12 9 21t21 9Zm72-130-8-42q-9-3-16.5-7.5T716-620l-42 14-28-48 34-30q-2-5-2-8v-16q0-3 2-8l-34-30 28-48 42 14q6-6 13.5-10.5T746-798l8-42h56l8 42q9 3 16.5 7.5T848-780l42-14 28 48-34 30q2 5 2 8v16q0 3-2 8l34 30-28 48-42-14q-6 6-13.5 10.5T818-602l-8 42h-56Zm28-90q21 0 35.5-14.5T832-700q0-21-14.5-35.5T782-750q-21 0-35.5 14.5T732-700q0 21 14.5 35.5T782-650ZM362-200Z"/>
+            </svg>
+            <span class="font-semibold text-2xl">Engineering</span>
+          </button>
+
+          <!-- Coding Button with SVG -->
+          <button id="codingBtn" onclick="switchCurriculum('coding')" class="curriculum-button text-gray-500 px-6 py-2 focus:outline-none flex flex-col items-center">
+            <!-- Coding SVG Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="currentColor">
+              <path d="m384-336 56-57-87-87 87-87-56-57-144 144 144 144Zm192 0 144-144-144-144-56 57 87 87-87 87 56 57ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z"/>
+            </svg>
+            <span class="font-semibold text-2xl">Coding</span>
+          </button>
+        </div>
+
+        <!-- Line (Horizontal Rule) with Tailwind CSS -->
+        <hr class="my-4 border-t-2 border-gray-300 w-full">
+
+        <!-- Paragraph that will change -->
+        <p id="textContent" class="text-gray-700 "></p>
+
+        <!-- New Section for Custom Content -->
+        <div id="additionalContent" class="mt-4 text-gray-700"></div>
+      </div>
+    </div>
+
+    <script>
+      window.onload = function() {
+        switchCurriculum('engineering');
+      };
+
+      function switchCurriculum(curriculum) {
+        const additionalContent = document.getElementById("additionalContent");
+        const engineeringBtn = document.getElementById("engineeringBtn");
+        const codingBtn = document.getElementById("codingBtn");
+
+        // Reset button and additional content
+        engineeringBtn.classList.remove('text-purple-950');
+        engineeringBtn.classList.add('text-gray-500');
+        codingBtn.classList.remove('text-purple-950');
+        codingBtn.classList.add('text-gray-500');
+        additionalContent.innerHTML = ""; // Clear previous content
+
+        // Set active button color and content
+        if (curriculum === 'engineering') {
+          engineeringBtn.classList.remove('text-gray-500');
+          engineeringBtn.classList.add('text-purple-950');
+
+          // Add custom content for Engineering
+          additionalContent.innerHTML = `
+            <div class="bg-white p-4 sm:p-4 md:p-6 lg:p-8 rounded-2xl border border-gray-300 shadow-md flex flex-col">
+              <div class="grid grid-cols-2 gap-4 pb-6">
+                <h3 class="text-2xl font-semibold text-purple-950">Introduction to <br> Engineering</h3>
+                <h3 class="text-xl font-semibold text-white bg-purple-950 px-4 py-2 inline-block flex items-center">
+                    Project Based
+                </h3>
+                <span class="text-gray-500 font-regular text-sm">
+                    Our curriculum is intended to introduce students to the field of engineering. By exploring 4 different types of engineering, students will be exposed to what engineers do, how to solve real-world problems, and will engage in projects that represent their learning.
+                </span>
+                <ul class="text-gray-500 font-regular text-sm list-none list-inside pl-5">
+                  <li>Overview:</li>
+                  <ul class="list-disc pl-8">
+                      <li>5 Weeks Total (1 Day Per Week)</li>
+                      <li>~1 Hour Per Week</li>
+                  </ul>
+                </ul>
+              </div>
+              <div class="w-full bg-white p-4 sm:p-4 md:p-6 lg:p-8 rounded-2xl border border-gray-300 shadow-md overflow-hidden">
+                <div class="swiper mySwiper">
+                  <div class="swiper-wrapper">
+                    <div class="swiper-slide pb-12 flex flex-col items-center justify-center text-center">
+                      <h3 class="font-bold text-2xl text-purple-950">Day 1 - Intro to Engineering</h3>
+                      <span class="text-purple-950 font-regular text-2xl">Curriculum</span>
+                      <div class="flex space-x-2 mt-4 w-full max-w-4xl flex items-center justify-center">
+                        <!-- First Embed -->
+                        <div class="flex items-center justify-center w-full max-w-[350px] border border-gray-300 rounded-lg overflow-hidden">
+                          <iframe
+                            src="https://app.box.com/embed/s/jyphkfkc6igez2eikbhxousdsro2x3yj?sortColumn=date"
+                            class="w-full h-[300px]"
+                            frameborder="0"
+                            allowfullwscreen
+                            webkitallowfullscreen
+                            msallowfullscreen>
+                          </iframe>
+                        </div>
+                        <!-- Second Embed -->
+                        <div class="flex items-center justify-center w-full max-w-[350px] border border-gray-300 rounded-lg overflow-hidden">
+                          <iframe
+                            src="https://1drv.ms/p/c/7a943a3fa1198b61/IQStptaGR40ZQoD-A4NIqBw0AYDZfBfmBaBwC_5uccr-ja4?em=2&amp;wdAr=1.7777777777777777"
+                            class="w-full h-[300px]"
+                            frameborder="0">
+                          </iframe>
+                        </div>
+                      </div>
+                    </div>
+                  <div class="swiper-slide pb-12 flex flex-col items-center justify-center text-center">
+                      <h3 class="font-bold text-2xl text-purple-950">Day 2 - Civil Engineering</h3>
+                      <span class="text-purple-950 font-regular text-2xl">Curriculum</span>
+                      <div class="flex space-x-2 mt-4 w-full max-w-4xl flex items-center justify-center">
+                        <!-- First Embed -->
+                        <div class="flex items-center justify-center w-full max-w-[350px] border border-gray-300 rounded-lg overflow-hidden">
+                          <iframe
+                            src="https://app.box.com/embed/s/5gzjzv4756vioe40p6dwowofphhrkc7j?sortColumn=date"
+                            class="w-full h-[300px]"
+                            frameborder="0"
+                            allowfullwscreen
+                            webkitallowfullscreen
+                            msallowfullscreen>
+                          </iframe>
+                        </div>
+                        <!-- Second Embed -->
+                        <div class="flex items-center justify-center w-full max-w-[350px] border border-gray-300 rounded-lg overflow-hidden">
+                          <iframe
+                            src="https://1drv.ms/p/c/7a943a3fa1198b61/IQS_ouMTRmELS4OHyF7CQK2SAaNGQuikw7ixS6iIWFsNFu4?em=2&amp;wdAr=1.7777777777777777"
+                            class="w-full h-[300px]"
+                            frameborder="0">
+                          </iframe>
+                        </div>
+                      </div>
+                    </div>
+                  <div class="swiper-slide pb-12 flex flex-col items-center justify-center text-center">
+                      <h3 class="font-bold text-2xl text-purple-950">Day 3 - Mechanical Engineering</h3>
+                      <span class="text-purple-950 font-regular text-2xl">Curriculum</span>
+                      <div class="flex space-x-2 mt-4 w-full max-w-4xl flex items-center justify-center">
+                        <!-- First Embed -->
+                        <div class="flex items-center justify-center w-full max-w-[350px] border border-gray-300 rounded-lg overflow-hidden">
+                          <iframe
+                            src="https://app.box.com/embed/s/oevgj20jspq9jjtcn3y8z7joqlvg60jv?sortColumn=date"
+                            class="w-full h-[300px]"
+                            frameborder="0"
+                            allowfullwscreen
+                            webkitallowfullscreen
+                            msallowfullscreen>
+                          </iframe>
+                        </div>
+                        <!-- Second Embed -->
+                        <div class="flex items-center justify-center w-full max-w-[350px] border border-gray-300 rounded-lg overflow-hidden">
+                          <iframe
+                            src="https://1drv.ms/p/c/7a943a3fa1198b61/IQROkrXTLLXQTL5WkvD9p9GqAeeHQiq0VKtuUyNJYHRx3aE?em=2&amp;wdAr=1.7777777777777777"
+                            class="w-full h-[300px]"
+                            frameborder="0">
+                          </iframe>
+                        </div>
+                      </div>
+                    </div>
+                  <div class="swiper-slide pb-12 flex flex-col items-center justify-center text-center">
+                      <h3 class="font-bold text-2xl text-purple-950">Day 4 - Aerospace Engineering</h3>
+                      <span class="text-purple-950 font-regular text-2xl">Curriculum</span>
+                      <div class="flex space-x-2 mt-4 w-full max-w-4xl flex items-center justify-center">
+                        <!-- First Embed -->
+                        <div class="flex items-center justify-center w-full max-w-[350px] border border-gray-300 rounded-lg overflow-hidden">
+                          <iframe
+                            src="https://app.box.com/embed/s/68pbzr8x02lteyt72g3ygxrctxt0kl6s?sortColumn=date"
+                            class="w-full h-[300px]"
+                            frameborder="0"
+                            allowfullwscreen
+                            webkitallowfullscreen
+                            msallowfullscreen>
+                          </iframe>
+                        </div>
+                        <!-- Second Embed -->
+                        <div class="flex items-center justify-center w-full max-w-[350px] border border-gray-300 rounded-lg overflow-hidden">
+                          <iframe
+                            src="https://1drv.ms/p/c/7a943a3fa1198b61/IQQi7EfIE-uqRLjXoaWVH4SOAYCXxRHm_fzFXDwuaKiqkRo?em=2&amp;wdAr=1.7777777777777777"
+                            class="w-full h-[300px]"
+                            frameborder="0">
+                          </iframe>
+                        </div>
+                      </div>
+                    </div>
+                  <div class="swiper-slide pb-12 flex flex-col items-center justify-center text-center">
+                      <h3 class="font-bold text-2xl text-purple-950">Day 5 - Chemical Engineering</h3>
+                      <span class="text-purple-950 font-regular text-2xl">Curriculum</span>
+                      <div class="flex space-x-2 mt-4 w-full max-w-4xl flex items-center justify-center">
+                        <!-- First Embed -->
+                        <div class="flex items-center justify-center w-full max-w-[350px] border border-gray-300 rounded-lg overflow-hidden">
+                          <iframe
+                            src="https://app.box.com/embed/s/cogknq7eclr4jb63oykiah93xyik4n50?sortColumn=date"
+                            class="w-full h-[300px]"
+                            frameborder="0"
+                            allowfullwscreen
+                            webkitallowfullscreen
+                            msallowfullscreen>
+                          </iframe>
+                        </div>
+                        <!-- Second Embed -->
+                        <div class="flex items-center justify-center w-full max-w-[350px] border border-gray-300 rounded-lg overflow-hidden">
+                          <iframe
+                            src="https://1drv.ms/p/c/7a943a3fa1198b61/IQR3hdWpWuczQqxh_dZNI-MGAYNpYyG55Q2VSgvEGA6UOOc?em=2&amp;wdAr=1.7777777777777777"
+                            class="w-full h-[300px]"
+                            frameborder="0">
+                          </iframe>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                  <div class="swiper-pagination"></div>
+                  <div class ="swiper-button-next"></div>
+                  <div class ="swiper-button-prev"></div>
+                </div>
+              </div>
+            </div>
+          `;
+          // Initialize Swiper after content is added
+          initializeSwiper();
+        } else if (curriculum === 'coding') {
+          codingBtn.classList.remove('text-gray-500');
+          codingBtn.classList.add('text-purple-950');
+
+          // Add custom content for Coding
+          additionalContent.innerHTML = `
+            <div class="bg-white p-4 sm:p-4 md:p-6 lg:p-8 rounded-2xl border border-gray-300 shadow-md flex flex-col">
+              <div class="grid grid-cols-2 gap-4 pb-6">
+                <h3 class="text-2xl font-semibold text-purple-950">Introduction to <br> Python</h3>
+                <h3 class="text-xl font-semibold text-white bg-purple-950 px-4 py-2 inline-block flex items-center">
+                    Project Based
+                </h3>
+                <span class="text-gray-500 font-regular text-sm">
+                    Our curriculum is intended to introduce students to the Python coding language through the free Pygame library. Pygame is a set of Python modules designed for writing games. Our goal is to inspire a passion for computer science through fun and engaging lessons.
+                </span>
+                <ul class="text-gray-500 font-regular text-sm list-none list-inside pl-5">
+                  <li>Overview:</li>
+                  <ul class="list-disc pl-8">
+                      <li>5 Weeks Total (1 Day Per Week)</li>
+                      <li>~1 Hour Per Week</li>
+                  </ul>
+                </ul>
+              </div>
+              <div class="w-full bg-white p-8 rounded-2xl border border-gray-300 shadow-md overflow-hidden">
+                <div class="swiper mySwiper">
+                  <div class="swiper-wrapper">
+                    <div class="swiper-slide pb-12 flex flex-col items-center justify-center text-center">
+                      <h3 class="font-bold text-2xl text-purple-950">Day 1 - Intro to Python</h3>
+                      <span class="text-purple-950 font-regular text-2xl">Curriculum</span>
+                      <div class="flex space-x-2 mt-4 w-full max-w-4xl flex items-center justify-center">
+                        <!-- First Embed -->
+                        <div class="flex items-center justify-center w-full max-w-[350px] border border-gray-300 rounded-lg overflow-hidden">
+                          <iframe
+                            src="https://app.box.com/embed/s/mjeniuiqvzn7i28qs8juqe1i1mbgzg2d?sortColumn=date"
+                            class="w-full h-[300px]"
+                            frameborder="0"
+                            allowfullwscreen
+                            webkitallowfullscreen
+                            msallowfullscreen>
+                          </iframe>
+                        </div>
+                        <!-- Second Embed -->
+                        <div class="flex items-center justify-center w-full max-w-[350px] border border-gray-300 rounded-lg overflow-hidden">
+                          <iframe
+                            src="https://1drv.ms/p/c/7a943a3fa1198b61/IQTMl_8odWk7T5cq7qgOZeiRAZE4q1hLf7aZOs2zLILRYKU?em=2&amp;wdAr=1.7777777777777777"
+                            class="w-full h-[300px]"
+                            frameborder="0">
+                          </iframe>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="swiper-slide pb-12 flex flex-col items-center justify-center text-center">
+                      <h3 class="font-bold text-2xl text-purple-950">Day 2 - Intro to Python</h3>
+                      <span class="text-purple-950 font-regular text-2xl">Curriculum</span>
+                      <div class="flex space-x-2 mt-4 w-full max-w-4xl flex items-center justify-center">
+                        <!-- First Embed -->
+                        <div class="flex items-center justify-center w-full max-w-[350px] border border-gray-300 rounded-lg overflow-hidden">
+                          <iframe
+                            src="https://app.box.com/embed/s/mjeniuiqvzn7i28qs8juqe1i1mbgzg2d?sortColumn=date"
+                            class="w-full h-[300px]"
+                            frameborder="0"
+                            allowfullwscreen
+                            webkitallowfullscreen
+                            msallowfullscreen>
+                          </iframe>
+                        </div>
+                        <!-- Second Embed -->
+                        <div class="flex items-center justify-center w-full max-w-[350px] border border-gray-300 rounded-lg overflow-hidden">
+                          <iframe
+                            src="https://1drv.ms/p/c/7a943a3fa1198b61/IQTMl_8odWk7T5cq7qgOZeiRAZE4q1hLf7aZOs2zLILRYKU?em=2&amp;wdAr=1.7777777777777777"
+                            class="w-full h-[300px]"
+                            frameborder="0">
+                          </iframe>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                  <div class="swiper-pagination"></div>
+                  <div class ="swiper-button-next"></div>
+                  <div class ="swiper-button-prev"></div>
+                </div>
+              </div>
+            </div>
+          `;
+          initializeSwiper();
+        }
+      }
+
+      function initializeSwiper() {
+        new Swiper('.mySwiper', {
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          },
+        });
+      }
+    </script>
+    <div id="faq" class="bg-white pt-6 sm:pt-6 md:pt-8 lg:pt-10"></div>
+    <div class="bg-gray-100 pb-8 sm:pb-8 md:pb-12 lg:pb-16">
+      <div class="container mx-auto flex flex-col items-center justify-center pt-8">
+        <h3 class="font-extrabold text-3xl text-gray-600 pb-2">Want to learn more?</h3>
+        <div class="w-full mx-auto px-12 sm:px-12 md:px-20 lg:px-32">
+          <div class="space-y-2">
+            <!-- Question 1 -->
+            <div class="border-b border-gray-300 max-w-full">
+              <button class="w-full text-left p-4 flex justify-between hover:outline-gray-400 items-center focus:outline-none hover:bg-gray-100 transition-all duration-200 max-w-full" onclick="toggleFAQ(1)">
+                <span class="font-bold text-gray-500">What is RISE Engineering & Coding?</span>
+                <span class="transition-transform transform rotate-0 text-gray-500" id="icon-1">▼</span>
+              </button>
+              <div class="hidden p-4 text-gray-500" id="answer-1">
+                We are two students from The Westminster Schools of Atlanta who enjoy participating in community service work and wanted to give back to our community in a way that was connected to our passion in STEM. Our outreach program seeks to teach basic coding or engineering skills to middle school students across Atlanta.
+              </div>
+            </div>
+            <!-- Question 2 -->
+            <div class="border-b border-gray-300 max-w-full">
+              <button class="w-full text-left p-4 flex justify-between items-center focus:ring-0 focus:outline-none hover:bg-gray-100 transition-all duration-200 max-w-full" onclick="toggleFAQ(2)">
+                <span class="font-bold text-gray-500">What does this program cost?</span>
+                <span class="transition-transform transform rotate-0 text-gray-500" id="icon-2">▼</span>
+              </button>
+              <div class="hidden p-4 text-gray-500" id="answer-2">
+                Our goal is to provide STEM education to students for free or with minimal costs to the school. Our engineering curriculum requires materials other than a classroom with a projector, while our coding curriculum requires each student be able to access a computer (Chromebooks are fine).
+              </div>
+            </div>
+            <!-- Question 3 -->
+            <div class="border-b border-gray-300 max-w-full">
+              <button class="w-full text-left p-4 flex justify-between items-center focus:ring-0 focus:outline-none hover:bg-gray-100 transition-all duration-200 max-w-full" onclick="toggleFAQ(3)">
+                <span class="font-bold text-gray-500">When are we available?</span>
+                <span class="transition-transform transform rotate-0 text-gray-500" id="icon-3">▼</span>
+              </button>
+              <div class="hidden p-4 text-gray-500" id="answer-3">
+                Unfortunately due to conflicts with school hours, we can only come teach after-school after 3:45 (exact timing depends on commuting time between schools). The best days for us to come are Mondays, Wednesdays, or Fridays. Please reach out to us if you have more scheduling questions or concerns.
+              </div>
+            </div>
+            <div class="border-b border-gray-300 max-w-full">
+              <button class="w-full text-left p-4 flex justify-between items-center focus:ring-0 focus:outline-none hover:bg-gray-100 transition-all duration-200 max-w-full" onclick="toggleFAQ(4)">
+                <span class="font-bold text-gray-500">What age is our curriculum intended for?</span>
+                <span class="transition-transform transform rotate-0 text-gray-500" id="icon-4">▼</span>
+              </button>
+              <div class="hidden p-4 text-gray-500" id="answer-4">
+                Our curriculum and projects are aimed at students in Middle School. Specifically grades 7 & 8 but can be slightly modified to include 6th graders.
+              </div>
+            </div>
+            <div class="border-b border-gray-300 max-w-full">
+              <button class="w-full text-left p-4 flex justify-between items-center focus:ring-0 focus:outline-none hover:bg-gray-100 transition-all duration-200 max-w-full" onclick="toggleFAQ(5)">
+                <span class="font-bold text-gray-500">Do students need prior experience?</span>
+                <span class="transition-transform transform rotate-0 text-gray-500" id="icon-5">▼</span>
+              </button>
+              <div class="hidden p-4 text-gray-500" id="answer-5">
+                No prior experience is required. Our program is designed for all skill levels.
+              </div>
+            </div>
+            <div class="border-b border-gray-300 max-w-full">
+              <button class="w-full text-left p-4 flex justify-between items-center focus:ring-0 focus:outline-none hover:bg-gray-100 transition-all duration-200 max-w-full" onclick="toggleFAQ(6)">
+                <span class="font-bold text-gray-500">What if I still have a question?</span>
+                <span class="transition-transform transform rotate-0 text-gray-500" id="icon-6">▼</span>
+              </button>
+              <div class="hidden p-4 text-gray-500" id="answer-6">
+                If you still have more questions, you can email us at rise.stemedu@gmail.com.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <script>
+          function toggleFAQ(num) {
+            const answer = document.getElementById("answer-" + num);
+            const icon = document.getElementById("icon-" + num);
+
+            answer.classList.toggle("hidden");
+            icon.classList.toggle("rotate-180");
+          }
+        </script>
+      </div>
+    </div>
+    <div id="contact" class="w-full bg-purple-950 text-white pt-6">
+      <div class="container max-w-md mx-auto  flex flex-col grid-rows-2 items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#ffffff"><path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-640v400h640v-400L480-440Zm0-80 320-200H160l320 200ZM160-640v-80 480-400Z"/></svg>
+        <h3 class="text-3xl font-extrabold text-white">Contact Us</h3>
+      </div>
+      <div class="w-full px-12 sm:px-12 md:px-16 lg:px-32 mx-auto pt-12 p-6 shadow-md text-gray-500">
+        <form
+                action="https://formspree.io/f/xwpvqjel"
+                method="POST"
+                class="space-y-4"
+        >
+          <!-- Email Input -->
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-700">
+            </label>
+            <input
+                    type="email"
+                    name="email"
+                    id="email"
+                    required
+                    class="w-full px-4 py-2 border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    placeholder="Enter your email"
+            />
+          </div>
+
+          <!-- Message Input -->
+          <div>
+            <label for="message" class="block text-sm font-medium text-gray-700">
+            </label>
+            <textarea
+                    name="message"
+                    id="message"
+                    required
+                    rows="4"
+                    class="w-full px-4 py-2 border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                    placeholder="Enter your message"
+            ></textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="flex justify-center">
+            <button
+                    type="submit"
+                    class="w-full px-4 py-2 font-bold bg-white text-purple-950 rounded-md transition-all duration-200"
+            >
+              Send
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <div id="about" class="bg-white text-gray-500">
+      <div class="container max-w-md mx-auto mt-8 mb-8 flex flex-col items-center">
+        <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="currentColor">
+          <path d="M40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Zm720 0v-120q0-44-24.5-84.5T666-434q51 6 96 20.5t84 35.5q36 20 55 44.5t19 53.5v120H760ZM360-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47Zm400-160q0 66-47 113t-113 47q-11 0-28-2.5t-28-5.5q27-32 41.5-71t14.5-81q0-42-14.5-81T544-792q14-5 28-6.5t28-1.5q66 0 113 47t47 113ZM120-240h480v-32q0-11-5.5-20T580-306q-54-27-109-40.5T360-360q-56 0-111 13.5T140-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T440-640q0-33-23.5-56.5T360-720q-33 0-56.5 23.5T280-640q0 33 23.5 56.5T360-560Zm0 320Zm0-400Z"/>
+        </svg>
+        <h3 class="text-3xl font-extrabold text-gray-500">About Us</h3>
+      </div>
+
+      <!-- Cards Section -->
+      <div class="px-6 sm:px-12 md:px-24 lg:px-32 pb-12 flex justify-center">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-screen-lg">
+          <!-- Box 1 -->
+          <div class="rounded-lg border border-gray-300 bg-white py-4 space-y-4 shadow-md">
+            <div class="flex items-center space-x-4 px-4">
+              <span class="font-bold text-purple-950 text-xl sm:text-2xl">Brayden <br> Watt</span>
+              <img src="https://braydenwatt.github.io/Rise-Website/public/brayden.png" alt="Brayden Watt" class="object-cover w-16 sm:w-20 h-16 sm:h-20 rounded-full border-2 border-gray-300">
+            </div>
+            <div class="px-4 pb-2 text-gray-500 text-sm sm:text-md">
+              I am a Junior at the Westminster Schools. At school, I participate in First Robotics Competition (FRC), Science Olympiad, and other STEM clubs, where I enjoy working with teammates to solve complex challenges. Outside of school, I enjoy giving back to my community!
+            </div>
+          </div>
+
+          <!-- Box 2 -->
+          <div class="rounded-lg border border-gray-300 bg-white py-4 space-y-4 shadow-md">
+            <div class="flex items-center space-x-4 px-4">
+              <span class="font-bold text-purple-950 text-xl sm:text-2xl">Joshua <br> Luo</span>
+              <img src="https://braydenwatt.github.io/Rise-Website/public/josh.jpeg" alt="Joshua Luo" class="object-cover w-16 sm:w-20 h-16 sm:h-20 rounded-full border-2 border-gray-300">
+            </div>
+            <div class="px-4 pb-2 text-gray-500 text-sm sm:text-md">
+              I am an eleventh grader at the Westminster Schools. At school, I love to do robotics, gardening club, and swim. Outside of school, I love to work on my own personal coding projects, using multiple coding languages. I'm excited to share my passion!
+            </div>
+          </div>
+
+          <!-- Box 3 -->
+          <div class="rounded-lg border border-gray-300 bg-white py-4 space-y-4 shadow-md">
+            <div class="flex items-center space-x-4 px-4">
+              <span class="font-bold text-purple-950 text-xl sm:text-2xl">Enpeng <br> Jiang</span>
+              <img src="https://braydenwatt.github.io/Rise-Website/public/enpeng.png" alt="Enpeng Jiang" class="object-cover w-16 sm:w-20 h-16 sm:h-20 rounded-full border-2 border-gray-300">
+            </div>
+            <div class="px-4 pb-2 text-gray-500 text-sm sm:text-md">
+              I am a Junior at the Westminster Schools. I actively participate in FRC, Science Olympiad, Science Bowl, and Swim. I'm excited to do more community service!
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer Section -->
+      <div class="flex flex-wrap justify-between items-center px-6 sm:px-12 md:px-24 lg:px-32 pb-8 w-full bg-white text-gray-400">
+        <a href="#home" class="flex items-center">
+          <img src="https://braydenwatt.github.io/Rise-Website/public/logo1.svg" alt="Rise Engineering & Coding" class="h-12 sm:h-16 w-12 sm:w-16" />
+          <span class="text-lg sm:text-xl font-extrabold px-4">Rise Engineering & <br class="hidden sm:inline"> Coding</span>
+        </a>
+        <div class="text-sm sm:text-md font-bold">
+          Email: <a href="mailto:rise.stemedu@gmail.com" class="font-semibold text-gray-400 underline">rise.stemedu@gmail.com</a> <br>
+          Phone: <a href="tel:+17064241613" class="font-semibold text-gray-400 underline">+1 (706)-424-1613</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</html>
