@@ -558,4 +558,52 @@
       </div>
     </div>
   </section>
+  <script>
+      // Add this script to the end of your HTML body or in a separate JS file
+document.addEventListener('DOMContentLoaded', function() {
+  // Get all navigation links
+  const navLinks = document.querySelectorAll('nav ul li a');
+  
+  // Function to set active link based on URL hash or pathname
+  function setActiveLink() {
+    // Get current URL hash or pathname
+    const currentHash = window.location.hash || window.location.pathname;
+    
+    // Remove active class from all links
+    navLinks.forEach(link => {
+      link.classList.remove('text-purple-950');
+      link.classList.add('text-gray-500');
+    });
+    
+    // Add active class to matching link
+    navLinks.forEach(link => {
+      if (link.getAttribute('href').includes(currentHash)) {
+        link.classList.remove('text-gray-500');
+        link.classList.add('text-purple-950');
+      }
+    });
+  }
+  
+  // Set active link on page load
+  setActiveLink();
+  
+  // Listen for hash changes (when clicking on navigation)
+  window.addEventListener('hashchange', setActiveLink);
+  
+  // Add click event listeners to each link
+  navLinks.forEach(link => {
+    link.addEventListener('click', function(e) {
+      // Remove active class from all links
+      navLinks.forEach(innerLink => {
+        innerLink.classList.remove('text-purple-950');
+        innerLink.classList.add('text-gray-500');
+      });
+      
+      // Add active class to clicked link
+      this.classList.remove('text-gray-500');
+      this.classList.add('text-purple-950');
+    });
+  });
+});
+  </script>
 </html>
