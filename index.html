@@ -1,9 +1,217 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta http-equiv="refresh" content="0; url=https://risestem.github.io/rise/home">
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="https://risestem.github.io/rise/public/logo1.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home - Rise Engineering & Coding</title>
+  <link href="/src/style.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+  />
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+  </style>
 </head>
-<body>
-  <p>If you are not redirected, <a href="https://risestem.github.io/rise/home">click here</a>.</p>
-</body>
+<header class="fixed top-0 bg-white shadow-md flex items-center px-32 py-1.5 w-full z-50">
+  <nav class="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200 shadow-md">
+    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+      <a href="https://risestem.github.io/rise/home#home" class="flex items-center px-0">
+        <img src="https://risestem.github.io/rise/public/logo1.svg" alt="Rise Engineering & Coding" class="h-16 mr-3" />
+      </a>
+      <div class="flex justify-center items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+        <a href="#contact">
+          <button type="button" class="text-white bg-purple-950 hover:bg-white hover:outline-2 hover:outline-purple-950 hover:text-purple-950 font-semibold rounded-md text-md px-6 py-3.5 sm:mr-2 lg:mr-0">
+            Contact Us
+          </button>
+        </a>
+        <button id="hamburger-btn" data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
+          <span class="sr-only">Open main menu</span>
+          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+          </svg>
+        </button>
+        <script>
+          document.getElementById("hamburger-btn").addEventListener("click", function() {
+            const navbar = document.getElementById("navbar-sticky");
+            const isExpanded = this.getAttribute("aria-expanded") === "true";
+
+            // Toggle the class to show or hide the menu
+            navbar.classList.toggle("hidden", isExpanded);
+
+            // Toggle the aria-expanded attribute
+            this.setAttribute("aria-expanded", !isExpanded);
+          });
+        </script>
+      </div>
+      <div class="hidden w-full md:flex md:w-auto md:order-1 justify-start" id="navbar-sticky">
+        <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:mt-0 md:border-0 md:bg-white">
+          <li>
+            <a href="https://risestem.github.io/rise/home" class="px-4 font-bold text-purple-950 hover:text-purple-950" aria-current="page">Home</a>
+          </li>
+          <li>
+            <a href="https://risestem.github.io/rise/curriculum" class="px-4 font-bold text-gray-500 hover:text-purple-950">Curriculum</a>
+          </li>
+          <li>
+            <a href="https://risestem.github.io/rise/questions" class="px-4 font-bold text-gray-500 hover:text-purple-950">Questions</a>
+          </li>
+          <li>
+            <a href="https://risestem.github.io/rise/about" class="px-4 font-bold text-gray-500 hover:text-purple-950">About Us</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<!-- Main Content Section Below Header -->
+<section id="home" class="min-h-screen bg-white w-full">
+  <div class="w-full h-[80vh] bg-[url('https://risestem.github.io/rise/public/children-having-technology-education-class.jpg')] bg-cover bg-top bg-no-repeat flex items-center">
+    <!-- Gradient Overlay -->
+    <div class="h-[80vh] absolute inset-0 bg-black opacity-50 z-0"></div>
+    <div class="flex flex-col text-left items-center px-6 sm:px-16 md:px-32 z-10">
+      <h1 class="font-poppins text-3xl font-extrabold pt-8 text-white md:text-4xl xl:text-5xl self-start">
+        Rise Engineering & <br> Coding
+      </h1>
+      <p class="text-white font-semibold md:text-xl lg:text-2xl self-start">
+        We are a group of 3 students who <br> are dedicated to giving back to <br> our community by providing free <br> access to STEM learning and <br> projects.
+      </p>
+    </div>
+  </div>
+  <div class="w-full px-6 sm:px-6 md:px-16 lg:px-28 -mt-8 z-20 relative">
+    <!-- Rounded Box with content that will change -->
+    <div class="bg-white p-4 rounded-2xl border border-gray-300 shadow-md justify-center">
+      <div class="flex justify-center text-center">
+        <h2 class="text-3xl font-normal text-purple-950 md:text-4xl">
+          Welcome to <span class="font-extrabold">RISE</span>
+        </h2>
+      </div>
+
+      <div class="flex justify-center items-center pt-8">
+        <p class="text-md text-gray-500 leading-relaxed text-center px-4 sm:px-8 md:px-16 lg:px-32 xl:px-48">
+          RISE (Reinventing, Innovation, STEM, and Education) is a group of three students passionate about empowering students with free access to STEM education.
+          Through hands-on projects and mentorship, we aim to inspire the next generation of engineers and coders.
+        </p>
+
+      </div>
+    </div>
+  </div>
+
+  <div id="faq" class="bg-white pt-6 sm:pt-6 md:pt-8 lg:pt-10"></div>
+
+  <div id="contact" class="w-full bg-purple-950 text-white pt-6">
+    <div class="container max-w-md mx-auto  flex flex-col grid-rows-2 items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#ffffff"><path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-640v400h640v-400L480-440Zm0-80 320-200H160l320 200ZM160-640v-80 480-400Z"/></svg>
+      <h3 class="text-3xl font-extrabold text-white">Contact Us</h3>
+    </div>
+    <div class="w-full px-12 sm:px-12 md:px-16 lg:px-32 mx-auto pt-12 p-6 shadow-md text-gray-500">
+      <form
+              action="https://formspree.io/f/xwpvqjel"
+              method="POST"
+              class="space-y-4"
+      >
+        <!-- Email Input -->
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-700">
+          </label>
+          <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  required
+                  class="w-full px-4 py-2 border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  placeholder="Enter your email"
+          />
+        </div>
+
+        <!-- Message Input -->
+        <div>
+          <label for="message" class="block text-sm font-medium text-gray-700">
+          </label>
+          <textarea
+                  name="message"
+                  id="message"
+                  required
+                  rows="4"
+                  class="w-full px-4 py-2 border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                  placeholder="Enter your message"
+          ></textarea>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="flex justify-center">
+          <button
+                  type="submit"
+                  class="w-full px-4 py-2 font-bold bg-white text-purple-950 rounded-md transition-all duration-200"
+          >
+            Send
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div>
+    <!-- Footer Section -->
+    <div class="flex flex-wrap justify-between items-center pt-8 px-6 sm:px-12 md:px-24 lg:px-32 pb-8 w-full bg-white text-gray-400">
+      <a href="https://risestem.github.io/rise/home#home" class="flex items-center">
+        <img src="https://risestem.github.io/rise/public/logo1.svg" alt="Rise Engineering & Coding" class="h-12 sm:h-16 w-12 sm:w-16" />
+        <span class="text-lg sm:text-xl font-extrabold px-4">Rise Engineering & <br class="hidden sm:inline"> Coding</span>
+      </a>
+      <div class="text-sm sm:text-md font-bold">
+        Email: <a href="mailto:rise.stemedu@gmail.com" class="font-semibold text-gray-400 underline">rise.stemedu@gmail.com</a> <br>
+        Phone: <a href="tel:+17064241613" class="font-semibold text-gray-400 underline">+1 (706)-424-1613</a>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+  // Function to update the active state based on the current URL
+  function updateActiveLink() {
+    // Get the current page URL
+    const currentPage = window.location.href;
+    console.log("Current page URL:", currentPage); // Debug: Log the current page URL
+
+    // Get all the anchor tags within the navbar
+    const links = document.querySelectorAll("#navbar-sticky a");
+    console.log("Links found in navbar:", links); // Debug: Log all the anchor links in the navbar
+
+    // First, remove the active class from all links
+    links.forEach(link => {
+      link.classList.remove("text-purple-950"); // Remove active color
+      link.classList.add("text-gray-500"); // Set inactive color
+    });
+
+    // Now, check for the FAQ and apply the active class accordingly
+    links.forEach(link => {
+      console.log("Checking link:", link.href); // Debug: Log each link's href attribute
+
+      // Check if the current page matches the link and if it contains the #faq fragment
+      if (currentPage.includes(link.href)) {
+        if (link.href.includes("#faq") && currentPage.includes("#faq")) {
+          console.log("FAQ page matched:", link.href); // Debug: Log the active FAQ link
+
+          link.classList.add("text-purple-950"); // Active color for FAQ
+          link.classList.remove("text-gray-500"); // Inactive color
+        } else if (!currentPage.includes("#faq")) {
+          // For the "Home" page or any other page without #faq
+          console.log("Active page matched:", link.href); // Debug: Log the active link without FAQ
+
+          link.classList.add("text-purple-950"); // Active color for other pages
+          link.classList.remove("text-gray-500"); // Inactive color
+        }
+      }
+    });
+  }
+
+  // Run the function on page load
+  document.addEventListener("DOMContentLoaded", updateActiveLink);
+
+  // Listen for hash changes and run the function again
+  window.addEventListener("hashchange", updateActiveLink);
+</script>
+
 </html>
