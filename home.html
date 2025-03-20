@@ -559,7 +559,7 @@
     </div>
   </section>
   <script>
-      document.addEventListener('DOMContentLoaded', function() {
+     document.addEventListener('DOMContentLoaded', function() {
   const navLinks = document.querySelectorAll('nav ul li a');
 
   function setActiveLink() {
@@ -575,20 +575,20 @@
 
     navLinks.forEach(link => {
       const linkHref = link.getAttribute('href');
-      
-      // Match hash first (if available), otherwise match path
-      if ((currentHash && linkHref.endsWith(currentHash)) || 
-          (!currentHash && linkHref.endsWith(currentPath))) {
+
+      // Ensure we correctly match links based on hash or pathname
+      if ((currentHash && linkHref.includes(currentHash)) || 
+          (!currentHash && linkHref === currentPath)) {
         link.classList.remove('text-gray-500');
         link.classList.add('text-purple-950');
         foundMatch = true;
       }
     });
 
-    // If no hash-based match was found, fall back to highlighting the base path
+    // If no hash-based match was found, highlight the page itself
     if (!foundMatch) {
       navLinks.forEach(link => {
-        if (link.getAttribute('href') === currentPath) {
+        if (link.getAttribute('href') === currentPath || link.getAttribute('href') === currentPath + '#') {
           link.classList.remove('text-gray-500');
           link.classList.add('text-purple-950');
         }
@@ -599,6 +599,7 @@
   setActiveLink();
   window.addEventListener('hashchange', setActiveLink);
 });
+
 
   </script>
 </html>
