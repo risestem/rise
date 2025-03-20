@@ -559,81 +559,28 @@
     </div>
   </section>
   <script>
-     document.addEventListener('DOMContentLoaded', function() {
-  const navLinks = document.querySelectorAll('nav ul li a');
-  console.log("Found navigation links:", navLinks.length);
+  // Ensure the DOM is fully loaded before running the script
+  document.addEventListener("DOMContentLoaded", function() {
+    // Get the current page URL
+    const currentPage = window.location.href;
+    console.log("Current page URL:", currentPage); // Debug: Log the current page URL
 
-  // Debug: Print all nav links and their hrefs
-  navLinks.forEach((link, index) => {
-    console.log(`Link ${index}: Text="${link.textContent.trim()}", href="${link.getAttribute('href')}"`);
-  });
+    // Get all the anchor tags within the navbar
+    const links = document.querySelectorAll("#navbar-sticky a");
+    console.log("Links found in navbar:", links); // Debug: Log all the anchor links in the navbar
 
-  function setActiveLink() {
-    // Get current path and normalize it
-    let currentPath = window.location.pathname;
-    const currentHash = window.location.hash;
+    // Iterate over the links to check if the href matches the current page
+    links.forEach(link => {
+      console.log("Checking link:", link.href); // Debug: Log each link's href attribute
 
-    console.log("DEBUG - Current URL info:");
-    console.log("- Full URL:", window.location.href);
-    console.log("- Path:", currentPath);
-    console.log("- Hash:", currentHash);
+      if (currentPage.includes(link.href)) {
+        // Add active class to the active page link
+        console.log("Active page matched:", link.href); // Debug: Log the active page link
 
-    // Special case for home page - just check for root path
-    const isHomePage = currentPath === '/' || currentPath === '/rise/';
-    console.log("Is this detected as home page?", isHomePage);
-
-    // Reset all links to inactive state
-    navLinks.forEach(link => {
-      link.classList.remove('text-purple-950');
-      link.classList.add('text-gray-500');
+        link.classList.add("text-purple-950"); // Active color
+        link.classList.remove("text-gray-500"); // Inactive color
+      }
     });
-
-    // Try to match based on hash if present
-    let foundMatch = false;
-    if (currentHash) {
-      console.log("Trying to match based on hash:", currentHash);
-      navLinks.forEach(link => {
-        const linkHref = link.getAttribute('href');
-        if (linkHref && linkHref.includes(currentHash)) {
-          console.log(`Hash match found: "${link.textContent.trim()}" (${linkHref})`);
-          link.classList.remove('text-gray-500');
-          link.classList.add('text-purple-950');
-          foundMatch = true;
-        }
-      });
-    }
-
-    // If no hash match or no hash present, try to match based on path
-    if (!foundMatch) {
-      console.log("Trying to match based on path...");
-      navLinks.forEach(link => {
-        const linkHref = link.getAttribute('href');
-        console.log(`Checking link: "${link.textContent.trim()}" with href="${linkHref}"`);
-
-        // Normalize the linkHref (remove query parameters, fragment, etc.)
-        let normalizedLinkHref = linkHref.split('?')[0].split('#')[0]; // Ignore query params and hash
-        let normalizedCurrentPath = currentPath.split('?')[0].split('#')[0]; // Same for current path
-
-        if (normalizedLinkHref === normalizedCurrentPath) {
-          console.log(`Path match found: "${link.textContent.trim()}" with href="${linkHref}"`);
-          link.classList.remove('text-gray-500');
-          link.classList.add('text-purple-950');
-          foundMatch = true;
-        }
-      });
-      console.log("Final match found?", foundMatch);
-    }
-  }
-
-  // Set active link on page load
-  setActiveLink();
-
-  // Update active link when hash changes
-  window.addEventListener('hashchange', function() {
-    console.log("Hash changed to:", window.location.hash);
-    setActiveLink();
   });
-});
-
-  </script>
+</script>
 </html>
