@@ -559,8 +559,8 @@
     </div>
   </section>
   <script>
-  // Ensure the DOM is fully loaded before running the script
-  document.addEventListener("DOMContentLoaded", function() {
+  // Function to update the active state based on the current URL
+  function updateActiveLink() {
     // Get the current page URL
     const currentPage = window.location.href;
     console.log("Current page URL:", currentPage); // Debug: Log the current page URL
@@ -595,6 +595,13 @@
         }
       }
     });
-  });
+  }
+
+  // Run the function on page load
+  document.addEventListener("DOMContentLoaded", updateActiveLink);
+
+  // Listen for hash changes and run the function again
+  window.addEventListener("hashchange", updateActiveLink);
 </script>
+
 </html>
