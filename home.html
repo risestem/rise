@@ -573,14 +573,23 @@
     links.forEach(link => {
       console.log("Checking link:", link.href); // Debug: Log each link's href attribute
 
+      // Check if the current page matches the link and if the link contains a fragment identifier (#faq)
       if (currentPage.includes(link.href)) {
-        // Add active class to the active page link
-        console.log("Active page matched:", link.href); // Debug: Log the active page link
+        if (link.href.includes("#faq") && currentPage.includes("#faq")) {
+          console.log("FAQ page matched:", link.href); // Debug: Log the active FAQ link
 
-        link.classList.add("text-purple-950"); // Active color
-        link.classList.remove("text-gray-500"); // Inactive color
+          link.classList.add("text-purple-950"); // Active color
+          link.classList.remove("text-gray-500"); // Inactive color
+        } else if (!currentPage.includes("#faq")) {
+          // For other pages that don't have #faq in the URL
+          console.log("Active page matched:", link.href); // Debug: Log the active link without FAQ
+
+          link.classList.add("text-purple-950"); // Active color
+          link.classList.remove("text-gray-500"); // Inactive color
+        }
       }
     });
   });
 </script>
+
 </html>
