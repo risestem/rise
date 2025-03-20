@@ -569,27 +569,32 @@
     const links = document.querySelectorAll("#navbar-sticky a");
     console.log("Links found in navbar:", links); // Debug: Log all the anchor links in the navbar
 
-    // Iterate over the links to check if the href matches the current page
+    // First, remove the active class from all links
+    links.forEach(link => {
+      link.classList.remove("text-purple-950"); // Remove active color
+      link.classList.add("text-gray-500"); // Set inactive color
+    });
+
+    // Now, check for the FAQ and apply the active class accordingly
     links.forEach(link => {
       console.log("Checking link:", link.href); // Debug: Log each link's href attribute
 
-      // Check if the current page matches the link and if the link contains a fragment identifier (#faq)
+      // Check if the current page matches the link and if it contains the #faq fragment
       if (currentPage.includes(link.href)) {
         if (link.href.includes("#faq") && currentPage.includes("#faq")) {
           console.log("FAQ page matched:", link.href); // Debug: Log the active FAQ link
 
-          link.classList.add("text-purple-950"); // Active color
+          link.classList.add("text-purple-950"); // Active color for FAQ
           link.classList.remove("text-gray-500"); // Inactive color
         } else if (!currentPage.includes("#faq")) {
-          // For other pages that don't have #faq in the URL
+          // For the "Home" page or any other page without #faq
           console.log("Active page matched:", link.href); // Debug: Log the active link without FAQ
 
-          link.classList.add("text-purple-950"); // Active color
+          link.classList.add("text-purple-950"); // Active color for other pages
           link.classList.remove("text-gray-500"); // Inactive color
         }
       }
     });
   });
 </script>
-
 </html>
