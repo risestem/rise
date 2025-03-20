@@ -45,10 +45,6 @@ RISE (Reinventing, Innovation, STEM, and Education) is a group of three students
 **Our Mission:**
 Rise Engineering & Coding was founded to provide free STEM education to middle school students across Atlanta. We believe that early exposure to engineering and coding concepts can inspire the next generation of innovators and problem-solvers.
 
-**Contact Us:**
-📧 Email: rise.stemedu@gmail.com  
-📞 Phone: +1 (706)-424-1613  
-
 ## 🐛 Bugs & Feature Requests
 
 If you find a bug, congrats! You’re now part of the development team. Feel free to open an issue or submit a PR. If you have a feature request, drop it in the issues—just know that it might be implemented based on the alignment of the stars. ⭐
