@@ -615,23 +615,7 @@
         const linkHref = link.getAttribute('href');
         console.log(`Checking link: "${link.textContent.trim()}" with href="${linkHref}"`);
         
-        // Special case for home link
-        if (isHomePage && (linkHref === '/rise/' || 
-                          linkHref === '/rise/home' || 
-                          linkHref === '/rise/#' || 
-                          linkHref === '/rise/home#' || 
-                          linkHref === '#' || 
-                          linkHref === '/' ||
-                          linkHref === 'home' ||
-                          linkHref === '/home' ||
-                          linkHref === '#home')) {
-          console.log(`HOME MATCH FOUND: "${link.textContent.trim()}" with href="${linkHref}"`);
-          link.classList.remove('text-gray-500');
-          link.classList.add('text-purple-950');
-          foundMatch = true;
-        }
-        // Regular path matching
-        else if (linkHref === currentPath || 
+        if (linkHref === currentPath || 
                 linkHref === currentPath + '#') {
           console.log(`Path match found: "${link.textContent.trim()}" with href="${linkHref}"`);
           link.classList.remove('text-gray-500');
