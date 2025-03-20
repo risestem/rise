@@ -54,7 +54,7 @@
               <a href="https://risestem.github.io/rise/curriculum" class="px-4 font-bold text-gray-500 hover:text-purple-950">Curriculum</a>
             </li>
             <li>
-              <a href="https://risestem.github.io/rise/home#faq" class="px-4 font-bold text-gray-500 hover:text-purple-950">Questions</a>
+              <a href="https://risestem.github.io/rise/questions" class="px-4 font-bold text-gray-500 hover:text-purple-950">Questions</a>
             </li>
             <li>
               <a href="https://risestem.github.io/rise/about" class="px-4 font-bold text-gray-500 hover:text-purple-950">About Us</a>
@@ -417,82 +417,7 @@
       }
     </script>
     <div id="faq" class="bg-white pt-6 sm:pt-6 md:pt-8 lg:pt-10"></div>
-    <div class="bg-gray-100 pb-8 sm:pb-8 md:pb-12 lg:pb-16">
-      <div class="container mx-auto flex flex-col items-center justify-center pt-8">
-        <h3 class="font-extrabold text-3xl text-gray-600 pb-2">Want to learn more?</h3>
-        <div class="w-full mx-auto px-12 sm:px-12 md:px-20 lg:px-32">
-          <div class="space-y-2">
-            <!-- Question 1 -->
-            <div class="border-b border-gray-300 max-w-full">
-              <button class="w-full text-left p-4 flex justify-between hover:outline-gray-400 items-center focus:outline-none hover:bg-gray-100 transition-all duration-200 max-w-full" onclick="toggleFAQ(1)">
-                <span class="font-bold text-gray-500">What is RISE Engineering & Coding?</span>
-                <span class="transition-transform transform rotate-0 text-gray-500" id="icon-1">▼</span>
-              </button>
-              <div class="hidden p-4 text-gray-500" id="answer-1">
-                We are three students from The Westminster Schools of Atlanta who enjoy participating in community service work and wanted to give back to our community in a way that was connected to our passion in STEM. Our outreach program seeks to teach basic coding or engineering skills to middle school students across Atlanta.
-              </div>
-            </div>
-            <!-- Question 2 -->
-            <div class="border-b border-gray-300 max-w-full">
-              <button class="w-full text-left p-4 flex justify-between items-center focus:ring-0 focus:outline-none hover:bg-gray-100 transition-all duration-200 max-w-full" onclick="toggleFAQ(2)">
-                <span class="font-bold text-gray-500">What does this program cost?</span>
-                <span class="transition-transform transform rotate-0 text-gray-500" id="icon-2">▼</span>
-              </button>
-              <div class="hidden p-4 text-gray-500" id="answer-2">
-                Our goal is to provide STEM education to students for free or with minimal costs to the school. Our engineering curriculum requires materials other than a classroom with a projector, while our coding curriculum requires each student be able to access a computer (Chromebooks are fine).
-              </div>
-            </div>
-            <!-- Question 3 -->
-            <div class="border-b border-gray-300 max-w-full">
-              <button class="w-full text-left p-4 flex justify-between items-center focus:ring-0 focus:outline-none hover:bg-gray-100 transition-all duration-200 max-w-full" onclick="toggleFAQ(3)">
-                <span class="font-bold text-gray-500">When are we available?</span>
-                <span class="transition-transform transform rotate-0 text-gray-500" id="icon-3">▼</span>
-              </button>
-              <div class="hidden p-4 text-gray-500" id="answer-3">
-                Unfortunately due to conflicts with school hours, we can only come teach after-school after 3:45 (exact timing depends on commuting time between schools). The best days for us to come are Mondays, Wednesdays, or Fridays. Please reach out to us if you have more scheduling questions or concerns.
-              </div>
-            </div>
-            <div class="border-b border-gray-300 max-w-full">
-              <button class="w-full text-left p-4 flex justify-between items-center focus:ring-0 focus:outline-none hover:bg-gray-100 transition-all duration-200 max-w-full" onclick="toggleFAQ(4)">
-                <span class="font-bold text-gray-500">What age is our curriculum intended for?</span>
-                <span class="transition-transform transform rotate-0 text-gray-500" id="icon-4">▼</span>
-              </button>
-              <div class="hidden p-4 text-gray-500" id="answer-4">
-                Our curriculum and projects are aimed at students in Middle School. Specifically grades 7 & 8 but can be slightly modified to include 6th graders.
-              </div>
-            </div>
-            <div class="border-b border-gray-300 max-w-full">
-              <button class="w-full text-left p-4 flex justify-between items-center focus:ring-0 focus:outline-none hover:bg-gray-100 transition-all duration-200 max-w-full" onclick="toggleFAQ(5)">
-                <span class="font-bold text-gray-500">Do students need prior experience?</span>
-                <span class="transition-transform transform rotate-0 text-gray-500" id="icon-5">▼</span>
-              </button>
-              <div class="hidden p-4 text-gray-500" id="answer-5">
-                No prior experience is required. Our program is designed for all skill levels.
-              </div>
-            </div>
-            <div class="border-b border-gray-300 max-w-full">
-              <button class="w-full text-left p-4 flex justify-between items-center focus:ring-0 focus:outline-none hover:bg-gray-100 transition-all duration-200 max-w-full" onclick="toggleFAQ(6)">
-                <span class="font-bold text-gray-500">What if I still have a question?</span>
-                <span class="transition-transform transform rotate-0 text-gray-500" id="icon-6">▼</span>
-              </button>
-              <div class="hidden p-4 text-gray-500" id="answer-6">
-                If you still have more questions, you can email us at rise.stemedu@gmail.com.
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <script>
-          function toggleFAQ(num) {
-            const answer = document.getElementById("answer-" + num);
-            const icon = document.getElementById("icon-" + num);
-
-            answer.classList.toggle("hidden");
-            icon.classList.toggle("rotate-180");
-          }
-        </script>
-      </div>
-    </div>
     <div id="contact" class="w-full bg-purple-950 text-white pt-6">
       <div class="container max-w-md mx-auto  flex flex-col grid-rows-2 items-center">
         <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#ffffff"><path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-640v400h640v-400L480-440Zm0-80 320-200H160l320 200ZM160-640v-80 480-400Z"/></svg>
