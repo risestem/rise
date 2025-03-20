@@ -561,45 +561,71 @@
   <script>
      document.addEventListener('DOMContentLoaded', function() {
   const navLinks = document.querySelectorAll('nav ul li a');
-
+  
   function setActiveLink() {
-    const currentPath = window.location.pathname;
+    // Get current path and normalize it
+    let currentPath = window.location.pathname;
     const currentHash = window.location.hash;
-
+    
+    // Special case for home page - different ways the URL might appear
+    const isHomePage = currentPath === '/' || 
+                       currentPath === '/rise/' || 
+                       currentPath === '/rise/home' || 
+                       currentPath.endsWith('/rise/') || 
+                       currentPath.endsWith('/rise/home');
+    
+    // Reset all links to inactive state
     navLinks.forEach(link => {
       link.classList.remove('text-purple-950');
       link.classList.add('text-gray-500');
     });
-
+    
+    // First try to match based on hash if present
     let foundMatch = false;
-
-    navLinks.forEach(link => {
-      const linkHref = link.getAttribute('href');
-
-      // Ensure we correctly match links based on hash or pathname
-      if ((currentHash && linkHref.includes(currentHash)) || 
-          (!currentHash && linkHref === currentPath)) {
-        link.classList.remove('text-gray-500');
-        link.classList.add('text-purple-950');
-        foundMatch = true;
-      }
-    });
-
-    // If no hash-based match was found, highlight the page itself
-    if (!foundMatch) {
+    if (currentHash) {
       navLinks.forEach(link => {
-        if (link.getAttribute('href') === currentPath || link.getAttribute('href') === currentPath + '#') {
+        const linkHref = link.getAttribute('href');
+        if (linkHref && linkHref.includes(currentHash)) {
           link.classList.remove('text-gray-500');
           link.classList.add('text-purple-950');
+          foundMatch = true;
+        }
+      });
+    }
+    
+    // If no hash match or no hash present, try to match based on path
+    if (!foundMatch) {
+      navLinks.forEach(link => {
+        const linkHref = link.getAttribute('href');
+        
+        // Special case for home link
+        if (isHomePage && (linkHref === '/rise/' || 
+                          linkHref === '/rise/home' || 
+                          linkHref === '/rise/#' || 
+                          linkHref === '/rise/home#' || 
+                          linkHref === '#' || 
+                          linkHref === '/')) {
+          link.classList.remove('text-gray-500');
+          link.classList.add('text-purple-950');
+          foundMatch = true;
+        }
+        // Regular path matching
+        else if (linkHref === currentPath || 
+                linkHref === currentPath + '#') {
+          link.classList.remove('text-gray-500');
+          link.classList.add('text-purple-950');
+          foundMatch = true;
         }
       });
     }
   }
-
+  
+  // Set active link on page load
   setActiveLink();
+  
+  // Update active link when hash changes
   window.addEventListener('hashchange', setActiveLink);
 });
-
 
   </script>
 </html>
