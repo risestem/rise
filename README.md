@@ -57,8 +57,6 @@ PRs are welcome! Just make sure your code is clean (which, to be fair, mine is n
 
 This project is open source because sharing is caring. Feel free to use, modify, or break it (please don’t). Just don’t forget to give credit where credit is due!
 
----
-
 ## 🚀 Special Thanks
 This project was crafted with way too little experience, the occasional existential crisis, and the unwavering support of ChatGPT 🐐. If it works, thank me. If it breaks, blame Chat.
 ---
