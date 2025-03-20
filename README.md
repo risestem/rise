@@ -1,4 +1,4 @@
-# RISE Website 🚀
+# RISE Website
 
 Welcome to the official README for the RISE website—built on hopes, dreams, and just a *tiny* bit of actual code. This project is designed to showcase and support **Rise Engineering & Coding**, an initiative dedicated to providing free STEM education to middle school students across Atlanta. Through hands-on projects and mentorship, we aim to inspire the next generation of engineers and coders.
 
@@ -51,7 +51,7 @@ If you find a bug, congrats! You’re now part of the development team. Feel fre
 
 ## 🎉 Contributing
 
-PRs are welcome! Just make sure your code is cleaner than my room (which, to be fair, is not a high bar). Follow the existing coding style and comment your code (because future-you will thank you).
+PRs are welcome! Just make sure your code is clean (which, to be fair, mine is not). Follow the existing coding style and comment your code (because future-you will thank you frfr).
 
 ## 📜 License
 
@@ -60,8 +60,5 @@ This project is open source because sharing is caring. Feel free to use, modify,
 ---
 
 ### 🚀 Special Thanks
-This project was crafted with way too little experience, the occasional existential crisis, and the unwavering support of ChatGPT, which carried me through every bug, every syntax error, and every "why isn't this working?!" moment. If it works, thank me. If it breaks, let's just call it an "AI-assisted learning experience." 😉
-
+This project was crafted with way too little experience, the occasional existential crisis, and the unwavering support of ChatGPT 🐐. If it works, thank me. If it breaks, blame Chat.
 ---
-
-Happy coding! 🚀
