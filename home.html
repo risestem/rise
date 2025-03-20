@@ -562,38 +562,33 @@
      document.addEventListener('DOMContentLoaded', function() {
   const navLinks = document.querySelectorAll('nav ul li a');
   console.log("Found navigation links:", navLinks.length);
-  
+
   // Debug: Print all nav links and their hrefs
   navLinks.forEach((link, index) => {
     console.log(`Link ${index}: Text="${link.textContent.trim()}", href="${link.getAttribute('href')}"`);
   });
-  
+
   function setActiveLink() {
     // Get current path and normalize it
     let currentPath = window.location.pathname;
     const currentHash = window.location.hash;
-    
+
     console.log("DEBUG - Current URL info:");
     console.log("- Full URL:", window.location.href);
     console.log("- Path:", currentPath);
     console.log("- Hash:", currentHash);
-    
-    // Special case for home page - different ways the URL might appear
-    const isHomePage = currentPath === '/' || 
-                       currentPath === '/rise/' || 
-                       currentPath === '/rise/home' || 
-                       currentPath.endsWith('/rise/') || 
-                       currentPath.endsWith('/rise/home');
-    
+
+    // Special case for home page - just check for root path
+    const isHomePage = currentPath === '/' || currentPath === '/rise/';
     console.log("Is this detected as home page?", isHomePage);
-    
+
     // Reset all links to inactive state
     navLinks.forEach(link => {
       link.classList.remove('text-purple-950');
       link.classList.add('text-gray-500');
     });
-    
-    // First try to match based on hash if present
+
+    // Try to match based on hash if present
     let foundMatch = false;
     if (currentHash) {
       console.log("Trying to match based on hash:", currentHash);
@@ -607,16 +602,19 @@
         }
       });
     }
-    
+
     // If no hash match or no hash present, try to match based on path
     if (!foundMatch) {
       console.log("Trying to match based on path...");
       navLinks.forEach(link => {
         const linkHref = link.getAttribute('href');
         console.log(`Checking link: "${link.textContent.trim()}" with href="${linkHref}"`);
-        
-        if (linkHref === currentPath || 
-                linkHref === currentPath + '#') {
+
+        // Normalize the linkHref (remove query parameters, fragment, etc.)
+        let normalizedLinkHref = linkHref.split('?')[0].split('#')[0]; // Ignore query params and hash
+        let normalizedCurrentPath = currentPath.split('?')[0].split('#')[0]; // Same for current path
+
+        if (normalizedLinkHref === normalizedCurrentPath) {
           console.log(`Path match found: "${link.textContent.trim()}" with href="${linkHref}"`);
           link.classList.remove('text-gray-500');
           link.classList.add('text-purple-950');
@@ -626,15 +624,16 @@
       console.log("Final match found?", foundMatch);
     }
   }
-  
+
   // Set active link on page load
   setActiveLink();
-  
+
   // Update active link when hash changes
   window.addEventListener('hashchange', function() {
     console.log("Hash changed to:", window.location.hash);
     setActiveLink();
   });
 });
+
   </script>
 </html>
