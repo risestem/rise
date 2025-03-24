@@ -83,9 +83,9 @@
           <nav class="space-y-4">
             <button id="nav-coding-btn" class="block font-semibold text-lg w-full text-left transition-colors duration-300 hover:text-gray-300 flex justify-between items-center">
               Coding
-              <span id="coding-icon">-</span>
+              <span id="coding-icon">+</span>
             </button>
-            <nav id="coding-subnav" class="space-y-2 pl-4">
+            <nav id="coding-subnav" class="space-y-2 pl-4 hidden">
               <a href="#coding-day1" class="block text-md hover:text-gray-300 transition-colors duration-300">Day 1 - Python Intro</a>
               <a href="#coding-day2" class="block text-md hover:text-gray-300 transition-colors duration-300">Day 2 - Python Intro Cont.</a>
               <a href="#coding-day3" class="block text-md hover:text-gray-300 transition-colors duration-300">Day 3 - Pygame Intro</a>
@@ -114,17 +114,45 @@
           <span class="mx-4">›</span>
           <a href="https://risestem.github.io/rise/curriculum" class="hover:underline">Curriculum</a>
           <span class="mx-4">›</span>
-          <span id="current-section" class="font-bold">Coding</span>
+          <span id="current-section" class="font-bold">Curriculum</span>
         </div>
 
         <!-- Section Tabs (Mobile & Tablet) -->
         <div class="flex mb-6 lg:hidden">
-          <button id="coding-tab" class="tab-button active flex-1 py-3 px-4 font-bold text-center rounded-tl-lg rounded-bl-lg border border-purple-950">Coding</button>
+          <button id="coding-tab" class="tab-button flex-1 py-3 px-4 font-bold text-center rounded-tl-lg rounded-bl-lg border border-purple-950">Coding</button>
           <button id="engineering-tab" class="tab-button flex-1 py-3 px-4 font-bold text-center rounded-tr-lg rounded-br-lg border border-purple-950">Engineering</button>
         </div>
 
+        <!-- Add this after the tab buttons but before the coding content -->
+        <div id="welcome-content" class="section-content active">
+          <h1 class="text-3xl md:text-5xl font-extrabold text-purple-950 mb-8">Curriculum</h1>
+          <p class="text-lg mb-12 text-gray-500">
+            Welcome to the Rise Engineering & Coding curriculum page. Please select a subject from the tabs above to explore our curriculum materials.
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="border p-6 rounded-lg shadow-md bg-white">
+              <h2 class="text-2xl font-bold text-purple-950 mb-4">Coding</h2>
+              <p class="text-gray-500 mb-4">
+                Our Python coding curriculum introduces students to programming concepts through interactive lessons and Pygame projects.
+              </p>
+              <button id="view-coding-btn" class="px-6 py-2 bg-purple-950 text-white rounded-md hover:bg-purple-800 transition">
+                View Curriculum
+              </button>
+            </div>
+            <div class="border p-6 rounded-lg shadow-md bg-white">
+              <h2 class="text-2xl font-bold text-purple-950 mb-4">Engineering</h2>
+              <p class="text-gray-500 mb-4">
+                Explore various engineering disciplines through hands-on projects and engaging activities.
+              </p>
+              <button id="view-engineering-btn" class="px-6 py-2 bg-purple-950 text-white rounded-md hover:bg-purple-800 transition">
+                View Curriculum
+              </button>
+            </div>
+          </div>
+        </div>
+
         <!-- Coding Content -->
-        <div id="coding-content" class="section-content active">
+        <div id="coding-content" class="section-content">
           <!-- Subject Header -->
           <h1 class="text-3xl md:text-5xl font-extrabold text-purple-950 mb-8">Coding Curriculum</h1>
 
@@ -463,6 +491,10 @@
 
 <!-- JavaScript -->
 <script>
+
+  const welcomeContent = document.getElementById('welcome-content');
+  const viewCodingBtn = document.getElementById('view-coding-btn');
+  const viewEngineeringBtn = document.getElementById('view-engineering-btn');
   // Mobile navigation toggle
   document.getElementById("hamburger-btn").addEventListener("click", function() {
     const navbar = document.getElementById("navbar-sticky");
@@ -499,26 +531,7 @@
     engineeringTab.classList.remove('active');
     codingContent.classList.add('active');
     engineeringContent.classList.remove('active');
-    currentSection.textContent = 'Coding';
-  });
-
-  engineeringTab.addEventListener('click', () => {
-    engineeringTab.classList.add('active');
-    codingTab.classList.remove('active');
-    engineeringContent.classList.add('active');
-    codingContent.classList.remove('active');
-    currentSection.textContent = 'Engineering';
-  });
-
-  // Sidebar navigation (desktop)
-  const navCodingBtn = document.getElementById('nav-coding-btn');
-  const navEngineeringBtn = document.getElementById('nav-engineering-btn');
-
-  // Update these functions to automatically expand/collapse subnavs
-
-  navCodingBtn.addEventListener('click', () => {
-    codingContent.classList.add('active');
-    engineeringContent.classList.remove('active');
+    welcomeContent.classList.remove('active');
     currentSection.textContent = 'Coding';
 
     // Automatically expand coding subnav and collapse engineering subnav
@@ -526,15 +539,14 @@
     document.getElementById("engineering-subnav").classList.add("hidden");
     document.getElementById("coding-icon").textContent = "-";
     document.getElementById("engineering-icon").textContent = "+";
-
-    // Also update mobile/tablet tabs for consistency
-    codingTab.classList.add('active');
-    engineeringTab.classList.remove('active');
   });
 
-  navEngineeringBtn.addEventListener('click', () => {
+  engineeringTab.addEventListener('click', () => {
+    engineeringTab.classList.add('active');
+    codingTab.classList.remove('active');
     engineeringContent.classList.add('active');
     codingContent.classList.remove('active');
+    welcomeContent.classList.remove('active');
     currentSection.textContent = 'Engineering';
 
     // Automatically expand engineering subnav and collapse coding subnav
@@ -542,10 +554,55 @@
     document.getElementById("coding-subnav").classList.add("hidden");
     document.getElementById("engineering-icon").textContent = "-";
     document.getElementById("coding-icon").textContent = "+";
+  });
+
+  viewCodingBtn.addEventListener('click', () => {
+    codingTab.click();
+  });
+
+  viewEngineeringBtn.addEventListener('click', () => {
+    engineeringTab.click();
+  });
+
+  // Sidebar navigation (desktop)
+  const navCodingBtn = document.getElementById('nav-coding-btn');
+  const navEngineeringBtn = document.getElementById('nav-engineering-btn');
+  const btn = document.getElementById('coding-subnav');
+  const btn2 = document.getElementById('engineering-subnav');
+
+  navCodingBtn.addEventListener('click', () => {
+    document.getElementById("coding-subnav").classList.toggle("hidden");
+
+    const codingIcon = document.getElementById("coding-icon");
+    const engineeringIcon = document.getElementById("engineering-icon");
+
+    codingIcon.textContent = codingIcon.textContent === "+" ? "-" : "+";
 
     // Also update mobile/tablet tabs for consistency
-    engineeringTab.classList.add('active');
-    codingTab.classList.remove('active');
+    codingTab.classList.toggle('active');
+  });
+
+  btn.addEventListener('click', () => {
+    codingContent.classList.add('active'); engineeringContent.classList.remove('active'); welcomeContent.classList.remove('active'); currentSection.textContent = 'Coding';
+  });
+
+  navEngineeringBtn.addEventListener('click', () => {
+    document.getElementById("engineering-subnav").classList.toggle("hidden");
+
+    const codingIcon = document.getElementById("coding-icon");
+    const engineeringIcon = document.getElementById("engineering-icon");
+
+    engineeringIcon.textContent = engineeringIcon.textContent === "+" ? "-" : "+";
+
+    // Also update mobile/tablet tabs for consistency
+    codingTab.classList.toggle('active');
+
+    // Also update mobile/tablet tabs for consistency
+    engineeringTab.classList.toggle('active');
+  });
+
+  btn2.addEventListener('click', () => {
+    engineeringContent.classList.add('active'); codingContent.classList.remove('active'); welcomeContent.classList.remove('active'); currentSection.textContent = 'Engineering';
   });
 
   // Also update the mobile/tablet tab buttons to control the subnavs
@@ -555,12 +612,6 @@
     codingContent.classList.add('active');
     engineeringContent.classList.remove('active');
     currentSection.textContent = 'Coding';
-
-    // Automatically expand coding subnav and collapse engineering subnav
-    document.getElementById("coding-subnav").classList.remove("hidden");
-    document.getElementById("engineering-subnav").classList.add("hidden");
-    document.getElementById("coding-icon").textContent = "-";
-    document.getElementById("engineering-icon").textContent = "+";
   });
 
   engineeringTab.addEventListener('click', () => {
@@ -569,12 +620,6 @@
     engineeringContent.classList.add('active');
     codingContent.classList.remove('active');
     currentSection.textContent = 'Engineering';
-
-    // Automatically expand engineering subnav and collapse coding subnav
-    document.getElementById("engineering-subnav").classList.remove("hidden");
-    document.getElementById("coding-subnav").classList.add("hidden");
-    document.getElementById("engineering-icon").textContent = "-";
-    document.getElementById("coding-icon").textContent = "+";
   });
 </script>
 </body>
