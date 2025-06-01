@@ -116,7 +116,7 @@
           <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
             <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden">
               <img src="public/robot.jpg" alt="Robotics" class="w-24 h-24 object-cover rounded-full mb-4">
-              <h3 class="text-xl font-bold text-purple-900 mb-2">Robotics</h3>
+              <h3 class="text-xl font-bold text-purple-900 mb-2">STEM Access Gaps</h3>
               <p class="text-gray-600 text-center">Hands-on robotics projects help students learn engineering and coding in a fun way.</p>
             </div>
             <div class="flip-card-back absolute w-full h-full bg-purple-100 rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden">
@@ -130,7 +130,7 @@
           <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
             <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden">
               <img src="public/code.svg" alt="Coding" class="w-24 h-24 object-cover rounded-full mb-4">
-              <h3 class="text-xl font-bold text-purple-900 mb-2">Coding</h3>
+              <h3 class="text-xl font-bold text-purple-900 mb-2">Representation & Confidence</h3>
               <p class="text-gray-600 text-center">Interactive coding lessons build problem-solving skills and digital literacy.</p>
             </div>
             <div class="flip-card-back absolute w-full h-full bg-purple-100 rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden">
@@ -144,7 +144,7 @@
           <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
             <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden">
               <img src="public/people.svg" alt="Teamwork" class="w-24 h-24 object-cover rounded-full mb-4">
-              <h3 class="text-xl font-bold text-purple-900 mb-2">Teamwork</h3>
+              <h3 class="text-xl font-bold text-purple-900 mb-2">Skills Gap</h3>
               <p class="text-gray-600 text-center">Collaborative activities foster communication and leadership among students.</p>
             </div>
             <div class="flip-card-back absolute w-full h-full bg-purple-100 rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden">
@@ -204,8 +204,25 @@
     requestAnimationFrame(update);
   }
 
-  const counter = document.getElementById('counter');
-  animateCountUp(counter, 51, 2000);
+  // Create an Intersection Observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const counter = document.getElementById('counter');
+        animateCountUp(counter, 51, 2000);
+        // Once animation starts, we don't need to observe anymore
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.5 // Trigger when 50% of the element is visible
+  });
+
+  // Start observing the counter section
+  const counterSection = document.querySelector('.bg-white.w-full.py-12');
+  if (counterSection) {
+    observer.observe(counterSection);
+  }
 </script>
 
 </body>
