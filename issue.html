@@ -148,6 +148,42 @@
     .flip-card .flip-card-back {
       transform: rotateY(180deg);
     }
+    
+    /* Enhanced card styles */
+    .flip-card {
+      transition: transform 0.3s ease;
+    }
+    
+    .flip-card:hover {
+      transform: translateY(-10px);
+    }
+    
+    .flip-card-front {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .flip-card:hover .flip-card-front {
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    .flip-card-back {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .flip-card:hover .flip-card-back {
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Add subtle animation to images */
+    .flip-card img {
+      transition: transform 0.3s ease;
+    }
+    
+    .flip-card:hover img {
+      transform: scale(1.1);
+    }
   </style>
   
   <!-- Count Up Section -->
