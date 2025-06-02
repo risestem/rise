@@ -255,7 +255,7 @@
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         const counter = document.getElementById('counter');
-        animateCountUp(counter, 51, 2000);
+        animateCountUp(counter, 51, 3000);
         // Once animation starts, we don't need to observe anymore
         observer.unobserve(entry.target);
       }
