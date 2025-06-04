@@ -115,7 +115,7 @@
         <!-- 2022 -->
         <div class="relative flex flex-col md:flex-row items-center">
           <!-- Text box -->
-          <div class="md:w-1/2 text-center transform -rotate-2 bg-[#fcfaff] border border-gray-300 shadow-md p-4 rounded-lg md:ml-[-8rem]">
+          <div class="md:w-1/2 text-center transform -rotate-2 bg-[#fffaff] border border-gray-300 shadow-md p-4 rounded-lg md:ml-[-8rem]">
             <p class="text-sm text-gray-400">2022</p>
             <h4 class="text-lg font-bold text-purple-950">Passion For STEM</h4>
             <p class="text-gray-600 mt-2">Since Middle School, we've all had a deep interest in STEM fields, participating in Robotics, math competitions, and coding classes.</p>
@@ -130,7 +130,7 @@
         <!-- 2023 -->
         <div class="relative flex flex-col md:flex-row-reverse items-center">
           <!-- Text box -->
-          <div class="md:w-1/2 text-center transform rotate-2 bg-[#fcfaff] border border-gray-300 shadow-md p-4 rounded-lg md:mr-[-8rem]">
+          <div class="md:w-1/2 text-center transform rotate-2 bg-[#fffaff] border border-gray-300 shadow-md p-4 rounded-lg md:mr-[-8rem]">
             <p class="text-sm text-gray-400">2023</p>
             <h4 class="text-lg font-bold text-purple-950">Desire to Serve</h4>
             <p class="text-gray-600 mt-2">We engaged in several community service activity, ranging from volunteering in the garden to tutoring students online.</p>
@@ -145,7 +145,7 @@
         <!-- 2024 -->
         <div class="relative flex flex-col md:flex-row items-center">
           <!-- Text box -->
-          <div class="md:w-1/2 text-center transform -rotate-2 bg-[#fcfaff] border border-gray-300 shadow-md p-4 rounded-lg md:ml-[-8rem]">
+          <div class="md:w-1/2 text-center transform -rotate-2 bg-[#fffaff] border border-gray-300 shadow-md p-4 rounded-lg md:ml-[-8rem]">
             <p class="text-sm text-gray-400">2024</p>
             <h4 class="text-lg font-bold text-purple-950">Launching RISE</h4>
             <p class="text-gray-600 mt-2">Wanting to align our desire to serve and our passion for STEM, we founded RISE with a simple idea: to make STEM education accessible to all.</p>
@@ -160,7 +160,7 @@
         <!-- 2025+ -->
         <div class="relative flex flex-col md:flex-row-reverse items-center">
           <!-- Text box -->
-          <div class="md:w-1/2 text-center transform rotate-2 bg-[#fcfaff] border border-gray-300 shadow-md p-4 rounded-lg md:mr-[-8rem]">
+          <div class="md:w-1/2 text-center transform rotate-2 bg-[#fffaff] border border-gray-300 shadow-md p-4 rounded-lg md:mr-[-8rem]">
             <p class="text-sm text-gray-400">2025+</p>
             <h4 class="text-lg font-bold text-purple-950">Looking Ahead</h4>
             <p class="text-gray-600 mt-2">We continue to dream big and are working on exciting projects to support even more young minds.</p>
@@ -264,9 +264,9 @@ const teamMembers = [
 function renderTeamCards() {
   const container = document.getElementById('team-cards');
   container.innerHTML = teamMembers.map((member, idx) => `
-    <div class="flex flex-col items-center bg-[#fcfaff] rounded-xl shadow-xl border border-gray-200 p-0 pb-10 max-w-xs mx-auto relative group transition-transform duration-300 hover:scale-105 hover:shadow-2xl overflow-hidden cursor-pointer" style="min-width:260px;" data-profile="${member.profile}" data-idx="${idx}">
+    <div class="flex flex-col items-center bg-[#fffaff] rounded-xl shadow-xl border border-gray-200 p-0 pb-10 max-w-xs mx-auto relative group transition-transform duration-300 hover:scale-105 hover:shadow-2xl overflow-hidden cursor-pointer" style="min-width:260px;" data-profile="${member.profile}" data-idx="${idx}">
       <!-- Removed the full-card diagonal sheen on hover -->
-      <div class="w-full aspect-[3/2] flex items-center justify-center bg-[#fcfaff] rounded-t-xl overflow-hidden" style="border-bottom: 0;">
+      <div class="w-full aspect-[3/2] flex items-center justify-center bg-[#fffaff] rounded-t-xl overflow-hidden" style="border-bottom: 0;">
         <div class="w-[90%] h-[90%] overflow-hidden flex items-center justify-center" style="box-sizing:border-box;">
           <img src="${member.img}" alt="${member.name}" class="object-cover w-full h-full rounded-md" style="aspect-ratio:3/2;" />
         </div>
@@ -277,7 +277,7 @@ function renderTeamCards() {
       </div>
       <div class="w-full flex justify-between items-center px-6 mt-4"></div>
       <div class="absolute left-6 bottom-4">
-        <div class="flex items-center border border-purple-700 rounded-md overflow-hidden bg-[#fcfaff] h-5 min-w-[90px]">
+        <div class="flex items-center border border-purple-700 rounded-md overflow-hidden bg-[#fffaff] h-5 min-w-[90px]">
           <span class="px-1.5 py-0 text-purple-800 font-semibold text-xs">${member.left}</span>
           <span class="h-5 w-4 flex items-center justify-center border-x border-purple-700 bg-[repeating-linear-gradient(135deg,_#a78bfa_0_2px,_transparent_2px,_transparent_4px)]" style="background-color:#ede9fe;"></span>
           <span class="px-1.5 py-0 text-purple-800 font-semibold text-xs">${member.right}</span>
@@ -303,7 +303,7 @@ function openProfileModal(profilePath) {
     modal.id = 'profile-modal';
     modal.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50';
     modal.innerHTML = `
-      <div class="bg-[#fcfaff] rounded-lg shadow-lg w-full max-w-2xl max-h-[80vh] p-8 relative overflow-y-auto">
+      <div class="bg-[#fffaff] rounded-lg shadow-lg w-full max-w-2xl max-h-[80vh] p-8 relative overflow-y-auto">
         <button id="close-profile-modal" class="absolute top-2 right-2 text-gray-400 hover:text-purple-700 text-2xl font-bold">&times;</button>
         <div id="profile-markdown" class="prose prose-lg max-w-none text-black"></div>
       </div>
