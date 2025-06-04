@@ -214,24 +214,30 @@ const teamMembers = [
   {
     name: 'Brayden Watt',
     img: 'https://risestem.github.io/rise/public/brayden.png',
-    desc: 'I am a Junior at the Westminster Schools. At school, I participate in First Robotics Competition (FRC), Science Olympiad, and other STEM clubs, where I enjoy working with teammates to solve complex challenges. Outside of school, I enjoy giving back to my community.'
+    desc: 'I am a Junior at the Westminster Schools. At school, I participate in First Robotics Competition (FRC), Science Olympiad, and other STEM clubs, where I enjoy working with teammates to solve complex challenges. Outside of school, I enjoy giving back to my community.',
+    left: 'robotics',
+    right: 'builder'
   },
   {
     name: 'Joshua Luo',
     img: 'https://risestem.github.io/rise/public/josh.jpeg',
-    desc: 'I am an eleventh grader at the Westminster Schools. At school, I love to do robotics, gardening club, and swim. Outside of school, I love to work on my own personal coding projects, using multiple coding languages. I\'m excited to share my passion!'
+    desc: 'I am an eleventh grader at the Westminster Schools. At school, I love to do robotics, gardening club, and swim. Outside of school, I love to work on my own personal coding projects, using multiple coding languages. I\'m excited to share my passion!',
+    left: 'designer',
+    right: 'developer'
   },
   {
     name: 'Enpeng Jiang',
     img: 'https://risestem.github.io/rise/public/enpeng.png',
-    desc: 'I am a Junior at the Westminster Schools. I actively participate in FRC, Science Olympiad, Science Bowl, and Swim Team; through these clubs, I\'ve learned a lot about the applications of Engineering and Science. I\'m excited to do more community service and help others!'
+    desc: 'I am a Junior at the Westminster Schools. I actively participate in FRC, Science Olympiad, Science Bowl, and Swim Team; through these clubs, I\'ve learned a lot about the applications of Engineering and Science. I\'m excited to do more community service and help others!',
+    left: 'mathlete',
+    right: 'scientist'
   }
 ];
 
 function renderTeamCards() {
   const container = document.getElementById('team-cards');
   container.innerHTML = teamMembers.map(member => `
-    <div class="flex flex-col items-center bg-[#fffce8] rounded-xl shadow-xl border border-gray-200 p-0 pb-6 max-w-xs mx-auto" style="min-width:260px;">
+    <div class="flex flex-col items-center bg-[#fffce8] rounded-xl shadow-xl border border-gray-200 p-0 pb-6 max-w-xs mx-auto relative" style="min-width:260px;">
       <div class="w-full aspect-[3/2] flex items-center justify-center bg-[#fffce8] rounded-t-xl overflow-hidden" style="border-bottom: 0;">
         <div class="w-[90%] h-[90%] overflow-hidden flex items-center justify-center" style="box-sizing:border-box;">
           <img src="${member.img}" alt="${member.name}" class="object-cover w-full h-full rounded-md" style="aspect-ratio:3/2;" />
@@ -243,6 +249,13 @@ function renderTeamCards() {
       </div>
       <div class="w-full flex justify-between items-center px-6 mt-4">
         <!-- Optionally add a badge, date, or logo here -->
+      </div>
+      <div class="absolute left-6 bottom-6">
+        <div class="flex items-center border-2 border-purple-700 rounded-xl overflow-hidden bg-[#fffce8]" style="min-width:180px;">
+          <span class="px-4 py-1 text-purple-800 font-bold text-lg">${member.left}</span>
+          <span class="h-8 w-8 flex items-center justify-center border-x-2 border-purple-700 bg-[repeating-linear-gradient(135deg,_#a78bfa_0_4px,_transparent_4px,_transparent_8px)]" style="background-color:#ede9fe;"></span>
+          <span class="px-4 py-1 text-purple-800 font-bold text-lg">${member.right}</span>
+        </div>
       </div>
     </div>
   `).join('');
