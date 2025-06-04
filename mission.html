@@ -222,15 +222,15 @@
     <div class="relative w-full md:w-1/2 flex justify-center items-center" id="image-container">
       <!-- First Image (background) -->
       <img src="https://risestem.github.io/rise/public/photo1.jpg" alt="Hack Club Map 1"
-           class="absolute w-72 sm:w-80 md:w-[26rem] rounded-lg shadow-lg transform rotate-3 transition-opacity duration-500 opacity-100">
+           class="absolute w-72 sm:w-80 md:w-[28rem] rounded-lg shadow-lg transform rotate-3 transition-transform duration-500 z-10">
       <!-- Second Image (overlaid) -->
       <img src="https://risestem.github.io/rise/public/photo2.jpg" alt="Hack Club Map 2"
-           class="absolute w-72 sm:w-80 md:w-[26rem] rounded-lg shadow-lg transform -rotate-3 ml-4 mt-4 z-10 transition-opacity duration-500 opacity-0">
+           class="absolute w-72 sm:w-80 md:w-[28rem] rounded-lg shadow-lg transform -rotate-3 ml-4 mt-4 transition-transform duration-500 z-20">
       <!-- Third Image (overlaid) -->
       <img src="https://risestem.github.io/rise/public/photo3.jpg" alt="Hack Club Map 3"
-           class="absolute w-72 sm:w-80 md:w-[26rem] rounded-lg shadow-lg transform rotate-6 ml-8 mt-8 z-20 transition-opacity duration-500 opacity-0">
+           class="absolute w-72 sm:w-80 md:w-[28rem] rounded-lg shadow-lg transform rotate-6 ml-8 mt-8 transition-transform duration-500 z-30">
       <!-- Container for better stacking -->
-      <div class="h-80 sm:h-96 md:h-[28rem] w-full"></div>
+      <div class="h-80 sm:h-96 md:h-[30rem] w-full"></div>
     </div>
 
     <!-- Right Side: Bullet Points -->
@@ -250,20 +250,27 @@
     </div>
   </section>
 
-  <!-- Cycling images script (same as before) -->
+  <!-- Cycling z-index script -->
   <script>
-    const imageContainer = document.getElementById('image-container');
-    const images = imageContainer.querySelectorAll('img');
-    let currentIndex = 0;
+    const container = document.getElementById('image-container');
+    const imgs = container.querySelectorAll('img');
+    let currentTopIndex = imgs.length - 1;
 
-    imageContainer.addEventListener('click', () => {
-      images[currentIndex].classList.remove('opacity-100');
-      images[currentIndex].classList.add('opacity-0');
+    container.addEventListener('click', () => {
+      // Grab the top image and move it to the back
+      const topImg = imgs[currentTopIndex];
+      topImg.style.zIndex = 10; // Reset to the lowest
 
-      currentIndex = (currentIndex + 1) % images.length;
+      // Update z-index for all images (push everyone else up by 10)
+      imgs.forEach((img, i) => {
+        if (i !== currentTopIndex) {
+          const z = parseInt(img.style.zIndex || 10, 10);
+          img.style.zIndex = z + 10;
+        }
+      });
 
-      images[currentIndex].classList.remove('opacity-0');
-      images[currentIndex].classList.add('opacity-100');
+      // Update current top index
+      currentTopIndex = (currentTopIndex - 1 + imgs.length) % imgs.length;
     });
   </script>
 
