@@ -257,27 +257,26 @@
     </div>
   </section>
 
-  <!-- Cycling z-index script -->
   <script>
     const container = document.getElementById('image-container');
-    const imgs = container.querySelectorAll('img');
-    let currentTopIndex = imgs.length - 1;
+    const cards = container.querySelectorAll('div.absolute'); // Target the whole card, not just img
+    let currentTopIndex = cards.length - 1;
 
     container.addEventListener('click', () => {
-      // Grab the top image and move it to the back
-      const topImg = imgs[currentTopIndex];
-      topImg.style.zIndex = 10; // Reset to the lowest
+      // Grab the top card and move it to the back
+      const topCard = cards[currentTopIndex];
+      topCard.style.zIndex = 10; // Reset to the lowest
 
-      // Update z-index for all images (push everyone else up by 10)
-      imgs.forEach((img, i) => {
+      // Update z-index for all cards (push everyone else up by 10)
+      cards.forEach((card, i) => {
         if (i !== currentTopIndex) {
-          const z = parseInt(img.style.zIndex || 10, 10);
-          img.style.zIndex = z + 10;
+          const z = parseInt(card.style.zIndex || 10, 10);
+          card.style.zIndex = z + 10;
         }
       });
 
       // Update current top index
-      currentTopIndex = (currentTopIndex - 1 + imgs.length) % imgs.length;
+      currentTopIndex = (currentTopIndex - 1 + cards.length) % cards.length;
     });
   </script>
 
