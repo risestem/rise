@@ -215,39 +215,57 @@
     </div>
   </div>
   <section>
+
   <!-- Section with rotated images and bullet points -->
   <section class="flex flex-col md:flex-row justify-center items-center gap-8 px-6 py-12">
     <!-- Left Side: Images with slight rotation -->
-    <div class="relative w-full md:w-1/2 flex justify-center items-center">
+    <div class="relative w-full md:w-1/2 flex justify-center items-center" id="image-container">
       <!-- First Image (background) -->
       <img src="https://risestem.github.io/rise/public/photo1.jpg" alt="Hack Club Map 1"
-           class="absolute w-60 sm:w-72 md:w-80 rounded-lg shadow-lg transform rotate-3">
+           class="absolute w-72 sm:w-80 md:w-[26rem] rounded-lg shadow-lg transform rotate-3 transition-opacity duration-500 opacity-100">
       <!-- Second Image (overlaid) -->
       <img src="https://risestem.github.io/rise/public/photo2.jpg" alt="Hack Club Map 2"
-           class="absolute w-60 sm:w-72 md:w-80 rounded-lg shadow-lg transform -rotate-3 ml-4 mt-4 z-10">
+           class="absolute w-72 sm:w-80 md:w-[26rem] rounded-lg shadow-lg transform -rotate-3 ml-4 mt-4 z-10 transition-opacity duration-500 opacity-0">
       <!-- Third Image (overlaid) -->
       <img src="https://risestem.github.io/rise/public/photo3.jpg" alt="Hack Club Map 3"
-           class="absolute w-60 sm:w-72 md:w-80 rounded-lg shadow-lg transform rotate-6 ml-8 mt-8 z-20">
-      <!-- Container for better stacking (optional) -->
+           class="absolute w-72 sm:w-80 md:w-[26rem] rounded-lg shadow-lg transform rotate-6 ml-8 mt-8 z-20 transition-opacity duration-500 opacity-0">
+      <!-- Container for better stacking -->
       <div class="h-80 sm:h-96 md:h-[28rem] w-full"></div>
     </div>
 
     <!-- Right Side: Bullet Points -->
     <div class="w-full md:w-1/2 text-left space-y-6">
       <div>
-        <h3 class="text-2xl font-bold text-purple-900 mb-2">1. Connect with other teenage coders</h3>
-        <p class="text-gray-600">Have a coding question? Looking for project feedback? You'll find hundreds of fabulous people to talk to in our global Slack (like Discord), active at all hours.</p>
+        <h3 class="text-2xl font-bold text-purple-900 mb-2">1. Create Engaging Curriculum</h3>
+        <p class="text-gray-600">We create good curriculum.</p>
       </div>
       <div>
-        <h3 class="text-2xl font-bold text-purple-900 mb-2">2. Build open source learning tools</h3>
-        <p class="text-gray-600">We build large open source projects together (3k+ PRs a year) like this website, a game engine, daily streak system, and more!</p>
+        <h3 class="text-2xl font-bold text-purple-900 mb-2">2. Host Classes</h3>
+        <p class="text-gray-600">We host good classes!</p>
       </div>
       <div>
-        <h3 class="text-2xl font-bold text-purple-900 mb-2">3. Gather IRL with other makers</h3>
-        <p class="text-gray-600">Meet other Hack Clubbers in your community to build together at one of the 400+ Hack Clubs and high school hackathons.</p>
+        <h3 class="text-2xl font-bold text-purple-900 mb-2">3. TBD</h3>
+        <p class="text-gray-600">Too be determined</p>
       </div>
     </div>
   </section>
+
+  <!-- Cycling images script (same as before) -->
+  <script>
+    const imageContainer = document.getElementById('image-container');
+    const images = imageContainer.querySelectorAll('img');
+    let currentIndex = 0;
+
+    imageContainer.addEventListener('click', () => {
+      images[currentIndex].classList.remove('opacity-100');
+      images[currentIndex].classList.add('opacity-0');
+
+      currentIndex = (currentIndex + 1) % images.length;
+
+      images[currentIndex].classList.remove('opacity-0');
+      images[currentIndex].classList.add('opacity-100');
+    });
+  </script>
 
   <section class="bg-white w-full py-12">
   <div class="flex flex-wrap justify-between items-center pt-8 px-6 sm:px-12 md:px-24 lg:px-32 pb-8 w-full bg-white text-gray-400">
