@@ -1,3 +1,5 @@
+# <span style="color: #a78bfa;">Profile: Joshua Luo</span>
+
 <!-- Horizontal collage layout: 1 large square image + 4 smaller square images stacked to the right -->
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: center;">
   <!-- Large square image on the left -->
@@ -12,7 +14,7 @@
   </div>
 </div>
 
-# <span style="color: #a78bfa;">Background</span>
+## <span style="color: #a78bfa;">Background</span>
 
 
 Originally from Clemson, SC, Josh has always held a deep passion for STEM. His early curiosity for problem-solving and creativity found an outlet through programs like LEGO Robotics and Odyssey of the Mind. In these hands-on competitions, Josh enjoyed not only the technical challenges but also the spirit of collaboration and innovation.
