@@ -284,7 +284,7 @@ function openProfileModal(profilePath) {
     modal.innerHTML = `
       <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl max-h-[80vh] p-8 relative overflow-y-auto">
         <button id="close-profile-modal" class="absolute top-2 right-2 text-gray-400 hover:text-purple-700 text-2xl font-bold">&times;</button>
-        <div id="profile-markdown" class="prose max-w-none"></div>
+        <div id="profile-markdown" class="prose prose-lg max-w-none text-black"></div>
       </div>
     `;
     document.body.appendChild(modal);
@@ -311,6 +311,24 @@ renderTeamCards();
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <!-- Footer -->
+<style>
+/* Minimal full-card diagonal sheen effect */
+.diagonal-sheen {
+  background: linear-gradient(120deg, rgba(167, 139, 250, 0.1) 25%, rgba(167, 139, 250, 0.2) 50%, rgba(167, 139, 250, 0.1) 75%);
+  mix-blend-mode: lighten;
+}
+#profile-markdown h1, #profile-markdown h2, #profile-markdown h3, #profile-markdown h4, #profile-markdown h5, #profile-markdown h6 {
+  color: #1a1a1a !important;
+}
+#profile-markdown h1 {
+  font-size: 2.5rem !important;
+  font-weight: 800 !important;
+  margin-bottom: 1rem !important;
+}
+#profile-markdown {
+  color: #1a1a1a !important;
+}
+</style>
 
 </body>
 </html>
