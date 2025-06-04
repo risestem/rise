@@ -216,28 +216,31 @@ const teamMembers = [
     img: 'https://risestem.github.io/rise/public/brayden.png',
     desc: 'I am a Junior at the Westminster Schools. At school, I participate in First Robotics Competition (FRC), Science Olympiad, and other STEM clubs, where I enjoy working with teammates to solve complex challenges. Outside of school, I enjoy giving back to my community.',
     left: 'robotics',
-    right: 'builder'
+    right: 'builder',
+    profile: 'profiles/brayden.md'
   },
   {
     name: 'Joshua Luo',
     img: 'https://risestem.github.io/rise/public/josh.jpeg',
     desc: 'I am an eleventh grader at the Westminster Schools. At school, I love to do robotics, gardening club, and swim. Outside of school, I love to work on my own personal coding projects, using multiple coding languages. I\'m excited to share my passion!',
     left: 'designer',
-    right: 'developer'
+    right: 'developer',
+    profile: 'profiles/josh.md'
   },
   {
     name: 'Enpeng Jiang',
     img: 'https://risestem.github.io/rise/public/enpeng.png',
     desc: 'I am a Junior at the Westminster Schools. I actively participate in FRC, Science Olympiad, Science Bowl, and Swim Team; through these clubs, I\'ve learned a lot about the applications of Engineering and Science. I\'m excited to do more community service and help others!',
     left: 'mathlete',
-    right: 'scientist'
+    right: 'scientist',
+    profile: 'profiles/enpeng.md'
   }
 ];
 
 function renderTeamCards() {
   const container = document.getElementById('team-cards');
-  container.innerHTML = teamMembers.map(member => `
-    <div class="flex flex-col items-center bg-[#fffcf0] rounded-xl shadow-xl border border-gray-200 p-0 pb-10 max-w-xs mx-auto relative group transition-transform duration-300 hover:scale-105 hover:shadow-2xl overflow-hidden" style="min-width:260px;">
+  container.innerHTML = teamMembers.map((member, idx) => `
+    <div class="flex flex-col items-center bg-[#fffcf0] rounded-xl shadow-xl border border-gray-200 p-0 pb-10 max-w-xs mx-auto relative group transition-transform duration-300 hover:scale-105 hover:shadow-2xl overflow-hidden cursor-pointer" style="min-width:260px;" data-profile="${member.profile}" data-idx="${idx}">
       <!-- Minimal full-card diagonal sheen on hover -->
       <div class="absolute inset-0 pointer-events-none z-10">
         <div class="diagonal-sheen absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -261,17 +264,51 @@ function renderTeamCards() {
       </div>
     </div>
   `).join('');
+
+  // Add click event listeners to cards
+  document.querySelectorAll('#team-cards > div[data-profile]').forEach(card => {
+    card.addEventListener('click', function() {
+      const profilePath = this.getAttribute('data-profile');
+      openProfileModal(profilePath);
+    });
+  });
 }
+
+// Modal for markdown profile
+function openProfileModal(profilePath) {
+  let modal = document.getElementById('profile-modal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'profile-modal';
+    modal.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50';
+    modal.innerHTML = `
+      <div class="bg-white rounded-lg shadow-lg w-full max-w-2xl max-h-[80vh] p-8 relative overflow-y-auto">
+        <button id="close-profile-modal" class="absolute top-2 right-2 text-gray-400 hover:text-purple-700 text-2xl font-bold">&times;</button>
+        <div id="profile-markdown" class="prose max-w-none"></div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    document.getElementById('close-profile-modal').onclick = () => modal.remove();
+    modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+  } else {
+    modal.style.display = 'flex';
+  }
+  // Fetch and render markdown
+  fetch(profilePath)
+    .then(res => res.text())
+    .then(md => {
+      if (window.marked) {
+        document.getElementById('profile-markdown').innerHTML = window.marked.parse(md);
+      } else {
+        document.getElementById('profile-markdown').textContent = md;
+      }
+    });
+}
+
 renderTeamCards();
 </script>
-
-<style>
-/* Minimal full-card diagonal sheen effect */
-.diagonal-sheen {
-  background: linear-gradient(120deg, rgba(167, 139, 250, 0.1) 25%, rgba(167, 139, 250, 0.2) 50%, rgba(167, 139, 250, 0.1) 75%);
-  mix-blend-mode: lighten;
-}
-</style>
+<!-- Add Marked.js for markdown rendering -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <!-- Footer -->
 
