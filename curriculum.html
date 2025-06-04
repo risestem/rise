@@ -119,8 +119,8 @@
           <a href="https://risestem.github.io/rise/home" class="hover:underline">Home</a>
           <span class="mx-4">›</span>
           <a href="https://risestem.github.io/rise/curriculum" class="hover:underline">Curriculum</a>
-          <span class="mx-4">›</span>
-          <span id="current-section" class="font-bold">Curriculum</span>
+          <span id="breadcrumb-separator" class="mx-4 hidden">›</span>
+          <span id="current-section" class="font-bold hidden"></span>
         </div>
 
         <!-- Section Tabs (Mobile & Tablet) -->
@@ -524,6 +524,8 @@
   const welcomeContent = document.getElementById('welcome-content');
   const viewCodingBtn = document.getElementById('view-coding-btn');
   const viewEngineeringBtn = document.getElementById('view-engineering-btn');
+  const breadcrumbSeparator = document.getElementById('breadcrumb-separator');
+  const currentSection = document.getElementById('current-section');
   // Mobile navigation toggle
   document.getElementById("hamburger-btn").addEventListener("click", function() {
     const navbar = document.getElementById("navbar-sticky");
@@ -553,7 +555,6 @@
   const engineeringTab = document.getElementById('engineering-tab');
   const codingContent = document.getElementById('coding-content');
   const engineeringContent = document.getElementById('engineering-content');
-  const currentSection = document.getElementById('current-section');
 
   codingTab.addEventListener('click', () => {
     codingTab.classList.add('active');
@@ -561,6 +562,8 @@
     codingContent.classList.add('active');
     engineeringContent.classList.remove('active');
     welcomeContent.classList.remove('active');
+    breadcrumbSeparator.classList.remove('hidden');
+    currentSection.classList.remove('hidden');
     currentSection.textContent = 'Coding';
 
     // Automatically expand coding subnav and collapse engineering subnav
@@ -576,6 +579,8 @@
     engineeringContent.classList.add('active');
     codingContent.classList.remove('active');
     welcomeContent.classList.remove('active');
+    breadcrumbSeparator.classList.remove('hidden');
+    currentSection.classList.remove('hidden');
     currentSection.textContent = 'Engineering';
 
     // Automatically expand engineering subnav and collapse coding subnav
@@ -640,6 +645,9 @@
     engineeringTab.classList.remove('active');
     codingContent.classList.add('active');
     engineeringContent.classList.remove('active');
+    welcomeContent.classList.remove('active');
+    breadcrumbSeparator.classList.remove('hidden');
+    currentSection.classList.remove('hidden');
     currentSection.textContent = 'Coding';
   });
 
@@ -648,6 +656,9 @@
     codingTab.classList.remove('active');
     engineeringContent.classList.add('active');
     codingContent.classList.remove('active');
+    welcomeContent.classList.remove('active');
+    breadcrumbSeparator.classList.remove('hidden');
+    currentSection.classList.remove('hidden');
     currentSection.textContent = 'Engineering';
   });
 
