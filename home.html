@@ -159,28 +159,39 @@
     </div>
 
     <!-- Latest News Carousel -->
-    <div id="latest-news-carousel" class="fadeInUp-animation my-8 mx-auto max-w-2xl rounded-lg border border-purple-300 bg-white shadow-lg p-6 flex flex-col items-center">
+    <div id="latest-news-carousel" class="fadeInUp-animation my-8 mx-auto max-w-md w-full flex flex-col items-center relative" style="background: none; border: none; box-shadow: none;">
       <span class="text-xl font-bold text-purple-950 sm:text-2xl mb-2">Latest News</span>
       <div class="text-gray-700 text-center mb-4">Check out our most recent updates!</div>
-      <div class="relative w-full overflow-x-auto scrollbar-hide">
-        <div id="news-cards-container" class="flex gap-6 transition-transform duration-500" style="scroll-snap-type: x mandatory;">
-          <!-- News cards will be injected here -->
+      <div class="relative w-full h-80 flex flex-col items-center">
+        <!-- Blur overlays -->
+        <div class="pointer-events-none absolute top-0 left-0 w-full h-10 z-20" style="background: linear-gradient(to bottom, rgba(255,255,255,0.85) 70%, rgba(255,255,255,0) 100%); filter: blur(4px);"></div>
+        <div class="pointer-events-none absolute bottom-0 left-0 w-full h-10 z-20" style="background: linear-gradient(to top, rgba(255,255,255,0.85) 70%, rgba(255,255,255,0) 100%); filter: blur(4px);"></div>
+        <div class="relative w-full h-full overflow-y-auto scrollbar-hide flex flex-col items-center" id="news-cards-scroll-container" style="scroll-snap-type: y mandatory;">
+          <div id="news-cards-container" class="flex flex-col gap-6 w-full items-center" style="min-height: 100%;">
+            <!-- News cards will be injected here -->
+          </div>
         </div>
       </div>
       <div class="flex justify-center gap-2 mt-4" id="news-carousel-dots"></div>
     </div>
     <style>
-      .news-card-blur {
-        filter: blur(4px) grayscale(30%);
-        opacity: 0.7;
-        pointer-events: none;
-        transition: filter 0.3s, opacity 0.3s;
+      .news-card {
+        scroll-snap-align: center;
+        transition: box-shadow 0.3s, transform 0.3s;
+        box-shadow: 0 2px 8px 0 rgba(80, 0, 120, 0.08);
+        background: #fff;
+        border: 1px solid #e9d5ff;
+        border-radius: 1rem;
+        width: 100%;
+        max-width: 20rem;
+        min-height: 8.5rem;
+        margin: 0 auto;
+        z-index: 10;
       }
       .news-card-active {
-        filter: none;
-        opacity: 1;
-        pointer-events: auto;
-        z-index: 10;
+        transform: scale(1.03);
+        box-shadow: 0 4px 16px 0 rgba(80, 0, 120, 0.13);
+        z-index: 20;
       }
       .scrollbar-hide::-webkit-scrollbar { display: none; }
       .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
@@ -204,6 +215,7 @@
         // Get last 3 updates (most recent first)
         const lastThree = updates.slice(-3).reverse();
         const container = document.getElementById('news-cards-container');
+        const scrollContainer = document.getElementById('news-cards-scroll-container');
         const dots = document.getElementById('news-carousel-dots');
         // Fetch titles from markdown files
         const titles = await Promise.all(lastThree.map(async (u) => {
@@ -217,7 +229,7 @@
           }
         }));
         container.innerHTML = lastThree.map((u, i) => `
-          <div class="flex-shrink-0 w-80 max-w-xs bg-white border border-purple-200 rounded-xl shadow-md p-4 mx-2 transition-all duration-300 news-card ${i === 0 ? 'news-card-active' : 'news-card-blur'}" style="scroll-snap-align: center;">
+          <div class="news-card ${i === 0 ? 'news-card-active' : ''}" style="height: 8.5rem; display: flex; flex-direction: column; justify-content: center; align-items: center;">
             <div class="text-purple-950 font-bold text-lg mb-1">${titles[i]}</div>
             <div class="text-gray-500 text-xs mb-3">${formatNewsDate(u.datetime)}</div>
             <a href="news_updates.html?updates=${encodeURIComponent(u.file)}" class="block mt-2 px-4 py-2 bg-purple-950 text-white rounded-full font-semibold text-center transition hover:bg-purple-800">Read More</a>
@@ -231,20 +243,22 @@
           const cards = container.querySelectorAll('.news-card');
           cards.forEach((card, i) => {
             card.classList.toggle('news-card-active', i === idx);
-            card.classList.toggle('news-card-blur', i !== idx);
           });
           dots.querySelectorAll('button').forEach((dot, i) => {
             dot.className = `w-3 h-3 rounded-full ${i === idx ? 'bg-purple-700' : 'bg-gray-300'}`;
           });
-          container.scrollTo({ left: idx * (cards[0].offsetWidth + 16), behavior: 'smooth' });
+          // Scroll so the selected card is centered
+          const cardHeight = cards[0].offsetHeight + 24; // 24px gap
+          scrollContainer.scrollTo({ top: idx * cardHeight, behavior: 'smooth' });
         }
         dots.querySelectorAll('button').forEach((dot, i) => {
           dot.onclick = () => updateCarousel(i);
         });
-        // Allow horizontal scroll (snap to card)
-        container.addEventListener('scroll', () => {
+        // Allow vertical scroll (snap to card)
+        scrollContainer.addEventListener('scroll', () => {
           const cards = container.querySelectorAll('.news-card');
-          let idx = Math.round(container.scrollLeft / (cards[0].offsetWidth + 16));
+          const cardHeight = cards[0].offsetHeight + 24;
+          let idx = Math.round(scrollContainer.scrollTop / cardHeight);
           if (idx !== current && idx >= 0 && idx < lastThree.length) {
             updateCarousel(idx);
           }
