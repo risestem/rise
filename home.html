@@ -279,8 +279,9 @@
           btn.textContent = `Read: ${title}`;
           btn.disabled = false;
           btn.onclick = () => {
-            window.location.href = `news.html?file=${encodeURIComponent(latestFile)}`;
+            window.location.href = `news_updates.html?updates=${encodeURIComponent(latestFile)}`;
           };
+
         })
         .catch(() => {
           const btn = document.getElementById('latest-news-btn');
