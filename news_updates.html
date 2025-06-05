@@ -4,168 +4,170 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="https://risestem.github.io/rise/public/logo1.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>News Updates - Rise Engineering & Coding</title>
+  <title>News Updates - Rise Engineering &amp; Coding</title>
   <link href="src/style.css" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="src/animations.css">
   <style>
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Poppins', sans-serif; }
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
     .markdown-body {
-  max-width: 800px;
-  margin: 6rem auto 0 auto;
-  padding: 2.5rem 2rem;
-  background: #fff;
-  border-radius: 1.5rem;
-  box-shadow: 0 2px 12px 0 rgba(80,0,120,0.08);
-  color: #23272f;
-  text-align: left;
-  font-size: 1.15rem;
-  line-height: 1.7;
-  border: 1.5px solid #e5e7eb;
-  border-top: 3px solid #e5e7eb;
-}
-/* Ensure all markdown formatting is styled */
-.markdown-body h1 {
-  font-size: 2.5em;
-  margin-top: 1.2em;
-  margin-bottom: 0.6em;
-  font-weight: 800;
-  border-bottom: 1px solid #ede9fe;
-  padding-bottom: 0.3em;
-}
-.markdown-body h2 {
-  font-size: 2em;
-  margin-top: 1em;
-  margin-bottom: 0.5em;
-  font-weight: 700;
-  border-bottom: 1px solid #ede9fe;
-  padding-bottom: 0.2em;
-}
-.markdown-body h3 {
-  font-size: 1.5em;
-  margin-top: 0.9em;
-  margin-bottom: 0.4em;
-  font-weight: 600;
-}
-.markdown-body h4, .markdown-body h5, .markdown-body h6 {
-  font-size: 1.2em;
-  margin-top: 0.7em;
-  margin-bottom: 0.3em;
-  font-weight: 500;
-}
-.markdown-body strong, .markdown-body b {
-  font-weight: 700;
-}
-.markdown-body em, .markdown-body i {
-  font-style: italic;
-}
-.markdown-body ul, .markdown-body ol {
-  margin: 1em 0 1em 2em;
-  padding-left: 1.5em;
-}
-.markdown-body li {
-  margin-bottom: 0.5em;
-}
-.markdown-body blockquote {
-  border-left: 4px solid #a78bfa;
-  background: #f3f4f6;
-  color: #4b5563;
-  margin: 1.5em 0;
-  padding: 1em 2em;
-  border-radius: 0.5em;
-  font-style: italic;
-}
-.markdown-body pre, .markdown-body code {
-  background: #f3f4f6;
-  color: #23272f;
-  border-radius: 0.4em;
-  padding: 0.2em 0.5em;
-  font-size: 1em;
-  font-family: 'Fira Mono', 'Consolas', 'Monaco', monospace;
-}
-.markdown-body pre {
-  padding: 1em;
-  overflow-x: auto;
-}
-.markdown-body hr {
-  border: none;
-  border-top: 2px solid #ede9fe;
-  margin: 2em auto;
-  width: 60%;
-}
-.markdown-body a {
-  color: #6d28d9;
-  text-decoration: underline;
-  word-break: break-word;
-}
-.markdown-body img {
-  display: block;
-  margin: 1.5em auto;
-  max-width: 100%;
-  border-radius: 0.75rem;
-  box-shadow: 0 1px 6px 0 rgba(80,0,120,0.06);
-}
-
-.markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4, .markdown-body h5, .markdown-body h6 {
-  color: #23272f;
-  font-weight: 700;
-  margin-top: 1.5em;
-  margin-bottom: 0.6em;
-  text-align: left;
-}
-.markdown-body p {
-  color: #23272f;
-  margin-bottom: 1em;
-  text-align: left;
-}
-.markdown-body ul, .markdown-body ol {
-  color: #23272f;
-  margin: 1em 0 1em 2em;
-  text-align: left;
-  display: block;
-}
-.markdown-body li {
-  color: #23272f;
-  margin-bottom: 0.5em;
-}
-.markdown-body a {
-  color: #6d28d9;
-  text-decoration: underline;
-}
-.markdown-body img {
-  display: block;
-  margin: 1.5em auto;
-  max-width: 100%;
-  border-radius: 0.75rem;
-  box-shadow: 0 1px 6px 0 rgba(80,0,120,0.06);
-}
-.markdown-body blockquote {
-  border-left: 4px solid #a78bfa;
-  background: #f3f4f6;
-  color: #4b5563;
-  margin: 1.5em 0;
-  padding: 1em 2em;
-  border-radius: 0.5em;
-  font-style: italic;
-  text-align: left;
-}
-.markdown-body pre, .markdown-body code {
-  background: #f3f4f6;
-  color: #23272f;
-  border-radius: 0.4em;
-  padding: 0.2em 0.5em;
-  font-size: 1em;
-  font-family: 'Fira Mono', 'Consolas', 'Monaco', monospace;
-}
-.markdown-body hr {
-  border: none;
-  border-top: 2px solid #ede9fe;
-  margin: 2em auto;
-  width: 60%;
-}
-
+      max-width: 800px;
+      margin: 6rem auto 0 auto; /* Original top margin so content sits lower under breadcrumbs */
+      padding: 2.5rem 2rem;
+      background: #fff;
+      border-radius: 1.5rem;
+      box-shadow: 0 2px 12px 0 rgba(80,0,120,0.08);
+      color: #23272f;
+      text-align: left;
+      font-size: 1.15rem;
+      line-height: 1.7;
+      border: 1.5px solid #e5e7eb;
+      border-top: 3px solid #e5e7eb;
+    }
+    /* Ensure all markdown formatting is styled */
+    .markdown-body h1 {
+      font-size: 2.5em;
+      margin-top: 1.2em;
+      margin-bottom: 0.6em;
+      font-weight: 800;
+      border-bottom: 1px solid #ede9fe;
+      padding-bottom: 0.3em;
+    }
+    .markdown-body h2 {
+      font-size: 2em;
+      margin-top: 1em;
+      margin-bottom: 0.5em;
+      font-weight: 700;
+      border-bottom: 1px solid #ede9fe;
+      padding-bottom: 0.2em;
+    }
+    .markdown-body h3 {
+      font-size: 1.5em;
+      margin-top: 0.9em;
+      margin-bottom: 0.4em;
+      font-weight: 600;
+    }
+    .markdown-body h4, .markdown-body h5, .markdown-body h6 {
+      font-size: 1.2em;
+      margin-top: 0.7em;
+      margin-bottom: 0.3em;
+      font-weight: 500;
+    }
+    .markdown-body strong, .markdown-body b {
+      font-weight: 700;
+    }
+    .markdown-body em, .markdown-body i {
+      font-style: italic;
+    }
+    .markdown-body ul, .markdown-body ol {
+      margin: 1em 0 1em 2em;
+      padding-left: 1.5em;
+    }
+    .markdown-body li {
+      margin-bottom: 0.5em;
+    }
+    .markdown-body blockquote {
+      border-left: 4px solid #a78bfa;
+      background: #f3f4f6;
+      color: #4b5563;
+      margin: 1.5em 0;
+      padding: 1em 2em;
+      border-radius: 0.5em;
+      font-style: italic;
+    }
+    .markdown-body pre, .markdown-body code {
+      background: #f3f4f6;
+      color: #23272f;
+      border-radius: 0.4em;
+      padding: 0.2em 0.5em;
+      font-size: 1em;
+      font-family: 'Fira Mono', 'Consolas', 'Monaco', monospace;
+    }
+    .markdown-body pre {
+      padding: 1em;
+      overflow-x: auto;
+    }
+    .markdown-body hr {
+      border: none;
+      border-top: 2px solid #ede9fe;
+      margin: 2em auto;
+      width: 60%;
+    }
+    .markdown-body a {
+      color: #6d28d9;
+      text-decoration: underline;
+      word-break: break-word;
+    }
+    .markdown-body img {
+      display: block;
+      margin: 1.5em auto;
+      max-width: 100%;
+      border-radius: 0.75rem;
+      box-shadow: 0 1px 6px 0 rgba(80,0,120,0.06);
+    }
+    .markdown-body h1, .markdown-body h2, .markdown-body h3, .markdown-body h4, .markdown-body h5, .markdown-body h6 {
+      color: #23272f;
+      font-weight: 700;
+      margin-top: 1.5em;
+      margin-bottom: 0.6em;
+      text-align: left;
+    }
+    .markdown-body p {
+      color: #23272f;
+      margin-bottom: 1em;
+      text-align: left;
+    }
+    .markdown-body ul, .markdown-body ol {
+      color: #23272f;
+      margin: 1em 0 1em 2em;
+      text-align: left;
+      display: block;
+    }
+    .markdown-body li {
+      color: #23272f;
+      margin-bottom: 0.5em;
+    }
+    .markdown-body a {
+      color: #6d28d9;
+      text-decoration: underline;
+    }
+    .markdown-body img {
+      display: block;
+      margin: 1.5em auto;
+      max-width: 100%;
+      border-radius: 0.75rem;
+      box-shadow: 0 1px 6px 0 rgba(80,0,120,0.06);
+    }
+    .markdown-body blockquote {
+      border-left: 4px solid #a78bfa;
+      background: #f3f4f6;
+      color: #4b5563;
+      margin: 1.5em 0;
+      padding: 1em 2em;
+      border-radius: 0.5em;
+      font-style: italic;
+      text-align: left;
+    }
+    .markdown-body pre, .markdown-body code {
+      background: #f3f4f6;
+      color: #23272f;
+      border-radius: 0.4em;
+      padding: 0.2em 0.5em;
+      font-size: 1em;
+      font-family: 'Fira Mono', 'Consolas', 'Monaco', monospace;
+    }
+    .markdown-body hr {
+      border: none;
+      border-top: 2px solid #ede9fe;
+      margin: 2em auto;
+      width: 60%;
+    }
   </style>
 </head>
 <body class="bg-gray-50 min-h-screen">
@@ -174,7 +176,7 @@
     <nav class="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200 shadow-md">
       <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
         <a href="https://risestem.github.io/rise/home#home" class="flex items-center px-0">
-          <img src="https://risestem.github.io/rise/public/logo1.svg" alt="Rise Engineering & Coding" class="h-16 mr-3" />
+          <img src="https://risestem.github.io/rise/public/logo1.svg" alt="Rise Engineering &amp; Coding" class="h-16 mr-3" />
         </a>
         <div class="flex justify-center items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
           <a href="#contact">
@@ -211,7 +213,20 @@
       </div>
     </nav>
   </header>
+
+  <!-- Push content down below the fixed header -->
   <div class="pt-32"></div>
+
+  <!-- Breadcrumb (matches Curriculum page styling, white background) -->
+  <div class="px-32 mb-8 bg-white">
+    <div class="flex items-center text-lg font-normal text-purple-950">
+      <a href="https://risestem.github.io/rise/home" class="hover:underline">Home</a>
+      <span class="mx-4">›</span>
+      <a href="news_overview.html" class="hover:underline">News Overview</a>
+      <span class="mx-4">›</span>
+      <span id="breadcrumb-current" class="font-bold"></span>
+    </div>
+  </div>
 
   <!-- News Content Section -->
   <section id="home" class="min-h-screen bg-white w-full">
@@ -222,7 +237,7 @@
     </div>
     <div id="news-error" class="text-red-600 text-center mt-4"></div> 
   </section>
-  <!-- Marked.js for Markdown rendering -->
+
   <style>
     .news-updated-date {
       font-size: 0.85em;
@@ -234,7 +249,7 @@
   </style>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
-    // Hamburger menu functionality
+    // Hamburger menu toggle
     document.getElementById("hamburger-btn").addEventListener("click", function() {
       const navbar = document.getElementById("navbar-sticky");
       const isExpanded = this.getAttribute("aria-expanded") === "true";
@@ -253,6 +268,7 @@
       let mdFile = getQueryParam("updates");
       let updatesList = [];
       let latestUpdateObj = null;
+
       if (!mdFile) {
         // No param? Get first from updates.json
         try {
@@ -274,10 +290,12 @@
           // continue without datetime
         }
       }
-      // Set title (filename or date)
+
+      // Determine the article title (date‐based or filename)
       let title = mdFile.split('/').pop().replace('.md', '');
       let updatedDate = '';
-      // Find the update object for this mdFile
+
+      // Look up the datetime if updates.json is available
       if (updatesList.length) {
         latestUpdateObj = updatesList.find(u => u.file === mdFile || u.file === ('./' + mdFile));
       }
@@ -285,15 +303,20 @@
         const dateObj = new Date(latestUpdateObj.datetime);
         const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
         title = `${months[dateObj.getMonth()]} ${dateObj.getDate()}, ${dateObj.getFullYear()}`;
+
         let hours = dateObj.getHours();
         const minutes = dateObj.getMinutes().toString().padStart(2, '0');
         const ampm = hours >= 12 ? 'PM' : 'AM';
         hours = hours % 12;
-        hours = hours ? hours : 12; // 0 should be 12
+        hours = hours ? hours : 12; // 0 → 12
         updatedDate = `${months[dateObj.getMonth()]} ${dateObj.getDate()}, ${dateObj.getFullYear()}, ${hours}:${minutes} ${ampm}`;
       }
+
+      // Set the page title and the breadcrumb current item
       document.getElementById('news-title').textContent = `News Update: ${title}`;
-      // Fetch markdown file
+      document.getElementById('breadcrumb-current').textContent = title;
+
+      // Fetch and render the actual markdown file
       fetch(mdFile)
         .then(res => {
           if (!res.ok) throw new Error('Not found');
@@ -307,6 +330,7 @@
           document.getElementById('news-error').textContent = 'Could not load this news update.';
         });
     }
+
     loadNewsUpdate();
   </script>
 </body>
