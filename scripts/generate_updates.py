@@ -13,7 +13,7 @@ for file in os.listdir(directory):
     if file.endswith('.md'):
         path = os.path.join(directory, file)
 
-        # Get last commit date of the file
+        # Get the real last commit date that touched this file
         result = subprocess.run(
             ['git', 'log', '-1', '--format=%cI', '--', path],
             capture_output=True, text=True
@@ -33,4 +33,4 @@ updates_list.sort(key=lambda x: x['datetime'], reverse=True)
 with open(updates_file, 'w') as f:
     json.dump(updates_list, f, indent=2)
 
-print("updates.json fully rebuilt from Git commit history!")
+print("updates.json updated with true last commit timestamps!")
