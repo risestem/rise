@@ -2,7 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="https://    /* Breadcrumb styling */
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>News Updates - Rise Engineering &amp; Coding</title>
+  <link rel="icon" type="image/svg+xml" href="https://risestem.github.io/rise/public/logo1.svg" />
+  <link href="src/style.css" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&amp;display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="src/animations.css" />
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+    }
+
+    /* Breadcrumb styling */
     .breadcrumb-nav a {
       color: #581c87 !important;
       text-decoration: none !important;
@@ -15,36 +34,15 @@
     .breadcrumb-nav span {
       color: #6b7280;
     }
-  </style>
-</head>
-<body class="bg-gray-50 min-h-screen">
-  <!-- Header/Navigation -->
-  <header class="fixed top-0 bg-white shadow-md flex items-center px-32 py-1.5 w-full z-50">
-    <nav class="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200 shadow-md">
-      <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="https://risestem.github.io/rise/home#home" class="flex items-center px-0">
-          <img src="https://risestem.github.io/rise/public/logo1.svg" alt="Rise Engineering &amp; Coding" class="h-16 mr-3" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>News Updates - Rise Engineering &amp; Coding</title>
-  <link href="src/style.css" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="src/animations.css">
-  <style>
-    html {
-      scroll-behavior: smooth;
-    }
-    body {
-      font-family: 'Poppins', sans-serif;
-    }
+
     /* The white “markdown-body” box */
     .markdown-body {
       max-width: 800px;
-      margin: 6rem auto 2rem auto; /* top margin 6rem so it sits below breadcrumbs */
+      margin: 6rem auto 2rem auto; /* top margin 6rem so it sits below the header */
       padding: 2.5rem 2rem;
       background: #fff;
       border-radius: 1.5rem;
-      box-shadow: 0 2px 12px 0 rgba(80,0,120,0.08);
+      box-shadow: 0 2px 12px rgba(80, 0, 120, 0.08);
       color: #23272f;
       text-align: left;
       font-size: 1.15rem;
@@ -52,7 +50,7 @@
       border: 1.5px solid #e5e7eb;
       border-top: 3px solid #e5e7eb;
     }
-    /* Markdown styling */
+    /* Markdown headings, lists, etc. */
     .markdown-body h1 {
       font-size: 2.5em;
       margin-top: 1.2em;
@@ -75,19 +73,24 @@
       margin-bottom: 0.4em;
       font-weight: 600;
     }
-    .markdown-body h4, .markdown-body h5, .markdown-body h6 {
+    .markdown-body h4,
+    .markdown-body h5,
+    .markdown-body h6 {
       font-size: 1.2em;
       margin-top: 0.7em;
       margin-bottom: 0.3em;
       font-weight: 500;
     }
-    .markdown-body strong, .markdown-body b {
+    .markdown-body strong,
+    .markdown-body b {
       font-weight: 700;
     }
-    .markdown-body em, .markdown-body i {
+    .markdown-body em,
+    .markdown-body i {
       font-style: italic;
     }
-    .markdown-body ul, .markdown-body ol {
+    .markdown-body ul,
+    .markdown-body ol {
       margin: 1em 0 1em 2em;
       padding-left: 1.5em;
     }
@@ -104,7 +107,8 @@
       font-style: italic;
       text-align: left;
     }
-    .markdown-body pre, .markdown-body code {
+    .markdown-body pre,
+    .markdown-body code {
       background: #f3f4f6;
       color: #23272f;
       border-radius: 0.4em;
@@ -132,7 +136,7 @@
       margin: 1.5em auto;
       max-width: 100%;
       border-radius: 0.75rem;
-      box-shadow: 0 1px 6px 0 rgba(80,0,120,0.06);
+      box-shadow: 0 1px 6px rgba(80, 0, 120, 0.06);
     }
     .markdown-body p {
       color: #23272f;
@@ -140,7 +144,7 @@
       text-align: left;
     }
 
-    /* “Updated: …” date above the markdown */
+    /* “Updated: …” date styling */
     .news-updated-date {
       font-size: 0.85em;
       color: #6b7280;
@@ -153,31 +157,75 @@
 <body class="bg-gray-50 min-h-screen">
   <!-- Header/Navigation -->
   <header class="fixed top-0 bg-white shadow-md flex items-center px-32 py-1.5 w-full z-50">
-    <nav class="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200 shadow-md">
+    <nav class="fixed w-full z-20 top-0 start-0 border-b border-gray-200 bg-white shadow-md">
       <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="https://risestem.github.io/rise/home#home" class="flex items-center px-0">
-          <img src="https://risestem.github.io/rise/public/logo1.svg" alt="Rise Engineering &amp; Coding" class="h-16 mr-3" />
+        <a href="https://risestem.github.io/rise/home#home" class="flex items-center">
+          <img
+            src="https://risestem.github.io/rise/public/logo1.svg"
+            alt="Rise Engineering &amp; Coding"
+            class="h-16 mr-3"
+          />
         </a>
         <div class="flex justify-center items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
           <a href="#contact">
-            <button type="button" class="text-white bg-purple-950 font-semibold rounded-md text-md px-6 py-3.5 sm:mr-2 lg:mr-0 transform transition-all duration-300 hover:scale-110">
+            <button
+              type="button"
+              class="text-white bg-purple-950 font-semibold rounded-md text-md px-6 py-3.5 sm:mr-2 lg:mr-0 transform transition-all duration-300 hover:scale-110"
+            >
               Contact Us
             </button>
           </a>
-          <button id="hamburger-btn" data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-sticky" aria-expanded="false">
+          <button
+            id="hamburger-btn"
+            data-collapse-toggle="navbar-sticky"
+            type="button"
+            class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+            aria-controls="navbar-sticky"
+            aria-expanded="false"
+          >
             <span class="sr-only">Open main menu</span>
             <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15" />
             </svg>
           </button>
         </div>
         <div class="hidden w-full md:flex md:w-auto md:order-1 justify-start" id="navbar-sticky">
-          <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:mt-0 md:border-0 md:bg-white">
-            <li><a href="https://risestem.github.io/rise/home" class="px-4 font-bold text-gray-500 hover:text-purple-950">Home</a></li>
-            <li><a href="https://risestem.github.io/rise/mission" class="px-4 font-bold text-gray-500 hover:text-purple-950">Our Mission</a></li>
-            <li><a href="https://risestem.github.io/rise/curriculum" class="px-4 font-bold text-gray-500 hover:text-purple-950">Curriculum</a></li>
-            <li><a href="https://risestem.github.io/rise/questions" class="px-4 font-bold text-gray-500 hover:text-purple-950">Questions</a></li>
-            <li><a href="https://risestem.github.io/rise/about" class="px-4 font-bold text-gray-500 hover:text-purple-950">About Us</a></li>
+          <ul class="flex flex-col p-4 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:mt-0 md:border-0 md:bg-white md:p-0">
+            <li>
+              <a
+                href="https://risestem.github.io/rise/home"
+                class="px-4 font-bold text-gray-500 hover:text-purple-950"
+                >Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://risestem.github.io/rise/mission"
+                class="px-4 font-bold text-gray-500 hover:text-purple-950"
+                >Our Mission</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://risestem.github.io/rise/curriculum"
+                class="px-4 font-bold text-gray-500 hover:text-purple-950"
+                >Curriculum</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://risestem.github.io/rise/questions"
+                class="px-4 font-bold text-gray-500 hover:text-purple-950"
+                >Questions</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://risestem.github.io/rise/about"
+                class="px-4 font-bold text-gray-500 hover:text-purple-950"
+                >About Us</a
+              >
+            </li>
           </ul>
         </div>
       </div>
@@ -186,9 +234,9 @@
 
   <!-- Push content down below the fixed header -->
   <div class="pt-36"></div>
-  
+
   <!-- News Content Section -->
-  <section id="home" class="min-h-screen bg-white w-full">
+  <section id="home" class="bg-white w-full">
     <div id="news-content" class="markdown-body">
       <div class="breadcrumb-nav flex items-center text-lg font-normal">
         <a href="https://risestem.github.io/rise/home">Home</a>
@@ -199,7 +247,7 @@
       </div>
       <!-- Rendered markdown will appear here -->
       <div id="news-markdown"></div>
-      <!-- Updated date (if available) - moved to bottom -->
+      <!-- Updated date (if available) -->
       <div id="news-updated-date" class="news-updated-date"></div>
     </div>
     <div id="news-error" class="text-red-600 text-center mt-4"></div>
@@ -207,8 +255,8 @@
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
-    // Hamburger menu toggle (unchanged)
-    document.getElementById("hamburger-btn").addEventListener("click", function() {
+    // Hamburger menu toggle
+    document.getElementById("hamburger-btn").addEventListener("click", function () {
       const navbar = document.getElementById("navbar-sticky");
       const isExpanded = this.getAttribute("aria-expanded") === "true";
       navbar.classList.toggle("hidden", isExpanded);
@@ -236,7 +284,7 @@
             mdFile = updatesList[0].file;
           }
         } catch (e) {
-          document.getElementById('news-error').textContent = 'Could not load updates.json.';
+          document.getElementById("news-error").textContent = "Could not load updates.json.";
           return;
         }
       } else {
@@ -251,7 +299,7 @@
 
       // If we still don’t have mdFile, bail
       if (!mdFile) {
-        document.getElementById('news-error').textContent = 'No update file specified.';
+        document.getElementById("news-error").textContent = "No update file specified.";
         return;
       }
 
@@ -263,36 +311,55 @@
 
         // 1) Extract the first-level heading (# ) as the “title”
         const headingMatch = md.match(/^#\s+(.+)$/m);
-        const extractedTitle = headingMatch ? headingMatch[1].trim() : mdFile.split('/').pop().replace('.md', '');
+        const extractedTitle = headingMatch
+          ? headingMatch[1].trim()
+          : mdFile.split("/").pop().replace(".md", "");
 
         // 2) If updates.json gave us a datetime, format it for “Updated: …”
         let updatedDate = "";
         if (updatesList.length) {
-          latestUpdateObj = updatesList.find(u => u.file === mdFile || u.file === ("./" + mdFile));
+          latestUpdateObj = updatesList.find(
+            (u) => u.file === mdFile || u.file === "./" + mdFile
+          );
           if (latestUpdateObj && latestUpdateObj.datetime) {
             const dateObj = new Date(latestUpdateObj.datetime);
-            const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            const months = [
+              "January",
+              "February",
+              "March",
+              "April",
+              "May",
+              "June",
+              "July",
+              "August",
+              "September",
+              "October",
+              "November",
+              "December",
+            ];
             let hours = dateObj.getHours();
-            const minutes = dateObj.getMinutes().toString().padStart(2, '0');
-            const ampm = hours >= 12 ? 'PM' : 'AM';
+            const minutes = dateObj.getMinutes().toString().padStart(2, "0");
+            const ampm = hours >= 12 ? "PM" : "AM";
             hours = hours % 12;
             hours = hours ? hours : 12; // 0 → 12
-            updatedDate = `${months[dateObj.getMonth()]} ${dateObj.getDate()}, ${dateObj.getFullYear()}, ${hours}:${minutes} ${ampm}`;
+            updatedDate = `${months[dateObj.getMonth()]} ${dateObj.getDate()}, ${
+              dateObj.getFullYear()
+            }, ${hours}:${minutes} ${ampm}`;
           }
         }
 
         // 3) Populate “Updated: …” line (if we have one)
         if (updatedDate) {
-          document.getElementById('news-updated-date').textContent = `Updated: ${updatedDate}`;
+          document.getElementById("news-updated-date").textContent = `Updated: ${updatedDate}`;
         }
 
         // 4) Populate breadcrumb current title
-        document.getElementById('breadcrumb-current').textContent = extractedTitle;
+        document.getElementById("breadcrumb-current").textContent = extractedTitle;
 
         // 5) Render the markdown into the container
-        document.getElementById('news-markdown').innerHTML = marked.parse(md);
+        document.getElementById("news-markdown").innerHTML = marked.parse(md);
       } catch (err) {
-        document.getElementById('news-error').textContent = 'Could not load this news update.';
+        document.getElementById("news-error").textContent = "Could not load this news update.";
       }
     }
 
