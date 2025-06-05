@@ -1,20 +1,17 @@
 import os
 import json
 
-files = [
-    f for f in os.listdir('news_updates')
-    if f.endswith('.md')
-]
+# List markdown files
+files = [f for f in os.listdir('news_updates') if f.endswith('.md')]
 
-files.sort(
-    key=lambda x: os.path.getmtime(f'news_updates/{x}'),
-    reverse=True
-)
+# Sort by last modified time, most recent first
+files = sorted(files, key=lambda x: os.path.getmtime(f'news_updates/{x}'), reverse=True)
 
-latest = files[0] if files else ''
-data = {'latest_update': f'news_updates/{latest}'}
+# Create a list of full file paths (or just file names if preferred)
+updates = [f'news_updates/{f}' for f in files]
 
+# Write to JSON
 with open('updates.json', 'w') as f:
-    json.dump(data, f, indent=2)
+    json.dump({'updates': updates}, f, indent=4)
 
-print('Generated updates.json:', data)
+print("Updated updates.json with all updates (most recent first).")
