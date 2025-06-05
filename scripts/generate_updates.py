@@ -1,31 +1,48 @@
 import os
 import json
 import subprocess
+from datetime import datetime
 
 directory = 'news_updates'
 updates_file = 'updates.json'
-
 updates_dict = {}
 
 for file in os.listdir(directory):
     if file.endswith('.md'):
         path = os.path.join(directory, file)
-
-        # Get the real last commit that changed this file's content
-        result = subprocess.run(
-            ['git', 'log', '--format=%H', '--', path],
-            capture_output=True, text=True
-        )
-        commits = result.stdout.strip().split('\n')
-        real_commit = commits[0]  # first one is the last commit that changed this file's content
-
-        # Get the date of that real commit
-        date_result = subprocess.run(
-            ['git', 'show', '-s', '--format=%cI', real_commit],
-            capture_output=True, text=True
-        )
-        git_date = date_result.stdout.strip()
-
+        
+        try:
+            # Get the last commit that modified this specific file
+            result = subprocess.run(
+                ['git', 'log', '-1', '--format=%H', '--', path],
+                capture_output=True, text=True, check=True
+            )
+            
+            if result.stdout.strip():
+                commit_hash = result.stdout.strip()
+                
+                # Get the commit date in ISO format
+                date_result = subprocess.run(
+                    ['git', 'show', '-s', '--format=%cI', commit_hash],
+                    capture_output=True, text=True, check=True
+                )
+                git_date = date_result.stdout.strip()
+                
+                # Alternative: get author date instead of commit date
+                # date_result = subprocess.run(
+                #     ['git', 'show', '-s', '--format=%aI', commit_hash],
+                #     capture_output=True, text=True, check=True
+                # )
+                
+            else:
+                # File has no git history, use current time
+                git_date = datetime.now().astimezone().isoformat()
+                
+        except subprocess.CalledProcessError as e:
+            print(f"Error getting git info for {path}: {e}")
+            # Fallback to current time
+            git_date = datetime.now().astimezone().isoformat()
+        
         updates_dict[path] = {
             'file': path,
             'datetime': git_date
@@ -39,3 +56,6 @@ with open(updates_file, 'w') as f:
     json.dump(updates_list, f, indent=2)
 
 print("updates.json updated with real last modification times!")
+print(f"Found {len(updates_list)} files:")
+for update in updates_list:
+    print(f"  {update['file']}: {update['datetime']}")
