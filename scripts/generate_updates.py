@@ -5,20 +5,26 @@ import subprocess
 directory = 'news_updates'
 updates_file = 'updates.json'
 
-# Prepare updates dictionary
 updates_dict = {}
 
-# For each .md file in the directory, get last commit timestamp
 for file in os.listdir(directory):
     if file.endswith('.md'):
         path = os.path.join(directory, file)
 
-        # Get the real last commit date that touched this file
+        # Get the real last commit that changed this file's content
         result = subprocess.run(
-            ['git', 'log', '-1', '--format=%cI', '--', path],
+            ['git', 'log', '--format=%H', '--', path],
             capture_output=True, text=True
         )
-        git_date = result.stdout.strip()
+        commits = result.stdout.strip().split('\n')
+        real_commit = commits[0]  # first one is the last commit that changed this file's content
+
+        # Get the date of that real commit
+        date_result = subprocess.run(
+            ['git', 'show', '-s', '--format=%cI', real_commit],
+            capture_output=True, text=True
+        )
+        git_date = date_result.stdout.strip()
 
         updates_dict[path] = {
             'file': path,
@@ -29,8 +35,7 @@ for file in os.listdir(directory):
 updates_list = list(updates_dict.values())
 updates_list.sort(key=lambda x: x['datetime'], reverse=True)
 
-# Write to updates.json
 with open(updates_file, 'w') as f:
     json.dump(updates_list, f, indent=2)
 
-print("updates.json updated with true last commit timestamps!")
+print("updates.json updated with real last modification times!")
