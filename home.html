@@ -260,56 +260,41 @@
       });
     }
     </script>
+    <div class="flex justify-center my-8">
+      <button id="latest-news-btn" class="text-white bg-purple-950 font-semibold rounded-md text-md px-6 py-3.5 transform transition-all duration-300 hover:scale-110">
+        Read Latest News
+      </button>
+    </div>
     <script>
       // Fetch updates.json and update the Latest News button
       fetch('updates.json')
         .then(response => response.json())
         .then(data => {
           let updates = [];
-          // Try to find updates array
-          if (Array.isArray(data.updates) && data.updates.length > 0) {
-            updates = data.updates;
-          } else if (Array.isArray(data) && data.length > 0) {
+          // Support both array and object formats
+          if (Array.isArray(data)) {
             updates = data;
+          } else if (Array.isArray(data.updates)) {
+            updates = data.updates;
           }
-          let latest = null;
-          if (updates.length > 0) {
-            // Sort by datetime descending if not already sorted
-            updates.sort((a, b) => new Date(b.datetime) - new Date(a.datetime));
-            latest = updates[0];
-          } else if (data.latest_update) {
-            // Fallback: use latest_update if present (legacy)
-            latest = { name: data.latest_update, datetime: null };
-          }
-          if (!latest || !latest.name) {
-            console.warn('No news updates found in updates.json:', data);
-            const btn = document.getElementById('latest-news-btn');
-            btn.textContent = 'No news available';
-            btn.disabled = true;
+          if (!updates.length || !updates[0].file) {
+            document.getElementById('latest-news-btn').disabled = true;
+            document.getElementById('latest-news-btn').textContent = 'No news available';
             return;
           }
-          const latestFile = latest.name;
-          let title = latestFile.split('/').pop().replace('.md', '');
-          // Prefer datetime if available
-          if (latest.datetime) {
-            const dateObj = new Date(latest.datetime);
-            const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-            title = `${months[dateObj.getMonth()]} ${dateObj.getDate()}, ${dateObj.getFullYear()}`;
-          }
+          const latestFile = updates[0].file;
           const btn = document.getElementById('latest-news-btn');
-          btn.textContent = `Read: ${title}`;
           btn.disabled = false;
           btn.onclick = () => {
             window.location.href = `news_updates.html?updates=${encodeURIComponent(latestFile)}`;
           };
         })
-        .catch((err) => {
-          console.error('Error loading updates.json:', err);
-          const btn = document.getElementById('latest-news-btn');
-          btn.textContent = 'No news available';
-          btn.disabled = true;
+        .catch(() => {
+          document.getElementById('latest-news-btn').disabled = true;
+          document.getElementById('latest-news-btn').textContent = 'No news available';
         });
     </script>
+
     <div>
       <!-- Footer Section -->
       <div class="flex flex-wrap justify-between items-center pt-8 px-6 sm:px-12 md:px-24 lg:px-32 pb-8 w-full bg-white text-gray-400">
