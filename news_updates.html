@@ -243,13 +243,14 @@
     </nav>
 
     <!-- News Content Section -->
-    <section class="min-h-screen bg-gray-50 w-full px-4">
-      <div id="news-title" class="text-3xl font-extrabold text-purple-950 mb-4 text-center max-w-4xl mx-auto"></div>
-      <div id="news-content" class="markdown-body">
-        <div id="news-updated-date" class="news-updated-date"></div>
-        <div id="news-markdown"></div>
+    <section class="min-h-screen bg-gray-50 w-full flex justify-center">
+      <div class="w-full max-w-5xl px-4">
+        <div id="news-content" class="markdown-body mx-auto">
+          <div id="news-updated-date" class="news-updated-date"></div>
+          <div id="news-markdown"></div>
+        </div>
+        <div id="news-error" class="text-red-600 text-center mt-4"></div> 
       </div>
-      <div id="news-error" class="text-red-600 text-center mt-4 max-w-4xl mx-auto"></div> 
     </section>
   </div>
 
@@ -314,7 +315,6 @@
         hours = hours ? hours : 12; // 0 should be 12
         updatedDate = `${months[dateObj.getMonth()]} ${dateObj.getDate()}, ${dateObj.getFullYear()}, ${hours}:${minutes} ${ampm}`;
       }
-      document.getElementById('news-title').textContent = `News Update: ${title}`;
       // Update breadcrumb
       document.getElementById('breadcrumb-current-news').textContent = title;
       // Fetch markdown file
@@ -328,7 +328,6 @@
           const titleMatch = md.match(/^# (.+)$/m);
           if (titleMatch) {
             const actualTitle = titleMatch[1].trim();
-            document.getElementById('news-title').textContent = actualTitle;
             document.getElementById('breadcrumb-current-news').textContent = actualTitle;
           }
           
