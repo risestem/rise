@@ -2,13 +2,16 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="https://    /* "Updated: …" date above the markdown */
+  <link rel="icon" type="image/svg+xml" href="https://    /* "Updated: …" date at the bottom of the markdown */
     .news-updated-date {
       font-size: 0.85em;
       color: #6b7280;
-      margin-bottom: 0.5em;
+      margin-top: 2em;
+      margin-bottom: 0;
       font-weight: 400;
-      text-align: left;
+      text-align: right;
+      border-top: 1px solid #e5e7eb;
+      padding-top: 1em;
     }
 
     /* Breadcrumb styling - override markdown link styles */
@@ -192,10 +195,10 @@
         <span class="mx-4">›</span>
         <span id="breadcrumb-current" class="font-bold"></span>
       </div>
-      <!-- Updated date (if available) -->
-      <div id="news-updated-date" class="news-updated-date"></div>
       <!-- Rendered markdown will appear here -->
       <div id="news-markdown"></div>
+      <!-- Updated date (if available) - moved to bottom -->
+      <div id="news-updated-date" class="news-updated-date"></div>
     </div>
     <div id="news-error" class="text-red-600 text-center mt-4"></div>
   </section>
