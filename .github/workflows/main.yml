@@ -18,14 +18,20 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Get changed markdown files
+        id: changed-files
+        run: |
+          echo "CHANGED_FILES=$(git diff --name-only HEAD^ HEAD -- 'news_updates/*.md' | tr '\n' ' ')" >> $GITHUB_ENV
+
       - name: Run script to generate updates.json
         run: |
-          python scripts/generate_updates.py
+          echo "Changed files: $CHANGED_FILES"
+          python scripts/generate_updates.py $CHANGED_FILES
 
       - name: Commit updates.json
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add updates.json
-          git commit -m 'Update latest update link'
+          git commit -m 'Update latest update link' || echo "No changes to commit"
           git push
