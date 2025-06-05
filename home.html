@@ -163,11 +163,14 @@
       <span class="text-xl font-bold text-purple-950 sm:text-2xl mb-2">Latest News</span>
       <div class="text-gray-700 text-center mb-4">Check out our most recent updates!</div>
       <div class="relative w-full" style="height: 20rem;">
-        <!-- Blur overlays (tight to card) -->
-        <div class="pointer-events-none absolute top-0 left-0 w-full h-8 z-20" style="background: linear-gradient(to bottom, rgba(255,255,255,0.95) 90%, rgba(255,255,255,0) 100%); filter: blur(4px);"></div>
-        <div class="pointer-events-none absolute bottom-0 left-0 w-full h-8 z-20" style="background: linear-gradient(to top, rgba(255,255,255,0.95) 90%, rgba(255,255,255,0) 100%); filter: blur(4px);"></div>
-        <div class="relative w-full h-full overflow-y-auto scrollbar-hide flex flex-col items-center" id="news-cards-scroll-container" style="scroll-snap-type: y mandatory; padding-top: 0; padding-bottom: 0;">
-          <div id="news-cards-container" class="flex flex-col gap-0 w-full items-center" style="min-height: 100%;">
+        <!-- Top blur overlay (short, blurs the bottom of the second card) -->
+        <div class="pointer-events-none absolute top-0 left-0 w-full h-12 z-20" style="background: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 100%); filter: blur(4px);"></div>
+
+        <!-- Bottom blur overlay (short, fades out the bottom of the last card) -->
+        <div class="pointer-events-none absolute bottom-0 left-0 w-full h-12 z-20" style="background: linear-gradient(to top, rgba(255,255,255,0) 0%, rgba(255,255,255,0.8) 100%); filter: blur(4px);"></div>
+
+        <div class="relative w-full h-full overflow-y-auto scrollbar-hide flex flex-col items-center" id="news-cards-scroll-container" style="scroll-snap-type: y mandatory;">
+          <div id="news-cards-container" class="flex flex-col gap-4 w-full items-center py-4" style="min-height: 100%;">
             <!-- News cards will be injected here -->
           </div>
         </div>
