@@ -2,7 +2,7 @@
 <h    /* The white "markdown-body" box */
     .markdown-body {
       max-width: 800px;
-      margin: 2rem auto 2rem auto; /* reduced top margin since breadcrumbs are now separate */
+      margin: 2rem auto 2rem auto; /* reduced top margin since breadcrumbs are now above */
       padding: 2.5rem 2rem;
       background: #fff;
       border-radius: 1.5rem;
@@ -179,11 +179,10 @@
   <!-- Push content down below the fixed header -->
   <div class="pt-32"></div>
 
-
-
-  <!-- Breadcrumb Section -->
-  <div class="bg-gray-50 pt-8 pb-4">
-    <div class="max-w-[800px] mx-auto px-4">
+  <!-- News Content Section -->
+  <section id="home" class="min-h-screen bg-gray-50 w-full">
+    <!-- Breadcrumb inside content section -->
+    <div class="max-w-[800px] mx-auto px-4 mb-6">
       <div class="flex items-center text-lg font-normal text-purple-950">
         <a href="https://risestem.github.io/rise/home" class="hover:underline">Home</a>
         <span class="mx-4">›</span>
@@ -192,10 +191,6 @@
         <span id="breadcrumb-current" class="font-bold"></span>
       </div>
     </div>
-  </div>
-
-  <!-- News Content Section -->
-  <section id="home" class="min-h-screen bg-gray-50 w-full">
     <div id="news-content" class="markdown-body">
       <!-- Updated date (if available) -->
       <div id="news-updated-date" class="news-updated-date"></div>
