@@ -143,16 +143,41 @@
       margin-bottom: 0.5em;
       font-weight: 400;
       text-align: center;
-    }
-    .max-w-5xl {
-      display: flex;
-      justify-content: center;
-      padding: 0;
-    }
-    .markdown-body {
-      width: 100%;
-      max-width: 800px;
-      margin: 2rem 0 4rem 0;
+      .markdown-body {
+        max-width: 800px;
+        margin: 2rem auto 4rem auto; /* Centers the box */
+        padding: 2.5rem 2rem;
+        background: #fff;
+        border-radius: 1.5rem;
+        box-shadow: 0 2px 12px 0 rgba(80,0,120,0.08);
+        color: #23272f;
+        font-size: 1.15rem;
+        line-height: 1.7;
+        border: 1.5px solid #e5e7eb;
+        border-top: 3px solid #e5e7eb;
+        text-align: left; /* Ensures default text alignment is left */
+      }
+
+      /* Remove forced centering for all child elements */
+      .markdown-body * {
+        text-align: left; /* Reset to left alignment */
+      }
+
+      /* Optionally, keep headings centered if you want */
+      .markdown-body h1,
+      .markdown-body h2,
+      .markdown-body h3,
+      .markdown-body h4,
+      .markdown-body h5,
+      .markdown-body h6 {
+        text-align: center; /* Only center headings */
+      }
+
+      /* Ensure code blocks remain left-aligned */
+      .markdown-body pre,
+      .markdown-body code {
+        text-align: left;
+      }
     }
   </style>
 </head>
