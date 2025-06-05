@@ -158,14 +158,95 @@
       </div>
     </div>
 
-    <!-- Latest News Box -->
-    <div id="latest-news" class="fadeInUp-animation my-8 mx-auto max-w-2xl rounded-lg border border-purple-300 bg-white shadow-lg p-6 flex flex-col items-center">
+    <!-- Latest News Carousel -->
+    <div id="latest-news-carousel" class="fadeInUp-animation my-8 mx-auto max-w-2xl rounded-lg border border-purple-300 bg-white shadow-lg p-6 flex flex-col items-center">
       <span class="text-xl font-bold text-purple-950 sm:text-2xl mb-2">Latest News</span>
-      <div class="text-gray-700 text-center mb-4">Check out our most recent update!</div>
-      <button id="latest-news-btn" class="px-6 py-2 text-white font-bold bg-purple-700 rounded-full transform transition-all duration-300 hover:scale-110" disabled>
-        Loading latest news...
-      </button>
+      <div class="text-gray-700 text-center mb-4">Check out our most recent updates!</div>
+      <div class="relative w-full overflow-x-auto scrollbar-hide">
+        <div id="news-cards-container" class="flex gap-6 transition-transform duration-500" style="scroll-snap-type: x mandatory;">
+          <!-- News cards will be injected here -->
+        </div>
+      </div>
+      <div class="flex justify-center gap-2 mt-4" id="news-carousel-dots"></div>
     </div>
+    <style>
+      .news-card-blur {
+        filter: blur(4px) grayscale(30%);
+        opacity: 0.7;
+        pointer-events: none;
+        transition: filter 0.3s, opacity 0.3s;
+      }
+      .news-card-active {
+        filter: none;
+        opacity: 1;
+        pointer-events: auto;
+        z-index: 10;
+      }
+      .scrollbar-hide::-webkit-scrollbar { display: none; }
+      .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+    <script>
+      async function loadLatestNewsCarousel() {
+        let updates = [];
+        try {
+          const res = await fetch('updates.json');
+          const data = await res.json();
+          if (Array.isArray(data)) {
+            updates = data;
+          } else if (Array.isArray(data.updates)) {
+            updates = data.updates;
+          }
+        } catch {
+          document.getElementById('latest-news-carousel').innerHTML += '<div class="text-red-600 mt-2">Could not load news updates.</div>';
+          return;
+        }
+        if (!updates.length) return;
+        // Get last 3 updates (most recent first)
+        const lastThree = updates.slice(-3).reverse();
+        const container = document.getElementById('news-cards-container');
+        const dots = document.getElementById('news-carousel-dots');
+        container.innerHTML = lastThree.map((u, i) => `
+          <div class="flex-shrink-0 w-80 max-w-xs bg-white border border-purple-200 rounded-xl shadow-md p-4 mx-2 transition-all duration-300 news-card ${i === 0 ? 'news-card-active' : 'news-card-blur'}" style="scroll-snap-align: center;">
+            <div class="text-purple-950 font-bold text-lg mb-1">${formatNewsDate(u.datetime)}</div>
+            <div class="text-gray-700 text-sm mb-3 truncate">${u.title ? u.title : u.file.split('/').pop().replace('.md','')}</div>
+            <a href="news_updates.html?updates=${encodeURIComponent(u.file)}" class="block mt-2 px-4 py-2 bg-purple-950 text-white rounded-full font-semibold text-center transition hover:bg-purple-800">Read More</a>
+          </div>
+        `).join('');
+        dots.innerHTML = lastThree.map((_, i) => `<button class="w-3 h-3 rounded-full ${i === 0 ? 'bg-purple-700' : 'bg-gray-300'}" data-idx="${i}"></button>`).join('');
+        // Carousel logic
+        let current = 0;
+        function updateCarousel(idx) {
+          current = idx;
+          const cards = container.querySelectorAll('.news-card');
+          cards.forEach((card, i) => {
+            card.classList.toggle('news-card-active', i === idx);
+            card.classList.toggle('news-card-blur', i !== idx);
+          });
+          dots.querySelectorAll('button').forEach((dot, i) => {
+            dot.className = `w-3 h-3 rounded-full ${i === idx ? 'bg-purple-700' : 'bg-gray-300'}`;
+          });
+          container.scrollTo({ left: idx * (cards[0].offsetWidth + 16), behavior: 'smooth' });
+        }
+        dots.querySelectorAll('button').forEach((dot, i) => {
+          dot.onclick = () => updateCarousel(i);
+        });
+        // Allow horizontal scroll (snap to card)
+        container.addEventListener('scroll', () => {
+          const cards = container.querySelectorAll('.news-card');
+          let idx = Math.round(container.scrollLeft / (cards[0].offsetWidth + 16));
+          if (idx !== current && idx >= 0 && idx < lastThree.length) {
+            updateCarousel(idx);
+          }
+        });
+      }
+      function formatNewsDate(dt) {
+        if (!dt) return '';
+        const dateObj = new Date(dt);
+        const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        return `${months[dateObj.getMonth()]} ${dateObj.getDate()}, ${dateObj.getFullYear()}`;
+      }
+      loadLatestNewsCarousel();
+    </script>
 
     <div id="contact" class="w-full bg-purple-950 text-white pt-6">
       <div class="fadeInUp-animation container max-w-md mx-auto  flex flex-col grid-rows-2 items-center">
