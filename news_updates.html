@@ -279,7 +279,7 @@
       let updatedDate = '';
       // Find the update object for this mdFile
       if (updatesList.length) {
-        latestUpdateObj = updatesList.find(u => u.name === mdFile || u.name === ('./' + mdFile));
+        latestUpdateObj = updatesList.find(u => u.file === mdFile || u.file === ('./' + mdFile));
       }
       if (latestUpdateObj && latestUpdateObj.datetime) {
         const dateObj = new Date(latestUpdateObj.datetime);
