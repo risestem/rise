@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'news_updates/*.md'
+      - '.github/workflows/update-latest.yml'  # Trigger if the workflow itself changes
 
 jobs:
   update-latest:
@@ -18,24 +19,14 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Get changed markdown files
-        id: changed-files
+      - name: Run script to regenerate updates.json
         run: |
-          # Use the empty tree hash if HEAD^ doesn't exist
-          echo "CHANGED_FILES=$(git diff --name-only $(git rev-parse HEAD^ || echo 4b825dc642cb6eb9a060e54bf8d69288fbee4904) HEAD -- 'news_updates/*.md' | tr '\n' ' ')" >> $GITHUB_ENV
+          python scripts/generate_updates.py
 
-      - name: Debug changed files
-        run: |
-          echo "Changed files: $CHANGED_FILES"
-
-      - name: Run script to generate updates.json
-        run: |
-          python scripts/generate_updates.py $CHANGED_FILES
-
-      - name: Commit updates.json
+      - name: Commit updates.json if it changed
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email 'github-actions[bot]@users.noreply.github.com'
           git add updates.json
-          git commit -m 'Update latest update link' || echo "No changes to commit"
+          git diff --cached --quiet || git commit -m 'Update latest update link'
           git push
