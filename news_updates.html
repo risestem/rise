@@ -254,12 +254,13 @@
       let updatesList = [];
       let latestUpdateObj = null;
       if (!mdFile) {
-        // No param? Get latest from updates.json
+        // No param? Get first from updates.json
         try {
           const res = await fetch("updates.json");
-          const data = await res.json();
-          mdFile = data.latest_update;
-          updatesList = data.updates || [];
+          updatesList = await res.json();
+          if (updatesList.length > 0) {
+            mdFile = updatesList[0].file;
+          }
         } catch (e) {
           document.getElementById('news-error').textContent = 'Could not load updates.json.';
           return;
@@ -268,8 +269,7 @@
         // Try to get updates list for datetime info
         try {
           const res = await fetch("updates.json");
-          const data = await res.json();
-          updatesList = data.updates || [];
+          updatesList = await res.json();
         } catch (e) {
           // continue without datetime
         }
