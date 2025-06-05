@@ -220,7 +220,7 @@
         }
         if (!updates.length) return;
         // Show newest to oldest, left to right
-        const sorted = updates.slice().reverse();
+        const sorted = updates; // No .reverse(), updates.json is already newest first
         const container = document.getElementById('news-cards-container');
         // Fetch titles from markdown files
         const titles = await Promise.all(sorted.map(async (u) => {
