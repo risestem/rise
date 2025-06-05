@@ -265,23 +265,21 @@
       fetch('updates.json')
         .then(response => response.json())
         .then(data => {
-          const latestFile = data.latest_update;
-          // Extract a readable title from the filename (e.g., 06-04-2025.md -> June 4, 2025)
-          let title = latestFile.split('/').pop().replace('.md', '');
-          // Optionally, format the date if the filename is in MM-DD-YYYY
-          const dateMatch = title.match(/(\d{2})-(\d{2})-(\d{4})/);
-          if (dateMatch) {
-            const [_, mm, dd, yyyy] = dateMatch;
-            const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-            title = `${months[parseInt(mm,10)-1]} ${parseInt(dd,10)}, ${yyyy}`;
-          }
+          // Assume data.updates is a sorted array (latest first)
+          const updates = data.updates || [];
+          if (!updates.length) throw new Error('No updates');
+          const latest = updates[0];
+          const latestFile = latest.name;
+          // Format the date from the datetime field
+          const dateObj = new Date(latest.datetime);
+          const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+          const title = `${months[dateObj.getMonth()]} ${dateObj.getDate()}, ${dateObj.getFullYear()}`;
           const btn = document.getElementById('latest-news-btn');
           btn.textContent = `Read: ${title}`;
           btn.disabled = false;
           btn.onclick = () => {
             window.location.href = `news_updates.html?updates=${encodeURIComponent(latestFile)}`;
           };
-
         })
         .catch(() => {
           const btn = document.getElementById('latest-news-btn');

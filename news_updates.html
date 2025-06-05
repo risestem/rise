@@ -251,26 +251,46 @@
     // Fetch and render markdown
     async function loadNewsUpdate() {
       let mdFile = getQueryParam("updates");
+      let updatesList = [];
+      let latestUpdateObj = null;
       if (!mdFile) {
         // No param? Get latest from updates.json
         try {
           const res = await fetch("updates.json");
           const data = await res.json();
           mdFile = data.latest_update;
+          updatesList = data.updates || [];
         } catch (e) {
           document.getElementById('news-error').textContent = 'Could not load updates.json.';
           return;
+        }
+      } else {
+        // Try to get updates list for datetime info
+        try {
+          const res = await fetch("updates.json");
+          const data = await res.json();
+          updatesList = data.updates || [];
+        } catch (e) {
+          // continue without datetime
         }
       }
       // Set title (filename or date)
       let title = mdFile.split('/').pop().replace('.md', '');
       let updatedDate = '';
-      const dateMatch = title.match(/(\d{2})-(\d{2})-(\d{4})/);
-      if (dateMatch) {
-        const [_, mm, dd, yyyy] = dateMatch;
+      // Find the update object for this mdFile
+      if (updatesList.length) {
+        latestUpdateObj = updatesList.find(u => u.name === mdFile || u.name === ('./' + mdFile));
+      }
+      if (latestUpdateObj && latestUpdateObj.datetime) {
+        const dateObj = new Date(latestUpdateObj.datetime);
         const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-        title = `${months[parseInt(mm,10)-1]} ${parseInt(dd,10)}, ${yyyy}`;
-        updatedDate = `${months[parseInt(mm,10)-1]} ${parseInt(dd,10)}, ${yyyy}`;
+        title = `${months[dateObj.getMonth()]} ${dateObj.getDate()}, ${dateObj.getFullYear()}`;
+        let hours = dateObj.getHours();
+        const minutes = dateObj.getMinutes().toString().padStart(2, '0');
+        const ampm = hours >= 12 ? 'PM' : 'AM';
+        hours = hours % 12;
+        hours = hours ? hours : 12; // 0 should be 12
+        updatedDate = `${months[dateObj.getMonth()]} ${dateObj.getDate()}, ${dateObj.getFullYear()}, ${hours}:${minutes} ${ampm}`;
       }
       document.getElementById('news-title').textContent = `News Update: ${title}`;
       // Fetch markdown file
