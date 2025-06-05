@@ -101,12 +101,12 @@ async function loadAllNews() {
   }));
   const container = document.getElementById('news-list-container');
   container.innerHTML = updates.map((u, i) => `
-    <div class="w-full bg-white border-2 border-purple-100 rounded-2xl shadow-lg flex flex-col md:flex-row items-center px-8 py-8 gap-6 max-w-5xl mx-auto">
-      <div class="flex-1 min-w-0">
+    <div class="w-full bg-white border-2 border-purple-100 rounded-2xl shadow-lg flex flex-col items-center px-8 py-8 gap-6 max-w-4xl mx-auto">
+      <div class="w-full text-center">
         <div class="text-3xl font-bold text-purple-950 mb-2">${titles[i]}</div>
         <div class="text-gray-500 text-md mb-4">${formatNewsDate(u.datetime)}</div>
       </div>
-      <div class="flex-shrink-0">
+      <div class="w-full flex justify-center">
         <a href="news_updates.html?updates=${encodeURIComponent(u.file)}" class="px-8 py-4 bg-purple-950 text-white rounded-full font-semibold text-lg transition hover:bg-purple-800 block text-center">Read Update</a>
       </div>
     </div>
@@ -121,7 +121,7 @@ function formatNewsDate(dt) {
 loadAllNews();
 </script>
 <!-- Footer Section -->
-<div class="flex flex-wrap justify-between items-center pt-8 px-6 sm:px-12 md:px-24 lg:px-32 pb-8 w-full bg-white text-gray-400">
+<div class="w-full flex flex-wrap justify-between items-center pt-8 px-6 sm:px-12 md:px-24 lg:px-32 pb-8 bg-white text-gray-400 mt-8">
   <a href="https://risestem.github.io/rise/home#home" class="flex items-center">
     <img src="https://risestem.github.io/rise/public/logo1.svg" alt="Rise Engineering & Coding" class="h-12 sm:h-16 w-12 sm:w-16" />
     <span class="text-lg sm:text-xl font-extrabold px-4">Rise Engineering & <br class="hidden sm:inline"> Coding</span>
