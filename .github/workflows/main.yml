@@ -1,0 +1,31 @@
+name: Update Latest News Link
+
+on:
+  push:
+    paths:
+      - 'news_updates/*.md'
+
+jobs:
+  update-latest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Run script to generate updates.json
+        run: |
+          python scripts/generate_updates.py
+
+      - name: Commit updates.json
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add updates.json
+          git commit -m 'Update latest update link'
+          git push
