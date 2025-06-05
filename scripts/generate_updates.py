@@ -1,17 +1,28 @@
 import os
 import json
+from datetime import datetime
 
-# List markdown files
-files = [f for f in os.listdir('news_updates') if f.endswith('.md')]
+# Directory containing your markdown files
+directory = 'news_updates'
 
-# Sort by last modified time, most recent first
-files = sorted(files, key=lambda x: os.path.getmtime(f'news_updates/{x}'), reverse=True)
+# Get a list of markdown files and their last modification times
+updates = []
+for file in os.listdir(directory):
+    if file.endswith('.md'):
+        path = os.path.join(directory, file)
+        mtime = os.path.getmtime(path)
+        # Convert mtime to ISO format
+        dt_str = datetime.fromtimestamp(mtime).isoformat()
+        updates.append({
+            'file': os.path.join(directory, file),
+            'datetime': dt_str
+        })
 
-# Create a list of full file paths (or just file names if preferred)
-updates = [f'news_updates/{f}' for f in files]
+# Sort the updates by datetime (newest first)
+updates.sort(key=lambda x: x['datetime'], reverse=True)
 
-# Write to JSON
+# Write to updates.json
 with open('updates.json', 'w') as f:
-    json.dump({'updates': updates}, f, indent=4)
+    json.dump(updates, f, indent=2)
 
-print("Updated updates.json with all updates (most recent first).")
+print("updates.json generated with datetimes!")
