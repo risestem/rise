@@ -1,28 +1,19 @@
 import os
 import json
 import subprocess
-import sys
 
 directory = 'news_updates'
 updates_file = 'updates.json'
 
-# Get changed files from args
-changed_files = sys.argv[1:]
-print(f"Processing changed files: {changed_files}")
+# Prepare updates dictionary
+updates_dict = {}
 
-# Load existing updates
-if os.path.exists(updates_file):
-    with open(updates_file, 'r') as f:
-        updates = json.load(f)
-else:
-    updates = []
+# For each .md file in the directory, get last commit timestamp
+for file in os.listdir(directory):
+    if file.endswith('.md'):
+        path = os.path.join(directory, file)
 
-# Convert to dict for easier updates
-updates_dict = {entry['file']: entry for entry in updates}
-
-# For each changed file, get its last commit date
-for path in changed_files:
-    if path.endswith('.md'):
+        # Get last commit date of the file
         result = subprocess.run(
             ['git', 'log', '-1', '--format=%cI', '--', path],
             capture_output=True, text=True
@@ -38,8 +29,8 @@ for path in changed_files:
 updates_list = list(updates_dict.values())
 updates_list.sort(key=lambda x: x['datetime'], reverse=True)
 
-# Write updates
+# Write to updates.json
 with open(updates_file, 'w') as f:
     json.dump(updates_list, f, indent=2)
 
-print("updates.json updated with only actually changed entries!")
+print("updates.json fully rebuilt from Git commit history!")
