@@ -212,16 +212,23 @@
     </nav>
   </header>
   <div class="pt-32"></div>
+
   <!-- Breadcrumb Navigation -->
-  <nav class="w-full max-w-3xl mx-auto px-4 mb-4" aria-label="Breadcrumb">
+  <nav class="w-full max-w-3xl mx-auto px-4 mb-6" aria-label="Breadcrumb">
     <ol class="flex items-center space-x-2 text-sm text-gray-500">
+      <li>
+        <a href="https://risestem.github.io/rise/home" class="text-purple-700 hover:underline font-semibold">Home</a>
+      </li>
+      <li>
+        <span class="mx-2 text-gray-400">›</span>
+      </li>
       <li>
         <a href="news_overview.html" class="text-purple-700 hover:underline font-semibold">All News Updates</a>
       </li>
       <li>
-        <span class="mx-2">/</span>
+        <span class="mx-2 text-gray-400">›</span>
       </li>
-      <li class="text-gray-400" id="breadcrumb-current-news">Current Update</li>
+      <li class="text-gray-600 font-medium" id="breadcrumb-current-news">Current Update</li>
     </ol>
   </nav>
 
@@ -305,6 +312,8 @@
         updatedDate = `${months[dateObj.getMonth()]} ${dateObj.getDate()}, ${dateObj.getFullYear()}, ${hours}:${minutes} ${ampm}`;
       }
       document.getElementById('news-title').textContent = `News Update: ${title}`;
+      // Update breadcrumb
+      document.getElementById('breadcrumb-current-news').textContent = title;
       // Fetch markdown file
       fetch(mdFile)
         .then(res => {
@@ -312,6 +321,14 @@
           return res.text();
         })
         .then(md => {
+          // Extract the actual title from the markdown H1 heading
+          const titleMatch = md.match(/^# (.+)$/m);
+          if (titleMatch) {
+            const actualTitle = titleMatch[1].trim();
+            document.getElementById('news-title').textContent = actualTitle;
+            document.getElementById('breadcrumb-current-news').textContent = actualTitle;
+          }
+          
           document.getElementById('news-updated-date').textContent = updatedDate ? `Updated: ${updatedDate}` : '';
           document.getElementById('news-markdown').innerHTML = marked.parse(md);
         })
