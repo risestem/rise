@@ -153,13 +153,20 @@
               </button>
             </div>
         </div>
-
-
-
       </div>
         </div>
       </div>
     </div>
+
+    <!-- Latest News Box -->
+    <div id="latest-news" class="fadeInUp-animation my-8 mx-auto max-w-2xl rounded-lg border border-purple-300 bg-white shadow-lg p-6 flex flex-col items-center">
+      <span class="text-xl font-bold text-purple-950 sm:text-2xl mb-2">Latest News</span>
+      <div class="text-gray-700 text-center mb-4">Check out our most recent update!</div>
+      <button id="latest-news-btn" class="px-6 py-2 text-white font-bold bg-purple-700 rounded-full transform transition-all duration-300 hover:scale-110" disabled>
+        Loading latest news...
+      </button>
+    </div>
+
     <div id="contact" class="w-full bg-purple-950 text-white pt-6">
       <div class="fadeInUp-animation container max-w-md mx-auto  flex flex-col grid-rows-2 items-center">
         <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#ffffff"><path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-640v400h640v-400L480-440Zm0-80 320-200H160l320 200ZM160-640v-80 480-400Z"/></svg>
@@ -252,6 +259,34 @@
         }
       });
     }
+    </script>
+    <script>
+      // Fetch updates.json and update the Latest News button
+      fetch('updates.json')
+        .then(response => response.json())
+        .then(data => {
+          const latestFile = data.latest_update;
+          // Extract a readable title from the filename (e.g., 06-04-2025.md -> June 4, 2025)
+          let title = latestFile.split('/').pop().replace('.md', '');
+          // Optionally, format the date if the filename is in MM-DD-YYYY
+          const dateMatch = title.match(/(\d{2})-(\d{2})-(\d{4})/);
+          if (dateMatch) {
+            const [_, mm, dd, yyyy] = dateMatch;
+            const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            title = `${months[parseInt(mm,10)-1]} ${parseInt(dd,10)}, ${yyyy}`;
+          }
+          const btn = document.getElementById('latest-news-btn');
+          btn.textContent = `Read: ${title}`;
+          btn.disabled = false;
+          btn.onclick = () => {
+            window.location.href = `news.html?file=${encodeURIComponent(latestFile)}`;
+          };
+        })
+        .catch(() => {
+          const btn = document.getElementById('latest-news-btn');
+          btn.textContent = 'No news available';
+          btn.disabled = true;
+        });
     </script>
     <div>
       <!-- Footer Section -->
