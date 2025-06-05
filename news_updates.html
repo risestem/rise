@@ -216,10 +216,22 @@
   <!-- News Content Section -->
   <section id="home" class="min-h-screen bg-white w-full">
     <div id="news-title" class="text-3xl font-extrabold text-purple-950 mb-4 text-center"></div>
-    <div id="news-content" class="markdown-body"></div>
+    <div id="news-content" class="markdown-body">
+      <div id="news-updated-date" class="news-updated-date"></div>
+      <div id="news-markdown"></div>
+    </div>
     <div id="news-error" class="text-red-600 text-center mt-4"></div> 
   </section>
   <!-- Marked.js for Markdown rendering -->
+  <style>
+    .news-updated-date {
+      font-size: 0.85em;
+      color: #6b7280;
+      margin-bottom: 0.5em;
+      font-weight: 400;
+      text-align: left;
+    }
+  </style>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
     // Hamburger menu functionality
@@ -252,11 +264,13 @@
       }
       // Set title (filename or date)
       let title = mdFile.split('/').pop().replace('.md', '');
+      let updatedDate = '';
       const dateMatch = title.match(/(\d{2})-(\d{2})-(\d{4})/);
       if (dateMatch) {
         const [_, mm, dd, yyyy] = dateMatch;
         const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
         title = `${months[parseInt(mm,10)-1]} ${parseInt(dd,10)}, ${yyyy}`;
+        updatedDate = `${months[parseInt(mm,10)-1]} ${parseInt(dd,10)}, ${yyyy}`;
       }
       document.getElementById('news-title').textContent = `News Update: ${title}`;
       // Fetch markdown file
@@ -266,7 +280,8 @@
           return res.text();
         })
         .then(md => {
-          document.getElementById('news-content').innerHTML = marked.parse(md);
+          document.getElementById('news-updated-date').textContent = updatedDate ? `Updated: ${updatedDate}` : '';
+          document.getElementById('news-markdown').innerHTML = marked.parse(md);
         })
         .catch(() => {
           document.getElementById('news-error').textContent = 'Could not load this news update.';
