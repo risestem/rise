@@ -205,10 +205,21 @@
         const lastThree = updates.slice(-3).reverse();
         const container = document.getElementById('news-cards-container');
         const dots = document.getElementById('news-carousel-dots');
+        // Fetch titles from markdown files
+        const titles = await Promise.all(lastThree.map(async (u) => {
+          try {
+            const res = await fetch(u.file);
+            const text = await res.text();
+            const match = text.match(/^# (.+)$/m);
+            return match ? match[1].trim() : u.file.split('/').pop().replace('.md','');
+          } catch {
+            return u.file.split('/').pop().replace('.md','');
+          }
+        }));
         container.innerHTML = lastThree.map((u, i) => `
           <div class="flex-shrink-0 w-80 max-w-xs bg-white border border-purple-200 rounded-xl shadow-md p-4 mx-2 transition-all duration-300 news-card ${i === 0 ? 'news-card-active' : 'news-card-blur'}" style="scroll-snap-align: center;">
-            <div class="text-purple-950 font-bold text-lg mb-1">${formatNewsDate(u.datetime)}</div>
-            <div class="text-gray-700 text-sm mb-3 truncate">${u.title ? u.title : u.file.split('/').pop().replace('.md','')}</div>
+            <div class="text-purple-950 font-bold text-lg mb-1">${titles[i]}</div>
+            <div class="text-gray-500 text-xs mb-3">${formatNewsDate(u.datetime)}</div>
             <a href="news_updates.html?updates=${encodeURIComponent(u.file)}" class="block mt-2 px-4 py-2 bg-purple-950 text-white rounded-full font-semibold text-center transition hover:bg-purple-800">Read More</a>
           </div>
         `).join('');
