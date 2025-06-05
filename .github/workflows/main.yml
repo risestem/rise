@@ -21,11 +21,15 @@ jobs:
       - name: Get changed markdown files
         id: changed-files
         run: |
-          echo "CHANGED_FILES=$(git diff --name-only HEAD^ HEAD -- 'news_updates/*.md' | tr '\n' ' ')" >> $GITHUB_ENV
+          # Use the empty tree hash if HEAD^ doesn't exist
+          echo "CHANGED_FILES=$(git diff --name-only $(git rev-parse HEAD^ || echo 4b825dc642cb6eb9a060e54bf8d69288fbee4904) HEAD -- 'news_updates/*.md' | tr '\n' ' ')" >> $GITHUB_ENV
+
+      - name: Debug changed files
+        run: |
+          echo "Changed files: $CHANGED_FILES"
 
       - name: Run script to generate updates.json
         run: |
-          echo "Changed files: $CHANGED_FILES"
           python scripts/generate_updates.py $CHANGED_FILES
 
       - name: Commit updates.json
