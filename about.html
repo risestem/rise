@@ -413,7 +413,14 @@ renderTeamCards();
   color: #1f2937 !important;
 }
 
-
+/* Global override for any Tailwind prose lead paragraph */
+.prose > p:first-of-type {
+  color: #1f2937 !important;
+}
+/* Specific override for profile markdown first paragraph */
+#profile-markdown.prose.prose-lg > p:first-of-type {
+  color: #1f2937 !important;
+}
 </style>
 
 </body>
