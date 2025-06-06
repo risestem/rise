@@ -158,131 +158,135 @@
       </div>
     </div>
 
-    <!-- Latest News Carousel -->
-    <div id="latest-news-carousel" class="fadeInUp-animation mt-0 mb-8 w-full flex flex-col items-center relative">
-      <span class="text-3xl font-bold text-purple-950 sm:text-4xl mb-2">Latest From RISE</span>
-      <div class="text-gray-700 text-center mb-4">Check out what RISE has been up to lately!</div>
-      <a href="news_overview.html" class="text-purple-700 underline text-sm mb-2 hover:text-purple-900 transition">See all</a>
-      <div class="relative w-full overflow-x-auto scrollbar-hide px-6 sm:px-6 md:px-16 lg:px-24" id="news-cards-scroll-container" style="padding-bottom: 0.5rem;">
-        <div id="news-cards-container" class="flex flex-row gap-6 items-stretch">
-          <!-- News cards go here -->
+    <div class="w-full px-6 sm:px-6 md:px-16 lg:px-24 -mt-8 z-20 relative pb-8">
+      <!-- Rounded Box with content that will change -->
+      <div class="bg-white p-4 rounded-2xl border border-gray-300 shadow-md justify-center">
+        <!-- Latest News Carousel -->
+        <div id="latest-news-carousel" class="fadeInUp-animation mt-0 mb-8 w-full flex flex-col items-center relative">
+          <span class="text-3xl font-bold text-purple-950 sm:text-4xl mb-2">Latest From RISE</span>
+          <div class="text-gray-700 text-center mb-4">Check out what RISE has been up to lately!</div>
+          <a href="news_overview.html" class="text-purple-700 underline text-sm mb-2 hover:text-purple-900 transition">See all</a>
+          <div class="relative w-full overflow-x-auto scrollbar-hide px-6 sm:px-6 md:px-16 lg:px-24" id="news-cards-scroll-container" style="padding-bottom: 0.5rem;">
+            <div id="news-cards-container" class="flex flex-row gap-6 items-stretch">
+              <!-- News cards go here -->
+            </div>
+          </div>
         </div>
+        <style>
+          .news-card {
+            flex: 0 0 90vw;
+            max-width: 22rem;
+            min-width: 18rem;
+            height: 18rem;
+            margin: 0;
+            box-shadow: 0 4px 16px 0 rgba(80, 0, 120, 0.13);
+            background: #fff;
+            border: 1.5px solid #e9d5ff;
+            border-radius: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2.5rem 1.5rem 2rem 1.5rem;
+            transition: box-shadow 0.3s, transform 0.3s;
+          }
+          @media (min-width: 768px) {
+            .news-card {
+              flex: 0 0 30%;
+              min-width: 20rem;
+              max-width: 22rem;
+            }
+          }
+          @media (min-width: 1200px) {
+            .news-card {
+              flex: 0 0 28%;
+              min-width: 22rem;
+              max-width: 24rem;
+            }
+          }
+          .scrollbar-hide::-webkit-scrollbar { display: none; }
+          .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+        </style>
+        <script>
+          async function loadLatestNewsCarousel() {
+            let updates = [];
+            try {
+              const res = await fetch('updates.json');
+              const data = await res.json();
+              if (Array.isArray(data)) {
+                updates = data;
+              } else if (Array.isArray(data.updates)) {
+                updates = data.updates;
+              }
+            } catch {
+              document.getElementById('latest-news-carousel').innerHTML += '<div class="text-red-600 mt-2">Could not load news updates.</div>';
+              return;
+            }
+            if (!updates.length) return;
+            // Show newest to oldest, left to right
+            const sorted = updates; // No .reverse(), updates.json is already newest first
+            const container = document.getElementById('news-cards-container');
+            // Fetch titles from markdown files
+            const titles = await Promise.all(sorted.map(async (u) => {
+              try {
+                const res = await fetch(u.file);
+                const text = await res.text();
+                const match = text.match(/^# (.+)$/m);
+                return match ? match[1].trim() : u.file.split('/').pop().replace('.md','');
+              } catch {
+                return u.file.split('/').pop().replace('.md','');
+              }
+            }));
+            // Fetch titles and images from markdown files
+    const articlesData = await Promise.all(sorted.map(async (u) => {
+      try {
+        const res = await fetch(u.file);
+        const text = await res.text();
+        const titleMatch = text.match(/^# (.+)$/m);
+        const title = titleMatch ? titleMatch[1].trim() : u.file.split('/').pop().replace('.md','');
+        // Look for images in both markdown format and HTML format
+        let imageMatch = text.match(/!\[.*?\]\((.*?)\)/);
+        let image = imageMatch ? imageMatch[1] : null;
+        if (!image) {
+          imageMatch = text.match(/<img[^>]+src=["']([^"']+)["'][^>]*>/i);
+          image = imageMatch ? imageMatch[1] : null;
+        }
+        return { title, image };
+      } catch {
+        return {
+          title: u.file.split('/').pop().replace('.md',''),
+          image: null
+        };
+      }
+    }));
+    container.innerHTML = sorted.map((u, i) => `
+      <div class="news-card w-full bg-white border-2 border-purple-100 rounded-2xl shadow-lg max-w-2xl mx-auto overflow-hidden mb-6">
+        <a href="news_updates.html?updates=${encodeURIComponent(u.file)}" class="block group">
+          <div class="flex flex-col px-6 py-10 items-center justify-center">
+            <div class="text-2xl font-bold text-purple-950 mb-2 group-hover:text-purple-700 transition-colors duration-300 cursor-pointer text-center">
+              ${articlesData[i].title}
+            </div>
+            <div class="text-gray-500 text-sm mb-4 text-center">${formatNewsDate(u.datetime)}</div>
+            ${articlesData[i].image ? `
+              <div class="w-full flex items-center justify-center mt-2 mb-2">
+                <img src="${articlesData[i].image}" alt="${articlesData[i].title}" class="w-full max-w-md h-32 md:h-40 object-cover rounded-lg group-hover:opacity-90 transition-opacity duration-300 mx-auto" />
+              </div>
+            ` : ''}
+          </div>
+        </a>
+      </div>
+    `).join('');
+          }
+          function formatNewsDate(dt) {
+            if (!dt) return '';
+            const dateObj = new Date(dt);
+            const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+            return `${months[dateObj.getMonth()]} ${dateObj.getDate()}, ${dateObj.getFullYear()}`;
+          }
+          loadLatestNewsCarousel();
+        </script>
       </div>
     </div>
-    <style>
-      .news-card {
-        flex: 0 0 90vw;
-        max-width: 22rem;
-        min-width: 18rem;
-        height: 18rem;
-        margin: 0;
-        box-shadow: 0 4px 16px 0 rgba(80, 0, 120, 0.13);
-        background: #fff;
-        border: 1.5px solid #e9d5ff;
-        border-radius: 1.5rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        padding: 2.5rem 1.5rem 2rem 1.5rem;
-        transition: box-shadow 0.3s, transform 0.3s;
-      }
-      @media (min-width: 768px) {
-        .news-card {
-          flex: 0 0 30%;
-          min-width: 20rem;
-          max-width: 22rem;
-        }
-      }
-      @media (min-width: 1200px) {
-        .news-card {
-          flex: 0 0 28%;
-          min-width: 22rem;
-          max-width: 24rem;
-        }
-      }
-      .scrollbar-hide::-webkit-scrollbar { display: none; }
-      .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
-    </style>
-    <script>
-      async function loadLatestNewsCarousel() {
-        let updates = [];
-        try {
-          const res = await fetch('updates.json');
-          const data = await res.json();
-          if (Array.isArray(data)) {
-            updates = data;
-          } else if (Array.isArray(data.updates)) {
-            updates = data.updates;
-          }
-        } catch {
-          document.getElementById('latest-news-carousel').innerHTML += '<div class="text-red-600 mt-2">Could not load news updates.</div>';
-          return;
-        }
-        if (!updates.length) return;
-        // Show newest to oldest, left to right
-        const sorted = updates; // No .reverse(), updates.json is already newest first
-        const container = document.getElementById('news-cards-container');
-        // Fetch titles from markdown files
-        const titles = await Promise.all(sorted.map(async (u) => {
-          try {
-            const res = await fetch(u.file);
-            const text = await res.text();
-            const match = text.match(/^# (.+)$/m);
-            return match ? match[1].trim() : u.file.split('/').pop().replace('.md','');
-          } catch {
-            return u.file.split('/').pop().replace('.md','');
-          }
-        }));
-        // Fetch titles and images from markdown files
-const articlesData = await Promise.all(sorted.map(async (u) => {
-  try {
-    const res = await fetch(u.file);
-    const text = await res.text();
-    const titleMatch = text.match(/^# (.+)$/m);
-    const title = titleMatch ? titleMatch[1].trim() : u.file.split('/').pop().replace('.md','');
-    // Look for images in both markdown format and HTML format
-    let imageMatch = text.match(/!\[.*?\]\((.*?)\)/);
-    let image = imageMatch ? imageMatch[1] : null;
-    if (!image) {
-      imageMatch = text.match(/<img[^>]+src=["']([^"']+)["'][^>]*>/i);
-      image = imageMatch ? imageMatch[1] : null;
-    }
-    return { title, image };
-  } catch {
-    return {
-      title: u.file.split('/').pop().replace('.md',''),
-      image: null
-    };
-  }
-}));
-container.innerHTML = sorted.map((u, i) => `
-  <div class="news-card w-full bg-white border-2 border-purple-100 rounded-2xl shadow-lg max-w-2xl mx-auto overflow-hidden mb-6">
-    <a href="news_updates.html?updates=${encodeURIComponent(u.file)}" class="block group">
-      <div class="flex flex-col px-6 py-10 items-center justify-center">
-        <div class="text-2xl font-bold text-purple-950 mb-2 group-hover:text-purple-700 transition-colors duration-300 cursor-pointer text-center">
-          ${articlesData[i].title}
-        </div>
-        <div class="text-gray-500 text-sm mb-4 text-center">${formatNewsDate(u.datetime)}</div>
-        ${articlesData[i].image ? `
-          <div class="w-full flex items-center justify-center mt-2 mb-2">
-            <img src="${articlesData[i].image}" alt="${articlesData[i].title}" class="w-full max-w-md h-32 md:h-40 object-cover rounded-lg group-hover:opacity-90 transition-opacity duration-300 mx-auto" />
-          </div>
-        ` : ''}
-      </div>
-    </a>
-  </div>
-`).join('');
-      }
-      function formatNewsDate(dt) {
-        if (!dt) return '';
-        const dateObj = new Date(dt);
-        const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-        return `${months[dateObj.getMonth()]} ${dateObj.getDate()}, ${dateObj.getFullYear()}`;
-      }
-      loadLatestNewsCarousel();
-    </script>
-
     <div id="contact" class="w-full bg-purple-950 text-white pt-6">
       <div class="fadeInUp-animation container max-w-md mx-auto  flex flex-col grid-rows-2 items-center">
         <svg xmlns="http://www.w3.org/2000/svg" height="40px" viewBox="0 -960 960 960" width="40px" fill="#ffffff"><path d="M160-160q-33 0-56.5-23.5T80-240v-480q0-33 23.5-56.5T160-800h640q33 0 56.5 23.5T880-720v480q0 33-23.5 56.5T800-160H160Zm320-280L160-640v400h640v-400L480-440Zm0-80 320-200H160l320 200ZM160-640v-80 480-400Z"/></svg>
