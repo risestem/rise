@@ -338,19 +338,7 @@ renderTeamCards();
   background: linear-gradient(120deg, rgba(167, 139, 250, 0.1) 25%, rgba(167, 139, 250, 0.2) 50%, rgba(167, 139, 250, 0.1) 75%);
   mix-blend-mode: lighten;
 }
-#profile-markdown {
-  color: #1f2937 !important; /* Dark gray text for all content */
-}
-#profile-markdown * {
-  color: #1f2937 !important; /* Force all elements to be dark */
-}
-.prose {
-  color: #1f2937 !important; /* Override prose default color */
-}
-.prose * {
-  color: #1f2937 !important; /* Override all prose element colors */
-}
-/* Header styles must come AFTER the general overrides to take precedence */
+/* Purple headers - these need to come first and be very specific */
 #profile-markdown h1,
 .prose h1 {
   font-size: 2.5rem !important;
@@ -380,6 +368,23 @@ renderTeamCards();
   margin-top: 1rem !important;
   margin-bottom: 0.25rem !important;
   color: #581c87 !important; /* Dark purple for headings */
+}
+/* Dark gray for specific elements - avoid universal selectors */
+#profile-markdown p,
+.prose p {
+  color: #1f2937 !important; /* Dark gray for paragraph text */
+}
+#profile-markdown li,
+.prose li {
+  color: #1f2937 !important; /* Dark gray for list items */
+}
+#profile-markdown span,
+.prose span {
+  color: #1f2937 !important; /* Dark gray for spans */
+}
+#profile-markdown div,
+.prose div {
+  color: #1f2937 !important; /* Dark gray for divs */
 }
 #profile-markdown p {
   margin-top: 0.7em !important;
