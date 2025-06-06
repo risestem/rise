@@ -234,13 +234,47 @@
             return u.file.split('/').pop().replace('.md','');
           }
         }));
-        container.innerHTML = sorted.map((u, i) => `
-          <div class="news-card">
-            <div class="text-purple-950 font-bold text-2xl mb-2 text-center">${titles[i]}</div>
-            <div class="text-gray-500 text-sm mb-4">${formatNewsDate(u.datetime)}</div>
-            <a href="news_updates.html?updates=${encodeURIComponent(u.file)}" class="block mt-auto px-6 py-3 bg-purple-950 text-white rounded-full font-semibold text-center transform transition-all duration-300 hover:scale-110 hover:text-white">Read More</a>
+        // Fetch titles and images from markdown files
+const articlesData = await Promise.all(sorted.map(async (u) => {
+  try {
+    const res = await fetch(u.file);
+    const text = await res.text();
+    const titleMatch = text.match(/^# (.+)$/m);
+    const title = titleMatch ? titleMatch[1].trim() : u.file.split('/').pop().replace('.md','');
+    // Look for images in both markdown format and HTML format
+    let imageMatch = text.match(/!\[.*?\]\((.*?)\)/);
+    let image = imageMatch ? imageMatch[1] : null;
+    if (!image) {
+      imageMatch = text.match(/<img[^>]+src=["']([^"']+)["'][^>]*>/i);
+      image = imageMatch ? imageMatch[1] : null;
+    }
+    return { title, image };
+  } catch {
+    return {
+      title: u.file.split('/').pop().replace('.md',''),
+      image: null
+    };
+  }
+}));
+container.innerHTML = sorted.map((u, i) => `
+  <div class="news-card w-full bg-white border-2 border-purple-100 rounded-2xl shadow-lg max-w-2xl mx-auto overflow-hidden mb-6">
+    <a href="news_updates.html?updates=${encodeURIComponent(u.file)}" class="block group">
+      <div class="flex flex-col md:flex-row">
+        <div class="flex-1 px-6 py-10 flex flex-col justify-center">
+          <div class="text-2xl font-bold text-purple-950 mb-2 group-hover:text-purple-700 transition-colors duration-300 cursor-pointer text-center">
+            ${articlesData[i].title}
           </div>
-        `).join('');
+          <div class="text-gray-500 text-sm mb-4 text-center">${formatNewsDate(u.datetime)}</div>
+        </div>
+        ${articlesData[i].image ? `
+          <div class="flex-shrink-0 w-full md:w-56 p-4 md:py-6 md:pr-8 md:pl-0 flex items-center justify-center">
+            <img src="${articlesData[i].image}" alt="${articlesData[i].title}" class="w-full h-32 md:h-40 object-cover rounded-lg group-hover:opacity-90 transition-opacity duration-300" />
+          </div>
+        ` : ''}
+      </div>
+    </a>
+  </div>
+`).join('');
       }
       function formatNewsDate(dt) {
         if (!dt) return '';
