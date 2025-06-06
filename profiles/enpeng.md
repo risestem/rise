@@ -13,7 +13,7 @@
 
 ## <span style="color: #3c0366;">Background</span>
 
-<div style="color: #6a72;">
+<div style="color: #6a7282;">
 Enpeng Jiang's story begins in Tallahassee, Florida, where he was born in 2008. His early years were marked by significant geographical transitions that would shape his worldview and adaptability. During his childhood, Enpeng spent a formative year living in China, an experience that exposed him to different cultures and educational approaches. Eventually, his family settled in Atlanta, Georgia, where he would find his academic home and pursue his passion for science.
 
 When Enpeng arrived at The Westminster Schools as a middle school student, he quickly immersed himself in the school's robust STEM programs. He joined the robotics team, where he discovered his love for hands-on engineering and collaborative problem-solving. This early exposure to practical application of scientific principles ignited a passion that would drive his academic pursuits throughout his school years.
