@@ -111,9 +111,16 @@ async function loadAllNews() {
       const titleMatch = text.match(/^# (.+)$/m);
       const title = titleMatch ? titleMatch[1].trim() : u.file.split('/').pop().replace('.md','');
       
-      // Look for images in markdown format: ![alt](url) or ![alt text](url)
-      const imageMatch = text.match(/!\[.*?\]\((.*?)\)/);
-      const image = imageMatch ? imageMatch[1] : null;
+      // Look for images in both markdown format and HTML format
+      // First try markdown format: ![alt](url)
+      let imageMatch = text.match(/!\[.*?\]\((.*?)\)/);
+      let image = imageMatch ? imageMatch[1] : null;
+      
+      // If no markdown image found, try HTML img tag: <img ... src="url" ...>
+      if (!image) {
+        imageMatch = text.match(/<img[^>]+src=["']([^"']+)["'][^>]*>/i);
+        image = imageMatch ? imageMatch[1] : null;
+      }
       
       return { title, image };
     } catch {
