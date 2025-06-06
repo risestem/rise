@@ -14,7 +14,6 @@
 
 ## <span style="color: #3c0366;">Background</span>
 
-<div style="color: #6a7282;">
 The visionary behind RISE, Brayden Watt's journey began in Atlanta, Georgia, where he developed an early appreciation for both innovation and community that would shape his future pursuits. Growing up in the vibrant Southern city exposed him to diverse perspectives and instilled a strong sense of social responsibility.
 
 His passion for technology emerged during middle school when he joined the robotics team. What started as curiosity about how things worked quickly evolved into a deep fascination with engineering and programming. Brayden spent countless hours after school building robots, learning code, and collaborating with teammates on complex projects. These formative experiences taught him persistence, creativity, and the power of teamwork.
@@ -26,6 +25,5 @@ However, Brayden's interests extended beyond technology. Driven by what those cl
 To deepen his understanding of effective community impact, Brayden also participated in Philanthropy 101, learning about nonprofit organizations, strategic giving, and measuring social impact. Today, he represents a unique blend of technical expertise and social consciousness, always seeking ways to use technology for positive community change.
 
 Brayden is committed to advancing RISE’s mission of providing high quality STEM experiences to underserved communities.
-</div>
 
 
