@@ -369,36 +369,29 @@ renderTeamCards();
   margin-bottom: 0.25rem !important;
   color: #581c87 !important; /* Dark purple for headings */
 }
-/* Dark gray for specific elements - avoid universal selectors */
+
+/* Dark gray for specific elements */
 #profile-markdown p,
 .prose p {
-  color: #1f2937 !important; /* Dark gray for paragraph text */
-}
-#profile-markdown li,
-.prose li {
-  color: #1f2937 !important; /* Dark gray for list items */
-}
-#profile-markdown span,
-.prose span {
-  color: #1f2937 !important; /* Dark gray for spans */
-}
-#profile-markdown div,
-.prose div {
-  color: #1f2937 !important; /* Dark gray for divs */
-}
-#profile-markdown p {
   margin-top: 0.7em !important;
   margin-bottom: 0.7em !important;
   line-height: 1.5 !important;
   color: #1f2937 !important; /* Dark gray for paragraph text */
 }
-#profile-markdown li {
+#profile-markdown li,
+.prose li {
   color: #1f2937 !important; /* Dark gray for list items */
+  /* Add margin/padding for li if needed, similar to p */
+  margin-top: 0.25em !important;
+  margin-bottom: 0.25em !important;
 }
-#profile-markdown strong, #profile-markdown b {
+
+#profile-markdown strong, #profile-markdown b,
+.prose strong, .prose b {
   color: #111827 !important; /* Very dark for bold text */
 }
-#profile-markdown em, #profile-markdown i {
+#profile-markdown em, #profile-markdown i,
+.prose em, .prose i {
   color: #1f2937 !important; /* Dark gray for italic text */
 }
 
