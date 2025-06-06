@@ -11,113 +11,10 @@
     html {
       scroll-behavior: smooth;
     }
-    
-    /* CRITICAL: These styles must be loaded first and be highly specific */
-    /* Profile modal markdown styling - using very high specificity */
-    #profile-modal #profile-markdown h1,
-    #profile-modal .prose h1 {
-      font-size: 2.5rem !important;
-      font-weight: 800 !important;
-      margin-bottom: 1rem !important;
-      color: #581c87 !important; /* Purple-950 */
-      line-height: 1.2 !important;
-    }
-    
-    #profile-modal #profile-markdown h2,
-    #profile-modal .prose h2 {
-      font-size: 2rem !important;
-      font-weight: 700 !important;
-      margin-top: 1.5rem !important;
-      margin-bottom: 0.75rem !important;
-      color: #581c87 !important; /* Purple-950 */
-      line-height: 1.3 !important;
-    }
-    
-    #profile-modal #profile-markdown h3,
-    #profile-modal .prose h3 {
-      font-size: 1.5rem !important;
-      font-weight: 600 !important;
-      margin-top: 1.25rem !important;
-      margin-bottom: 0.5rem !important;
-      color: #581c87 !important; /* Purple-950 */
-      line-height: 1.4 !important;
-    }
-    
-    #profile-modal #profile-markdown h4,
-    #profile-modal #profile-markdown h5,
-    #profile-modal #profile-markdown h6,
-    #profile-modal .prose h4,
-    #profile-modal .prose h5,
-    #profile-modal .prose h6 {
-      font-weight: 500 !important;
-      margin-top: 1rem !important;
-      margin-bottom: 0.25rem !important;
-      color: #581c87 !important; /* Purple-950 */
-      line-height: 1.4 !important;
-    }
-    
-    /* Body text styling */
-    #profile-modal #profile-markdown p,
-    #profile-modal .prose p {
-      color: #1f2937 !important; /* Gray-800 */
-      margin-top: 0.7em !important;
-      margin-bottom: 0.7em !important;
-      line-height: 1.6 !important;
-    }
-    
-    #profile-modal #profile-markdown li,
-    #profile-modal .prose li {
-      color: #1f2937 !important; /* Gray-800 */
-      line-height: 1.5 !important;
-    }
-    
-    #profile-modal #profile-markdown strong,
-    #profile-modal #profile-markdown b,
-    #profile-modal .prose strong,
-    #profile-modal .prose b {
-      color: #111827 !important; /* Gray-900 */
-      font-weight: 700 !important;
-    }
-    
-    #profile-modal #profile-markdown em,
-    #profile-modal #profile-markdown i,
-    #profile-modal .prose em,
-    #profile-modal .prose i {
-      color: #1f2937 !important; /* Gray-800 */
-      font-style: italic !important;
-    }
-    
-    /* Ensure links are visible */
-    #profile-modal #profile-markdown a,
-    #profile-modal .prose a {
-      color: #7c3aed !important; /* Purple-600 */
-      text-decoration: underline !important;
-    }
-    
-    #profile-modal #profile-markdown a:hover,
-    #profile-modal .prose a:hover {
-      color: #581c87 !important; /* Purple-950 */
-    }
-    
-    /* Lists styling */
-    #profile-modal #profile-markdown ul,
-    #profile-modal #profile-markdown ol,
-    #profile-modal .prose ul,
-    #profile-modal .prose ol {
-      margin-top: 0.5rem !important;
-      margin-bottom: 0.5rem !important;
-      padding-left: 1.5rem !important;
-    }
-    
-    /* Minimal full-card diagonal sheen effect */
-    .diagonal-sheen {
-      background: linear-gradient(120deg, rgba(167, 139, 250, 0.1) 25%, rgba(167, 139, 250, 0.2) 50%, rgba(167, 139, 250, 0.1) 75%);
-      mix-blend-mode: lighten;
-    }
   </style>
 </head>
 <body>
-<!-- Copy the header/navigation from your main page here -->
+<!-- Copy the header/navigation from yoPLEASEur main page here -->
 <header class="fixed top-0 bg-white shadow-md flex items-center px-32 py-1.5 w-full z-50">
   <nav class="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200 shadow-md">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -315,9 +212,6 @@
   </div>
 </div>
 
-<!-- Add Marked.js for markdown rendering -->
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
 <script>
 // Modal open/close logic
 const contactModal = document.getElementById('contact-modal');
@@ -401,7 +295,7 @@ function renderTeamCards() {
   });
 }
 
-// Modal for markdown profile - IMPROVED VERSION
+// Modal for markdown profile
 function openProfileModal(profilePath) {
   let modal = document.getElementById('profile-modal');
   if (!modal) {
@@ -415,54 +309,100 @@ function openProfileModal(profilePath) {
       </div>
     `;
     document.body.appendChild(modal);
-    
-    // Close button event listener
-    document.getElementById('close-profile-modal').onclick = () => {
-      modal.remove();
-    };
-    
-    // Click outside to close
-    modal.onclick = (e) => { 
-      if (e.target === modal) modal.remove(); 
-    };
+    document.getElementById('close-profile-modal').onclick = () => modal.remove();
+    modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
   } else {
     modal.style.display = 'flex';
   }
-  
-  // Fetch and render markdown with proper error handling
+  // Fetch and render markdown
   fetch(profilePath)
-    .then(res => {
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
-      return res.text();
-    })
+    .then(res => res.text())
     .then(md => {
-      const markdownContainer = document.getElementById('profile-markdown');
       if (window.marked) {
-        // Render markdown and force re-styling
-        markdownContainer.innerHTML = window.marked.parse(md);
-        
-        // Force CSS refresh by triggering a reflow
-        setTimeout(() => {
-          markdownContainer.style.display = 'none';
-          markdownContainer.offsetHeight; // Trigger reflow
-          markdownContainer.style.display = 'block';
-        }, 10);
+        document.getElementById('profile-markdown').innerHTML = window.marked.parse(md);
       } else {
-        // Fallback for plain text
-        markdownContainer.innerHTML = `<pre style="white-space: pre-wrap; color: #1f2937;">${md}</pre>`;
+        document.getElementById('profile-markdown').textContent = md;
       }
-    })
-    .catch(error => {
-      console.error('Error loading profile:', error);
-      document.getElementById('profile-markdown').innerHTML = 
-        `<p style="color: #ef4444;">Error loading profile. Please try again later.</p>`;
     });
 }
 
 renderTeamCards();
 </script>
+<!-- Add Marked.js for markdown rendering -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<!-- Footer -->
+<style>
+/* Minimal full-card diagonal sheen effect */
+.diagonal-sheen {
+  background: linear-gradient(120deg, rgba(167, 139, 250, 0.1) 25%, rgba(167, 139, 250, 0.2) 50%, rgba(167, 139, 250, 0.1) 75%);
+  mix-blend-mode: lighten;
+}
+/* Purple headers - these need to come first and be very specific */
+#profile-markdown h1,
+.prose h1 {
+  font-size: 2.5rem !important;
+  font-weight: 800 !important;
+  margin-bottom: 1rem !important;
+  color: #581c87 !important; /* Dark purple for headings */
+}
+#profile-markdown h2,
+.prose h2 {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  margin-top: 1rem !important;
+  margin-bottom: 0.75rem !important;
+  color: #581c87 !important; /* Dark purple for headings */
+}
+#profile-markdown h3,
+.prose h3 {
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  margin-top: 1rem !important;
+  margin-bottom: 0.5rem !important;
+  color: #581c87 !important; /* Dark purple for headings */
+}
+#profile-markdown h4, #profile-markdown h5, #profile-markdown h6,
+.prose h4, .prose h5, .prose h6 {
+  font-weight: 500 !important;
+  margin-top: 1rem !important;
+  margin-bottom: 0.25rem !important;
+  color: #581c87 !important; /* Dark purple for headings */
+}
+/* Dark gray for specific elements - avoid universal selectors */
+#profile-markdown p,
+.prose p {
+  color: #1f2937 !important; /* Dark gray for paragraph text */
+}
+#profile-markdown li,
+.prose li {
+  color: #1f2937 !important; /* Dark gray for list items */
+}
+#profile-markdown span,
+.prose span {
+  color: #1f2937 !important; /* Dark gray for spans */
+}
+#profile-markdown div,
+.prose div {
+  color: #1f2937 !important; /* Dark gray for divs */
+}
+#profile-markdown p {
+  margin-top: 0.7em !important;
+  margin-bottom: 0.7em !important;
+  line-height: 1.5 !important;
+  color: #1f2937 !important; /* Dark gray for paragraph text */
+}
+#profile-markdown li {
+  color: #1f2937 !important; /* Dark gray for list items */
+}
+#profile-markdown strong, #profile-markdown b {
+  color: #111827 !important; /* Very dark for bold text */
+}
+#profile-markdown em, #profile-markdown i {
+  color: #1f2937 !important; /* Dark gray for italic text */
+}
+
+</style>
 
 </body>
 </html>
