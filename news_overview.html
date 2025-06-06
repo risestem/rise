@@ -103,24 +103,42 @@ async function loadAllNews() {
   }
   if (!updates.length) return;
   
-  // Fetch titles from markdown files
-  const titles = await Promise.all(updates.map(async (u) => {
+  // Fetch titles and images from markdown files
+  const articlesData = await Promise.all(updates.map(async (u) => {
     try {
       const res = await fetch(u.file);
       const text = await res.text();
-      const match = text.match(/^# (.+)$/m);
-      return match ? match[1].trim() : u.file.split('/').pop().replace('.md','');
+      const titleMatch = text.match(/^# (.+)$/m);
+      const title = titleMatch ? titleMatch[1].trim() : u.file.split('/').pop().replace('.md','');
+      
+      // Look for images in markdown format: ![alt](url) or ![alt text](url)
+      const imageMatch = text.match(/!\[.*?\]\((.*?)\)/);
+      const image = imageMatch ? imageMatch[1] : null;
+      
+      return { title, image };
     } catch {
-      return u.file.split('/').pop().replace('.md','');
+      return { 
+        title: u.file.split('/').pop().replace('.md',''), 
+        image: null 
+      };
     }
   }));
   
   const container = document.getElementById('news-list-container');
   container.innerHTML = updates.map((u, i) => `
-    <div class="w-full bg-white border-2 border-purple-100 rounded-2xl shadow-lg px-8 py-8 max-w-5xl mx-auto">
+    <div class="w-full bg-white border-2 border-purple-100 rounded-2xl shadow-lg max-w-5xl mx-auto overflow-hidden">
       <a href="news_updates.html?updates=${encodeURIComponent(u.file)}" class="block group">
-        <div class="text-3xl font-bold text-purple-950 mb-2 group-hover:text-purple-700 transition-colors duration-300 cursor-pointer">${titles[i]}</div>
-        <div class="text-gray-500 text-md">${formatNewsDate(u.datetime)}</div>
+        <div class="flex flex-col md:flex-row">
+          <div class="flex-1 px-8 py-12">
+            <div class="text-3xl font-bold text-purple-950 mb-3 group-hover:text-purple-700 transition-colors duration-300 cursor-pointer">${articlesData[i].title}</div>
+            <div class="text-gray-500 text-md">${formatNewsDate(u.datetime)}</div>
+          </div>
+          ${articlesData[i].image ? `
+            <div class="flex-shrink-0 w-full md:w-48 h-32 md:h-auto">
+              <img src="${articlesData[i].image}" alt="${articlesData[i].title}" class="w-full h-full object-cover group-hover:opacity-90 transition-opacity duration-300" />
+            </div>
+          ` : ''}
+        </div>
       </a>
     </div>
   `).join('');
