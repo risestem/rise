@@ -1,7 +1,7 @@
 # <span style="color: #3c0366;">Profile: Brayden Watt</span>
 
 <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 10px; align-items: center;">
-  <!-- Large square image on the left -->a
+  <!-- Large square image on the left -->
   <img src="https://risestem.github.io/rise/public/BraydenTemp3.jpeg" alt="Large image" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
 
   <!-- Two smaller square images stacked vertically on the right -->
