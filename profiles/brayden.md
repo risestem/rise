@@ -1,4 +1,4 @@
-# <span style="color: #3c0366;">Profile: Brayden Watt</span>
+# Profile: Brayden Watt
 
 <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 10px; align-items: center;">
   <!-- Large square image on the left -->
@@ -12,7 +12,7 @@
 </div>
 
 
-## <span style="color: #3c0366;">Background</span>
+## Background
 
 The visionary behind RISE, Brayden Watt's journey began in Atlanta, Georgia, where he developed an early appreciation for both innovation and community that would shape his future pursuits. Growing up in the vibrant Southern city exposed him to diverse perspectives and instilled a strong sense of social responsibility.
 
