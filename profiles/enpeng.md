@@ -1,4 +1,4 @@
-# <span style="color: #3c0366;">Profile: Enpeng Jiang</span>
+# Profile Enpeng Jiang
 
 <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr); gap: 10px;">
   <img src="https://risestem.github.io/rise/public/EnpengTemp1.jpeg" alt="Small image 1" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
@@ -11,7 +11,7 @@
 
 
 
-## <span style="color: #3c0366;">Background</span>
+## Background
 
 Enpeng Jiang's story begins in Tallahassee, Florida, where he was born in 2008. His early years were marked by significant geographical transitions that would shape his worldview and adaptability. During his childhood, Enpeng spent a formative year living in China, an experience that exposed him to different cultures and educational approaches. Eventually, his family settled in Atlanta, Georgia, where he would find his academic home and pursue his passion for science.
 
