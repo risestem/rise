@@ -333,11 +333,7 @@ renderTeamCards();
 
 <!-- Footer -->
 <style>
-/* Minimal full-card diagonal sheen effect */
-.diagonal-sheen {
-  background: linear-gradient(120deg, rgba(167, 139, 250, 0.1) 25%, rgba(167, 139, 250, 0.2) 50%, rgba(167, 139, 250, 0.1) 75%);
-  mix-blend-mode: lighten;
-}
+
 
 /* Define Tailwind prose variables for consistent text coloring */
 #profile-markdown {
@@ -347,78 +343,93 @@ renderTeamCards();
 }
 
 
-/* Purple headers - these need to come first and be very specific */
+/* Header styling - all headers use dark purple */
 #profile-markdown h1,
-.prose h1 {
+#profile-markdown h2,
+#profile-markdown h3,
+#profile-markdown h4,
+#profile-markdown h5,
+#profile-markdown h6,
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  color: #581c87 !important; /* Dark purple for all headings */
+  margin-top: 1rem !important;
+}
+
+/* Specific header sizes and weights */
+#profile-markdown h1, .prose h1 {
   font-size: 2.5rem !important;
   font-weight: 800 !important;
   margin-bottom: 1rem !important;
-  color: #581c87 !important; /* Dark purple for headings */
-}
-#profile-markdown h2,
-.prose h2 {
-  font-size: 2rem !important;
-  font-weight: 700 !important;
-  margin-top: 1rem !important;
-  margin-bottom: 0.75rem !important;
-  color: #581c87 !important; /* Dark purple for headings */
-}
-#profile-markdown h3,
-.prose h3 {
-  font-size: 1.5rem !important;
-  font-weight: 600 !important;
-  margin-top: 1rem !important;
-  margin-bottom: 0.5rem !important;
-  color: #581c87 !important; /* Dark purple for headings */
-}
-#profile-markdown h4, #profile-markdown h5, #profile-markdown h6,
-.prose h4, .prose h5, .prose h6 {
-  font-weight: 500 !important;
-  margin-top: 1rem !important;
-  margin-bottom: 0.25rem !important;
-  color: #581c87 !important; /* Dark purple for headings */
 }
 
-/* Dark gray for specific elements */
+#profile-markdown h2, .prose h2 {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  margin-bottom: 0.75rem !important;
+}
+
+#profile-markdown h3, .prose h3 {
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  margin-bottom: 0.5rem !important;
+}
+
+#profile-markdown h4,
+#profile-markdown h5,
+#profile-markdown h6,
+.prose h4,
+.prose h5,
+.prose h6 {
+  font-weight: 500 !important;
+  margin-bottom: 0.25rem !important;
+}
+
+/* Text content styling - paragraphs and lists */
+#profile-markdown p,
+#profile-markdown li,
+.prose p,
+.prose li {
+  color: #1f2937 !important; /* Dark gray for body text */
+}
+
 #profile-markdown p,
 .prose p {
   margin-top: 0.7em !important;
   margin-bottom: 0.7em !important;
   line-height: 1.5 !important;
-  color: #1f2937 !important; /* Dark gray for paragraph text */
 }
+
 #profile-markdown li,
 .prose li {
-  color: #1f2937 !important; /* Dark gray for list items */
-  /* Add margin/padding for li if needed, similar to p */
   margin-top: 0.25em !important;
   margin-bottom: 0.25em !important;
 }
 
-#profile-markdown strong, #profile-markdown b,
-.prose strong, .prose b {
+/* Bold and italic text styling */
+#profile-markdown strong,
+#profile-markdown b,
+.prose strong,
+.prose b {
   color: #111827 !important; /* Very dark for bold text */
 }
-#profile-markdown em, #profile-markdown i,
-.prose em, .prose i {
+
+#profile-markdown em,
+#profile-markdown i,
+.prose em,
+.prose i {
   color: #1f2937 !important; /* Dark gray for italic text */
 }
-/* Force the very first paragraph inside #profile-markdown to match the rest: */
-#profile-markdown p:first-of-type {
-  color: #1f2937 !important;
-}
-/* Ensure first paragraph inside prose container also matches */
+/* First paragraph overrides - consolidated */
+#profile-markdown p:first-of-type,
 #profile-markdown.prose > p:first-of-type,
-#profile-markdown.prose > p:first-child {
-  color: #1f2937 !important;
-}
-
-/* Global override for any Tailwind prose lead paragraph */
+#profile-markdown.prose > p:first-child,
+#profile-markdown.prose.prose-lg > p:first-of-type,
 .prose > p:first-of-type {
-  color: #1f2937 !important;
-}
-/* Specific override for profile markdown first paragraph */
-#profile-markdown.prose.prose-lg > p:first-of-type {
   color: #1f2937 !important;
 }
 </style>
