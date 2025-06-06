@@ -350,27 +350,32 @@ renderTeamCards();
 .prose * {
   color: #1f2937 !important; /* Override all prose element colors */
 }
-#profile-markdown h1 {
+/* Header styles must come AFTER the general overrides to take precedence */
+#profile-markdown h1,
+.prose h1 {
   font-size: 2.5rem !important;
   font-weight: 800 !important;
   margin-bottom: 1rem !important;
   color: #581c87 !important; /* Dark purple for headings */
 }
-#profile-markdown h2 {
+#profile-markdown h2,
+.prose h2 {
   font-size: 2rem !important;
   font-weight: 700 !important;
   margin-top: 1rem !important;
   margin-bottom: 0.75rem !important;
   color: #581c87 !important; /* Dark purple for headings */
 }
-#profile-markdown h3 {
+#profile-markdown h3,
+.prose h3 {
   font-size: 1.5rem !important;
   font-weight: 600 !important;
   margin-top: 1rem !important;
   margin-bottom: 0.5rem !important;
   color: #581c87 !important; /* Dark purple for headings */
 }
-#profile-markdown h4, #profile-markdown h5, #profile-markdown h6 {
+#profile-markdown h4, #profile-markdown h5, #profile-markdown h6,
+.prose h4, .prose h5, .prose h6 {
   font-weight: 500 !important;
   margin-top: 1rem !important;
   margin-bottom: 0.25rem !important;
