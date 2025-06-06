@@ -348,40 +348,60 @@ renderTeamCards();
 }
 
 /* Purple headers - these need to come first and be very specific */
-#profile-markdown h1, .prose h1,
-#profile-markdown h2, .prose h2,
-#profile-markdown h3, .prose h3,
-#profile-markdown h4, .prose h4,
-#profile-markdown h5, .prose h5,
-#profile-markdown h6, .prose h6 {
+#profile-markdown h1,
+.prose h1 {
+  font-size: 2.5rem !important;
+  font-weight: 800 !important;
+  margin-bottom: 1rem !important;
   color: #581c87 !important; /* Dark purple for headings */
-  /* Ensure other header properties like font-weight, margins are as intended */
+}
+#profile-markdown h2,
+.prose h2 {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  margin-top: 1rem !important;
+  margin-bottom: 0.75rem !important;
+  color: #581c87 !important; /* Dark purple for headings */
+}
+#profile-markdown h3,
+.prose h3 {
+  font-size: 1.5rem !important;
+  font-weight: 600 !important;
+  margin-top: 1rem !important;
+  margin-bottom: 0.5rem !important;
+  color: #581c87 !important; /* Dark purple for headings */
+}
+#profile-markdown h4, #profile-markdown h5, #profile-markdown h6,
+.prose h4, .prose h5, .prose h6 {
+  font-weight: 500 !important;
+  margin-top: 1rem !important;
+  margin-bottom: 0.25rem !important;
+  color: #581c87 !important; /* Dark purple for headings */
 }
 
-/* Specific text element styling to ensure consistency, complementing prose variables */
-
-/* Paragraphs: Dark Gray */
+/* Dark gray for specific elements */
 #profile-markdown p,
 .prose p {
-  color: #1f2937 !important;
+  margin-top: 0.7em !important;
+  margin-bottom: 0.7em !important;
+  line-height: 1.5 !important;
+  color: #1f2937 !important; /* Dark gray for paragraph text */
 }
-
-/* List Items: Dark Gray */
 #profile-markdown li,
 .prose li {
-  color: #1f2937 !important;
+  color: #1f2937 !important; /* Dark gray for list items */
+  /* Add margin/padding for li if needed, similar to p */
+  margin-top: 0.25em !important;
+  margin-bottom: 0.25em !important;
 }
 
-/* Italic/Emphasis Text: Dark Gray */
-#profile-markdown em,
-.prose em {
-  color: #1f2937 !important;
+#profile-markdown strong, #profile-markdown b,
+.prose strong, .prose b {
+  color: #111827 !important; /* Very dark for bold text */
 }
-
-/* Bold/Strong Text: Very Dark Gray/Black */
-#profile-markdown strong,
-.prose strong {
-  color: #111827 !important;
+#profile-markdown em, #profile-markdown i,
+.prose em, .prose i {
+  color: #1f2937 !important; /* Dark gray for italic text */
 }
 
 </style>
