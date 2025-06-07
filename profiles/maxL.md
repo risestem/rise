@@ -1,6 +1,6 @@
 # Profile: Max Lin
 
-<div style="display: grid; grid-template-rows: 1fr 1fr; gap: 10px;">
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px;">
     <img src="https://risestem.github.io/rise/public/MaxLin.jpeg" alt="Placeholder 1" width="150" height="150" style="border-radius: 8px;">
     <img src="https://risestem.github.io/rise/public/MaxLin3.jpg" alt="Placeholder 2" width="150" height="150" style="border-radius: 8px;">
     <img src="https://risestem.github.io/rise/public/MaxLin4.jpeg" alt="Placeholder 3" width="150" height="150" style="border-radius: 8px;">
