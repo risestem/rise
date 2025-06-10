@@ -26,46 +26,89 @@
 <body>
 <!-- Header/Navigation -->
 <header class="fixed top-0 bg-white shadow-md w-full z-50">
-  <nav class="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200 shadow-md">
-    <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-      <a href="https://risestem.github.io/rise/home" class="flex items-center px-0">
-        <img src="https://risestem.github.io/rise/public/logo1.svg" alt="Rise Engineering & Coding" class="h-16 mr-3" />
-      </a>
-      <div class="flex justify-center items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-        <button type="button" class="text-white bg-purple-950 font-semibold rounded-md text-md px-6 py-3.5 sm:mr-2 lg:mr-0 transform transition-all duration-300 hover:scale-110">Contact Us</button>
-        <button id="hamburger-btn" data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-500 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
-          <span class="sr-only">Open main menu</span>
-          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
-          </svg>
-        </button>
-      </div>
-      <div class="hidden w-full md:flex md:w-auto md:order-1 justify-start" id="navbar-sticky">
-        <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:mt-0 md:border-0 md:bg-white">
-          <li>
-            <a href="https://risestem.github.io/rise/home" class="px-4 font-bold text-gray-500 hover:text-purple-950" aria-current="page">Home</a>
-          </li>
-          <li>
-            <a href="https://risestem.github.io/rise/mission" class="px-4 font-bold text-gray-500 hover:text-purple-950">Our Mission</a>
-          </li>
-          <li>
-            
-          </li>
-          <li>
-            <a href="https://risestem.github.io/rise/curriculum" class="px-4 font-bold text-purple-950 hover:text-purple-950">Curriculum</a>
-          </li>
-          <li>
-            <a href="https://risestem.github.io/rise/questions" class="px-4 font-bold text-gray-500 hover:text-purple-950">Questions</a>
-          </li>
-          <li>
-            <a href="https://risestem.github.io/rise/about" class="px-4 font-bold text-gray-500 hover:text-purple-950">About Us</a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-</header>
-
+        <nav class="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200 shadow-md">
+            <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 min-h-[80px] transition-all duration-300">
+                <a href="https://risestem.github.io/rise/home#home" class="flex items-center px-0">
+                    <img src="https://risestem.github.io/rise/public/logo1.svg" alt="Rise Engineering & Coding" class="h-16 mr-3" />
+                </a>
+                
+                <div class="flex justify-center items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                    <a href="#contact">
+                        <button type="button" class="text-white bg-purple-950 font-semibold rounded-md text-md px-6 py-3.5 sm:mr-2 lg:mr-0 transform transition-all duration-300 hover:scale-110">
+                            Contact Us
+                        </button>
+                    </a>
+                    <button id="hamburger-btn" data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+                        </svg>
+                    </button>
+                  <script>
+                    document.getElementById("hamburger-btn").addEventListener("click", function() {
+                      const navbar = document.getElementById("navbar-sticky");
+                      const isExpanded = this.getAttribute("aria-expanded") === "true";
+        
+                      // Toggle the class to show or hide the menu
+                      navbar.classList.toggle("hidden", isExpanded);
+        
+                      // Toggle the aria-expanded attribute
+                      this.setAttribute("aria-expanded", !isExpanded);
+                    });
+                  </script>
+                </div>
+                
+                <div class="hidden w-full md:flex md:w-auto md:order-1 justify-start" id="navbar-sticky">
+                    <ul class="flex flex-col pt-8 md:flex-row md:items-baseline p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:mt-0 md:border-0 md:bg-white w-full">
+                        <li class="flex items-center">
+                            <a href="https://risestem.github.io/rise/home" class="px-4 py-2 font-bold text-purple-950 hover:text-purple-950" aria-current="page">Home</a>
+                        </li>
+                        <li class="flex items-center">
+                            <a href="https://risestem.github.io/rise/mission" class="px-4 py-2 font-bold text-gray-500 hover:text-purple-950">Our Mission</a>
+                        </li>
+                        <li class="flex items-center">
+                            <a href="https://risestem.github.io/rise/curriculum" class="px-4 py-2 font-bold text-gray-500 hover:text-purple-950">Curriculum</a>
+                        </li>
+                        <li class="flex items-center">
+                            <a href="https://risestem.github.io/rise/questions" class="px-4 py-2 font-bold text-gray-500 hover:text-purple-950">Questions</a>
+                        </li>
+                    
+                        <!-- About dropdown for desktop -->
+                        <li class="group hidden md:flex md:flex-col relative">
+                            <a href="https://risestem.github.io/rise/about" class="px-4 py-2 font-bold text-gray-500 hover:text-purple-950 cursor-pointer flex items-center">
+                                About Us
+                            </a>
+                            <!-- Dropdown items that expand the header -->
+                            <div class="flex flex-col opacity-0 overflow-hidden group-hover:opacity-100 group-hover:max-h-40 group-hover:pb-4 transition-all duration-300 ease-in-out">
+                                <a href="https://risestem.github.io/rise/what-we-do" class="px-4 py-1 font-bold text-gray-500 hover:text-purple-900 whitespace-nowrap">
+                                    What We Do
+                                </a>
+                                <a href="https://risestem.github.io/rise/team" class="px-4 py-1 font-bold text-gray-500 hover:text-purple-900 whitespace-nowrap">
+                                    Our Team
+                                </a>
+                            </div>
+                        </li>
+                    
+                        <!-- About links for mobile -->
+                        <li class="block md:hidden">
+                            <span class="px-4 py-2 font-bold text-gray-500">About</span>
+                            <ul class="pl-6 space-y-1 pt-1 text-sm text-gray-700">
+                                <li>
+                                    <a href="https://risestem.github.io/rise/about" class="block hover:text-purple-900">About Us</a>
+                                </li>
+                                <li>
+                                    <a href="https://risestem.github.io/rise/what-we-do" class="block hover:text-purple-900">What We Do</a>
+                                </li>
+                                <li>
+                                    <a href="https://risestem.github.io/rise/team" class="block hover:text-purple-900">Our Team</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
 <!-- Main content -->
 <section class="min-h-screen bg-white w-full pt-16">
   <!-- Hero Banner -->
