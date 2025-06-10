@@ -34,6 +34,18 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
                         </svg>
                     </button>
+                  <script>
+                    document.getElementById("hamburger-btn").addEventListener("click", function() {
+                      const navbar = document.getElementById("navbar-sticky");
+                      const isExpanded = this.getAttribute("aria-expanded") === "true";
+        
+                      // Toggle the class to show or hide the menu
+                      navbar.classList.toggle("hidden", isExpanded);
+        
+                      // Toggle the aria-expanded attribute
+                      this.setAttribute("aria-expanded", !isExpanded);
+                    });
+                  </script>
                 </div>
                 
                 <div class="hidden w-full md:flex md:w-auto md:order-1 justify-start" id="navbar-sticky">
