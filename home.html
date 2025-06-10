@@ -47,41 +47,55 @@
           </script>
         </div>
         <div class="hidden w-full md:flex md:w-auto md:order-1 justify-start overflow-visible" id="navbar-sticky">
-          <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:mt-0 md:border-0 md:bg-white">
+          <ul class="flex flex-col md:flex-row p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:mt-0 md:border-0 md:bg-white w-full">
             <li>
-              <a href="https://risestem.github.io/rise/home" class="px-4 font-bold text-purple-950 hover:text-purple-950" aria-current="page">Home</a>
+              <a href="https://risestem.github.io/rise/home" class="px-4 py-2 font-bold text-purple-950 hover:text-purple-950" aria-current="page">Home</a>
             </li>
             <li>
-              <a href="https://risestem.github.io/rise/mission" class="px-4 font-bold text-gray-500 hover:text-purple-950">Our Mission</a>
+              <a href="https://risestem.github.io/rise/mission" class="px-4 py-2 font-bold text-gray-500 hover:text-purple-950">Our Mission</a>
             </li>
             <li>
-              
+              <a href="https://risestem.github.io/rise/curriculum" class="px-4 py-2 font-bold text-gray-500 hover:text-purple-950">Curriculum</a>
             </li>
             <li>
-              <a href="https://risestem.github.io/rise/curriculum" class="px-4 font-bold text-gray-500 hover:text-purple-950">Curriculum</a>
+              <a href="https://risestem.github.io/rise/questions" class="px-4 py-2 font-bold text-gray-500 hover:text-purple-950">Questions</a>
             </li>
-            <li>
-              <a href="https://risestem.github.io/rise/questions" class="px-4 font-bold text-gray-500 hover:text-purple-950">Questions</a>
+          
+            <!-- About dropdown for desktop -->
+            <li class="relative group hidden md:block">
+              <div class="px-4 py-2 font-bold text-gray-500 hover:text-purple-950 cursor-pointer">About</div>
+              <div class="overflow-hidden max-h-0 group-hover:max-h-40 transition-all duration-300 ease-in-out">
+                <ul class="flex flex-col text-sm font-medium text-gray-700 px-4 pt-2 pb-3 space-y-1">
+                  <li>
+                    <a href="https://risestem.github.io/rise/about" class="hover:text-purple-900">About Us</a>
+                  </li>
+                  <li>
+                    <a href="https://risestem.github.io/rise/what-we-do" class="hover:text-purple-900">What We Do</a>
+                  </li>
+                  <li>
+                    <a href="https://risestem.github.io/rise/team" class="hover:text-purple-900">Our Team</a>
+                  </li>
+                </ul>
+              </div>
             </li>
-            <li class="group relative">
-                <div class="px-4 font-bold text-gray-500 hover:text-purple-950 cursor-pointer">
-                  About
-                </div>
-                <div class="overflow-hidden max-h-0 group-hover:max-h-120 transition-all duration-300 ease-in-out">
-                  <ul class="flex flex-col text-sm font-medium text-gray-700 px-4 pt-2 pb-3 space-y-1">
-                    <li>
-                      <a href="https://risestem.github.io/rise/about" class="hover:text-purple-900">About Us</a>
-                    </li>
-                    <li>
-                      <a href="https://risestem.github.io/rise/what-we-do" class="hover:text-purple-900">What We Do</a>
-                    </li>
-                    <li>
-                      <a href="https://risestem.github.io/rise/team" class="hover:text-purple-900">Our Team</a>
-                    </li>
-                  </ul>
-                </div>
-              </li>
+          
+            <!-- About links for mobile -->
+            <li class="block md:hidden">
+              <span class="px-4 py-2 font-bold text-gray-500">About</span>
+              <ul class="pl-6 space-y-1 pt-1 text-sm text-gray-700">
+                <li>
+                  <a href="https://risestem.github.io/rise/about" class="block hover:text-purple-900">About Us</a>
+                </li>
+                <li>
+                  <a href="https://risestem.github.io/rise/what-we-do" class="block hover:text-purple-900">What We Do</a>
+                </li>
+                <li>
+                  <a href="https://risestem.github.io/rise/team" class="block hover:text-purple-900">Our Team</a>
+                </li>
+              </ul>
+            </li>
           </ul>
+
         </div>
       </div>
     </nav>
