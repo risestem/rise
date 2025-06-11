@@ -1,0 +1,371 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="https://risestem.github.io/rise/public/logo1.svg" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About Us - Rise Engineering & Coding</title>
+  <link href="src/style.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html {
+      scroll-behavior: smooth;
+    }
+    
+    .flip-card .flip-card-inner {
+      perspective: 1000px;
+    }
+    .flip-card .flip-card-front,
+    .flip-card .flip-card-back {
+      backface-visibility: hidden;
+    }
+    .flip-card .flip-card-back {
+      transform: rotateY(180deg);
+    }
+    
+    /* Enhanced card styles */
+    .flip-card {
+      transition: transform 0.3s ease;
+    }
+    
+    .flip-card:hover {
+      transform: translateY(-10px);
+    }
+    
+    .flip-card-front {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .flip-card:hover .flip-card-front {
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    .flip-card-back {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .flip-card:hover .flip-card-back {
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+    
+    /* Add subtle animation to images */
+    .flip-card img {
+      transition: transform 0.3s ease;
+    }
+    
+    .flip-card:hover img {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="fixed top-0 bg-white shadow-md w-full z-50">
+    <nav class="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200 shadow-md">
+      <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 min-h-[80px] transition-all duration-300">
+        <a href="https://risestem.github.io/rise/home#home" class="flex items-center px-0">
+          <img src="https://risestem.github.io/rise/public/logo1.svg" alt="Rise Engineering & Coding" class="h-16 mr-3" />
+        </a>
+  
+        <div class="flex justify-center items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+          <a href="#contact">
+            <button type="button" class="text-white bg-purple-950 font-semibold rounded-md text-md px-6 py-3.5 sm:mr-2 lg:mr-0 transform transition-all duration-300 hover:scale-110">
+              Contact Us
+            </button>
+          </a>
+          <button id="hamburger-btn" data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+            </svg>
+          </button>
+          <script>
+            document.getElementById("hamburger-btn").addEventListener("click", function () {
+              const navbar = document.getElementById("navbar-sticky");
+              const isExpanded = this.getAttribute("aria-expanded") === "true";
+              navbar.classList.toggle("hidden", isExpanded);
+              this.setAttribute("aria-expanded", !isExpanded);
+            });
+          </script>
+        </div>
+  
+        <div class="hidden w-full md:flex md:w-auto md:order-1 justify-center" id="navbar-sticky">
+          <ul class="flex flex-col md:flex-row md:items-center p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:mt-0 md:border-0 md:bg-white w-full md:w-auto">
+            <li class="flex items-center">
+              <a href="https://risestem.github.io/rise/home" class="px-4 py-2 font-bold text-gray-500 hover:text-purple-950" aria-current="page">Home</a>
+            </li>
+            <li class="flex items-center">
+              <a href="https://risestem.github.io/rise/curriculum" class="px-4 py-2 font-bold text-gray-500 hover:text-purple-950">Curriculum</a>
+            </li>
+            <li class="flex items-center">
+              <a href="https://risestem.github.io/rise/questions" class="px-4 py-2 font-bold text-gray-500 hover:text-purple-950">Questions</a>
+            </li>
+            <li class="flex items-center">
+              <a href="https://risestem.github.io/rise/issue" class="px-4 py-2 font-bold text-purple-950 hover:text-purple-950">The Issue</a>
+            </li>
+            <!-- About dropdown for desktop -->
+            <li class="group hidden md:flex md:flex-col relative items-center">
+              <a href="https://risestem.github.io/rise/about" class="px-4 py-2 font-bold text-gray-500 hover:text-purple-950 cursor-pointer flex items-center">
+                About Us
+                <svg class="w-4 h-4 ml-1 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </a>
+              <!-- Dropdown (absolutely positioned) -->
+              <div class="absolute left-0 top-full mt-0 py-1 pr-2 bg-white shadow-lg rounded-md z-10 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity duration-300 ease-in-out">
+                <a href="https://risestem.github.io/rise/what-we-do" class="block px-4 py-2 font-bold text-gray-500 hover:text-purple-950 whitespace-nowrap">
+                  What We Do
+                </a>
+                <a href="https://risestem.github.io/rise/team" class="block px-4 py-2 font-bold text-gray-500 hover:text-purple-950 whitespace-nowrap">
+                  Our Team
+                </a>
+              </div>
+            </li>
+  
+            <!-- About links for mobile -->
+            <li class="block md:hidden">
+              <span class="px-4 py-2 font-bold text-gray-500">About</span>
+              <ul class="pl-6 space-y-1 pt-1 text-gray-500">
+                <li>
+                  <a href="https://risestem.github.io/rise/about" class="block hover:text-purple-900">About Us</a>
+                </li>
+                <li>
+                  <a href="https://risestem.github.io/rise/what-we-do" class="block hover:text-purple-900">What We Do</a>
+                </li>
+                <li>
+                  <a href="https://risestem.github.io/rise/team" class="block hover:text-purple-900">Our Team</a>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+<!-- Main Content -->
+<main class="min-h-screen bg-white w-full">
+  
+  <!-- Hero Section -->
+  <section class="bg-white w-full">
+    <div class="w-full h-[60vh] bg-[url('https://risestem.github.io/rise/public/.jpg')] bg-cover bg-top bg-no-repeat flex items-center justify-center relative">
+      <!-- Gradient Overlay -->
+      <div class="h-[60vh] absolute inset-0 bg-black opacity-50"></div>
+      <div class="flex flex-col text-center items-center justify-center px-6 sm:px-16 md:px-32 z-10">
+        <h1 class="mt-16 text-3xl font-extrabold text-white md:text-4xl xl:text-5xl justify-center">
+          The Issue
+        </h1>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Issue Section -->
+  <section id="Issue" class="w-full px-6 sm:px-6 md:px-16 lg:px-24 -mt-8 z-20 relative pb-12 scroll-mt-24">
+    <div class="bg-white p-4 rounded-2xl border border-gray-300 shadow-md justify-center">
+      <div class="flex justify-center text-center">
+        <h2 class="text-3xl font-poppins font-semibold text-purple-950 md:text-4xl">
+          The <span class="font-extrabold">Issue</span>
+        </h2>
+      </div>
+
+      <div class="flex justify-center items-center pt-8 sm:px-16 lg:px-32 flex-col">
+        <!-- Three Boxes Section with Flip Effect -->
+        <div class="bg-white w-full py-12">
+          <div class="max-w-6xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <!-- Box 1 -->
+              <div class="flip-card group bg-transparent rounded-xl flex flex-col items-center"> 
+                <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+                  <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden">
+                    <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">
+                      code_blocks
+                    </span>
+                    <h3 class="text-3xl font-bold text-purple-900 mb-2 text-center">STEM Access Gaps</h3>
+                  </div>
+                  <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden">
+                    <p class="text-gray-700 text-center">Many students, especially those from low-income or underrepresented backgrounds, lack access to quality STEM education. This gap limits their opportunities to explore, develop, and excel in critical fields like science, technology, engineering, and math, creating disparities in future careers and innovation potential.</p>
+                  </div>
+                </div>
+              </div>
+              <!-- Box 2 -->
+              <div class="flip-card group bg-transparent rounded-xl flex flex-col items-center">
+                <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+                  <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden">
+                    <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">
+                      group
+                    </span>
+                    <h3 class="text-3xl font-bold text-purple-900 mb-2 text-center">Confidence</h3>
+                  </div>
+                  <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden">
+                    <p class="text-gray-700 text-center">Many students, particularly from marginalized communities, face confidence gaps in STEM subjects. Without encouragement and support, they may doubt their abilities, leading to disengagement and limiting their future opportunities in these critical fields.</p>
+                  </div>
+                </div>
+              </div>
+              <!-- Box 3 -->
+              <div class="flip-card group bg-transparent rounded-xl flex flex-col items-center">
+                <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+                  <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden">
+                    <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">
+                      engineering
+                    </span>
+                    <h3 class="text-3xl font-bold text-purple-900 mb-2 text-center">Skills Gap</h3>
+                  </div>
+                  <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden">
+                    <p class="text-gray-700 text-center">As technology evolves, there's a growing demand for STEM skills. Unfortunately, many students—especially those in underserved schools—lack access to the resources and hands-on experiences needed to develop these crucial skills, widening the gap between academic learning and workforce readiness.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Count-Up Section -->
+          <div class="flex flex-col md:flex-row items-center justify-center gap-8 px-6 sm:px-16 md:px-32 my-8">
+            <div class="flex flex-col items-center">
+              <div id="counter" class="text-7xl font-extrabold text-purple-700">0</div>
+              <p class="text-xl text-gray-600 mt-4 text-center">of lower-income parents doubt<br>STEM careers for their kids.</p>
+            </div>
+            <div class="w-full md:w-1/2">
+              <img src="https://risestem.github.io/rise/public/photo5.jpg" alt="STEM Education" class="rounded-lg shadow-lg w-full h-auto" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+  <!-- Footer -->
+  <section class="bg-white w-full py-12">
+    <div class="flex flex-wrap justify-between items-center pt-8 px-6 sm:px-12 md:px-24 lg:px-32 pb-8 w-full bg-white text-gray-400">
+      <a href="https://risestem.github.io/rise/home" class="flex items-center">
+        <img src="https://risestem.github.io/rise/public/logo1.svg" alt="Rise Engineering & Coding" class="h-12 sm:h-16 w-12 sm:w-16" />
+        <span class="text-lg sm:text-xl font-extrabold px-4">Rise Engineering & <br class="hidden sm:inline"> Coding</span>
+      </a>
+      <div class="text-sm sm:text-md font-bold">
+        Email: <a href="mailto:rise.stemedu@gmail.com" class="font-semibold text-gray-400 underline">rise.stemedu@gmail.com</a> <br>
+        Phone: <a href="tel:+17064241613" class="font-semibold text-gray-400 underline">+1 (706)-424-1613</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+
+
+<!-- Contact Modal (hidden by default) -->
+<div id="contact-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+  <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-8 relative">
+    <button id="close-contact-modal" class="absolute top-2 right-2 text-gray-400 hover:text-purple-700 text-2xl font-bold">&times;</button>
+    <h3 class="text-3xl font-extrabold text-purple-950 mb-4 text-center">Contact Us</h3>
+    <form action="https://formspree.io/f/xwpvqjel" method="POST" class="space-y-4">
+      <div>
+        <label for="modal-email" class="block text-sm font-medium text-gray-700">Email</label>
+        <input type="email" name="email" id="modal-email" required class="w-full px-4 py-2 border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-black" placeholder="Enter your email" />
+      </div>
+      <div>
+        <label for="modal-message" class="block text-sm font-medium text-gray-700">Message</label>
+        <textarea name="message" id="modal-message" required rows="4" class="w-full px-4 py-2 border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-black" placeholder="Enter your message"></textarea>
+      </div>
+      <div class="flex justify-center">
+        <button type="submit" class="w-full px-4 py-2 font-bold bg-purple-950 text-white rounded-md transition-all duration-200">Send</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script>
+  // Hamburger menu functionality
+  document.getElementById("hamburger-btn").addEventListener("click", function() {
+    const navbar = document.getElementById("navbar-sticky");
+    const isExpanded = this.getAttribute("aria-expanded") === "true";
+    navbar.classList.toggle("hidden", isExpanded);
+    this.setAttribute("aria-expanded", !isExpanded);
+  });
+
+  // Image container click functionality
+  const container = document.getElementById('image-container');
+  const cards = container.querySelectorAll('div.absolute');
+  let currentTopIndex = cards.length - 1;
+
+  container.addEventListener('click', () => {
+    const topCard = cards[currentTopIndex];
+    topCard.style.zIndex = 10;
+
+    cards.forEach((card, i) => {
+      if (i !== currentTopIndex) {
+        const z = parseInt(card.style.zIndex || 10, 10);
+        card.style.zIndex = z + 10;
+      }
+    });
+
+    currentTopIndex = (currentTopIndex - 1 + cards.length) % cards.length;
+  });
+
+  // Count Up Animation
+  function animateCountUp(element, target, duration) {
+    let start = 0;
+    let startTime = null;
+
+    function update(currentTime) {
+      if (!startTime) startTime = currentTime;
+      const progress = currentTime - startTime;
+      const percent = Math.min(progress / duration, 1);
+
+      element.textContent = Math.floor(percent * target) + "%";
+
+      if (progress < duration) {
+        requestAnimationFrame(update);
+      } else {
+        element.textContent = target + "%";
+      }
+    }
+
+    requestAnimationFrame(update);
+  }
+
+  // Create an Intersection Observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const counter = document.getElementById('counter');
+        animateCountUp(counter, 51, 2300);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    threshold: 0.3
+  });
+
+  // Start observing the counter section
+  const counterSection = document.querySelector('#Issue');
+  if (counterSection) {
+    observer.observe(counterSection);
+  }
+
+  // Modal functionality
+  const contactModal = document.getElementById('contact-modal');
+  const openContactBtn = document.querySelector('button.bg-purple-950');
+  const closeContactBtn = document.getElementById('close-contact-modal');
+
+  if (openContactBtn && contactModal && closeContactBtn) {
+    openContactBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      contactModal.classList.remove('hidden');
+    });
+    closeContactBtn.addEventListener('click', function() {
+      contactModal.classList.add('hidden');
+    });
+    contactModal.addEventListener('click', function(e) {
+      if (e.target === contactModal) {
+        contactModal.classList.add('hidden');
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
