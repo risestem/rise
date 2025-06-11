@@ -3,7 +3,7 @@ async function loadHeader() {
   const headerContainer = document.getElementById("header-container");
   if (!headerContainer) return;
 
-  const response = await fetch('/header.html');
+  const response = await fetch('https://github.com/risestem/rise/blob/main/header.html');
   if (!response.ok) {
     console.error('Failed to load header.html');
     return;
