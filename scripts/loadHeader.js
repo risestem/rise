@@ -14,6 +14,8 @@ async function loadHeader() {
   
   // Initialize header functionality after HTML is loaded
   initializeHeader();
+
+  document.dispatchEvent(new Event('header:loaded'));
 }
 
 function initializeHeader() {
