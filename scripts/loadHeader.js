@@ -1,9 +1,9 @@
-// loadHeader.js
 async function loadHeader() {
   const headerContainer = document.getElementById("header-container");
   if (!headerContainer) return;
   
-  const response = await fetch('https://cdn.jsdelivr.net/gh/risestem/rise/header.html' + Date.now());
+  // Cache busting query string
+  const response = await fetch('https://cdn.jsdelivr.net/gh/risestem/rise/header.html?v=' + Date.now());
   if (!response.ok) {
     console.error('Failed to load header.html');
     return;
@@ -25,7 +25,7 @@ function initializeHeader() {
     hamburgerBtn.addEventListener("click", function () {
       const isExpanded = this.getAttribute("aria-expanded") === "true";
       navbar.classList.toggle("hidden", isExpanded);
-      this.setAttribute("aria-expanded", !isExpanded);
+      this.setAttribute("aria-expanded", (!isExpanded).toString());
     });
   }
 
@@ -34,28 +34,22 @@ function initializeHeader() {
 }
 
 function highlightCurrentPage() {
-  const currentURL = window.location.href;
+  const currentPath = window.location.pathname;
   const navLinks = document.querySelectorAll('nav a');
 
-  console.log("Current page URL:", currentURL);
-  console.log("Checking navigation links...");
-
   navLinks.forEach(link => {
-    console.log(`Checking link: ${link.href}`);
-    
-    if (link.href === currentURL) {
-      console.log(`Match found! Highlighting link: ${link.href}`);
+    // Compare only the pathname for robustness (ignores query/hash)
+    if (link.pathname === currentPath || currentPath.startsWith(link.pathname)) {
       link.classList.add('text-purple-950');
       link.classList.remove('text-gray-500');
 
-      if (link.closest('li.group')) {
-        console.log("Link is inside a dropdown. Highlighting parent link.");
-        const aboutParent = document.querySelector('li.group > a');
-        if (aboutParent) {
-          aboutParent.classList.add('text-purple-950');
-          aboutParent.classList.remove('text-gray-500');
-        } else {
-          console.warn("Could not find the dropdown parent anchor.");
+      // If inside dropdown, highlight parent link too
+      const parentLi = link.closest('li.group');
+      if (parentLi) {
+        const parentLink = parentLi.querySelector('a');
+        if (parentLink) {
+          parentLink.classList.add('text-purple-950');
+          parentLink.classList.remove('text-gray-500');
         }
       }
     }
