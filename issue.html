@@ -181,56 +181,69 @@
   </div>
 </div>
 
-<!-- Scripts -->
 <script>
-  // Debug helper
   function logDebug(msg) {
     if (window && window.console) {
       console.debug('[DEBUG]', msg);
     }
   }
-
-  document.addEventListener('DOMContentLoaded', function() {
-    // Hamburger menu functionality (if present)
-    const hamburgerBtn = document.getElementById("hamburger-btn");
-    if (hamburgerBtn) {
-      hamburgerBtn.addEventListener("click", function() {
-        const navbar = document.getElementById("navbar-sticky");
-        if (!navbar) {
-          logDebug("Navbar sticky not found!");
-          return;
-        }
-        const isExpanded = this.getAttribute("aria-expanded") === "true";
-        navbar.classList.toggle("hidden", isExpanded);
-        this.setAttribute("aria-expanded", !isExpanded);
+  
+  // --- Contact Modal Setup (GLOBAL) ---
+  function setupContactModal() {
+    const contactModal = document.getElementById('contact-modal');
+    const closeContactBtn = document.getElementById('close-contact-modal');
+  
+    // Find all "Contact Us" buttons/links in header
+    const openContactBtns = Array.from(document.querySelectorAll('button, a')).filter(
+      el => el.textContent && el.textContent.trim().toLowerCase() === "contact us"
+    );
+  
+    openContactBtns.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (contactModal) contactModal.classList.remove('hidden');
       });
-    } else {
-      logDebug("Hamburger button not found, skipping menu setup");
+    });
+  
+    if (closeContactBtn) {
+      closeContactBtn.addEventListener('click', function() {
+        contactModal.classList.add('hidden');
+      });
     }
-
-    // Count Up Animation
-    function animateCountUp(element, target, duration) {
-      let start = 0;
-      let startTime = null;
-
-      function update(currentTime) {
-        if (!startTime) startTime = currentTime;
-        const progress = currentTime - startTime;
-        const percent = Math.min(progress / duration, 1);
-
-        element.textContent = Math.floor(percent * target) + "%";
-
-        if (progress < duration) {
-          requestAnimationFrame(update);
-        } else {
-          element.textContent = target + "%";
+  
+    if (contactModal) {
+      contactModal.addEventListener('click', function(e) {
+        if (e.target === contactModal) {
+          contactModal.classList.add('hidden');
         }
-      }
-
-      requestAnimationFrame(update);
+      });
     }
-
-    // Intersection Observer for #counter in #Issue
+    logDebug("setupContactModal run. Found " + openContactBtns.length + " openers.");
+  }
+  
+  // --- Count Up Animation ---
+  function animateCountUp(element, target, duration) {
+    let start = 0;
+    let startTime = null;
+  
+    function update(currentTime) {
+      if (!startTime) startTime = currentTime;
+      const progress = currentTime - startTime;
+      const percent = Math.min(progress / duration, 1);
+  
+      element.textContent = Math.floor(percent * target) + "%";
+  
+      if (progress < duration) {
+        requestAnimationFrame(update);
+      } else {
+        element.textContent = target + "%";
+      }
+    }
+  
+    requestAnimationFrame(update);
+  }
+  
+  function setupCounterAnimation() {
     const counterSection = document.querySelector('#Issue');
     if (counterSection) {
       const observer = new IntersectionObserver((entries) => {
@@ -250,39 +263,38 @@
     } else {
       logDebug("#Issue section not found, skipping counter animation");
     }
-
-    // Contact Modal Setup
-    function setupContactModal() {
-  const contactModal = document.getElementById('contact-modal');
-  const closeContactBtn = document.getElementById('close-contact-modal');
-
-  // Find all "Contact Us" buttons/links in header
-  const openContactBtns = Array.from(document.querySelectorAll('button, a')).filter(
-    el => el.textContent && el.textContent.trim().toLowerCase() === "contact us"
-  );
-
-  openContactBtns.forEach(btn => {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      if (contactModal) contactModal.classList.remove('hidden');
-    });
+  }
+  
+  // --- Main Init ---
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hamburger menu functionality (if present)
+    const hamburgerBtn = document.getElementById("hamburger-btn");
+    if (hamburgerBtn) {
+      hamburgerBtn.addEventListener("click", function() {
+        const navbar = document.getElementById("navbar-sticky");
+        if (!navbar) {
+          logDebug("Navbar sticky not found!");
+          return;
+        }
+        const isExpanded = this.getAttribute("aria-expanded") === "true";
+        navbar.classList.toggle("hidden", isExpanded);
+        this.setAttribute("aria-expanded", !isExpanded);
+      });
+    } else {
+      logDebug("Hamburger button not found, skipping menu setup");
+    }
+  
+    setupCounterAnimation();
+  
+    // Set up modal for the first time (in case a Contact Us button is present early)
+    setupContactModal();
   });
-
-  if (closeContactBtn) {
-    closeContactBtn.addEventListener('click', function() {
-      contactModal.classList.add('hidden');
-    });
-  }
-
-  if (contactModal) {
-    contactModal.addEventListener('click', function(e) {
-      if (e.target === contactModal) {
-        contactModal.classList.add('hidden');
-      }
-    });
-  }
-}
+  
+  // Listen for custom header-loaded event (from loadHeader.js) to re-setup modal openers
+  document.addEventListener('header:loaded', () => {
+    setupContactModal();
+  });
 </script>
-
+  
 </body>
 </html>
