@@ -3,7 +3,7 @@ async function loadHeader() {
   const headerContainer = document.getElementById("header-container");
   if (!headerContainer) return;
   
-  const response = await fetch('https://cdn.jsdelivr.net/gh/risestem/rise@main/header.html' + Date.now());
+  const response = await fetch('https://cdn.jsdelivr.net/gh/risestem/rise/header.html' + Date.now());
   if (!response.ok) {
     console.error('Failed to load header.html');
     return;
