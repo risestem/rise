@@ -642,6 +642,16 @@ if (openContactBtn && contactModal && closeContactBtn) {
     }
   });
 }
+
+  window.addEventListener('DOMContentLoaded', () => {
+  if (window.location.hash === '#contact') {
+    const contactModal = document.getElementById('contact-modal');
+    if (contactModal) {
+      contactModal.classList.remove('hidden');
+    }
+  }
+  });
+  window.location.hash = '';
 </script>
 </body>
 </html>
