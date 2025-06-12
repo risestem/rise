@@ -481,25 +481,50 @@
 
 <!-- JavaScript -->
 <script>
+  // === DEBUGGING START ===
+  function logDebug(msg, ...args) {
+    console.log('[DEBUG]', msg, ...args);
+  }
 
+  function logError(msg, ...args) {
+    console.error('[ERROR]', msg, ...args);
+  }
+
+  logDebug('Script loaded and running.');
+
+  // === Main Elements
   const welcomeContent = document.getElementById('welcome-content');
   const viewCodingBtn = document.getElementById('view-coding-btn');
   const viewEngineeringBtn = document.getElementById('view-engineering-btn');
   const breadcrumbSeparator = document.getElementById('breadcrumb-separator');
   const currentSection = document.getElementById('current-section');
-  // Mobile navigation toggle
-  document.getElementById("hamburger-btn").addEventListener("click", function() {
-    const navbar = document.getElementById("navbar-sticky");
-    const isExpanded = this.getAttribute("aria-expanded") === "true";
-    navbar.classList.toggle("hidden", isExpanded);
-    this.setAttribute("aria-expanded", !isExpanded);
+  logDebug('Main elements:', {
+    welcomeContent, viewCodingBtn, viewEngineeringBtn, breadcrumbSeparator, currentSection
   });
+
+  // Mobile navigation toggle
+  try {
+    const hamburgerBtn = document.getElementById("hamburger-btn");
+    hamburgerBtn.addEventListener("click", function() {
+      logDebug('Hamburger menu clicked.');
+      const navbar = document.getElementById("navbar-sticky");
+      const isExpanded = this.getAttribute("aria-expanded") === "true";
+      logDebug('Navbar state before toggle:', {isExpanded, navbar});
+      navbar.classList.toggle("hidden", isExpanded);
+      this.setAttribute("aria-expanded", !isExpanded);
+      logDebug('Navbar state after toggle:', {navbarHidden: navbar.classList.contains('hidden')});
+    });
+  } catch (e) {
+    logError('Error setting up hamburger menu:', e);
+  }
 
   // Accordion functionality
   document.querySelectorAll('.accordion-btn').forEach(button => {
     button.addEventListener('click', () => {
+      logDebug('Accordion button clicked:', button);
       const content = button.nextElementSibling;
       content.classList.toggle('hidden');
+      logDebug('Accordion content toggled:', content, 'Hidden:', content.classList.contains('hidden'));
 
       // Change arrow direction
       const svg = button.querySelector('svg');
@@ -516,48 +541,79 @@
   const engineeringTab = document.getElementById('engineering-tab');
   const codingContent = document.getElementById('coding-content');
   const engineeringContent = document.getElementById('engineering-content');
+  logDebug('Tab elements:', {codingTab, engineeringTab, codingContent, engineeringContent});
 
-  codingTab.addEventListener('click', () => {
-    codingTab.classList.add('active');
-    engineeringTab.classList.remove('active');
-    codingContent.classList.add('active');
-    engineeringContent.classList.remove('active');
-    welcomeContent.classList.remove('active');
-    breadcrumbSeparator.classList.remove('hidden');
-    currentSection.classList.remove('hidden');
-    currentSection.textContent = 'Coding';
+  if (codingTab) {
+    codingTab.addEventListener('click', () => {
+      logDebug('Coding tab clicked.');
+      codingTab.classList.add('active');
+      engineeringTab.classList.remove('active');
+      codingContent.classList.add('active');
+      engineeringContent.classList.remove('active');
+      welcomeContent.classList.remove('active');
+      breadcrumbSeparator.classList.remove('hidden');
+      currentSection.classList.remove('hidden');
+      currentSection.textContent = 'Coding';
 
-    // Automatically expand coding subnav and collapse engineering subnav
-    document.getElementById("coding-subnav").classList.remove("hidden");
-    document.getElementById("engineering-subnav").classList.add("hidden");
-    document.getElementById("coding-icon").textContent = "-";
-    document.getElementById("engineering-icon").textContent = "+";
-  });
+      // Automatically expand coding subnav and collapse engineering subnav
+      document.getElementById("coding-subnav").classList.remove("hidden");
+      document.getElementById("engineering-subnav").classList.add("hidden");
+      document.getElementById("coding-icon").textContent = "-";
+      document.getElementById("engineering-icon").textContent = "+";
+    });
+  } else {
+    logError('codingTab not found in DOM!');
+  }
 
-  engineeringTab.addEventListener('click', () => {
-    engineeringTab.classList.add('active');
-    codingTab.classList.remove('active');
-    engineeringContent.classList.add('active');
-    codingContent.classList.remove('active');
-    welcomeContent.classList.remove('active');
-    breadcrumbSeparator.classList.remove('hidden');
-    currentSection.classList.remove('hidden');
-    currentSection.textContent = 'Engineering';
+  if (engineeringTab) {
+    engineeringTab.addEventListener('click', () => {
+      logDebug('Engineering tab clicked.');
+      engineeringTab.classList.add('active');
+      codingTab.classList.remove('active');
+      engineeringContent.classList.add('active');
+      codingContent.classList.remove('active');
+      welcomeContent.classList.remove('active');
+      breadcrumbSeparator.classList.remove('hidden');
+      currentSection.classList.remove('hidden');
+      currentSection.textContent = 'Engineering';
 
-    // Automatically expand engineering subnav and collapse coding subnav
-    document.getElementById("engineering-subnav").classList.remove("hidden");
-    document.getElementById("coding-subnav").classList.add("hidden");
-    document.getElementById("engineering-icon").textContent = "-";
-    document.getElementById("coding-icon").textContent = "+";
-  });
+      // Automatically expand engineering subnav and collapse coding subnav
+      document.getElementById("engineering-subnav").classList.remove("hidden");
+      document.getElementById("coding-subnav").classList.add("hidden");
+      document.getElementById("engineering-icon").textContent = "-";
+      document.getElementById("coding-icon").textContent = "+";
+    });
+  } else {
+    logError('engineeringTab not found in DOM!');
+  }
 
-  viewCodingBtn.addEventListener('click', () => {
-    codingTab.click();
-  });
+  if (viewCodingBtn) {
+    viewCodingBtn.addEventListener('click', () => {
+      logDebug('View Coding Curriculum button clicked.');
+      if (codingTab) {
+        logDebug('Triggering codingTab.click()');
+        codingTab.click();
+      } else {
+        logError('codingTab is null, cannot trigger click.');
+      }
+    });
+  } else {
+    logError('viewCodingBtn not found in DOM!');
+  }
 
-  viewEngineeringBtn.addEventListener('click', () => {
-    engineeringTab.click();
-  });
+  if (viewEngineeringBtn) {
+    viewEngineeringBtn.addEventListener('click', () => {
+      logDebug('View Engineering Curriculum button clicked.');
+      if (engineeringTab) {
+        logDebug('Triggering engineeringTab.click()');
+        engineeringTab.click();
+      } else {
+        logError('engineeringTab is null, cannot trigger click.');
+      }
+    });
+  } else {
+    logError('viewEngineeringBtn not found in DOM!');
+  }
 
   // Sidebar navigation (desktop)
   const navCodingBtn = document.getElementById('nav-coding-btn');
@@ -565,91 +621,124 @@
   const btn = document.getElementById('coding-subnav');
   const btn2 = document.getElementById('engineering-subnav');
 
-  navCodingBtn.addEventListener('click', () => {
-    document.getElementById("coding-subnav").classList.toggle("hidden");
+  logDebug('Sidebar elements:', {navCodingBtn, navEngineeringBtn, btn, btn2});
 
-    const codingIcon = document.getElementById("coding-icon");
-    const engineeringIcon = document.getElementById("engineering-icon");
+  if (navCodingBtn) {
+    navCodingBtn.addEventListener('click', () => {
+      logDebug('Sidebar Coding nav button clicked.');
+      document.getElementById("coding-subnav").classList.toggle("hidden");
 
-    codingIcon.textContent = codingIcon.textContent === "+" ? "-" : "+";
+      const codingIcon = document.getElementById("coding-icon");
+      const engineeringIcon = document.getElementById("engineering-icon");
 
-    // Also update mobile/tablet tabs for consistency
-    codingTab.classList.toggle('active');
-  });
+      codingIcon.textContent = codingIcon.textContent === "+" ? "-" : "+";
 
-  btn.addEventListener('click', () => {
-    codingContent.classList.add('active'); engineeringContent.classList.remove('active'); welcomeContent.classList.remove('active'); currentSection.textContent = 'Coding';
-  });
+      // Also update mobile/tablet tabs for consistency
+      if (codingTab) codingTab.classList.toggle('active');
+    });
+  }
 
-  navEngineeringBtn.addEventListener('click', () => {
-    document.getElementById("engineering-subnav").classList.toggle("hidden");
+  if (btn) {
+    btn.addEventListener('click', () => {
+      logDebug('Sidebar Coding subnav clicked.');
+      codingContent.classList.add('active');
+      engineeringContent.classList.remove('active');
+      welcomeContent.classList.remove('active');
+      currentSection.textContent = 'Coding';
+    });
+  }
 
-    const codingIcon = document.getElementById("coding-icon");
-    const engineeringIcon = document.getElementById("engineering-icon");
+  if (navEngineeringBtn) {
+    navEngineeringBtn.addEventListener('click', () => {
+      logDebug('Sidebar Engineering nav button clicked.');
+      document.getElementById("engineering-subnav").classList.toggle("hidden");
 
-    engineeringIcon.textContent = engineeringIcon.textContent === "+" ? "-" : "+";
+      const codingIcon = document.getElementById("coding-icon");
+      const engineeringIcon = document.getElementById("engineering-icon");
 
-    // Also update mobile/tablet tabs for consistency
-    codingTab.classList.toggle('active');
+      engineeringIcon.textContent = engineeringIcon.textContent === "+" ? "-" : "+";
 
-    // Also update mobile/tablet tabs for consistency
-    engineeringTab.classList.toggle('active');
-  });
+      // Also update mobile/tablet tabs for consistency
+      if (codingTab) codingTab.classList.toggle('active');
+      if (engineeringTab) engineeringTab.classList.toggle('active');
+    });
+  }
 
-  btn2.addEventListener('click', () => {
-    engineeringContent.classList.add('active'); codingContent.classList.remove('active'); welcomeContent.classList.remove('active'); currentSection.textContent = 'Engineering';
-  });
+  if (btn2) {
+    btn2.addEventListener('click', () => {
+      logDebug('Sidebar Engineering subnav clicked.');
+      engineeringContent.classList.add('active');
+      codingContent.classList.remove('active');
+      welcomeContent.classList.remove('active');
+      currentSection.textContent = 'Engineering';
+    });
+  }
 
   // Also update the mobile/tablet tab buttons to control the subnavs
-  codingTab.addEventListener('click', () => {
-    codingTab.classList.add('active');
-    engineeringTab.classList.remove('active');
-    codingContent.classList.add('active');
-    engineeringContent.classList.remove('active');
-    welcomeContent.classList.remove('active');
-    breadcrumbSeparator.classList.remove('hidden');
-    currentSection.classList.remove('hidden');
-    currentSection.textContent = 'Coding';
-  });
+  if (codingTab) {
+    codingTab.addEventListener('click', () => {
+      logDebug('Coding tab (redundant handler) clicked.');
+      codingTab.classList.add('active');
+      engineeringTab.classList.remove('active');
+      codingContent.classList.add('active');
+      engineeringContent.classList.remove('active');
+      welcomeContent.classList.remove('active');
+      breadcrumbSeparator.classList.remove('hidden');
+      currentSection.classList.remove('hidden');
+      currentSection.textContent = 'Coding';
+    });
+  }
 
-  engineeringTab.addEventListener('click', () => {
-    engineeringTab.classList.add('active');
-    codingTab.classList.remove('active');
-    engineeringContent.classList.add('active');
-    codingContent.classList.remove('active');
-    welcomeContent.classList.remove('active');
-    breadcrumbSeparator.classList.remove('hidden');
-    currentSection.classList.remove('hidden');
-    currentSection.textContent = 'Engineering';
-  });
+  if (engineeringTab) {
+    engineeringTab.addEventListener('click', () => {
+      logDebug('Engineering tab (redundant handler) clicked.');
+      engineeringTab.classList.add('active');
+      codingTab.classList.remove('active');
+      engineeringContent.classList.add('active');
+      codingContent.classList.remove('active');
+      welcomeContent.classList.remove('active');
+      breadcrumbSeparator.classList.remove('hidden');
+      currentSection.classList.remove('hidden');
+      currentSection.textContent = 'Engineering';
+    });
+  }
 
   // Modal open/close logic
-const contactModal = document.getElementById('contact-modal');
-const openContactBtn = document.querySelector('button.bg-purple-950');
-const closeContactBtn = document.getElementById('close-contact-modal');
+  const contactModal = document.getElementById('contact-modal');
+  const openContactBtn = document.querySelector('button.bg-purple-950');
+  const closeContactBtn = document.getElementById('close-contact-modal');
 
-if (openContactBtn && contactModal && closeContactBtn) {
-  openContactBtn.addEventListener('click', function(e) {
-    e.preventDefault();
-    contactModal.classList.remove('hidden');
-  });
-  closeContactBtn.addEventListener('click', function() {
-    contactModal.classList.add('hidden');
-  });
-  contactModal.addEventListener('click', function(e) {
-    if (e.target === contactModal) {
+  logDebug('Contact modal elements:', {contactModal, openContactBtn, closeContactBtn});
+
+  if (openContactBtn && contactModal && closeContactBtn) {
+    openContactBtn.addEventListener('click', function(e) {
+      logDebug('Open contact modal button clicked.');
+      e.preventDefault();
+      contactModal.classList.remove('hidden');
+    });
+    closeContactBtn.addEventListener('click', function() {
+      logDebug('Close contact modal button clicked.');
       contactModal.classList.add('hidden');
-    }
-  });
-}
+    });
+    contactModal.addEventListener('click', function(e) {
+      if (e.target === contactModal) {
+        logDebug('Contact modal overlay clicked.');
+        contactModal.classList.add('hidden');
+      }
+    });
+  } else {
+    logError('Missing contact modal elements: cannot setup modal logic.');
+  }
 
   window.addEventListener('DOMContentLoaded', () => {
-  if (window.location.hash === '#contact') {
-    const contactModal = document.getElementById('contact-modal');
-    if (contactModal) {
-      contactModal.classList.remove('hidden');
+    logDebug('DOM fully loaded.');
+    if (window.location.hash === '#contact') {
+      const contactModal = document.getElementById('contact-modal');
+      if (contactModal) {
+        logDebug('Opening contact modal via hash.');
+        contactModal.classList.remove('hidden');
+      }
     }
-  }
   });
   window.location.hash = '';
 </script>
