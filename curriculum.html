@@ -703,44 +703,52 @@
     });
   }
 
-  // Modal open/close logic
+  // Contact Modal Logic
+function setupContactModal() {
   const contactModal = document.getElementById('contact-modal');
-  const openContactBtn = document.getElementById('open-contact-modal');
   const closeContactBtn = document.getElementById('close-contact-modal');
 
-  logDebug('Contact modal elements:', {contactModal, openContactBtn, closeContactBtn});
+  // Find any "Contact Us" buttons
+  // Adjust selector if you have more than one such button or if it's a link
+  const openContactBtns = Array.from(document.querySelectorAll('button, a')).filter(
+    el => el.textContent && el.textContent.trim().toLowerCase() === "contact us"
+  );
 
-  if (openContactBtn && contactModal && closeContactBtn) {
-    openContactBtn.addEventListener('click', function(e) {
-      logDebug('Open contact modal button clicked.');
+  openContactBtns.forEach(btn => {
+    btn.addEventListener('click', function(e) {
       e.preventDefault();
       contactModal.classList.remove('hidden');
     });
+  });
+
+  if (closeContactBtn) {
     closeContactBtn.addEventListener('click', function() {
-      logDebug('Close contact modal button clicked.');
       contactModal.classList.add('hidden');
     });
+  }
+
+  if (contactModal) {
     contactModal.addEventListener('click', function(e) {
       if (e.target === contactModal) {
-        logDebug('Contact modal overlay clicked.');
         contactModal.classList.add('hidden');
       }
     });
-  } else {
-    logError('Missing contact modal elements: cannot setup modal logic.');
   }
+}
 
-  window.addEventListener('DOMContentLoaded', () => {
-    logDebug('DOM fully loaded.');
-    if (window.location.hash === '#contact') {
-      const contactModal = document.getElementById('contact-modal');
-      if (contactModal) {
-        logDebug('Opening contact modal via hash.');
-        contactModal.classList.remove('hidden');
-      }
+// If header is loaded dynamically, wait for it!
+document.addEventListener('DOMContentLoaded', function() {
+  // Wait a tick for dynamic header load
+  setTimeout(setupContactModal, 300);
+
+  // URL hash logic (already present in your code)
+  if (window.location.hash === '#contact') {
+    const contactModal = document.getElementById('contact-modal');
+    if (contactModal) {
+      contactModal.classList.remove('hidden');
     }
-  });
-  window.location.hash = '';
+  }
+});
 </script>
 </body>
 </html>
