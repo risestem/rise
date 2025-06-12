@@ -163,24 +163,35 @@
 </div>
 
 <script>
-// Modal open/close logic
-const contactModal = document.getElementById('contact-modal');
-const openContactBtn = document.querySelector('button.bg-purple-950');
-const closeContactBtn = document.getElementById('close-contact-modal');
+function setupContactModal() {
+  const contactModal = document.getElementById('contact-modal');
+  const closeContactBtn = document.getElementById('close-contact-modal');
 
-if (openContactBtn && contactModal && closeContactBtn) {
-  openContactBtn.addEventListener('click', function(e) {
-    e.preventDefault();
-    contactModal.classList.remove('hidden');
+  // Find all "Contact Us" buttons/links in header
+  const openContactBtns = Array.from(document.querySelectorAll('button, a')).filter(
+    el => el.textContent && el.textContent.trim().toLowerCase() === "contact us"
+  );
+
+  openContactBtns.forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (contactModal) contactModal.classList.remove('hidden');
+    });
   });
-  closeContactBtn.addEventListener('click', function() {
-    contactModal.classList.add('hidden');
-  });
-  contactModal.addEventListener('click', function(e) {
-    if (e.target === contactModal) {
+
+  if (closeContactBtn) {
+    closeContactBtn.addEventListener('click', function() {
       contactModal.classList.add('hidden');
-    }
-  });
+    });
+  }
+
+  if (contactModal) {
+    contactModal.addEventListener('click', function(e) {
+      if (e.target === contactModal) {
+        contactModal.classList.add('hidden');
+      }
+    });
+  }
 }
 
 // Team members data
