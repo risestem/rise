@@ -12,7 +12,6 @@
     html {
       scroll-behavior: smooth;
     }
-    
     .flip-card .flip-card-inner {
       perspective: 1000px;
     }
@@ -23,39 +22,29 @@
     .flip-card .flip-card-back {
       transform: rotateY(180deg);
     }
-    
-    /* Enhanced card styles */
     .flip-card {
       transition: transform 0.3s ease;
     }
-    
     .flip-card:hover {
       transform: translateY(-10px);
     }
-    
     .flip-card-front {
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       transition: all 0.3s ease;
     }
-    
     .flip-card:hover .flip-card-front {
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
     }
-    
     .flip-card-back {
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
       transition: all 0.3s ease;
     }
-    
     .flip-card:hover .flip-card-back {
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
     }
-    
-    /* Add subtle animation to images */
     .flip-card img {
       transition: transform 0.3s ease;
     }
-    
     .flip-card:hover img {
       transform: scale(1.1);
     }
@@ -156,8 +145,6 @@
     </div>
   </section>
 
-
-
   <!-- Footer -->
   <section class="bg-white w-full py-12">
     <div class="flex flex-wrap justify-between items-center pt-8 px-6 sm:px-12 md:px-24 lg:px-32 pb-8 w-full bg-white text-gray-400">
@@ -172,8 +159,6 @@
     </div>
   </section>
 </main>
-
-
 
 <!-- Contact Modal (hidden by default) -->
 <div id="contact-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
@@ -198,88 +183,109 @@
 
 <!-- Scripts -->
 <script>
-  // Hamburger menu functionality
-  document.getElementById("hamburger-btn").addEventListener("click", function() {
-    const navbar = document.getElementById("navbar-sticky");
-    const isExpanded = this.getAttribute("aria-expanded") === "true";
-    navbar.classList.toggle("hidden", isExpanded);
-    this.setAttribute("aria-expanded", !isExpanded);
-  });
+  // Debug helper
+  function logDebug(msg) {
+    if (window && window.console) {
+      console.debug('[DEBUG]', msg);
+    }
+  }
 
-  // Count Up Animation
-  function animateCountUp(element, target, duration) {
-    let start = 0;
-    let startTime = null;
-
-    function update(currentTime) {
-      if (!startTime) startTime = currentTime;
-      const progress = currentTime - startTime;
-      const percent = Math.min(progress / duration, 1);
-
-      element.textContent = Math.floor(percent * target) + "%";
-
-      if (progress < duration) {
-        requestAnimationFrame(update);
-      } else {
-        element.textContent = target + "%";
-      }
+  document.addEventListener('DOMContentLoaded', function() {
+    // Hamburger menu functionality (if present)
+    const hamburgerBtn = document.getElementById("hamburger-btn");
+    if (hamburgerBtn) {
+      hamburgerBtn.addEventListener("click", function() {
+        const navbar = document.getElementById("navbar-sticky");
+        if (!navbar) {
+          logDebug("Navbar sticky not found!");
+          return;
+        }
+        const isExpanded = this.getAttribute("aria-expanded") === "true";
+        navbar.classList.toggle("hidden", isExpanded);
+        this.setAttribute("aria-expanded", !isExpanded);
+      });
+    } else {
+      logDebug("Hamburger button not found, skipping menu setup");
     }
 
-    requestAnimationFrame(update);
-  }
+    // Count Up Animation
+    function animateCountUp(element, target, duration) {
+      let start = 0;
+      let startTime = null;
 
-  // Create an Intersection Observer
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const counter = document.getElementById('counter');
-        if (counter) {
-          animateCountUp(counter, 51, 2300);
-          observer.unobserve(entry.target);
+      function update(currentTime) {
+        if (!startTime) startTime = currentTime;
+        const progress = currentTime - startTime;
+        const percent = Math.min(progress / duration, 1);
+
+        element.textContent = Math.floor(percent * target) + "%";
+
+        if (progress < duration) {
+          requestAnimationFrame(update);
+        } else {
+          element.textContent = target + "%";
         }
       }
-    });
-  }, {
-    threshold: 0.3
-  });
 
-  // Start observing the counter section
-  const counterSection = document.querySelector('#Issue');
-  if (counterSection) {
-    observer.observe(counterSection);
-  }
+      requestAnimationFrame(update);
+    }
 
-  // Modal functionality
-  function setupContactModal() {
-  const contactModal = document.getElementById('contact-modal');
-  const closeContactBtn = document.getElementById('close-contact-modal');
+    // Intersection Observer for #counter in #Issue
+    const counterSection = document.querySelector('#Issue');
+    if (counterSection) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const counter = document.getElementById('counter');
+            if (counter) {
+              animateCountUp(counter, 51, 2300);
+            } else {
+              logDebug("Counter element not found in #Issue");
+            }
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      observer.observe(counterSection);
+    } else {
+      logDebug("#Issue section not found, skipping counter animation");
+    }
 
-  // Find all "Contact Us" buttons/links in header
-  const openContactBtns = Array.from(document.querySelectorAll('button, a')).filter(
-    el => el.textContent && el.textContent.trim().toLowerCase() === "contact us"
-  );
-
-  openContactBtns.forEach(btn => {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      if (contactModal) contactModal.classList.remove('hidden');
-    });
-  });
-
-  if (closeContactBtn) {
-    closeContactBtn.addEventListener('click', function() {
-      contactModal.classList.add('hidden');
-    });
-  }
-
-  if (contactModal) {
-    contactModal.addEventListener('click', function(e) {
-      if (e.target === contactModal) {
-        contactModal.classList.add('hidden');
+    // Contact Modal Setup
+    function setupContactModal() {
+      const contactModal = document.getElementById('contact-modal');
+      const closeContactBtn = document.getElementById('close-contact-modal');
+      if (!contactModal) {
+        logDebug("Contact modal not found");
+        return;
       }
-    });
-  }
-}
+
+      // Find all "Contact Us" buttons/links in header
+      const openContactBtns = Array.from(document.querySelectorAll('button, a')).filter(
+        el => el.textContent && el.textContent.trim().toLowerCase() === "contact us"
+      );
+
+      openContactBtns.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+          e.preventDefault();
+          contactModal.classList.remove('hidden');
+        });
+      });
+
+      if (closeContactBtn) {
+        closeContactBtn.addEventListener('click', function() {
+          contactModal.classList.add('hidden');
+        });
+      }
+
+      contactModal.addEventListener('click', function(e) {
+        if (e.target === contactModal) {
+          contactModal.classList.add('hidden');
+        }
+      });
+    }
+    setupContactModal();
+  });
 </script>
 
 </body>
