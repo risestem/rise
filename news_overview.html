@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <link rel="icon" type="image/svg+xml" href="https://risestem.github.io/rise/public/logo1.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Curriculum - Rise Engineering & Coding</title>
+  <title>News - Rise Engineering & Coding</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     html {
@@ -49,7 +49,18 @@
 </footer>
 
 <script>
-  function setupContactModal() {
+document.addEventListener('header:loaded', function() {
+  setupContactModal();
+});
+
+// Optionally, run once on DOMContentLoaded for any "Contact Us" links/buttons already present
+document.addEventListener('DOMContentLoaded', function() {
+  setupContactModal();
+});
+</script>
+
+  <script>
+function setupContactModal() {
   const contactModal = document.getElementById('contact-modal');
   const closeContactBtn = document.getElementById('close-contact-modal');
 
@@ -79,6 +90,10 @@
     });
   }
 }
+</script>
+  
+<script>
+  
 async function loadAllNews() {
   let updates = [];
   try {
