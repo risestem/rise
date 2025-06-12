@@ -31,6 +31,8 @@ function initializeHeader() {
 
   // Highlight current page
   highlightCurrentPage();
+
+  setupContactModal();
 }
 
 function highlightCurrentPage() {
@@ -58,3 +60,4 @@ function highlightCurrentPage() {
 
 // Load the header
 loadHeader();
+
