@@ -253,39 +253,35 @@
 
     // Contact Modal Setup
     function setupContactModal() {
-      const contactModal = document.getElementById('contact-modal');
-      const closeContactBtn = document.getElementById('close-contact-modal');
-      if (!contactModal) {
-        logDebug("Contact modal not found");
-        return;
-      }
+  const contactModal = document.getElementById('contact-modal');
+  const closeContactBtn = document.getElementById('close-contact-modal');
 
-      // Find all "Contact Us" buttons/links in header
-      const openContactBtns = Array.from(document.querySelectorAll('button, a')).filter(
-        el => el.textContent && el.textContent.trim().toLowerCase() === "contact us"
-      );
+  // Find all "Contact Us" buttons/links in header
+  const openContactBtns = Array.from(document.querySelectorAll('button, a')).filter(
+    el => el.textContent && el.textContent.trim().toLowerCase() === "contact us"
+  );
 
-      openContactBtns.forEach(btn => {
-        btn.addEventListener('click', function(e) {
-          e.preventDefault();
-          contactModal.classList.remove('hidden');
-        });
-      });
-
-      if (closeContactBtn) {
-        closeContactBtn.addEventListener('click', function() {
-          contactModal.classList.add('hidden');
-        });
-      }
-
-      contactModal.addEventListener('click', function(e) {
-        if (e.target === contactModal) {
-          contactModal.classList.add('hidden');
-        }
-      });
-    }
-    setupContactModal();
+  openContactBtns.forEach(btn => {
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (contactModal) contactModal.classList.remove('hidden');
+    });
   });
+
+  if (closeContactBtn) {
+    closeContactBtn.addEventListener('click', function() {
+      contactModal.classList.add('hidden');
+    });
+  }
+
+  if (contactModal) {
+    contactModal.addEventListener('click', function(e) {
+      if (e.target === contactModal) {
+        contactModal.classList.add('hidden');
+      }
+    });
+  }
+}
 </script>
 
 </body>
