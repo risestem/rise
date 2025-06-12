@@ -703,13 +703,11 @@
     });
   }
 
-  // Contact Modal Logic
-function setupContactModal() {
+  function setupContactModal() {
   const contactModal = document.getElementById('contact-modal');
   const closeContactBtn = document.getElementById('close-contact-modal');
 
-  // Find any "Contact Us" buttons
-  // Adjust selector if you have more than one such button or if it's a link
+  // Find all "Contact Us" buttons/links in header
   const openContactBtns = Array.from(document.querySelectorAll('button, a')).filter(
     el => el.textContent && el.textContent.trim().toLowerCase() === "contact us"
   );
@@ -717,7 +715,7 @@ function setupContactModal() {
   openContactBtns.forEach(btn => {
     btn.addEventListener('click', function(e) {
       e.preventDefault();
-      contactModal.classList.remove('hidden');
+      if (contactModal) contactModal.classList.remove('hidden');
     });
   });
 
@@ -735,20 +733,6 @@ function setupContactModal() {
     });
   }
 }
-
-// If header is loaded dynamically, wait for it!
-document.addEventListener('DOMContentLoaded', function() {
-  // Wait a tick for dynamic header load
-  setTimeout(setupContactModal, 300);
-
-  // URL hash logic (already present in your code)
-  if (window.location.hash === '#contact') {
-    const contactModal = document.getElementById('contact-modal');
-    if (contactModal) {
-      contactModal.classList.remove('hidden');
-    }
-  }
-});
 </script>
 </body>
 </html>
