@@ -176,6 +176,37 @@
 
 <!-- Scripts -->
 <script>
+  function setupContactModal() {
+    const contactModal = document.getElementById('contact-modal');
+    const closeContactBtn = document.getElementById('close-contact-modal');
+  
+    // Find all "Contact Us" buttons/links in header
+    const openContactBtns = Array.from(document.querySelectorAll('button, a')).filter(
+      el => el.textContent && el.textContent.trim().toLowerCase() === "contact us"
+    );
+  
+    openContactBtns.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (contactModal) contactModal.classList.remove('hidden');
+      });
+    });
+  
+    if (closeContactBtn) {
+      closeContactBtn.addEventListener('click', function() {
+        contactModal.classList.add('hidden');
+      });
+    }
+  
+    if (contactModal) {
+      contactModal.addEventListener('click', function(e) {
+        if (e.target === contactModal) {
+          contactModal.classList.add('hidden');
+        }
+      });
+    }
+  }
+    
   // Debug helper
   function logDebug(msg) {
     if (window && window.console) {
@@ -272,37 +303,6 @@
     } else {
       logDebug("#Issue section not found, skipping counter animation");
     }
-
-    function setupContactModal() {
-  const contactModal = document.getElementById('contact-modal');
-  const closeContactBtn = document.getElementById('close-contact-modal');
-
-  // Find all "Contact Us" buttons/links in header
-  const openContactBtns = Array.from(document.querySelectorAll('button, a')).filter(
-    el => el.textContent && el.textContent.trim().toLowerCase() === "contact us"
-  );
-
-  openContactBtns.forEach(btn => {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      if (contactModal) contactModal.classList.remove('hidden');
-    });
-  });
-
-  if (closeContactBtn) {
-    closeContactBtn.addEventListener('click', function() {
-      contactModal.classList.add('hidden');
-    });
-  }
-
-  if (contactModal) {
-    contactModal.addEventListener('click', function(e) {
-      if (e.target === contactModal) {
-        contactModal.classList.add('hidden');
-      }
-    });
-  }
-}
 </script>
 
 </body>
