@@ -16,35 +16,35 @@
 <script type="module" src="scripts/loadHeader.js"></script>
 <!-- Main Content -->
 <main class="min-h-screen bg-white w-full">
-  
-  <!-- Hero Section -->
-  <section class="bg-gray-50 w-full"> <!-- gives slight contrast to cards, can use bg-white if you insist on all white -->
-  <!-- Hero Section (unchanged) -->
-  <div class="w-full h-[60vh] bg-[url('https://risestem.github.io/rise/public/.jpg')] bg-cover bg-top bg-no-repeat flex items-center justify-center relative">
-    <!-- Gradient Overlay -->
-    <div class="h-[60vh] absolute inset-0 bg-black opacity-50"></div>
-    <div class="flex flex-col text-center items-center justify-center px-6 sm:px-16 md:px-32 z-10">
-      <h1 class="mt-16 text-3xl font-extrabold text-white md:text-4xl xl:text-5xl justify-center">
-        About Us
-      </h1>
-    </div>
-  </div>
 
-  <!-- Mission Card -->
-  <div class="w-full px-6 sm:px-6 md:px-16 z-30 lg:px-24 mb-8 -mt-8">
-    <div class="bg-white p-6 rounded-2xl border border-gray-300 shadow-md">
-      <div class="flex justify-center text-center">
-        <h2 class="text-3xl font-poppins font-semibold text-purple-950 md:text-4xl">
-          Our <span class="font-extrabold">Mission</span>
-        </h2>
-      </div>
-      <div class="flex justify-center items-center pt-8 sm:px-16 lg:px-32 flex-col">
-        <p class="text-md text-gray-500 leading-relaxed text-center sm:px-4 md:px-8 lg:px-16 xl:px-32">
-          Mission or vision 
-        </p>
+  <!-- Hero Section -->
+  <section class="bg-gray-50 w-full relative">
+    <div class="w-full h-[60vh] bg-[url('https://risestem.github.io/rise/public/.jpg')] bg-cover bg-top bg-no-repeat flex items-center justify-center relative z-0">
+      <!-- Gradient Overlay -->
+      <div class="h-[60vh] absolute inset-0 bg-black opacity-50 z-0"></div>
+      <div class="flex flex-col text-center items-center justify-center px-6 sm:px-16 md:px-32 relative z-10">
+        <h1 class="mt-16 text-3xl font-extrabold text-white md:text-4xl xl:text-5xl justify-center">
+          About Us
+        </h1>
       </div>
     </div>
-  </div>
+
+    <!-- Mission Card (floats above hero) -->
+    <div class="w-full px-6 sm:px-6 md:px-16 lg:px-24 mb-8 -mt-8 relative z-30">
+      <div class="bg-white p-6 rounded-2xl border border-gray-300 shadow-md">
+        <div class="flex justify-center text-center">
+          <h2 class="text-3xl font-poppins font-semibold text-purple-950 md:text-4xl">
+            Our <span class="font-extrabold">Mission</span>
+          </h2>
+        </div>
+        <div class="flex justify-center items-center pt-8 sm:px-16 lg:px-32 flex-col">
+          <p class="text-md text-gray-500 leading-relaxed text-center sm:px-4 md:px-8 lg:px-16 xl:px-32">
+            Mission or vision
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Values Card -->
   <div class="w-full px-6 sm:px-6 md:px-16 lg:px-24 my-8">
@@ -105,7 +105,7 @@
       Phone: <a href="tel:+17064241613" class="font-semibold text-gray-400 underline">+1 (706)-424-1613</a>
     </div>
   </div>
-</section>
+</main>
 
 <!-- Contact Modal (hidden by default) -->
 <div id="contact-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
