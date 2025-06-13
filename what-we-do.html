@@ -202,17 +202,9 @@
     </form>
   </div>
 </div>
-
+  
 <!-- Scripts -->
 <script>
-  // Hamburger menu functionality
-  document.getElementById("hamburger-btn").addEventListener("click", function() {
-    const navbar = document.getElementById("navbar-sticky");
-    const isExpanded = this.getAttribute("aria-expanded") === "true";
-    navbar.classList.toggle("hidden", isExpanded);
-    this.setAttribute("aria-expanded", !isExpanded);
-  });
-
   // Image container click functionality
   const container = document.getElementById('image-container');
   const cards = container.querySelectorAll('div.absolute');
@@ -231,78 +223,39 @@
 
     currentTopIndex = (currentTopIndex - 1 + cards.length) % cards.length;
   });
-
-  // Count Up Animation
-  function animateCountUp(element, target, duration) {
-    let start = 0;
-    let startTime = null;
-
-    function update(currentTime) {
-      if (!startTime) startTime = currentTime;
-      const progress = currentTime - startTime;
-      const percent = Math.min(progress / duration, 1);
-
-      element.textContent = Math.floor(percent * target) + "%";
-
-      if (progress < duration) {
-        requestAnimationFrame(update);
-      } else {
-        element.textContent = target + "%";
-      }
-    }
-
-    requestAnimationFrame(update);
-  }
-
-  // Create an Intersection Observer
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const counter = document.getElementById('counter');
-        animateCountUp(counter, 51, 2300);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {
-    threshold: 0.3
-  });
-
-  // Start observing the counter section
-  const counterSection = document.querySelector('#Issue');
-  if (counterSection) {
-    observer.observe(counterSection);
-  }
-
+</script>
+  
+<script>
   function setupContactModal() {
-  const contactModal = document.getElementById('contact-modal');
-  const closeContactBtn = document.getElementById('close-contact-modal');
-
-  // Find all "Contact Us" buttons/links in header
-  const openContactBtns = Array.from(document.querySelectorAll('button, a')).filter(
-    el => el.textContent && el.textContent.trim().toLowerCase() === "contact us"
-  );
-
-  openContactBtns.forEach(btn => {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      if (contactModal) contactModal.classList.remove('hidden');
+    const contactModal = document.getElementById('contact-modal');
+    const closeContactBtn = document.getElementById('close-contact-modal');
+  
+    // Find all "Contact Us" buttons/links in header
+    const openContactBtns = Array.from(document.querySelectorAll('button, a')).filter(
+      el => el.textContent && el.textContent.trim().toLowerCase() === "contact us"
+    );
+  
+    openContactBtns.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (contactModal) contactModal.classList.remove('hidden');
+      });
     });
-  });
-
-  if (closeContactBtn) {
-    closeContactBtn.addEventListener('click', function() {
-      contactModal.classList.add('hidden');
-    });
-  }
-
-  if (contactModal) {
-    contactModal.addEventListener('click', function(e) {
-      if (e.target === contactModal) {
+  
+    if (closeContactBtn) {
+      closeContactBtn.addEventListener('click', function() {
         contactModal.classList.add('hidden');
-      }
-    });
+      });
+    }
+  
+    if (contactModal) {
+      contactModal.addEventListener('click', function(e) {
+        if (e.target === contactModal) {
+          contactModal.classList.add('hidden');
+        }
+      });
+    }
   }
-}
 </script>
 
 </body>
