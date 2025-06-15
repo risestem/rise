@@ -48,16 +48,28 @@
     .flip-card:hover img {
       transform: scale(1.1);
     }
-    /* Make flip-cards wider and responsive */
+    /* Make flip-cards even wider and responsive, no border */
     @media (min-width: 768px) {
       .flip-card {
-        min-width: 320px;
-        max-width: 380px;
+        min-width: 380px;
+        max-width: 460px;
         width: 100%;
       }
       .flip-card-inner {
-        min-width: 320px;
-        max-width: 380px;
+        min-width: 380px;
+        max-width: 460px;
+        width: 100%;
+      }
+    }
+    @media (min-width: 1024px) {
+      .flip-card {
+        min-width: 420px;
+        max-width: 520px;
+        width: 100%;
+      }
+      .flip-card-inner {
+        min-width: 420px;
+        max-width: 520px;
         width: 100%;
       }
     }
@@ -111,43 +123,43 @@
           <div class="max-w-6xl mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
               <!-- Box 1 -->
-              <div class="flip-card group bg-transparent rounded-xl flex flex-col items-center border border-gray-200"> 
+              <div class="flip-card group bg-transparent rounded-xl flex flex-col items-center"> 
                 <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-                  <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden border border-gray-200">
+                  <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden">
                     <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">
                       code_blocks
                     </span>
                     <h3 class="text-3xl font-bold text-purple-900 mb-2 text-center">STEM Access Gaps</h3>
                   </div>
-                  <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden border border-gray-200">
+                  <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden">
                     <p class="text-gray-700 text-center">Many students, especially those from low-income or underrepresented backgrounds, lack access to quality STEM education. This gap limits their opportunities to explore, develop, and excel in critical fields like science, technology, engineering, and math, creating disparities in future careers and innovation potential.</p>
                   </div>
                 </div>
               </div>
               <!-- Box 2 -->
-              <div class="flip-card group bg-transparent rounded-xl flex flex-col items-center border border-gray-200">
+              <div class="flip-card group bg-transparent rounded-xl flex flex-col items-center">
                 <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-                  <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden border border-gray-200">
+                  <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden">
                     <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">
                       group
                     </span>
                     <h3 class="text-3xl font-bold text-purple-900 mb-2 text-center">Confidence</h3>
                   </div>
-                  <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden border border-gray-200">
+                  <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden">
                     <p class="text-gray-700 text-center">Many students, particularly from marginalized communities, face confidence gaps in STEM subjects. Without encouragement and support, they may doubt their abilities, leading to disengagement and limiting their future opportunities in these critical fields.</p>
                   </div>
                 </div>
               </div>
               <!-- Box 3 -->
-              <div class="flip-card group bg-transparent rounded-xl flex flex-col items-center border border-gray-200">
+              <div class="flip-card group bg-transparent rounded-xl flex flex-col items-center">
                 <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-                  <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden border border-gray-200">
+                  <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden">
                     <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">
                       engineering
                     </span>
                     <h3 class="text-3xl font-bold text-purple-900 mb-2 text-center">Skills Gap</h3>
                   </div>
-                  <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden border border-gray-200">
+                  <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden">
                     <p class="text-gray-700 text-center">As technology evolves, there's a growing demand for STEM skills. Unfortunately, many students—especially those in underserved schools—lack access to the resources and hands-on experiences needed to develop these crucial skills, widening the gap between academic learning and workforce readiness.</p>
                   </div>
                 </div>
