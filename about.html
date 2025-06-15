@@ -50,7 +50,7 @@
       </div>
     </div>
     
-    <!-- Values Section: 3D Tilt Cards -->
+    <!-- Values Section: Animated Timeline Path -->
     <div class="w-full px-6 sm:px-6 md:px-16 lg:px-24 my-8 z-30">
       <div class="bg-white p-6 rounded-2xl border border-gray-300 shadow-md">
         <div class="flex justify-center text-center">
@@ -58,74 +58,115 @@
             Our <span class="font-extrabold">Values</span>
           </h2>
         </div>
-        <div id="tilt-values" class="flex flex-wrap justify-center items-center gap-8 pt-8">
+        <div id="values-timeline" class="flex flex-col sm:flex-row items-center justify-center gap-0 sm:gap-10 pt-12 relative">
+          <!-- Timeline Line -->
+          <div class="hidden sm:block absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-purple-200 via-purple-400 to-purple-200 z-0" style="transform: translateY(-50%);"></div>
+    
           <!-- Card 1 -->
-          <div class="tilt-card relative w-64 h-44 bg-gradient-to-br from-purple-100 to-purple-50 rounded-xl shadow-lg flex flex-col items-center justify-center transition-transform duration-300 will-change-transform hover:shadow-2xl cursor-pointer overflow-hidden">
-            <span class="material-symbols-outlined text-5xl text-purple-700">balance</span>
-            <p class="text-xl font-bold text-purple-900 mt-2">Equity</p>
-            <p class="text-center text-gray-600 text-sm mt-2 px-2 opacity-80">We champion equal access and representation in STEM.</p>
-            <div class="pointer-events-none absolute inset-0 bg-gradient-to-tr from-purple-200/40 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+          <div class="timeline-milestone group relative flex flex-col items-center text-center z-10">
+            <div class="rounded-full bg-purple-600 w-6 h-6 border-4 border-white shadow-lg flex items-center justify-center mb-2 sm:mb-0 sm:mt-0">
+              <span class="material-symbols-outlined text-white text-xl">balance</span>
+            </div>
+            <div class="timeline-card opacity-0 translate-y-8 sm:translate-y-0 sm:opacity-0 sm:scale-90 group-hover:scale-105 transition-all duration-700 bg-gradient-to-br from-purple-50 to-white p-6 shadow-xl border-t-4 border-purple-400 rounded-xl w-60 mt-4 sm:mt-8">
+              <p class="text-lg font-bold text-purple-800">Equity</p>
+              <p class="text-gray-600 text-sm mt-2">We champion equal access and representation in STEM.</p>
+            </div>
           </div>
           <!-- Card 2 -->
-          <div class="tilt-card relative w-64 h-44 bg-gradient-to-br from-purple-100 to-purple-50 rounded-xl shadow-lg flex flex-col items-center justify-center transition-transform duration-300 will-change-transform hover:shadow-2xl cursor-pointer overflow-hidden">
-            <span class="material-symbols-outlined text-5xl text-purple-700">bolt</span>
-            <p class="text-xl font-bold text-purple-900 mt-2">Empowerment</p>
-            <p class="text-center text-gray-600 text-sm mt-2 px-2 opacity-80">We uplift youth to become future innovators.</p>
-            <div class="pointer-events-none absolute inset-0 bg-gradient-to-tr from-purple-200/40 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+          <div class="timeline-milestone group relative flex flex-col items-center text-center z-10">
+            <div class="rounded-full bg-purple-600 w-6 h-6 border-4 border-white shadow-lg flex items-center justify-center mb-2 sm:mb-0 sm:mt-0">
+              <span class="material-symbols-outlined text-white text-xl">bolt</span>
+            </div>
+            <div class="timeline-card opacity-0 translate-y-8 sm:translate-y-0 sm:opacity-0 sm:scale-90 group-hover:scale-105 transition-all duration-700 bg-gradient-to-br from-purple-50 to-white p-6 shadow-xl border-t-4 border-purple-400 rounded-xl w-60 mt-4 sm:mt-8">
+              <p class="text-lg font-bold text-purple-800">Empowerment</p>
+              <p class="text-gray-600 text-sm mt-2">We uplift youth to become future innovators.</p>
+            </div>
           </div>
           <!-- Card 3 -->
-          <div class="tilt-card relative w-64 h-44 bg-gradient-to-br from-purple-100 to-purple-50 rounded-xl shadow-lg flex flex-col items-center justify-center transition-transform duration-300 will-change-transform hover:shadow-2xl cursor-pointer overflow-hidden">
-            <span class="material-symbols-outlined text-5xl text-purple-700">lightbulb</span>
-            <p class="text-xl font-bold text-purple-900 mt-2">Curiosity</p>
-            <p class="text-center text-gray-600 text-sm mt-2 px-2 opacity-80">We celebrate questioning, learning, and creativity.</p>
-            <div class="pointer-events-none absolute inset-0 bg-gradient-to-tr from-purple-200/40 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+          <div class="timeline-milestone group relative flex flex-col items-center text-center z-10">
+            <div class="rounded-full bg-purple-600 w-6 h-6 border-4 border-white shadow-lg flex items-center justify-center mb-2 sm:mb-0 sm:mt-0">
+              <span class="material-symbols-outlined text-white text-xl">lightbulb</span>
+            </div>
+            <div class="timeline-card opacity-0 translate-y-8 sm:translate-y-0 sm:opacity-0 sm:scale-90 group-hover:scale-105 transition-all duration-700 bg-gradient-to-br from-purple-50 to-white p-6 shadow-xl border-t-4 border-purple-400 rounded-xl w-60 mt-4 sm:mt-8">
+              <p class="text-lg font-bold text-purple-800">Curiosity</p>
+              <p class="text-gray-600 text-sm mt-2">We celebrate questioning, learning, and creativity.</p>
+            </div>
           </div>
           <!-- Card 4 -->
-          <div class="tilt-card relative w-64 h-44 bg-gradient-to-br from-purple-100 to-purple-50 rounded-xl shadow-lg flex flex-col items-center justify-center transition-transform duration-300 will-change-transform hover:shadow-2xl cursor-pointer overflow-hidden">
-            <span class="material-symbols-outlined text-5xl text-purple-700">diversity_3</span>
-            <p class="text-xl font-bold text-purple-900 mt-2">Collaboration</p>
-            <p class="text-center text-gray-600 text-sm mt-2 px-2 opacity-80">We grow stronger together through partnership and teamwork.</p>
-            <div class="pointer-events-none absolute inset-0 bg-gradient-to-tr from-purple-200/40 to-transparent opacity-0 group-hover:opacity-100 transition"></div>
+          <div class="timeline-milestone group relative flex flex-col items-center text-center z-10">
+            <div class="rounded-full bg-purple-600 w-6 h-6 border-4 border-white shadow-lg flex items-center justify-center mb-2 sm:mb-0 sm:mt-0">
+              <span class="material-symbols-outlined text-white text-xl">diversity_3</span>
+            </div>
+            <div class="timeline-card opacity-0 translate-y-8 sm:translate-y-0 sm:opacity-0 sm:scale-90 group-hover:scale-105 transition-all duration-700 bg-gradient-to-br from-purple-50 to-white p-6 shadow-xl border-t-4 border-purple-400 rounded-xl w-60 mt-4 sm:mt-8">
+              <p class="text-lg font-bold text-purple-800">Collaboration</p>
+              <p class="text-gray-600 text-sm mt-2">We grow stronger together through partnership and teamwork.</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
     
-    <!-- Add this style block to your <head> or style.css -->
+    <!-- Add to your <head> or style.css -->
     <style>
-    .tilt-card {
-      transform-style: preserve-3d;
-      perspective: 1000px;
+    #values-timeline {
+      position: relative;
+    }
+    .timeline-milestone {
+      min-width: 0;
+      flex: 1 1 0%;
+    }
+    .timeline-milestone .timeline-card {
+      box-shadow: 0 6px 24px 0 rgba(80,63,205,0.07), 0 1.5px 3px 0 rgba(80,63,205,0.2);
+    }
+    @media (max-width: 640px) {
+      #values-timeline {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      #values-timeline .timeline-milestone:not(:last-child)::after {
+        content: "";
+        display: block;
+        width: 3px;
+        height: 30px;
+        margin: 0 auto;
+        background: linear-gradient(to bottom, #e9d5ff, #a78bfa, #e9d5ff);
+        border-radius: 1.5px;
+      }
+    }
+    @media (min-width: 641px) {
+      #values-timeline .timeline-milestone:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: -5vw;
+        width: 10vw;
+        height: 4px;
+        background: linear-gradient(to right, #e9d5ff, #a78bfa, #e9d5ff);
+        z-index: 1;
+        border-radius: 2px;
+        transform: translateY(-50%);
+      }
     }
     </style>
     
-    <!-- Add this script before </body> -->
+    <!-- Animate-in logic -->
     <script>
-    // 3D Tilt effect for .tilt-card
-    function setupTiltCards() {
-      const cards = document.querySelectorAll('.tilt-card');
-      cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
-          const rect = card.getBoundingClientRect();
-          const x = e.clientX - rect.left; // mouse X within card
-          const y = e.clientY - rect.top;  // mouse Y within card
-          const centerX = rect.width / 2;
-          const centerY = rect.height / 2;
-          // Max tilt angle
-          const maxTilt = 18;
-          const rotateY = ((x - centerX) / centerX) * maxTilt;
-          const rotateX = ((centerY - y) / centerY) * maxTilt;
-          card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.04)`;
-        });
-        card.addEventListener('mouseleave', () => {
-          card.style.transform = 'rotateX(0) rotateY(0) scale(1)';
-        });
-        card.addEventListener('mouseenter', () => {
-          card.style.transition = 'transform 0.18s cubic-bezier(.4,2,.3,1)';
-        });
+    // Reveal timeline cards on scroll
+    function revealTimelineCards() {
+      const cards = document.querySelectorAll('.timeline-card');
+      const trigger = window.innerHeight * 0.85;
+      cards.forEach((card, i) => {
+        const rect = card.getBoundingClientRect();
+        if(rect.top < trigger) {
+          setTimeout(() => {
+            card.classList.add('opacity-100', 'sm:opacity-100', 'translate-y-0', 'sm:scale-100');
+            card.classList.remove('opacity-0', 'sm:opacity-0', 'translate-y-8', 'sm:scale-90');
+          }, i * 120); // staggered
+        }
       });
     }
-    document.addEventListener('DOMContentLoaded', setupTiltCards);
+    window.addEventListener('scroll', revealTimelineCards);
+    window.addEventListener('DOMContentLoaded', revealTimelineCards);
     </script>
   
   <!-- Partners Card -->
