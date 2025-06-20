@@ -96,12 +96,13 @@
 <main class="min-h-screen bg-gray-50 w-full">
   
   <!-- Hero Section -->
-  <section class="w-full">
+  <section class=" w-full">
     <div class="w-full h-[60vh] bg-[url('https://risestem.github.io/rise/public/.jpg')] bg-cover bg-top bg-no-repeat flex items-center justify-center relative">
+      <!-- Gradient Overlay -->
       <div class="h-[60vh] absolute inset-0 bg-black opacity-50"></div>
       <div class="flex flex-col text-center items-center justify-center px-6 sm:px-16 md:px-32 z-10">
         <h1 class="mt-16 text-3xl font-extrabold text-white md:text-4xl xl:text-5xl justify-center">
-          Bridging the STEM Gap for Georgia's Youth
+          The Issue
         </h1>
       </div>
     </div>
@@ -109,79 +110,152 @@
 
   <!-- The Issue Section -->
   <section id="Issue" class="w-full px-6 sm:px-6 md:px-16 lg:px-24 -mt-8 z-20 relative pb-12 scroll-mt-24">
-
-      <!-- STEM Demand -->
-      <div class="bg-white p-8 rounded-2xl border border-gray-300 z-30 shadow-md justify-center">
-        <h3 class="text-2xl font-bold text-purple-900 mb-2">STEM Skills Are in High Demand—But Too Few Students Are Prepared</h3>
-        <p>Across Georgia and the nation, careers in science, technology, engineering, and mathematics (STEM) are growing at a faster rate than most other jobs. According to the U.S. Bureau of Labor Statistics, STEM occupations are projected to grow by over <strong>10% by 2033</strong>, with <strong>median wages exceeding $100,000</strong>—far above the national average <a href="https://www.bls.gov/emp/tables/stem-employment.htm" class="text-purple-700 underline">[source]</a>.</p>
-        <p>In Georgia alone, roles like <strong>mechanical engineers</strong>, <strong>software developers</strong>, <strong>web developers</strong>, and <strong>electronics engineering technicians</strong> are classified as “hot jobs,” meeting three key criteria:</p>
-        <ul class="list-disc pl-6">
-          <li>Above-average job growth</li>
-          <li>Above-average wages</li>
-          <li>At least 100 openings per year</li>
-        </ul>
-        <p><a href="https://explorer.gdol.ga.gov/vosnet/mis/current/stem.pdf" class="text-purple-700 underline">[source]</a></p>
+    <div class="bg-white p-4 rounded-2xl border border-gray-300 shadow-md justify-center">
+      <div class="flex justify-center text-center">
+        <h2 class="text-3xl font-poppins font-semibold text-purple-950 md:text-4xl">
+          The <span class="font-extrabold">Issue</span>
+        </h2>
       </div>
 
-      <!-- Students Falling Behind -->
-      <div class="bg-purple-50 p-6 rounded-xl mb-8">
-        <h3 class="text-2xl font-bold text-purple-900 mb-2">Yet Too Many Georgia Students Are Falling Behind</h3>
-        <p>Despite this booming opportunity, far too few Georgia students are on track to seize it. In 2024, only <strong>27% of 5th grade students</strong> achieved science proficiency on the Georgia Milestones assessment. This represents a critical gap—not just in learning, but in opportunity <a href="https://georgiainsights.gadoe.org/Dashboards/Pages/Georgia-Milestones.aspx" class="text-purple-700 underline">[source]</a>.</p>
-        <p>And this problem doesn’t only impact students—it affects the future of Georgia’s economy, workforce competitiveness, and technological innovation.</p>
-      </div>
+      <div class="flex justify-center items-center pt-8 sm:px-16 lg:px-32 flex-col">
+        <!-- Three Boxes Section with Flip Effect -->
+        <div class="bg-white w-full py-12">
+          <div class="max-w-6xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <!-- Box 1 -->
+              <div class="flip-card group bg-transparent rounded-xl flex flex-col items-center"> 
+                <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+                  <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden">
+                    <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">
+                      code_blocks
+                    </span>
+                    <h3 class="text-3xl font-bold text-purple-900 mb-2 text-center">STEM Access Gaps</h3>
+                  </div>
+                  <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden">
+                    <p class="text-gray-700 text-center">Many students, especially those from low-income or underrepresented backgrounds, lack access to quality STEM education. This gap limits their opportunities to explore, develop, and excel in critical fields like science, technology, engineering, and math, creating disparities in future careers and innovation potential.</p>
+                  </div>
+                </div>
+              </div>
+              <!-- Box 2 -->
+              <div class="flip-card group bg-transparent rounded-xl flex flex-col items-center">
+                <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+                  <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden">
+                    <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">
+                      group
+                    </span>
+                    <h3 class="text-3xl font-bold text-purple-900 mb-2 text-center">Confidence</h3>
+                  </div>
+                  <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden">
+                    <p class="text-gray-700 text-center">Many students, particularly from marginalized communities, face confidence gaps in STEM subjects. Without encouragement and support, they may doubt their abilities, leading to disengagement and limiting their future opportunities in these critical fields.</p>
+                  </div>
+                </div>
+              </div>
+              <!-- Box 3 -->
+              <div class="flip-card group bg-transparent rounded-xl flex flex-col items-center">
+                <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+                  <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden">
+                    <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">
+                      engineering
+                    </span>
+                    <h3 class="text-3xl font-bold text-purple-900 mb-2 text-center">Skills Gap</h3>
+                  </div>
+                  <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden">
+                    <p class="text-gray-700 text-center">As technology evolves, there's a growing demand for STEM skills. Unfortunately, many students—especially those in underserved schools—lack access to the resources and hands-on experiences needed to develop these crucial skills, widening the gap between academic learning and workforce readiness.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-      <!-- Time Outside School -->
-      <div class="bg-purple-50 p-6 rounded-xl mb-8">
-        <h3 class="text-2xl font-bold text-purple-900 mb-2">Most Learning Happens Outside School—We’re Wasting That Time</h3>
-        <p>Students spend more than <strong>80% of their waking hours outside of school</strong> during the year. Afterschool hours are an untapped resource where kids can explore, build, tinker, and learn on their own terms <a href="https://afterschoolalliance.org/examiningtheimpactofafterschoolSTEMprograms.pdf" class="text-purple-700 underline">[source]</a>.</p>
-        <p>That’s where afterschool STEM comes in.</p>
-      </div>
-
-      <!-- Afterschool STEM Works -->
-      <div class="bg-purple-50 p-6 rounded-xl mb-8">
-        <h3 class="text-2xl font-bold text-purple-900 mb-2">Afterschool STEM Works—And Students Thrive</h3>
-        <p>Research from Harvard’s PEAR Institute and others shows that more than <strong>70% of students</strong> in high-quality afterschool STEM programs report gains in:</p>
-        <ul class="list-disc pl-6">
-          <li><strong>STEM interest and identity</strong></li>
-          <li><strong>STEM career awareness</strong></li>
-          <li><strong>Critical thinking and perseverance</strong></li>
-        </ul>
-        <p>These aren’t just fun activities—they’re proven pathways to greater confidence, improved academic outcomes, and long-term engagement in STEM fields <a href="https://docs.wixstatic.com/ugd/e45463_e14ee6fac98d405e950c66fe28de9bf8.pdf" class="text-purple-700 underline">[source]</a>.</p>
-
-        <p><strong>For example:</strong></p>
-        <ul class="list-disc pl-6">
-          <li>A Chicago afterschool “Science Club” program increased STEM college major enrollment from <strong>1% to 32%</strong> of participants <a href="http://csl.nsta.org/2016/03/science-club/" class="text-purple-700 underline">[source]</a>.</li>
-          <li>The Clubhouse Network helped <strong>80% of alumni</strong> pursue careers they attributed directly to their afterschool STEM experiences <a href="http://www.computerclubhouse.org/sites/default/files/SRI%20Alumni%20Survey%20Report%20March%202013.pdf" class="text-purple-700 underline">[source]</a>.</li>
-        </ul>
-      </div>
-
-      <!-- Equity Gap -->
-      <div class="bg-purple-50 p-6 rounded-xl mb-8">
-        <h3 class="text-2xl font-bold text-purple-900 mb-2">We Must Close the Equity Gap</h3>
-        <p>The wealthiest 20% of families spend <strong>7x more</strong> on out-of-school enrichment than the poorest 20%. Without access to quality programs, countless students—especially in underserved communities—are locked out of the innovation economy before they even get started <a href="https://afterschoolalliance.org/examiningtheimpactofafterschoolSTEMprograms.pdf" class="text-purple-700 underline">[source]</a>.</p>
-      </div>
-
-      <!-- Our Mission -->
-      <div class="bg-purple-50 p-6 rounded-xl">
-        <h3 class="text-2xl font-bold text-purple-900 mb-2">Our Mission</h3>
-        <p>Our nonprofit is committed to changing that. By delivering hands-on, accessible STEM learning outside of school, we’re giving every student a chance to:</p>
-        <ul class="list-disc pl-6">
-          <li>Discover their potential</li>
-          <li>Connect with mentors and role models</li>
-          <li>Build the skills they need to thrive in a tech-driven future</li>
-        </ul>
-        <p>Let’s stop letting talent go untapped. Let’s build a Georgia where <strong>every kid sees themselves in STEM</strong>.</p>
-
-        <h4 class="text-xl font-semibold text-purple-800 mt-10">Sources Cited</h4>
-        <ul class="list-disc pl-6 text-sm text-gray-700">
-          <li>Afterschool Alliance. <em>Students Learn More with Afterschool STEM</em>. April 2018.</li>
-          <li>PEAR Institute and IMMAP. <em>Afterschool STEM Evaluation Overview</em>, 2016.</li>
-          <li>Georgia Department of Labor. <em>Hot STEM Jobs Report</em>. <a href="https://explorer.gdol.ga.gov/vosnet/mis/current/stem.pdf" class="underline">gdol.ga.gov</a></li>
-          <li>U.S. Bureau of Labor Statistics. <em>STEM Occupations Employment Projections</em>. <a href="https://www.bls.gov/emp/tables/stem-employment.htm" class="underline">bls.gov</a></li>
-          <li>Georgia Department of Education. <em>Georgia Milestones Data Dashboard</em>, 2024. <a href="https://georgiainsights.gadoe.org" class="underline">georgiainsights.gadoe.org</a></li>
-        </ul>
+          <!-- Count-Up Section -->
+          <div class="flex flex-col md:flex-row items-center justify-center gap-8 px-6 sm:px-16 md:px-32 my-8">
+            <div class="flex flex-col items-center">
+              <div id="counter" class="text-7xl font-extrabold text-purple-700">0</div>
+              <p class="text-xl text-gray-600 mt-4 text-center">of lower-income parents doubt<br>STEM careers for their kids.</p>
+            </div>
+            <div class="w-full md:w-1/2">
+              <img src="https://risestem.github.io/rise/public/photo5.jpg" alt="STEM Education" class="rounded-lg shadow-lg w-full h-auto" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+
+    <section id="Issue" class="w-full px-6 sm:px-6 md:px-16 lg:px-24 -mt-8 z-20 relative pb-12 scroll-mt-24">
+
+        <!-- STEM Demand -->
+        <div class="bg-white p-8 rounded-2xl border border-gray-300 z-30 shadow-md justify-center">
+          <h3 class="text-2xl font-bold justify-center items-center text-purple-950 mb-2">STEM Skills Are in High Demand—But Too Few Students Are Prepared</h3>
+          <p class="text-black">Across Georgia and the nation, careers in science, technology, engineering, and mathematics (STEM) are growing at a faster rate than most other jobs. According to the U.S. Bureau of Labor Statistics, STEM occupations are projected to grow by over <strong>10% by 2033</strong>, with <strong>median wages exceeding $100,000</strong>—far above the national average <a href="https://www.bls.gov/emp/tables/stem-employment.htm" class="text-purple-700 underline">[source]</a>.</p>
+          <p>In Georgia alone, roles like <strong>mechanical engineers</strong>, <strong>software developers</strong>, <strong>web developers</strong>, and <strong>electronics engineering technicians</strong> are classified as “hot jobs,” meeting three key criteria:</p>
+          <ul class="list-disc pl-6">
+            <li>Above-average job growth</li>
+            <li>Above-average wages</li>
+            <li>At least 100 openings per year</li>
+          </ul>
+          <p><a href="https://explorer.gdol.ga.gov/vosnet/mis/current/stem.pdf" class="text-purple-700 underline">[source]</a></p>
+        </div>
+
+        <!-- Students Falling Behind -->
+        <div class="bg-white p-8 rounded-2xl border border-gray-300 z-30 shadow-md justify-center">
+          <h3 class="text-2xl font-bold text-purple-900 mb-2">Yet Too Many Georgia Students Are Falling Behind</h3>
+          <p>Despite this booming opportunity, far too few Georgia students are on track to seize it. In 2024, only <strong>27% of 5th grade students</strong> achieved science proficiency on the Georgia Milestones assessment. This represents a critical gap—not just in learning, but in opportunity <a href="https://georgiainsights.gadoe.org/Dashboards/Pages/Georgia-Milestones.aspx" class="text-purple-700 underline">[source]</a>.</p>
+          <p>And this problem doesn’t only impact students—it affects the future of Georgia’s economy, workforce competitiveness, and technological innovation.</p>
+        </div>
+
+        <!-- Time Outside School -->
+        <div class="bg-purple-50 p-6 rounded-xl mb-8">
+          <h3 class="text-2xl font-bold text-purple-900 mb-2">Most Learning Happens Outside School—We’re Wasting That Time</h3>
+          <p>Students spend more than <strong>80% of their waking hours outside of school</strong> during the year. Afterschool hours are an untapped resource where kids can explore, build, tinker, and learn on their own terms <a href="https://afterschoolalliance.org/examiningtheimpactofafterschoolSTEMprograms.pdf" class="text-purple-700 underline">[source]</a>.</p>
+          <p>That’s where afterschool STEM comes in.</p>
+        </div>
+
+        <!-- Afterschool STEM Works -->
+        <div class="bg-purple-50 p-6 rounded-xl mb-8">
+          <h3 class="text-2xl font-bold text-purple-900 mb-2">Afterschool STEM Works—And Students Thrive</h3>
+          <p>Research from Harvard’s PEAR Institute and others shows that more than <strong>70% of students</strong> in high-quality afterschool STEM programs report gains in:</p>
+          <ul class="list-disc pl-6">
+            <li><strong>STEM interest and identity</strong></li>
+            <li><strong>STEM career awareness</strong></li>
+            <li><strong>Critical thinking and perseverance</strong></li>
+          </ul>
+          <p>These aren’t just fun activities—they’re proven pathways to greater confidence, improved academic outcomes, and long-term engagement in STEM fields <a href="https://docs.wixstatic.com/ugd/e45463_e14ee6fac98d405e950c66fe28de9bf8.pdf" class="text-purple-700 underline">[source]</a>.</p>
+
+          <p><strong>For example:</strong></p>
+          <ul class="list-disc pl-6">
+            <li>A Chicago afterschool “Science Club” program increased STEM college major enrollment from <strong>1% to 32%</strong> of participants <a href="http://csl.nsta.org/2016/03/science-club/" class="text-purple-700 underline">[source]</a>.</li>
+            <li>The Clubhouse Network helped <strong>80% of alumni</strong> pursue careers they attributed directly to their afterschool STEM experiences <a href="http://www.computerclubhouse.org/sites/default/files/SRI%20Alumni%20Survey%20Report%20March%202013.pdf" class="text-purple-700 underline">[source]</a>.</li>
+          </ul>
+        </div>
+
+        <!-- Equity Gap -->
+        <div class="bg-purple-50 p-6 rounded-xl mb-8">
+          <h3 class="text-2xl font-bold text-purple-900 mb-2">We Must Close the Equity Gap</h3>
+          <p>The wealthiest 20% of families spend <strong>7x more</strong> on out-of-school enrichment than the poorest 20%. Without access to quality programs, countless students—especially in underserved communities—are locked out of the innovation economy before they even get started <a href="https://afterschoolalliance.org/examiningtheimpactofafterschoolSTEMprograms.pdf" class="text-purple-700 underline">[source]</a>.</p>
+        </div>
+
+        <!-- Our Mission -->
+        <div class="bg-purple-50 p-6 rounded-xl">
+          <h3 class="text-2xl font-bold text-purple-900 mb-2">Our Mission</h3>
+          <p>Our nonprofit is committed to changing that. By delivering hands-on, accessible STEM learning outside of school, we’re giving every student a chance to:</p>
+          <ul class="list-disc pl-6">
+            <li>Discover their potential</li>
+            <li>Connect with mentors and role models</li>
+            <li>Build the skills they need to thrive in a tech-driven future</li>
+          </ul>
+          <p>Let’s stop letting talent go untapped. Let’s build a Georgia where <strong>every kid sees themselves in STEM</strong>.</p>
+
+          <h4 class="text-xl font-semibold text-purple-800 mt-10">Sources Cited</h4>
+          <ul class="list-disc pl-6 text-sm text-gray-700">
+            <li>Afterschool Alliance. <em>Students Learn More with Afterschool STEM</em>. April 2018.</li>
+            <li>PEAR Institute and IMMAP. <em>Afterschool STEM Evaluation Overview</em>, 2016.</li>
+            <li>Georgia Department of Labor. <em>Hot STEM Jobs Report</em>. <a href="https://explorer.gdol.ga.gov/vosnet/mis/current/stem.pdf" class="underline">gdol.ga.gov</a></li>
+            <li>U.S. Bureau of Labor Statistics. <em>STEM Occupations Employment Projections</em>. <a href="https://www.bls.gov/emp/tables/stem-employment.htm" class="underline">bls.gov</a></li>
+            <li>Georgia Department of Education. <em>Georgia Milestones Data Dashboard</em>, 2024. <a href="https://georgiainsights.gadoe.org" class="underline">georgiainsights.gadoe.org</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
   </section>
 
   <!-- Footer -->
