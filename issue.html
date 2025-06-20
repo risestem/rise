@@ -7,6 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Issue - Rise Engineering & Coding</title>
   <link href="src/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="src/animations.css">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     html {
@@ -123,12 +124,12 @@
           <div class="max-w-6xl mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
               <!-- Box 1 -->
-              <div class="flip-card group bg-transparent rounded-xl flex flex-col items-center"> 
+              <div class="flip-card group bg-transparent rounded-xl flex flex-col items-center">
                 <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
                   <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden">
-                    <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">
-                      code_blocks
-                    </span>
+                <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">
+                  code_blocks
+                </span>
                     <h3 class="text-3xl font-bold text-purple-900 mb-2 text-center">STEM Access Gaps</h3>
                   </div>
                   <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden">
@@ -140,9 +141,9 @@
               <div class="flip-card group bg-transparent rounded-xl flex flex-col items-center">
                 <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
                   <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden">
-                    <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">
-                      group
-                    </span>
+                <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">
+                  group
+                </span>
                     <h3 class="text-3xl font-bold text-purple-900 mb-2 text-center">Confidence</h3>
                   </div>
                   <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden">
@@ -154,9 +155,9 @@
               <div class="flip-card group bg-transparent rounded-xl flex flex-col items-center">
                 <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
                   <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden">
-                    <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">
-                      engineering
-                    </span>
+                <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">
+                  engineering
+                </span>
                     <h3 class="text-3xl font-bold text-purple-900 mb-2 text-center">Skills Gap</h3>
                   </div>
                   <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden">
@@ -166,14 +167,35 @@
               </div>
             </div>
           </div>
-      
+          <!-- Centered Text Below Boxes -->
+          <div class="pt-10 flex justify-center">
+            <button
+                    id="continueReadingBtn"
+                    type="button"
+                    class="flex items-center gap-2 px-6 py-3 border border-gray-300 rounded-xl bg-white shadow-sm text-gray-500 transition active:translate-y-0.5 hover:scale-110 hover:border-gray-300 focus:outline-none"
+            >
+              Continue reading to learn more!
+              <!-- Down arrow with tail SVG -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+          </div>
+          <script>
+            document.getElementById('continueReadingBtn').addEventListener('click', function(event) {
+              const target = document.getElementById('stem-skills');
+              if (target) {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              }
+            });
+          </script>
         </div>
       </div>
     </div>
   
     <div class="bg-white p-8 rounded-2xl border mt-8 border-gray-300 z-30 shadow-md flex flex-col items-center justify-center">
 
-  <h3 class="text-3xl font-bold text-center text-purple-950 mb-2">STEM Skills Are in High Demand</h3>
+  <h3 id="stem-skills" class="text-3xl font-bold text-center text-purple-950 mb-2">STEM Skills Are in High Demand</h3>
     <div class="flex flex-col items-center text-gray-500">
       <p class="mb-8 text-center max-w-xl">
         STEM careers are growing much faster than most fields. By 2033, the U.S. Bureau of Labor Statistics projects:
@@ -340,13 +362,103 @@
     <h3 class="text-3xl font-bold text-center text-purple-950 mb-4">Too Many Georgia Students Are Still Falling Behind</h3>
     <div class="flex flex-col items-center text-gray-500">
       <p class="mb-6 text-center max-w-xl">
-        Despite booming opportunities in STEM, far too many students aren’t being equipped to pursue them. In 2024:
+        Despite booming opportunities in STEM, far too many students aren’t being equipped to pursue them. In 2024, only:
       </p>
+      <!-- Change these variables for size -->
       <div class="flex flex-col items-center justify-center w-full mb-6">
-        <span class="text-5xl md:text-6xl font-bold text-purple-950">27%</span>
-        <p class="text-center mt-2 max-w-xs">of 5th graders reached science proficiency on the Georgia Milestones assessment</p>
-        <a href="https://georgiainsights.gadoe.org/Dashboards/Pages/Georgia-Milestones.aspx" class="text-purple-700 underline mt-3">[source]</a>
+        <svg
+                id="donutChart"
+                width="200"
+                height="200"
+                viewBox="0 0 200 200"
+                class="block"
+        >
+          <!-- Track -->
+          <circle
+                  cx="100" cy="100" r="70"
+                  fill="none"
+                  stroke="#eee"
+                  stroke-width="28"
+                  stroke-linecap="butt"
+          />
+          <!-- Animated Arc -->
+          <circle
+                  id="donutArc"
+                  cx="100" cy="100" r="70"
+                  fill="none"
+                  stroke="#7c3aed"
+                  stroke-width="28"
+                  stroke-linecap="butt"
+                  stroke-dasharray="439.8229715"
+                  stroke-dashoffset="439.8229715"
+                  style="transition: stroke-dashoffset 0.2s linear"
+                  transform="rotate(-90 100 100)"
+          />
+          <!-- Percentage Text -->
+          <text
+                  id="donutText"
+                  x="100"
+                  y="112"
+                  text-anchor="middle"
+                  font-size="48"
+                  font-weight="bold"
+                  fill="#3b225e"
+                  class="font-bold"
+          >0%</text>
+        </svg>
+        <p class="text-center mt-2 max-w-xs">
+          of 5th graders reached science proficiency on the Georgia Milestones assessment
+        </p>
+        <a
+                class="text-purple-700 underline mt-3"
+                href="https://georgiainsights.gadoe.org/Dashboards/Pages/Georgia-Milestones.aspx"
+                target="_blank"
+                rel="noopener noreferrer"
+        >[source]</a>
       </div>
+      <script>
+        // Donut chart config
+        const percentage = 27;
+        const duration = 1200; // ms
+        const radius = 70; // 10px larger than before
+        const circumference = 2 * Math.PI * radius;
+        const arc = document.getElementById('donutArc');
+        const text = document.getElementById('donutText');
+        let animationStarted = false;
+
+        function animate(ts) {
+          if (!animate.start) animate.start = ts;
+          const elapsed = ts - animate.start;
+          const t = Math.min(elapsed / duration, 1);
+          const current = Math.round(t * percentage);
+          const offset = circumference * (1 - current / 100);
+          arc.setAttribute('stroke-dashoffset', offset);
+          text.textContent = current + '%';
+          if (t < 1) {
+            requestAnimationFrame(animate);
+          }
+        }
+
+        // Prepare SVG for animation
+        arc.setAttribute('stroke-dasharray', circumference);
+        arc.setAttribute('stroke-dashoffset', circumference);
+
+        // Intersection Observer to trigger animation when in view
+        const svg = document.getElementById('donutChart');
+        const observer = new window.IntersectionObserver(
+                (entries, observer) => {
+                  entries.forEach(entry => {
+                    if (entry.isIntersecting && !animationStarted) {
+                      animationStarted = true;
+                      requestAnimationFrame(animate);
+                      observer.disconnect();
+                    }
+                  });
+                },
+                { threshold: 0.2 }
+        );
+        observer.observe(svg);
+      </script>
       <p class="text-center max-w-xl">
         This isn’t just a learning gap; it’s an opportunity gap. And it’s costing Georgia future innovators, leaders, and change-makers.
       </p>
@@ -355,18 +467,17 @@
     <h3 class="text-3xl font-bold text-center text-purple-950 mt-10 mb-4">
       Learning Happens Beyond the Classroom
     </h3>
-    <div class="text-gray-500 space-y-4 max-w-2xl text-center mx-auto">
-      <div class="text-gray-500">
-        <p>
-          Students spend the majority of their waking hours outside of school. Afterschool time is a powerful window for hands-on, curiosity-driven learning
-          <a href="http://life-slc.org/docs/Banks_etal-LIFE-Diversity-Report.pdf" class="text-purple-700 underline">[source]</a>.
-        </p>
-      </div>
-
+    <div class="text-gray-500 space-y-4 max-w-7xl flex flex-col items-center justify-center text-center">
+      <p class="max-w-xl w-full text-center">
+        Students spend the majority of their waking hours outside of school. Afterschool time is a powerful window for hands-on, curiosity-driven learning.
+      </p>
+      <a href="http://life-slc.org/docs/Banks_etal-LIFE-Diversity-Report.pdf" class="text-purple-700 underline">[source]</a>
+    </div>
+    <div class="text-gray-500 space-y-4 max-w-7xl flex flex-col items-center justify-center text-center">
       <!-- Stacked timeline with bar chart -->
-      <div class="flex flex-row items-center justify-center">
+      <div class="flex flex-row items-center justify-center w-full">
         <!-- Left: Percentage -->
-        <div class="flex flex-col items-center justify-center w-1/2 mb-6">
+        <div class="flex flex-col items-center justify-center flex-1 mb-6">
           <span class="text-5xl md:text-6xl font-bold text-purple-950">80%</span>
           <p class="text-center mt-2 max-w-xs">
             of student's waking hours are spent outside of school
@@ -377,52 +488,67 @@
         <div class="mx-6 h-24 border-l-2 border-gray-300"></div>
 
         <!-- Right: Bar Chart -->
-        <div class="relative w-1/2 flex justify-center items-center">
-          <!-- Grid overlay using SVG for dotted grid -->
-          <svg
-            class="absolute top-0 left-0 w-full h-full pointer-events-none"
-            width="100%" height="100%" viewBox="0 0 120 120"
-            style="z-index:0"
-          >
-            <defs>
-              <pattern id="dotted-grid" width="20" height="20" patternUnits="userSpaceOnUse">
-                <circle cx="0" cy="0" r="1" fill="#cbd5e1" opacity="0.5"/>
-                <circle cx="20" cy="0" r="1" fill="#cbd5e1" opacity="0.5"/>
-                <circle cx="0" cy="20" r="1" fill="#cbd5e1" opacity="0.5"/>
-                <circle cx="20" cy="20" r="1" fill="#cbd5e1" opacity="0.5"/>
-              </pattern>
-            </defs>
-            <rect width="120" height="120" fill="url(#dotted-grid)" />
-          </svg>
-
-          <!-- Bar chart (example: 2 bars, you can expand as needed) -->
-          <div class="flex space-x-4 z-10 h-24 items-end w-2/3">
-            <div class="flex flex-col items-center">
-              <div class="bg-purple-400 w-8 rounded-t h-20"></div>
-              <span class="text-xs mt-1 text-gray-400">Out of School</span>
+        <div class="relative flex-1 flex justify-center items-center">
+          <!-- Horizontal Bar Chart -->
+          <div class="flex flex-col space-y-6 z-10 w-full h-24 justify-center max-w-md">
+            <div class="flex items-center space-x-3">
+          <span class="text-xs text-slate-700 font-semibold min-w-[80px] drop-shadow-sm">
+            Out of School
+          </span>
+              <div class="bg-purple-400 h-8 rounded-l rounded-r-md" style="width: 80%;"></div>
             </div>
-            <div class="flex flex-col items-center">
-              <div class="bg-gray-300 w-8 rounded-t h-6"></div>
-              <span class="text-xs mt-1 text-gray-400">In School</span>
+            <div class="flex items-center space-x-3">
+          <span class="text-xs text-slate-700 font-semibold min-w-[80px] drop-shadow-sm">
+            In School
+          </span>
+              <div class="bg-gray-300 h-8 rounded-l rounded-r-md" style="width: 20%;"></div>
             </div>
           </div>
         </div>
       </div>
-    </div>
 
       <p>
         High-quality afterschool STEM programs have been proven to boost:
       </p>
-      <ul class="list-disc text-left pl-6 sm:pl-8 max-w-md mx-auto">
-        <li><strong>STEM interest and identity</strong></li>
-        <li><strong>Career awareness and readiness</strong></li>
-        <li><strong>Problem-solving and perseverance</strong></li>
-      </ul>
+
+      <!-- STEM Impact Cards with Tailwind CSS -->
+      <div class="flex flex-row justify-center gap-6 w-full my-8">
+        <!-- Card 1 -->
+        <div class="bg-white rounded-xl border border-gray-300 shadow-sm flex flex-col items-center w-[270px] h-[300px] min-w-[230px] max-w-[320px] min-h-[200px] max-h-[280px] overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80" alt="STEM Interest and Identity" class="w-full h-24 object-cover">
+          <div class="px-4 py-3 flex-1 flex flex-col justify-start items-center text-center">
+            <h3 class="text-lg font-semibold mb-1 text-purple-950">STEM Interest and Identity</h3>
+            <p class="text-slate-700 text-sm">
+              Fostering a passion for science, technology, engineering, and math, and building a sense of belonging in STEM fields.
+            </p>
+          </div>
+        </div>
+        <!-- Card 2 -->
+        <div class="bg-white rounded-xl border border-gray-300 shadow-sm flex flex-col items-center w-[270px] h-[300px] min-w-[230px] max-w-[320px] min-h-[200px] max-h-[280px] overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=400&q=80" alt="Career Awareness and Readiness" class="w-full h-24 object-cover">
+          <div class="px-4 py-3 flex-1 flex flex-col justify-start items-center text-center">
+            <h3 class="text-lg font-semibold mb-1 text-purple-950">Career Awareness and Readiness</h3>
+            <p class="text-slate-700 text-sm">
+              Developing awareness of STEM careers and building skills necessary for future academic and professional success.
+            </p>
+          </div>
+        </div>
+        <!-- Card 3 -->
+        <div class="bg-white rounded-xl border border-gray-300 shadow-sm flex flex-col items-center w-[270px] h-[300px] min-w-[230px] max-w-[320px] min-h-[200px] max-h-[280px] overflow-hidden">
+          <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Problem-Solving and Perseverance" class="w-full h-24 object-cover">
+          <div class="px-4 py-3 flex-1 flex flex-col justify-start items-center text-center">
+            <h3 class="text-lg font-semibold mb-1 text-purple-950">Problem-Solving and Perseverance</h3>
+            <p class="text-slate-700 text-sm">
+              Encouraging creative problem-solving, resilience, and persistence in the face of challenges.
+            </p>
+          </div>
+        </div>
+      </div>
+
       <p>
-        These aren’t just enrichment activities — they’re stepping stones to brighter futures
-        <a href="https://docs.wixstatic.com/ugd/e45463_e14ee6fac98d405e950c66fe28de9bf8.pdf" class="text-purple-700 underline">[source]</a>.
+        <a href="https://docs.wixstatic.com/ugd/e45463_e14ee6fac98d405e950c66fe28de9bf8.pdf" class="text-purple-700 underline">[source]</a>
       </p>
-      <p class="font-semibold text-purple-950 mt-6">For example:</p>
+      <p class="font-semibold text-purple-950 text-xl mt-6">For example:</p>
       <ul class="list-disc text-left pl-6 sm:pl-8 max-w-md mx-auto">
         <li>Chicago’s Science Club saw STEM college majors jump from <strong>1% to 34%</strong>
           <a href="https://www.nsta.org/connected-science-learning/connected-science-learning-march-2016/science-club" class="text-purple-700 underline">[source]</a>
@@ -434,7 +560,7 @@
     </div>
   </div>
 
-  <div class="bg-white p-8 rounded-2xl border mt-8 border-gray-300 z-30 shadow-md flex flex-col items-center justify-center">
+  <div class="bg-white p-8 rounded-2xl border mt-8 border-gray-300 z-30 shadow-md transform flex flex-col items-center justify-center">
     <h3 class="text-3xl font-bold text-center text-purple-950 mb-4">We’re Working Towards Closing the Gap</h3>
     <div class="text-gray-500 max-w-2xl text-center space-y-4">
       <p>
@@ -442,7 +568,7 @@
         <a href="https://www.asanet.org/news_item/income-inequality-changing-how-parents-invest-their-kids-widening-class-divides-us/?utm_source=chatgpt.com" class="text-purple-700 underline">[source]</a>. This is how STEM access gaps widen.
       </p>
       <p>
-        Our nonprofit is tackling this divide by bringing engaging, hands-on STEM learning directly to underserved communities.
+        RISE is tackling this divide by bringing engaging, hands-on STEM learning directly to underserved communities.
       </p>
       <ul class="list-disc text-left pl-6 sm:pl-8 max-w-md mx-auto">
         <li>Helping kids discover their passion for STEM</li>
@@ -452,14 +578,14 @@
       <p class="mt-6">
         Let’s stop letting potential go untapped. Let’s build a Georgia where <strong>every kid sees themselves in STEM</strong>.
       </p>
-      <a href="/rise/what-we-do" class="px-6 py-2 mt-8 text-white font-bold bg-purple-950 rounded-full transform transition-all duration-300 hover:scale-110 hover:text-white">
+      <button href="/rise/what-we-do" class="px-6 py-4 mb-4 text-white font-bold bg-purple-950 rounded-full transform transition-all duration-300 hover:!scale-110 hover:text-white">
         Continue Reading About Our Work
-      </a>
+      </button>
     </div>
   </div> 
 
   <div class="bg-white p-8 rounded-2xl border mt-8 border-gray-300 z-30 shadow-md flex flex-col items-center justify-center">
-    <h4 class="text-xl font-semibold text-purple-800 mb-2">Sources Cited</h4>
+    <h4 class="text-xl font-semibold text-purple-800 mb-2 -mt-2">Sources</h4>
     <ul class="list-disc pl-6 text-sm text-gray-500 text-left">
       <li>Afterschool Alliance. <em>Students Learn More with Afterschool STEM</em>. April 2018.</li>
       <li>PEAR Institute and IMMAP. <em>Afterschool STEM Evaluation Overview</em>, 2016.</li>
