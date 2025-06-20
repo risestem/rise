@@ -352,25 +352,63 @@
       </p>
     </div>
 
-    <h3 class="text-3xl font-bold text-center text-purple-950 mt-10 mb-4">Learning Happens Beyond the Classroom</h3>
-    <div class="text-gray-500 space-y-4 max-w-2xl text-center">
+    <h3 class="text-3xl font-bold text-center text-purple-950 mt-10 mb-4">
+      Learning Happens Beyond the Classroom
+    </h3>
+    <div class="text-gray-500 space-y-4 max-w-2xl text-center mx-auto">
       <div class="text-gray-500">
-        <p>Students spend over <strong>80% of their waking hours </strong> outside of school. Afterschool time is a powerful window for hands-on, curiosity-driven learning  <a href="http://life-slc.org/docs/Banks_etal-LIFE-Diversity-Report.pdf" class="text-purple-700 underline">[source]</a>.</p>
+        <p>
+          Students spend the majority of their waking hours outside of school. Afterschool time is a powerful window for hands-on, curiosity-driven learning
+          <a href="http://life-slc.org/docs/Banks_etal-LIFE-Diversity-Report.pdf" class="text-purple-700 underline">[source]</a>.
+        </p>
       </div>
 
-      <!-- Stacked timeline -->
-      <div class="mt-6 max-w-md mx-auto">
-        <div class="flex text-sm font-medium text-center text-white rounded overflow-hidden shadow-lg">
-          <div class="flex-1 bg-blue-600 p-3">
-            <div>At School</div>
-            <div class="text-xs">20% of waking hours</div>
-          </div>
-          <div class="flex-1 bg-orange-400 p-3">
-            <div>Outside School</div>
-            <div class="text-xs">80% of waking hours</div>
+      <!-- Stacked timeline with bar chart -->
+      <div class="flex flex-row items-center justify-center">
+        <!-- Left: Percentage -->
+        <div class="flex flex-col items-center justify-center w-1/2 mb-6">
+          <span class="text-5xl md:text-6xl font-bold text-purple-950">80%</span>
+          <p class="text-center mt-2 max-w-xs">
+            of student's waking hours are spent outside of school
+          </p>
+        </div>
+
+        <!-- Divider -->
+        <div class="mx-6 h-24 border-l-2 border-gray-300"></div>
+
+        <!-- Right: Bar Chart -->
+        <div class="relative w-1/2 flex justify-center items-center">
+          <!-- Grid overlay using SVG for dotted grid -->
+          <svg
+            class="absolute top-0 left-0 w-full h-full pointer-events-none"
+            width="100%" height="100%" viewBox="0 0 120 120"
+            style="z-index:0"
+          >
+            <defs>
+              <pattern id="dotted-grid" width="20" height="20" patternUnits="userSpaceOnUse">
+                <circle cx="0" cy="0" r="1" fill="#cbd5e1" opacity="0.5"/>
+                <circle cx="20" cy="0" r="1" fill="#cbd5e1" opacity="0.5"/>
+                <circle cx="0" cy="20" r="1" fill="#cbd5e1" opacity="0.5"/>
+                <circle cx="20" cy="20" r="1" fill="#cbd5e1" opacity="0.5"/>
+              </pattern>
+            </defs>
+            <rect width="120" height="120" fill="url(#dotted-grid)" />
+          </svg>
+
+          <!-- Bar chart (example: 2 bars, you can expand as needed) -->
+          <div class="flex space-x-4 z-10 h-24 items-end w-2/3">
+            <div class="flex flex-col items-center">
+              <div class="bg-purple-400 w-8 rounded-t h-20"></div>
+              <span class="text-xs mt-1 text-gray-400">Out of School</span>
+            </div>
+            <div class="flex flex-col items-center">
+              <div class="bg-gray-300 w-8 rounded-t h-6"></div>
+              <span class="text-xs mt-1 text-gray-400">In School</span>
+            </div>
           </div>
         </div>
       </div>
+    </div>
 
       <p>
         High-quality afterschool STEM programs have been proven to boost:
@@ -421,7 +459,7 @@
   </div> 
 
   <div class="bg-white p-8 rounded-2xl border mt-8 border-gray-300 z-30 shadow-md flex flex-col items-center justify-center">
-    <h4 class="text-xl font-semibold text-purple-800 mt-10 mb-2">Sources Cited</h4>
+    <h4 class="text-xl font-semibold text-purple-800 mb-2">Sources Cited</h4>
     <ul class="list-disc pl-6 text-sm text-gray-500 text-left">
       <li>Afterschool Alliance. <em>Students Learn More with Afterschool STEM</em>. April 2018.</li>
       <li>PEAR Institute and IMMAP. <em>Afterschool STEM Evaluation Overview</em>, 2016.</li>
