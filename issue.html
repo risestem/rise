@@ -96,13 +96,12 @@
 <main class="min-h-screen bg-gray-50 w-full">
   
   <!-- Hero Section -->
-  <section class=" w-full">
+  <section class="w-full">
     <div class="w-full h-[60vh] bg-[url('https://risestem.github.io/rise/public/.jpg')] bg-cover bg-top bg-no-repeat flex items-center justify-center relative">
-      <!-- Gradient Overlay -->
       <div class="h-[60vh] absolute inset-0 bg-black opacity-50"></div>
       <div class="flex flex-col text-center items-center justify-center px-6 sm:px-16 md:px-32 z-10">
         <h1 class="mt-16 text-3xl font-extrabold text-white md:text-4xl xl:text-5xl justify-center">
-          The Issue
+          Bridging the STEM Gap for Georgia's Youth
         </h1>
       </div>
     </div>
@@ -110,74 +109,86 @@
 
   <!-- The Issue Section -->
   <section id="Issue" class="w-full px-6 sm:px-6 md:px-16 lg:px-24 -mt-8 z-20 relative pb-12 scroll-mt-24">
-    <div class="bg-white p-4 rounded-2xl border border-gray-300 shadow-md justify-center">
-      <div class="flex justify-center text-center">
-        <h2 class="text-3xl font-poppins font-semibold text-purple-950 md:text-4xl">
-          The <span class="font-extrabold">Issue</span>
-        </h2>
+    <div class="bg-white p-8 rounded-2xl border border-gray-300 shadow-md">
+      
+      <!-- STEM Demand Stats -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div class="stat-card">
+          <h3 class="text-2xl font-bold text-purple-900 mb-4">10%+</h3>
+          <p class="text-gray-700">Projected STEM job growth by 2033</p>
+        </div>
+        <div class="stat-card">
+          <h3 class="text-2xl font-bold text-purple-900 mb-4">$100k+</h3>
+          <p class="text-gray-700">Median STEM salary</p>
+        </div>
+        <div class="stat-card" id="proficiency-stat">
+          <h3 class="text-2xl font-bold text-purple-900 mb-4"><span id="counter">0</span>%</h3>
+          <p class="text-gray-700">5th grade science proficiency in Georgia</p>
+        </div>
       </div>
 
-      <div class="flex justify-center items-center pt-8 sm:px-16 lg:px-32 flex-col">
-        <!-- Three Boxes Section with Flip Effect -->
-        <div class="bg-white w-full py-12">
-          <div class="max-w-6xl mx-auto px-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <!-- Box 1 -->
-              <div class="flip-card group bg-transparent rounded-xl flex flex-col items-center"> 
-                <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-                  <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden">
-                    <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">
-                      code_blocks
-                    </span>
-                    <h3 class="text-3xl font-bold text-purple-900 mb-2 text-center">STEM Access Gaps</h3>
-                  </div>
-                  <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden">
-                    <p class="text-gray-700 text-center">Many students, especially those from low-income or underrepresented backgrounds, lack access to quality STEM education. This gap limits their opportunities to explore, develop, and excel in critical fields like science, technology, engineering, and math, creating disparities in future careers and innovation potential.</p>
-                  </div>
-                </div>
-              </div>
-              <!-- Box 2 -->
-              <div class="flip-card group bg-transparent rounded-xl flex flex-col items-center">
-                <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-                  <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden">
-                    <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">
-                      group
-                    </span>
-                    <h3 class="text-3xl font-bold text-purple-900 mb-2 text-center">Confidence</h3>
-                  </div>
-                  <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden">
-                    <p class="text-gray-700 text-center">Many students, particularly from marginalized communities, face confidence gaps in STEM subjects. Without encouragement and support, they may doubt their abilities, leading to disengagement and limiting their future opportunities in these critical fields.</p>
-                  </div>
-                </div>
-              </div>
-              <!-- Box 3 -->
-              <div class="flip-card group bg-transparent rounded-xl flex flex-col items-center">
-                <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-                  <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden">
-                    <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">
-                      engineering
-                    </span>
-                    <h3 class="text-3xl font-bold text-purple-900 mb-2 text-center">Skills Gap</h3>
-                  </div>
-                  <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden">
-                    <p class="text-gray-700 text-center">As technology evolves, there's a growing demand for STEM skills. Unfortunately, many students—especially those in underserved schools—lack access to the resources and hands-on experiences needed to develop these crucial skills, widening the gap between academic learning and workforce readiness.</p>
-                  </div>
-                </div>
-              </div>
+      <!-- Key Issues Flip Cards -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+        <!-- Hot Jobs Card -->
+        <div class="flip-card group">
+          <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+            <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8">
+              <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">work</span>
+              <h3 class="text-2xl font-bold text-purple-900 mb-2 text-center">Hot Jobs in Georgia</h3>
             </div>
-          </div>
-
-          <!-- Count-Up Section -->
-          <div class="flex flex-col md:flex-row items-center justify-center gap-8 px-6 sm:px-16 md:px-32 my-8">
-            <div class="flex flex-col items-center">
-              <div id="counter" class="text-7xl font-extrabold text-purple-700">0</div>
-              <p class="text-xl text-gray-600 mt-4 text-center">of lower-income parents doubt<br>STEM careers for their kids.</p>
-            </div>
-            <div class="w-full md:w-1/2">
-              <img src="https://risestem.github.io/rise/public/photo5.jpg" alt="STEM Education" class="rounded-lg shadow-lg w-full h-auto" />
+            <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8">
+              <ul class="text-gray-700 text-center list-disc pl-6">
+                <li>Mechanical Engineers</li>
+                <li>Software Developers</li>
+                <li>Web Developers</li>
+                <li>Electronics Engineering Technicians</li>
+              </ul>
             </div>
           </div>
         </div>
+
+        <!-- Learning Time Card -->
+        <div class="flip-card group">
+          <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+            <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8">
+              <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">schedule</span>
+              <h3 class="text-2xl font-bold text-purple-900 mb-2 text-center">Learning Time</h3>
+            </div>
+            <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8">
+              <p class="text-gray-700 text-center">Students spend more than 80% of their waking hours outside of school - a massive opportunity for learning and growth.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Impact Card -->
+        <div class="flip-card group">
+          <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+            <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8">
+              <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">trending_up</span>
+              <h3 class="text-2xl font-bold text-purple-900 mb-2 text-center">Program Impact</h3>
+            </div>
+            <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8">
+              <p class="text-gray-700 text-center">70%+ of students in quality afterschool STEM programs report gains in interest, identity, and career awareness.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Detailed Content -->
+      <div class="prose max-w-none text-gray-800">
+        <h3 class="text-2xl font-bold text-purple-900">Our Mission</h3>
+        <p>Our nonprofit is committed to changing the STEM education landscape. By delivering hands-on, accessible STEM learning outside of school, we're giving every student a chance to:</p>
+        <ul class="list-disc pl-6">
+          <li>Discover their potential</li>
+          <li>Connect with mentors and role models</li>
+          <li>Build the skills they need to thrive in a tech-driven future</li>
+        </ul>
+        
+        <h3 class="text-2xl font-bold text-purple-900 mt-8">The Evidence</h3>
+        <ul class="list-disc pl-6">
+          <li>Chicago afterschool "Science Club" program increased STEM college major enrollment from 1% to 32% of participants</li>
+          <li>The Clubhouse Network helped 80% of alumni pursue careers they attributed directly to their afterschool STEM experiences</li>
+        </ul>
       </div>
     </div>
   </section>
