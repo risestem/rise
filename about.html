@@ -17,10 +17,17 @@
               perspective(600px)
               rotateX(var(--rX, 0deg))
               rotateY(var(--rY, 0deg));
+      position: relative; /* Ensure relative for the glow absolutely inside */
+      overflow: hidden; /* So the glow can overflow */
     }
     .parallax-active {
       box-shadow: 0 8px 32px 0 rgba(76,29,149,0.18);
       transition: box-shadow 0.2s;
+    }
+    .glow-effect {
+      pointer-events: none;
+      mix-blend-mode: lighten;
+      filter: blur(32px); /* Subtle blur for soft glow */
     }
   </style>
 </head>
@@ -75,7 +82,7 @@
         <div class="flex flex-wrap justify-center gap-6 pt-8">
           <!-- Card 1 -->
           <div class="parallax-wrap w-64">
-            <div class="parallax-container bg-white rounded-xl shadow-sm border border-gray-200 w-64 p-6 flex flex-col items-center text-center">
+            <div class="parallax-container bg-transparent rounded-xl shadow-sm border border-gray-200 w-64 p-6 flex flex-col items-center text-center">
               <span class="material-symbols-outlined text-4xl text-purple-700 mb-2">balance</span>
               <p class="text-lg font-bold text-purple-900">Equity</p>
               <p class="text-gray-600 text-sm mt-2">We champion equal access and representation in STEM.</p>
@@ -83,7 +90,7 @@
           </div>
           <!-- Card 2 -->
           <div class="parallax-wrap w-64">
-            <div class="parallax-container bg-white rounded-xl shadow-sm border border-gray-200 w-64 p-6 flex flex-col items-center text-center">
+            <div class="parallax-container bg-transparent rounded-xl shadow-sm border border-gray-200 w-64 p-6 flex flex-col items-center text-center">
               <span class="material-symbols-outlined text-4xl text-purple-700 mb-2">bolt</span>
               <p class="text-lg font-bold text-purple-900">Empowerment</p>
               <p class="text-gray-600 text-sm mt-2">We uplift youth to become future innovators.</p>
@@ -91,7 +98,7 @@
           </div>
           <!-- Card 3 -->
           <div class="parallax-wrap w-64">
-            <div class="parallax-container bg-white rounded-xl shadow-sm border border-gray-200 w-64 p-6 flex flex-col items-center text-center">
+            <div class="parallax-container bg-transparent rounded-xl shadow-sm border border-gray-200 w-64 p-6 flex flex-col items-center text-center">
               <span class="material-symbols-outlined text-4xl text-purple-700 mb-2">lightbulb</span>
               <p class="text-lg font-bold text-purple-900">Curiosity</p>
               <p class="text-gray-600 text-sm mt-2">We celebrate questioning, learning, and creativity.</p>
@@ -99,7 +106,7 @@
           </div>
           <!-- Card 4 -->
           <div class="parallax-wrap w-64">
-            <div class="parallax-container bg-white rounded-xl shadow-sm border border-gray-200 w-64 p-6 flex flex-col items-center text-center">
+            <div class="parallax-container bg-transparent  rounded-xl shadow-sm border border-gray-200 w-64 p-6 flex flex-col items-center text-center">
               <span class="material-symbols-outlined text-4xl text-purple-700 mb-2">diversity_3</span>
               <p class="text-lg font-bold text-purple-900">Collaboration</p>
               <p class="text-gray-600 text-sm mt-2">We grow stronger together through teamwork.</p>
@@ -183,6 +190,59 @@
               element: wrap,
               tiltEffect: idx % 2 === 0 ? 'normal' : 'reverse'
             });
+          });
+        </script>
+        <!-- Card Glow Effect JS -->
+        <script type="module">
+          document.querySelectorAll('.parallax-wrap').forEach((wrap) => {
+            const container = wrap.querySelector('.parallax-container');
+
+            // Create the glow element
+            const glow = document.createElement('div');
+            glow.style.position = 'absolute';
+            glow.style.pointerEvents = 'none';
+            glow.style.zIndex = '1';
+            glow.style.width = '80px';
+            glow.style.height = '80px';
+            glow.style.borderRadius = '50%';
+            glow.style.background = 'radial-gradient(circle, rgba(168,85,247,0.26) 0%, rgba(139,92,246,0.13) 60%, rgba(139,92,246,0.06) 100%)';
+            glow.style.transition = 'opacity 0.18s, transform 0.09s';
+            glow.style.opacity = '0';
+            glow.style.transform = 'translate(-50%, -50%) scale(0.95)';
+            glow.classList.add('glow-effect');
+
+            // Make sure the card container is position:relative
+            container.style.position = 'relative';
+            container.appendChild(glow);
+
+            function showGlow() {
+              glow.style.opacity = '1';
+            }
+
+            function hideGlow() {
+              glow.style.opacity = '0';
+            }
+
+            function moveGlow(e) {
+              const bounds = container.getBoundingClientRect();
+              const x = e.clientX - bounds.left;
+              const y = e.clientY - bounds.top;
+              // Subtle scale based on distance to center (parallax "tilt" illusion)
+              const centerX = bounds.width / 2;
+              const centerY = bounds.height / 2;
+              const dx = Math.abs(x - centerX) / centerX;
+              const dy = Math.abs(y - centerY) / centerY;
+              const scale = 1.05 - (dx + dy) * 0.17;
+              glow.style.left = `${x}px`;
+              glow.style.top = `${y}px`;
+              glow.style.transform = `translate(-50%, -50%) scale(${scale})`;
+              // Optionally, you can also add a blur or more intense glow based on scale.
+            }
+
+            // Attach listeners to the parallax-wrap, so the glow is only active on hover
+            wrap.addEventListener('mouseenter', showGlow);
+            wrap.addEventListener('mousemove', moveGlow);
+            wrap.addEventListener('mouseleave', hideGlow);
           });
         </script>
       </div>
