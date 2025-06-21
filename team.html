@@ -11,13 +11,12 @@
     html {
       scroll-behavior: smooth;
     }
-    
   </style>
 </head>
 <body>
 <!-- Copy the header/navigation from yoPLEASEur main page here -->
 <div id="header-container"></div>
-  <script type="module" src="scripts/loadHeader.js"></script>
+<script type="module" src="scripts/loadHeader.js"></script>
 <!-- Main content - About Us section -->
 <section class="min-h-screen bg-gray-50 w-full ">
   <section class="bg-white w-full">
@@ -32,15 +31,12 @@
     </div>
   </section>
 
-
-  <section class=" pt-0 min-h-screen bg-gray-50 w-full text-gray-500">
+  <section class="pt-0 min-h-screen bg-gray-50 w-full text-gray-500">
     <div class="container max-w-md mx-auto mt-8 mb-8 flex flex-col items-center">
       <h3 class="text-3xl font-normal text-purple-950">
         Our <span class="font-extrabold">Team</span>
       </h3>
     </div>
-
-
 
     <!-- Cards Section -->
     <div class="px-6 sm:px-12 md:px-24 lg:px-32 pb-12 flex justify-center">
@@ -56,7 +52,11 @@
     </div>
 
     <!-- Timeline Section -->
-    <div class="relative max-w-3xl bg-gray-50 mx-auto mt-8 mb-12">
+    <!--
+      ADDED px-4 FOR MOBILE, px-8 FOR SMALL, px-0 FOR MD AND UP
+      This is the only change needed for padding on small screens
+    -->
+    <div class="relative max-w-3xl bg-gray-50 mx-auto mt-8 mb-12 px-4 sm:px-8 md:px-0">
       <!-- Vertical line -->
       <div class="absolute left-1/2 transform -translate-x-1/2 h-full border-l-4 border-purple-300"></div>
 
@@ -72,7 +72,7 @@
             <p class="text-gray-600 mt-2">Since Middle School, we've all had a deep interest in STEM fields, participating in Robotics, math competitions, and coding classes.</p>
           </div>
           <!-- Image on the opposite side -->
-          <div class="md:w-1/2 mt-4 md:mt-0 flex flex-col items-center md:justify-end" style="position:relative; left:80px;">
+          <div class="md:w-1/2 mt-4 md:mt-0 flex flex-col items-center md:justify-end" style="position:relative; left:120px;">
             <img src="https://risestem.github.io/rise/public/frcRISE.jpeg" alt="2021 highlight" class="rounded-lg w-40 h-40 object-cover shadow-md border border-gray-200">
             <span class="text-xs text-gray-500 mt-2">RISE Members in Robotics</span>
           </div>
@@ -87,7 +87,7 @@
             <p class="text-gray-600 mt-2">We engaged in several community service activity, ranging from volunteering in the garden to tutoring students online.</p>
           </div>
           <!-- Image on the opposite side -->
-          <div class="md:w-1/2 mt-4 md:mt-0 flex flex-col items-center md:justify-start" style="position:relative; right:80px;">
+          <div class="md:w-1/2 mt-4 md:mt-0 flex flex-col items-center md:justify-start" style="position:relative; right:120px;">
             <img src="https://risestem.github.io/rise/public/RISEVolunteer.jpeg" alt="2022 highlight" class="rounded-lg w-40 h-40 object-cover shadow-md border border-gray-200">
             <span class="text-xs text-gray-500 mt-2">RISE Members Volunteering</span>
           </div>
@@ -102,7 +102,7 @@
             <p class="text-gray-600 mt-2">Wanting to align our desire to serve and our passion for STEM, we founded RISE with a simple idea: to make STEM education accessible to all.</p>
           </div>
           <!-- Image on the opposite side -->
-          <div class="md:w-1/2 mt-4 md:mt-0 flex flex-col items-center md:justify-end" style="position:relative; left:80px;">
+          <div class="md:w-1/2 mt-4 md:mt-0 flex flex-col items-center md:justify-end" style="position:relative; left:120px;">
             <img src="https://risestem.github.io/rise/public/EnpengTemp3.jpeg" alt="2023 highlight" class="rounded-lg w-40 h-40 object-cover shadow-md border border-gray-200">
             <span class="text-xs text-gray-500 mt-2">Founding RISE</span>
           </div>
@@ -117,7 +117,7 @@
             <p class="text-gray-600 mt-2">We continue to dream big and are working on exciting projects to support even more young minds.</p>
           </div>
           <!-- Image on the opposite side -->
-          <div class="md:w-1/2 mt-4 md:mt-0 flex flex-col items-center md:justify-start" style="position:relative; right:80px;">
+          <div class="md:w-1/2 mt-4 md:mt-0 flex flex-col items-center md:justify-start" style="position:relative; right:120px;">
             <img src="https://risestem.github.io/rise/public/EnpengTemp3.jpeg" alt="2024 highlight" class="rounded-lg w-40 h-40 object-cover shadow-md border border-gray-200">
             <span class="text-xs text-gray-500 mt-2">Future Projects</span>
           </div>
@@ -125,8 +125,6 @@
 
       </div>
     </div>
-
-
   </section>
 
   <div class="flex flex-wrap justify-between items-center pt-8 px-6 sm:px-12 md:px-24 lg:px-32 pb-8 w-full bg-gray-50 text-gray-400">
@@ -164,92 +162,92 @@
 </div>
 
 <script>
-function setupContactModal() {
-  const contactModal = document.getElementById('contact-modal');
-  const closeContactBtn = document.getElementById('close-contact-modal');
+  function setupContactModal() {
+    const contactModal = document.getElementById('contact-modal');
+    const closeContactBtn = document.getElementById('close-contact-modal');
 
-  // Find all "Contact Us" buttons/links in header
-  const openContactBtns = Array.from(document.querySelectorAll('button, a')).filter(
-    el => el.textContent && el.textContent.trim().toLowerCase() === "contact us"
-  );
+    // Find all "Contact Us" buttons/links in header
+    const openContactBtns = Array.from(document.querySelectorAll('button, a')).filter(
+            el => el.textContent && el.textContent.trim().toLowerCase() === "contact us"
+    );
 
-  openContactBtns.forEach(btn => {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      if (contactModal) contactModal.classList.remove('hidden');
+    openContactBtns.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (contactModal) contactModal.classList.remove('hidden');
+      });
     });
-  });
 
-  if (closeContactBtn) {
-    closeContactBtn.addEventListener('click', function() {
-      contactModal.classList.add('hidden');
-    });
-  }
-
-  if (contactModal) {
-    contactModal.addEventListener('click', function(e) {
-      if (e.target === contactModal) {
+    if (closeContactBtn) {
+      closeContactBtn.addEventListener('click', function() {
         contactModal.classList.add('hidden');
-      }
-    });
-  }
-}
+      });
+    }
 
-// Team members data
-const teamMembers = [
-  {
-    name: 'Brayden Watt',
-    img: 'https://risestem.github.io/rise/public/image.jpeg',
-    desc: 'Executive Director',
-    left: 'ATL',
-    right: 'founder',
-    profile: 'profiles/brayden.md'
-  },
-  {
-    name: 'Joshua Luo',
-    img: 'https://risestem.github.io/rise/public/josh.jpeg',
-    desc: 'Innovation Director',
-    left: 'ATL',
-    right: 'founder',
-    profile: 'profiles/josh.md'
-  },
-  {
-    name: 'Enpeng Jiang',
-    img: 'https://risestem.github.io/rise/public/enpeng.png',
-    desc: 'Community Outreach Lead',
-    left: 'ATL',
-    right: 'founder',
-    profile: 'profiles/enpeng.md'
-  },
-  {
-    name: 'Max Lin',
-    img: 'https://risestem.github.io/rise/public/MaxLin2.jpeg',
-    desc: 'Curriculum Engineer',
-    left: 'ATL',
-    right: 'member',
-    profile: 'profiles/maxL.md'
-  },
-  {
-    name: 'Owen Lahiji',
-    img: 'https://risestem.github.io/rise/public/owen.jpeg',
-    desc: 'Software Engineer',
-    left: 'ATL',
-    right: 'member',
-    profile: 'profiles/owen.md'
-  },
-  {
-    name: 'Leo Castro-Balbi',
-    img: 'https://risestem.github.io/rise/public/leo.jpeg',
-    desc: 'Development Officer',
-    left: 'ATL',
-    right: 'member',
-    profile: 'profiles/leo.md'
+    if (contactModal) {
+      contactModal.addEventListener('click', function(e) {
+        if (e.target === contactModal) {
+          contactModal.classList.add('hidden');
+        }
+      });
+    }
   }
-];
 
-function renderTeamCards() {
-  const container = document.getElementById('team-cards');
-  container.innerHTML = teamMembers.map((member, idx) => `
+  // Team members data
+  const teamMembers = [
+    {
+      name: 'Brayden Watt',
+      img: 'https://risestem.github.io/rise/public/image.jpeg',
+      desc: 'Executive Director',
+      left: 'ATL',
+      right: 'founder',
+      profile: 'profiles/brayden.md'
+    },
+    {
+      name: 'Joshua Luo',
+      img: 'https://risestem.github.io/rise/public/josh.jpeg',
+      desc: 'Innovation Director',
+      left: 'ATL',
+      right: 'founder',
+      profile: 'profiles/josh.md'
+    },
+    {
+      name: 'Enpeng Jiang',
+      img: 'https://risestem.github.io/rise/public/enpeng.png',
+      desc: 'Community Outreach Lead',
+      left: 'ATL',
+      right: 'founder',
+      profile: 'profiles/enpeng.md'
+    },
+    {
+      name: 'Max Lin',
+      img: 'https://risestem.github.io/rise/public/MaxLin2.jpeg',
+      desc: 'Curriculum Engineer',
+      left: 'ATL',
+      right: 'member',
+      profile: 'profiles/maxL.md'
+    },
+    {
+      name: 'Owen Lahiji',
+      img: 'https://risestem.github.io/rise/public/owen.jpeg',
+      desc: 'Software Engineer',
+      left: 'ATL',
+      right: 'member',
+      profile: 'profiles/owen.md'
+    },
+    {
+      name: 'Leo Castro-Balbi',
+      img: 'https://risestem.github.io/rise/public/leo.jpeg',
+      desc: 'Development Officer',
+      left: 'ATL',
+      right: 'member',
+      profile: 'profiles/leo.md'
+    }
+  ];
+
+  function renderTeamCards() {
+    const container = document.getElementById('team-cards');
+    container.innerHTML = teamMembers.map((member, idx) => `
     <div class="flex flex-col items-center bg-white rounded-xl shadow-xl border border-gray-200 p-0 pb-10 max-w-xs mx-auto relative group transition-transform duration-300 hover:scale-105 hover:shadow-2xl overflow-hidden cursor-pointer" style="min-width:260px;" data-profile="${member.profile}" data-idx="${idx}">
       <!-- Removed the full-card diagonal sheen on hover -->
       <div class="w-full aspect-[3/2] flex items-center justify-center bg-[#fcfbfd] rounded-t-xl overflow-hidden" style="border-bottom: 0;">
@@ -272,152 +270,149 @@ function renderTeamCards() {
     </div>
   `).join('');
 
-  // Add click event listeners to cards
-  document.querySelectorAll('#team-cards > div[data-profile]').forEach(card => {
-    card.addEventListener('click', function() {
-      const profilePath = this.getAttribute('data-profile');
-      openProfileModal(profilePath);
+    // Add click event listeners to cards
+    document.querySelectorAll('#team-cards > div[data-profile]').forEach(card => {
+      card.addEventListener('click', function() {
+        const profilePath = this.getAttribute('data-profile');
+        openProfileModal(profilePath);
+      });
     });
-  });
-}
+  }
 
-// Modal for markdown profile
-function openProfileModal(profilePath) {
-  let modal = document.getElementById('profile-modal');
-  if (!modal) {
-    modal = document.createElement('div');
-    modal.id = 'profile-modal';
-    modal.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50';
-    modal.innerHTML = `
+  // Modal for markdown profile
+  function openProfileModal(profilePath) {
+    let modal = document.getElementById('profile-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'profile-modal';
+      modal.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50';
+      modal.innerHTML = `
       <div class="bg-[#fcfbfd] rounded-lg shadow-lg w-full max-w-2xl max-h-[80vh] p-8 relative overflow-y-auto">
         <button id="close-profile-modal" class="absolute top-2 right-2 text-gray-400 hover:text-purple-700 text-2xl font-bold">&times;</button>
         <div id="profile-markdown" class="prose prose-lg max-w-none"></div>
       </div>
     `;
-    document.body.appendChild(modal);
-    document.getElementById('close-profile-modal').onclick = () => modal.remove();
-    modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
-  } else {
-    modal.style.display = 'flex';
+      document.body.appendChild(modal);
+      document.getElementById('close-profile-modal').onclick = () => modal.remove();
+      modal.onclick = (e) => { if (e.target === modal) modal.remove(); };
+    } else {
+      modal.style.display = 'flex';
+    }
+    // Fetch and render markdown
+    fetch(profilePath)
+            .then(res => res.text())
+            .then(md => {
+              if (window.marked) {
+                document.getElementById('profile-markdown').innerHTML = window.marked.parse(md);
+              } else {
+                document.getElementById('profile-markdown').textContent = md;
+              }
+            });
   }
-  // Fetch and render markdown
-  fetch(profilePath)
-    .then(res => res.text())
-    .then(md => {
-      if (window.marked) {
-        document.getElementById('profile-markdown').innerHTML = window.marked.parse(md);
-      } else {
-        document.getElementById('profile-markdown').textContent = md;
-      }
-    });
-}
 
-renderTeamCards();
+  renderTeamCards();
 </script>
 <!-- Add Marked.js for markdown rendering -->
 <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 
 <!-- Footer -->
 <style>
+  /* Define Tailwind prose variables for consistent text coloring */
+  #profile-markdown {
+    /* make “body” and “lead” both #1f2937 */
+    --tw-prose-body: #1f2937 !important;
+    --tw-prose-lead: #1f2937 !important;
+  }
 
+  /* Header styling - all headers use dark purple */
+  #profile-markdown h1,
+  #profile-markdown h2,
+  #profile-markdown h3,
+  #profile-markdown h4,
+  #profile-markdown h5,
+  #profile-markdown h6,
+  .prose h1,
+  .prose h2,
+  .prose h3,
+  .prose h4,
+  .prose h5,
+  .prose h6 {
+    color: #581c87 !important; /* Dark purple for all headings */
+    margin-top: 1rem !important;
+  }
 
-/* Define Tailwind prose variables for consistent text coloring */
-#profile-markdown {
-  /* make “body” and “lead” both #1f2937 */
-  --tw-prose-body: #1f2937 !important;
-  --tw-prose-lead: #1f2937 !important;
-}
+  /* Specific header sizes and weights */
+  #profile-markdown h1, .prose h1 {
+    font-size: 2.5rem !important;
+    font-weight: 800 !important;
+    margin-bottom: 1rem !important;
+  }
 
+  #profile-markdown h2, .prose h2 {
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 0.75rem !important;
+  }
 
-/* Header styling - all headers use dark purple */
-#profile-markdown h1,
-#profile-markdown h2,
-#profile-markdown h3,
-#profile-markdown h4,
-#profile-markdown h5,
-#profile-markdown h6,
-.prose h1,
-.prose h2,
-.prose h3,
-.prose h4,
-.prose h5,
-.prose h6 {
-  color: #581c87 !important; /* Dark purple for all headings */
-  margin-top: 1rem !important;
-}
+  #profile-markdown h3, .prose h3 {
+    font-size: 1.5rem !important;
+    font-weight: 600 !important;
+    margin-bottom: 0.5rem !important;
+  }
 
-/* Specific header sizes and weights */
-#profile-markdown h1, .prose h1 {
-  font-size: 2.5rem !important;
-  font-weight: 800 !important;
-  margin-bottom: 1rem !important;
-}
+  #profile-markdown h4,
+  #profile-markdown h5,
+  #profile-markdown h6,
+  .prose h4,
+  .prose h5,
+  .prose h6 {
+    font-weight: 500 !important;
+    margin-bottom: 0.25rem !important;
+  }
 
-#profile-markdown h2, .prose h2 {
-  font-size: 2rem !important;
-  font-weight: 700 !important;
-  margin-bottom: 0.75rem !important;
-}
+  /* Text content styling - paragraphs and lists */
+  #profile-markdown p,
+  #profile-markdown li,
+  .prose p,
+  .prose li {
+    color: #1f2937 !important; /* Dark gray for body text */
+  }
 
-#profile-markdown h3, .prose h3 {
-  font-size: 1.5rem !important;
-  font-weight: 600 !important;
-  margin-bottom: 0.5rem !important;
-}
+  #profile-markdown p,
+  .prose p {
+    margin-top: 0.7em !important;
+    margin-bottom: 0.7em !important;
+    line-height: 1.5 !important;
+  }
 
-#profile-markdown h4,
-#profile-markdown h5,
-#profile-markdown h6,
-.prose h4,
-.prose h5,
-.prose h6 {
-  font-weight: 500 !important;
-  margin-bottom: 0.25rem !important;
-}
+  #profile-markdown li,
+  .prose li {
+    margin-top: 0.25em !important;
+    margin-bottom: 0.25em !important;
+  }
 
-/* Text content styling - paragraphs and lists */
-#profile-markdown p,
-#profile-markdown li,
-.prose p,
-.prose li {
-  color: #1f2937 !important; /* Dark gray for body text */
-}
+  /* Bold and italic text styling */
+  #profile-markdown strong,
+  #profile-markdown b,
+  .prose strong,
+  .prose b {
+    color: #111827 !important; /* Very dark for bold text */
+  }
 
-#profile-markdown p,
-.prose p {
-  margin-top: 0.7em !important;
-  margin-bottom: 0.7em !important;
-  line-height: 1.5 !important;
-}
-
-#profile-markdown li,
-.prose li {
-  margin-top: 0.25em !important;
-  margin-bottom: 0.25em !important;
-}
-
-/* Bold and italic text styling */
-#profile-markdown strong,
-#profile-markdown b,
-.prose strong,
-.prose b {
-  color: #111827 !important; /* Very dark for bold text */
-}
-
-#profile-markdown em,
-#profile-markdown i,
-.prose em,
-.prose i {
-  color: #1f2937 !important; /* Dark gray for italic text */
-}
-/* First paragraph overrides - consolidated */
-#profile-markdown p:first-of-type,
-#profile-markdown.prose > p:first-of-type,
-#profile-markdown.prose > p:first-child,
-#profile-markdown.prose.prose-lg > p:first-of-type,
-.prose > p:first-of-type {
-  color: #1f2937 !important;
-}
+  #profile-markdown em,
+  #profile-markdown i,
+  .prose em,
+  .prose i {
+    color: #1f2937 !important; /* Dark gray for italic text */
+  }
+  /* First paragraph overrides - consolidated */
+  #profile-markdown p:first-of-type,
+  #profile-markdown.prose > p:first-of-type,
+  #profile-markdown.prose > p:first-child,
+  #profile-markdown.prose.prose-lg > p:first-of-type,
+  .prose > p:first-of-type {
+    color: #1f2937 !important;
+  }
 </style>
 
 </body>
