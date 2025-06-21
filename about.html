@@ -8,13 +8,27 @@
   <title>About Us - Rise Engineering & Coding</title>
   <link href="src/style.css" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .parallax-container {
+      transition:
+              transform 0.2s cubic-bezier(.03,.98,.52,.99),
+              box-shadow 0.2s cubic-bezier(.03,.98,.52,.99);
+      transform:
+              perspective(600px)
+              rotateX(var(--rX, 0deg))
+              rotateY(var(--rY, 0deg));
+    }
+    .parallax-active {
+      box-shadow: 0 8px 32px 0 rgba(76,29,149,0.18);
+      transition: box-shadow 0.2s;
+    }
+  </style>
 </head>
 <body>
 
 <!-- Header -->
 <div id="header-container"></div>
 <script type="module" src="scripts/loadHeader.js"></script>
-<!-- Main Content -->
 <main class="min-h-screen bg-gray-50 w-full">
 
   <!-- Hero Section -->
@@ -49,107 +63,132 @@
         </div>
       </div>
     </div>
-    
-    <!-- Values Section: Simple Clean Cards -->
-  <div class="w-full px-6 sm:px-6 md:px-16 lg:px-24 my-8 z-30">
-    <div class="bg-white p-6 rounded-2xl border border-gray-300 shadow-md">
-      <div class="flex justify-center text-center">
-        <h2 class="text-3xl font-poppins font-semibold text-purple-950 md:text-4xl">
-          Our <span class="font-extrabold">Values</span>
-        </h2>
-      </div>
-      <div class="flex flex-wrap justify-center gap-6 pt-8">
-        <!-- Value 1 -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 w-64 p-6 flex flex-col items-center text-center">
-          <span class="material-symbols-outlined text-4xl text-purple-700 mb-2">balance</span>
-          <p class="text-lg font-bold text-purple-900">Equity</p>
-          <p class="text-gray-600 text-sm mt-2">We champion equal access and representation in STEM.</p>
+
+    <!-- Values Section: Parallax Cards -->
+    <div class="w-full px-6 sm:px-6 md:px-16 lg:px-24 my-8 z-30">
+      <div class="bg-white p-6 rounded-2xl border border-gray-300 shadow-md">
+        <div class="flex justify-center text-center">
+          <h2 class="text-3xl font-poppins font-semibold text-purple-950 md:text-4xl">
+            Our <span class="font-extrabold">Values</span>
+          </h2>
         </div>
-        <!-- Value 2 -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 w-64 p-6 flex flex-col items-center text-center">
-          <span class="material-symbols-outlined text-4xl text-purple-700 mb-2">bolt</span>
-          <p class="text-lg font-bold text-purple-900">Empowerment</p>
-          <p class="text-gray-600 text-sm mt-2">We uplift youth to become future innovators.</p>
+        <div class="flex flex-wrap justify-center gap-6 pt-8">
+          <!-- Card 1 -->
+          <div class="parallax-wrap w-64">
+            <div class="parallax-container bg-white rounded-xl shadow-sm border border-gray-200 w-64 p-6 flex flex-col items-center text-center">
+              <span class="material-symbols-outlined text-4xl text-purple-700 mb-2">balance</span>
+              <p class="text-lg font-bold text-purple-900">Equity</p>
+              <p class="text-gray-600 text-sm mt-2">We champion equal access and representation in STEM.</p>
+            </div>
+          </div>
+          <!-- Card 2 -->
+          <div class="parallax-wrap w-64">
+            <div class="parallax-container bg-white rounded-xl shadow-sm border border-gray-200 w-64 p-6 flex flex-col items-center text-center">
+              <span class="material-symbols-outlined text-4xl text-purple-700 mb-2">bolt</span>
+              <p class="text-lg font-bold text-purple-900">Empowerment</p>
+              <p class="text-gray-600 text-sm mt-2">We uplift youth to become future innovators.</p>
+            </div>
+          </div>
+          <!-- Card 3 -->
+          <div class="parallax-wrap w-64">
+            <div class="parallax-container bg-white rounded-xl shadow-sm border border-gray-200 w-64 p-6 flex flex-col items-center text-center">
+              <span class="material-symbols-outlined text-4xl text-purple-700 mb-2">lightbulb</span>
+              <p class="text-lg font-bold text-purple-900">Curiosity</p>
+              <p class="text-gray-600 text-sm mt-2">We celebrate questioning, learning, and creativity.</p>
+            </div>
+          </div>
+          <!-- Card 4 -->
+          <div class="parallax-wrap w-64">
+            <div class="parallax-container bg-white rounded-xl shadow-sm border border-gray-200 w-64 p-6 flex flex-col items-center text-center">
+              <span class="material-symbols-outlined text-4xl text-purple-700 mb-2">diversity_3</span>
+              <p class="text-lg font-bold text-purple-900">Collaboration</p>
+              <p class="text-gray-600 text-sm mt-2">We grow stronger together through teamwork.</p>
+            </div>
+          </div>
         </div>
-        <!-- Value 3 -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 w-64 p-6 flex flex-col items-center text-center">
-          <span class="material-symbols-outlined text-4xl text-purple-700 mb-2">lightbulb</span>
-          <p class="text-lg font-bold text-purple-900">Curiosity</p>
-          <p class="text-gray-600 text-sm mt-2">We celebrate questioning, learning, and creativity.</p>
-        </div>
-        <!-- Value 4 -->
-        <div class="bg-white rounded-xl shadow-sm border border-gray-200 w-64 p-6 flex flex-col items-center text-center">
-          <span class="material-symbols-outlined text-4xl text-purple-700 mb-2">diversity_3</span>
-          <p class="text-lg font-bold text-purple-900">Collaboration</p>
-          <p class="text-gray-600 text-sm mt-2">We grow stronger together through partnership and teamwork.</p>
-        </div>
+        <!-- Parallax JS -->
+        <script>
+          class parallaxTiltEffect {
+            constructor({element, tiltEffect}) {
+              this.element = element;
+              this.container = this.element.querySelector(".parallax-container");
+              this.size = [this.container.offsetWidth, this.container.offsetHeight];
+              [this.w, this.h] = this.size;
+              this.tiltEffect = tiltEffect;
+              this.mouseOnComponent = false;
+
+              this.handleMouseMove = this.handleMouseMove.bind(this);
+              this.handleMouseEnter = this.handleMouseEnter.bind(this);
+              this.handleMouseLeave = this.handleMouseLeave.bind(this);
+              this.defaultStates = this.defaultStates.bind(this);
+              this.setProperty = this.setProperty.bind(this);
+              this.init = this.init.bind(this);
+
+              this.init();
+            }
+
+            handleMouseMove(event) {
+              const bounds = this.container.getBoundingClientRect();
+              const offsetX = event.clientX - bounds.left;
+              const offsetY = event.clientY - bounds.top;
+
+              let X;
+              let Y;
+
+              if (this.tiltEffect === "reverse") {
+                X = ((offsetX - (this.w/2)) / 3) / 3;
+                Y = (-(offsetY - (this.h/2)) / 3) / 3;
+              } else {
+                X = (-(offsetX - (this.w/2)) / 3) / 3;
+                Y = ((offsetY - (this.h/2)) / 3) / 3;
+              }
+
+              this.setProperty('--rY', X.toFixed(2) + 'deg');
+              this.setProperty('--rX', Y.toFixed(2) + 'deg');
+              this.setProperty('--bY', (80 - (X/4).toFixed(2)) + '%');
+              this.setProperty('--bX', (50 - (Y/4).toFixed(2)) + '%');
+            }
+
+            handleMouseEnter() {
+              this.mouseOnComponent = true;
+              this.container.classList.add("parallax-active");
+            }
+
+            handleMouseLeave() {
+              this.mouseOnComponent = false;
+              this.defaultStates();
+            }
+
+            defaultStates() {
+              this.container.classList.remove("parallax-active");
+              this.setProperty('--rY', '0deg');
+              this.setProperty('--rX', '0deg');
+              this.setProperty('--bY', '80%');
+              this.setProperty('--bX', '50%');
+            }
+
+            setProperty(p, v) {
+              this.container.style.setProperty(p, v);
+            }
+
+            init() {
+              this.element.addEventListener('mousemove', this.handleMouseMove);
+              this.element.addEventListener('mouseenter', this.handleMouseEnter);
+              this.element.addEventListener('mouseleave', this.handleMouseLeave);
+            }
+          }
+
+          document.querySelectorAll('.parallax-wrap').forEach((wrap, idx) => {
+            new parallaxTiltEffect({
+              element: wrap,
+              tiltEffect: idx % 2 === 0 ? 'normal' : 'reverse'
+            });
+          });
+        </script>
       </div>
     </div>
-  </div>
-    
-    <!-- Add to your <head> or style.css -->
-    <style>
-    #values-timeline {
-      position: relative;
-    }
-    .timeline-milestone {
-      min-width: 0;
-      flex: 1 1 0%;
-    }
-    .timeline-milestone .timeline-card {
-      box-shadow: 0 6px 24px 0 rgba(80,63,205,0.07), 0 1.5px 3px 0 rgba(80,63,205,0.2);
-    }
-    @media (max-width: 640px) {
-      #values-timeline {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-      #values-timeline .timeline-milestone:not(:last-child)::after {
-        content: "";
-        display: block;
-        width: 3px;
-        height: 30px;
-        margin: 0 auto;
-        background: linear-gradient(to bottom, #e9d5ff, #a78bfa, #e9d5ff);
-        border-radius: 1.5px;
-      }
-    }
-    @media (min-width: 641px) {
-      #values-timeline .timeline-milestone:not(:last-child)::after {
-        content: "";
-        position: absolute;
-        top: 50%;
-        right: -5vw;
-        width: 10vw;
-        height: 4px;
-        background: linear-gradient(to right, #e9d5ff, #a78bfa, #e9d5ff);
-        z-index: 1;
-        border-radius: 2px;
-        transform: translateY(-50%);
-      }
-    }
-    </style>
-    
-    <!-- Animate-in logic -->
-    <script>
-    // Reveal timeline cards on scroll
-    function revealTimelineCards() {
-      const cards = document.querySelectorAll('.timeline-card');
-      const trigger = window.innerHeight * 0.85;
-      cards.forEach((card, i) => {
-        const rect = card.getBoundingClientRect();
-        if(rect.top < trigger) {
-          setTimeout(() => {
-            card.classList.add('opacity-100', 'sm:opacity-100', 'translate-y-0', 'sm:scale-100');
-            card.classList.remove('opacity-0', 'sm:opacity-0', 'translate-y-8', 'sm:scale-90');
-          }, i * 120); // staggered
-        }
-      });
-    }
-    window.addEventListener('scroll', revealTimelineCards);
-    window.addEventListener('DOMContentLoaded', revealTimelineCards);
-    </script>
-  
+  </section>
+
   <!-- Partners Card -->
   <div class="w-full px-6 sm:px-6 md:px-16 lg:px-24 my-8 z-30">
     <div class="bg-white p-6 rounded-2xl border border-gray-300 shadow-md">
@@ -161,7 +200,7 @@
       <div class="flex justify-center items-center pt-8 sm:px-16 lg:px-32 flex-col">
         <p class="text-md text-gray-500 leading-relaxed text-center sm:px-4 md:px-8 lg:px-16 xl:px-32">
           RISE's work is made possible through the support of our partners, who share our vision of empowering students through STEM education.
-          Together, we are creating a brighter future for the next generation of innovators and leaders. 
+          Together, we are creating a brighter future for the next generation of innovators and leaders.
         </p>
       </div>
       <div class="px-6 sm:px-12 md:px-24 lg:px-32 pb-12 flex justify-center">
@@ -217,47 +256,43 @@
 </div>
 
 <script>
-document.addEventListener('header:loaded', function() {
-  setupContactModal();
-});
-
-// Optionally, run once on DOMContentLoaded for any "Contact Us" links/buttons already present
-document.addEventListener('DOMContentLoaded', function() {
-  setupContactModal();
-});
-</script>
-
-  <script>
-function setupContactModal() {
-  const contactModal = document.getElementById('contact-modal');
-  const closeContactBtn = document.getElementById('close-contact-modal');
-
-  // Find all "Contact Us" buttons/links in header
-  const openContactBtns = Array.from(document.querySelectorAll('button, a')).filter(
-    el => el.textContent && el.textContent.trim().toLowerCase() === "contact us"
-  );
-
-  openContactBtns.forEach(btn => {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      if (contactModal) contactModal.classList.remove('hidden');
-    });
+  document.addEventListener('header:loaded', function() {
+    setupContactModal();
   });
 
-  if (closeContactBtn) {
-    closeContactBtn.addEventListener('click', function() {
-      contactModal.classList.add('hidden');
-    });
-  }
+  document.addEventListener('DOMContentLoaded', function() {
+    setupContactModal();
+  });
 
-  if (contactModal) {
-    contactModal.addEventListener('click', function(e) {
-      if (e.target === contactModal) {
-        contactModal.classList.add('hidden');
-      }
+  function setupContactModal() {
+    const contactModal = document.getElementById('contact-modal');
+    const closeContactBtn = document.getElementById('close-contact-modal');
+
+    const openContactBtns = Array.from(document.querySelectorAll('button, a')).filter(
+            el => el.textContent && el.textContent.trim().toLowerCase() === "contact us"
+    );
+
+    openContactBtns.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (contactModal) contactModal.classList.remove('hidden');
+      });
     });
+
+    if (closeContactBtn) {
+      closeContactBtn.addEventListener('click', function() {
+        contactModal.classList.add('hidden');
+      });
+    }
+
+    if (contactModal) {
+      contactModal.addEventListener('click', function(e) {
+        if (e.target === contactModal) {
+          contactModal.classList.add('hidden');
+        }
+      });
+    }
   }
-}
 </script>
 
 </body>
