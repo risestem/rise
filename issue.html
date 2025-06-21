@@ -468,48 +468,48 @@
         </p>
 
       </div>
-      <div class="text-gray-500 space-y-4 max-w-7xl flex flex-col items-center justify-center text-center">
+      <div class="text-gray-500 space-y-4 max-w-7xl flex flex-col items-center justify-center text-center px-2 sm:px-4">
         <!-- Stacked timeline with bar chart -->
-        <div class="flex flex-row items-center justify-center w-full">
+        <div class="flex flex-col sm:flex-row items-center justify-center w-full">
           <!-- Left: Percentage -->
-          <div class="flex flex-col items-center justify-center flex-1 mb-6">
+          <div class="flex flex-col items-center justify-center flex-1 mb-4 sm:mb-6">
             <span class="text-5xl md:text-6xl font-bold text-purple-950">80%</span>
             <p class="text-center mt-2 max-w-xs">
               of student's waking hours are spent outside of school
             </p>
           </div>
-
           <!-- Divider -->
-          <div class="mx-6 h-24 border-l-2 border-gray-300"></div>
-
+          <div class="hidden sm:block mx-6 h-24 border-l-2 border-gray-300"></div>
+          <div class="block sm:hidden w-full h-0.5 bg-gray-300 my-4"></div>
           <!-- Right: Bar Chart -->
-          <div class="relative flex-1 flex justify-center items-center">
+          <div class="relative flex-1 flex justify-center items-center w-full">
             <!-- Horizontal Bar Chart -->
-            <div class="flex flex-col space-y-6 z-10 w-full h-24 justify-center max-w-md">
+            <div class="flex flex-col space-y-4 sm:space-y-6 z-10 w-full h-24 justify-center max-w-md">
               <div class="flex items-center space-x-3">
-          <span class="text-xs text-slate-700 font-semibold min-w-[80px] drop-shadow-sm">
-            Out of School
-          </span>
-                <div class="bg-purple-400 h-8 rounded-l rounded-r-md" style="width: 80%;"></div>
+                <span class="text-xs text-slate-700 font-semibold min-w-[80px] drop-shadow-sm">Out of School</span>
+                <div class="flex-1">
+                  <div class="bg-purple-400 h-8 rounded-l rounded-r-md" style="width: 80%;"></div>
+                </div>
               </div>
               <div class="flex items-center space-x-3">
-          <span class="text-xs text-slate-700 font-semibold min-w-[80px] drop-shadow-sm">
-            In School
-          </span>
-                <div class="bg-gray-300 h-8 rounded-l rounded-r-md" style="width: 20%;"></div>
+                <span class="text-xs text-slate-700 font-semibold min-w-[80px] drop-shadow-sm">In School</span>
+                <div class="flex-1">
+                  <div class="bg-gray-300 h-8 rounded-l rounded-r-md" style="width: 20%;"></div>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
         <p>
-          High-quality afterschool STEM programs have been proven to boost:<sup id="fnref5"><a href="#fn5" class="text-purple-700">[5]</a></sup>
+          High-quality afterschool STEM programs have been proven to boost:
+          <sup id="fnref5"><a href="#fn5" class="text-purple-700">[5]</a></sup>
         </p>
 
         <!-- STEM Impact Cards with Tailwind CSS -->
-        <div class="flex flex-row justify-center gap-6 w-full my-8">
+        <div class="flex flex-col sm:flex-row justify-center gap-6 w-full my-8">
           <!-- Card 1 -->
-          <div class="bg-white rounded-xl border border-gray-300 shadow-sm flex flex-col items-center w-[270px] h-[300px] min-w-[230px] max-w-[320px] min-h-[200px] max-h-[280px] overflow-hidden">
+          <div class="bg-white rounded-xl border border-gray-300 shadow-sm flex flex-col items-center w-full sm:w-[270px] h-[300px] min-w-[0] max-w-full sm:min-w-[230px] sm:max-w-[320px] min-h-[200px] max-h-[280px] overflow-hidden mb-6 sm:mb-0">
             <img src="https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=400&q=80" alt="STEM Interest and Identity" class="w-full h-24 object-cover">
             <div class="px-4 py-3 flex-1 flex flex-col justify-start items-center text-center">
               <h3 class="text-lg font-semibold mb-1 text-purple-950">STEM Interest and Identity</h3>
@@ -519,7 +519,7 @@
             </div>
           </div>
           <!-- Card 2 -->
-          <div class="bg-white rounded-xl border border-gray-300 shadow-sm flex flex-col items-center w-[270px] h-[300px] min-w-[230px] max-w-[320px] min-h-[200px] max-h-[280px] overflow-hidden">
+          <div class="bg-white rounded-xl border border-gray-300 shadow-sm flex flex-col items-center w-full sm:w-[270px] h-[300px] min-w-[0] max-w-full sm:min-w-[230px] sm:max-w-[320px] min-h-[200px] max-h-[280px] overflow-hidden mb-6 sm:mb-0">
             <img src="https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=400&q=80" alt="Career Awareness and Readiness" class="w-full h-24 object-cover">
             <div class="px-4 py-3 flex-1 flex flex-col justify-start items-center text-center">
               <h3 class="text-lg font-semibold mb-1 text-purple-950">Career Awareness and Readiness</h3>
@@ -529,7 +529,7 @@
             </div>
           </div>
           <!-- Card 3 -->
-          <div class="bg-white rounded-xl border border-gray-300 shadow-sm flex flex-col items-center w-[270px] h-[300px] min-w-[230px] max-w-[320px] min-h-[200px] max-h-[280px] overflow-hidden">
+          <div class="bg-white rounded-xl border border-gray-300 shadow-sm flex flex-col items-center w-full sm:w-[270px] h-[300px] min-w-[0] max-w-full sm:min-w-[230px] sm:max-w-[320px] min-h-[200px] max-h-[280px] overflow-hidden">
             <img src="https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=400&q=80" alt="Problem-Solving and Perseverance" class="w-full h-24 object-cover">
             <div class="px-4 py-3 flex-1 flex flex-col justify-start items-center text-center">
               <h3 class="text-lg font-semibold mb-1 text-purple-950">Problem-Solving and Perseverance</h3>
@@ -551,7 +551,6 @@
         </ul>
       </div>
     </div>
-
     <div class="bg-white p-8 rounded-2xl border mt-8 border-gray-300 z-30 shadow-md transform flex flex-col items-center justify-center">
       <h3 class="text-3xl font-bold text-center text-purple-950 mb-4">We’re Working Towards Closing the Gap<sup id="fnref8"><a href="#fn8" class="text-purple-700">[8]</a></sup></h3>
       <div class="text-gray-500 max-w-2xl text-center space-y-4">
@@ -630,20 +629,35 @@
             </p>
           </div>
         </div>
-        <p>
+        <h2 class="font-semibold text-purple-950 text-xl">
           RISE is tackling this divide by making engaging, hands-on STEM learning accessible to everyone.
-        </p>
-        <ul class="list-disc text-left pl-6 sm:pl-8 max-w-md mx-auto">
-          <li>Helping kids discover their passion for STEM</li>
-          <li>Connecting youth with mentors, role models, and opportunities</li>
-          <li>Building real-world skills that lead to college and careers</li>
-        </ul>
-        <p class="mt-6">
-          Let’s stop letting potential go untapped. Let’s build a Georgia where <strong>every kid sees themselves in STEM</strong>.
-        </p>
+        </h2>
+        <!-- RISE Impact Section - Full Width Fix -->
+        <div class="w-full mx-auto flex flex-col md:flex-row items-center justify-center">
+          <!-- Left: Placeholder Image -->
+          <div class="md:w-2/5 w-full h-full flex rounded-lg items-center justify-center ">
+            <img
+                    src="https://images.unsplash.com/photo-1513258496099-48168024aec0?fit=crop&w=600&q=80"
+                    alt="STEM Learning"
+                    class="object-cover w-full h-full rounded-2xl min-h-[350px] min-w-[300px]"
+            >
+          </div>
+          <!-- Right: Content -->
+          <div class="md:w-3/5 w-full text-gray-500 px-8 pl-8 py-12 flex flex-col justify-center">
+
+            <ul class="mb-8 list-disc pl-6">
+              <li class="text-lg mb-5">Helping kids discover their passion for STEM</li>
+              <li class="text-lg mb-5">Making STEM exciting and easy to understand</li>
+              <li class="text-lg">Building real-world skills that lead to college and careers</li>
+            </ul>
+            <p class="text-gray-500">
+              Let’s stop letting potential go untapped. Let’s build a Georgia where <strong>every kid sees themselves in STEM</strong>.
+            </p>
+          </div>
+        </div>
         <button
                 onclick="window.location.href='/rise/what-we-do';"
-                class="px-6 py-4 mb-4 text-white font-bold bg-purple-950 rounded-full transform transition-all duration-300 hover:scale-110 hover:text-white"
+                class="px-8 py-4 mb-4 text-white font-bold bg-purple-950 rounded-full transform transition duration-300 hover:scale-110 hover:text-white w-max"
         >
           Continue Reading About Our Work
         </button>
