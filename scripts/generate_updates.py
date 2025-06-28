@@ -3,7 +3,7 @@ import json
 import subprocess
 from datetime import datetime
 
-directory = '/news_updates'
+directory = 'news_updates'
 updates_file = 'updates.json'
 updates_dict = {}
 
