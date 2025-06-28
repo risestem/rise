@@ -1,12 +1,12 @@
 # Profile Enpeng Jiang
 
 <div style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 1fr); gap: 10px;">
-  <img src="/rise/public/EnpengTemp1.jpeg" alt="Small image 1" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
-  <img src="/rise/public/EnpengTemp2.jpeg" alt="Small image 2" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
-  <img src="/rise/public/EnpengTemp3.jpeg" alt="Small image 3" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
-  <img src="/rise/public/EnpengTemp4.jpeg" alt="Small image 4" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
-  <img src="/rise/public/EnpengTemp5.jpeg" alt="Small image 5" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
-  <img src="/rise/public/EnpengTemp6.jpeg" alt="Small image 6" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
+  <img src="/public/EnpengTemp1.jpeg" alt="Small image 1" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
+  <img src="/public/EnpengTemp2.jpeg" alt="Small image 2" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
+  <img src="/public/EnpengTemp3.jpeg" alt="Small image 3" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
+  <img src="/public/EnpengTemp4.jpeg" alt="Small image 4" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
+  <img src="/public/EnpengTemp5.jpeg" alt="Small image 5" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
+  <img src="/public/EnpengTemp6.jpeg" alt="Small image 6" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
 </div>
 
 
