@@ -2,12 +2,12 @@
 
 <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 10px; align-items: center;">
   <!-- Large square image on the left -->
-  <img src="https://risestem.github.io/rise/public/BraydenTemp3.jpeg" alt="Large image" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
+  <img src="/public/BraydenTemp3.jpeg" alt="Large image" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
 
   <!-- Two smaller square images stacked vertically on the right -->
   <div style="display: grid; grid-template-rows: 1fr 1fr; gap: 10px;">
-    <img src="https://risestem.github.io/rise/public/BraydenTemp1.jpeg" alt="Small image 1" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
-    <img src="https://risestem.github.io/rise/public/BraydenTemp2.jpeg" alt="Small image 2" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
+    <img src="/public/BraydenTemp1.jpeg" alt="Small image 1" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
+    <img src="/public/BraydenTemp2.jpeg" alt="Small image 2" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
   </div>
 </div>
 
