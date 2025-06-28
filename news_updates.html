@@ -217,33 +217,41 @@
 
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
-    // Hamburger menu toggle
-    document.getElementById("hamburger-btn").addEventListener("click", function () {
-      const navbar = document.getElementById("navbar-sticky");
-      const isExpanded = this.getAttribute("aria-expanded") === "true";
-      navbar.classList.toggle("hidden", isExpanded);
-      this.setAttribute("aria-expanded", !isExpanded);
-    });
+    // Ensure DOM is loaded before attaching event listeners
+    document.addEventListener("DOMContentLoaded", function() {
+      // Hamburger menu toggle
+      var hamburgerBtn = document.getElementById("hamburger-btn");
+      if (hamburgerBtn) {
+        hamburgerBtn.addEventListener("click", function () {
+          const navbar = document.getElementById("navbar-sticky");
+          const isExpanded = this.getAttribute("aria-expanded") === "true";
+          if (navbar) {
+            navbar.classList.toggle("hidden", isExpanded);
+            this.setAttribute("aria-expanded", !isExpanded);
+          }
+        });
+      }
 
-    // Modal open/close logic for contact modal
-    const contactModal = document.getElementById('contact-modal');
-    const openContactBtn = document.querySelector('a[href="#contact"] button');
-    const closeContactBtn = document.getElementById('close-contact-modal');
+      // Modal open/close logic for contact modal
+      const contactModal = document.getElementById('contact-modal');
+      const openContactBtn = document.querySelector('a[href="#contact"] button');
+      const closeContactBtn = document.getElementById('close-contact-modal');
 
-    if (openContactBtn && contactModal && closeContactBtn) {
-      openContactBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        contactModal.classList.remove('hidden');
-      });
-      closeContactBtn.addEventListener('click', function() {
-        contactModal.classList.add('hidden');
-      });
-      contactModal.addEventListener('click', function(e) {
-        if (e.target === contactModal) {
+      if (openContactBtn && contactModal && closeContactBtn) {
+        openContactBtn.addEventListener('click', function(e) {
+          e.preventDefault();
+          contactModal.classList.remove('hidden');
+        });
+        closeContactBtn.addEventListener('click', function() {
           contactModal.classList.add('hidden');
-        }
-      });
-    }
+        });
+        contactModal.addEventListener('click', function(e) {
+          if (e.target === contactModal) {
+            contactModal.classList.add('hidden');
+          }
+        });
+      }
+    });
 
     // Helper: get a query parameter by name
     function getQueryParam(name) {
