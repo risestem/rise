@@ -3,14 +3,14 @@
 <!-- Horizontal collage layout: 1 large square image + 4 smaller square images stacked to the right -->
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; align-items: center;">
   <!-- Large square image on the left -->
-  <img src="https://risestem.github.io/rise/public/josh1.JPG" alt="Large image" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
+  <img src="/rise/public/josh1.JPG" alt="Large image" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
   
   <!-- 2×2 grid of smaller square images on the right -->
   <div style="display: grid; grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(2, 1fr); gap: 10px;">
-    <img src="https://risestem.github.io/rise/public/josh5.JPG" alt="Small image 1" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
-    <img src="https://risestem.github.io/rise/public/josh2.JPG" alt="Small image 2" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
-    <img src="https://risestem.github.io/rise/public/josh3.jpeg" alt="Small image 3" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
-    <img src="https://risestem.github.io/rise/public/josh4.jpeg" alt="Small image 4" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
+    <img src="/rise/public/josh5.JPG" alt="Small image 1" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
+    <img src="/rise/public/josh2.JPG" alt="Small image 2" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
+    <img src="/rise/public/josh3.jpeg" alt="Small image 3" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
+    <img src="/rise/public/josh4.jpeg" alt="Small image 4" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
   </div>
 </div>
 

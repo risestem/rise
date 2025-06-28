@@ -1,9 +1,9 @@
 # Profile: Max Lin
 
 <div style="display: flex; justify-content: center; gap: 10px;">
-  <img src="https://risestem.github.io/rise/public/MaxLin.jpeg" alt="Placeholder 1" style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px;">
-  <img src="https://risestem.github.io/rise/public/MaxLin3.jpg" alt="Placeholder 2" style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px;">
-  <img src="https://risestem.github.io/rise/public/MaxLin4.jpeg" alt="Placeholder 3" style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px;">
+  <img src="/rise/public/MaxLin.jpeg" alt="Placeholder 1" style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px;">
+  <img src="/rise/public/MaxLin3.jpg" alt="Placeholder 2" style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px;">
+  <img src="/rise/public/MaxLin4.jpeg" alt="Placeholder 3" style="width: 150px; height: 150px; object-fit: cover; border-radius: 8px;">
 </div>
 
 ## Background
