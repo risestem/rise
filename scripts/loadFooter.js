@@ -50,7 +50,7 @@ const footerHTML = `
     </div>
 
     <!-- Copyright -->
-    <div class="text-xs text-center text-gray-400 mt-3 border-t border-gray-200 pt-3">
+    <div class="text-s text-center text-gray-400 mt-3 border-t border-gray-200 pt-3">
       © 2025 RISE STEM, Inc. All rights reserved.
     </div>
   </div>
