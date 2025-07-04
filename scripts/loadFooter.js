@@ -10,11 +10,11 @@ const footerHTML = `
         </a>
         <div class="flex flex-col justify-center text-sm sm:text-base leading-tight">
           <div>
-            <a class="hover:text-gray-600 font-semibold">Email:</a>
+            <a class="hover:text-gray-500 font-semibold">Email:</a>
             <a href="mailto:rise.stemedu@gmail.com" class="text-gray-500 hover:text-blue-500 hover:underline font-medium">rise.stemedu@gmail.com</a>
           </div>
           <div>
-            <a class="hover:text-gray-600 font-semibold">Phone:</a>
+            <a class="hover:text-gray-500 font-semibold">Phone:</a>
             <a href="tel:+17064241613" class="text-gray-500 hover:underline hover:text-blue-500 font-medium">+1 (706)-424-1613</a>
           </div>
         </div>
