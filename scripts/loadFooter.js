@@ -5,17 +5,17 @@ const footerHTML = `
     <!-- Top Row: Logo + Contact Info + Navigation (all inline, compact) -->
     <div class="flex flex-wrap items-center justify-between gap-4">
       <div class="flex items-center gap-3">
-        <a href="/rise/home" class="flex items-center">
+        <a href="/home" class="flex items-center">
           <img src="/public/logo1.svg" alt="RISE STEM Logo" class="h-12 sm:h-16 w-12 sm:w-16" />
         </a>
         <div class="flex flex-col justify-center text-sm sm:text-base leading-tight">
           <div>
-            <strong>Email:</strong>
-            <a href="mailto:rise.stemedu@gmail.com" class="text-blue-500 hover:underline font-medium">rise.stemedu@gmail.com</a>
+            <a>Email:</a>
+            <a href="mailto:rise.stemedu@gmail.com" class="text-gray-500 hover:underline font-medium">rise.stemedu@gmail.com</a>
           </div>
           <div>
-            <strong>Phone:</strong>
-            <a href="tel:+17064241613" class="text-blue-500 hover:underline font-medium">+1 (706)-424-1613</a>
+            <a>Phone:</a>
+            <a href="tel:+17064241613" class="text-gray-500 hover:underline font-medium">+1 (706)-424-1613</a>
           </div>
         </div>
       </div>
@@ -24,15 +24,15 @@ const footerHTML = `
       <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-5 text-sm sm:text-base">
         <!-- Navigation Links -->
         <div class="flex space-x-3">
-          <a href="/rise/about" class="hover:text-purple-950">About</a>
-          <a href="/rise/faq" class="hover:text-purple-950">FAQ</a>
-          <a href="/rise/news" class="hover:text-purple-950">News</a>
+          <a href="/about" class="hover:text-purple-950">About</a>
+          <a href="/questions" class="hover:text-purple-950">FAQ</a>
+          <a href="/news" class="hover:text-purple-950">News</a>
         </div>
         <!-- Policies -->
         <div class="flex space-x-2">
-          <a href="/rise/privacy-policy" class="hover:text-purple-950">Privacy Policy</a>
+          <a href="/privacy-policy" class="hover:text-purple-950">Privacy Policy</a>
           <span class="text-gray-300">|</span>
-          <a href="/rise/terms" class="hover:text-purple-950">Terms of Use</a>
+          <a href="/terms" class="hover:text-purple-950">Terms of Use</a>
         </div>
         <!-- Social Icons -->
         <div class="flex items-center space-x-3">
