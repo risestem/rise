@@ -2,20 +2,20 @@ const footerHTML = `
 <footer class="w-full bg-gray-50 text-gray-600 px-6 sm:px-12 md:px-24 lg:px-32 pt-8 pb-4 font-semibold text-sm sm:text-base">
   <div class="flex flex-col gap-8">
 
-    <!-- Top Row: Logo + Contact Info -->
+    <!-- Top Row: Logo + Contact Info (Now closer together and reorganized) -->
     <div class="flex flex-wrap justify-between items-center gap-6">
-      <a href="/rise/home" class="flex items-center">
-        <img src="/public/logo1.svg" alt="RISE STEM Logo" class="h-12 sm:h-16 w-12 sm:w-16" />
-      </a>
-
-      <div class="space-y-1 text-sm sm:text-base">
-        <div>
-          <strong>Email:</strong> 
-          <a href="mailto:rise.stemedu@gmail.com" class="text-blue-500 hover:underline font-medium">rise.stemedu@gmail.com</a>
-        </div>
-        <div>
-          <strong>Phone:</strong> 
-          <a href="tel:+17064241613" class="text-blue-500 hover:underline font-medium">+1 (706)-424-1613</a>
+      <div class="flex items-center gap-4">
+        <a href="/rise/home" class="flex items-center">
+          <img src="/public/logo1.svg" alt="RISE STEM Logo" class="h-12 sm:h-16 w-12 sm:w-16" />
+        </a>
+        <div class="space-y-0.5 text-sm sm:text-base">
+          <div>
+            <strong>Email:</strong>
+            <a href="mailto:rise.stemedu@gmail.com" class="text-blue-500 hover:underline font-medium">rise.stemedu@gmail.com</a>
+            <span class="mx-2 text-gray-300">|</span>
+            <strong>Phone:</strong>
+            <a href="tel:+17064241613" class="text-blue-500 hover:underline font-medium">+1 (706)-424-1613</a>
+          </div>
         </div>
       </div>
     </div>
