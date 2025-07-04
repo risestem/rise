@@ -355,6 +355,12 @@
           document.getElementById('latest-news-btn').disabled = true;
           document.getElementById('latest-news-btn').textContent = 'No news available';
         });
+
+       // Listen for custom header-loaded event (from loadHeader.js) to re-setup modal openers
+      document.addEventListener('header:loaded', () => {
+        setupContactModal();
+      });
+          
     </script>
     <div>
       <!-- Footer Section -->
