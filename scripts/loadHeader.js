@@ -3,7 +3,7 @@ async function loadHeader() {
   if (!headerContainer) return;
   
   // Cache busting query string
-  const response = await fetch('https://cdn.jsdelivr.net/gh/risestem/rise@12e166a/scripts/header.html');
+  const response = await fetch('/components/header.html');
   if (!response.ok) {
     console.error('Failed to load header.html');
     return;
