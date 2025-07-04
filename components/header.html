@@ -1,4 +1,3 @@
-<!-- header.html -->
 <header class="fixed top-0 bg-white shadow-md w-full z-50">
   <nav class="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200 shadow-md">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 min-h-[80px] transition-all duration-300">
@@ -25,8 +24,41 @@
           <li class="flex items-center">
             <a href="/home" class="px-4 py-2 font-bold text-gray-500 hover:text-purple-950">Home</a>
           </li>
-          <li class="flex items-center">
-            <a href="/curriculum" class="px-4 py-2 font-bold text-gray-500 hover:text-purple-950">Curriculum</a>
+          <!-- Projects dropdown for desktop -->
+          <li class="group hidden md:flex md:flex-col relative items-center">
+            <a href="/projects" class="px-4 py-2 font-bold text-gray-500 hover:text-purple-950 cursor-pointer flex items-center group">
+              Projects
+              <svg class="w-4 h-4 ml-1 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </a>
+            <!-- Dropdown -->
+            <div class="absolute left-0 top-full mt-0 py-1 bg-white shadow-lg rounded-b-lg z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-out transform translate-y-2 group-hover:translate-y-0 min-w-[180px]">
+              <a href="/curriculum" class="block px-4 py-3 font-bold text-gray-600 hover:text-purple-950 duration-200">
+                Curriculum
+              </a>
+              <a href="/kits" class="block px-4 py-3 font-bold text-gray-600 hover:text-purple-950 duration-200">
+                Kits
+              </a>
+              <a href="/workshops" class="block px-4 py-3 font-bold text-gray-600 hover:text-purple-950 duration-200">
+                Workshops
+              </a>
+            </div>
+          </li>
+          <li class="flex items-center md:hidden">
+            <!-- Projects links for mobile -->
+            <a href="/projects" class="px-4 py-2 pt-3 font-bold hover:text-gray-500 text-gray-500">Projects</a>
+            <ul class="pl-6 space-y-1 pt-1 text-gray-500">
+              <li>
+                <a href="/curriculum" class="block hover:text-purple-900">Curriculum</a>
+              </li>
+              <li>
+                <a href="/kits" class="block hover:text-purple-900">Kits</a>
+              </li>
+              <li>
+                <a href="/workshops" class="block hover:text-purple-900">Workshops</a>
+              </li>
+            </ul>
           </li>
           <li class="flex items-center">
             <a href="/questions" class="px-4 py-2 font-bold text-gray-500 hover:text-purple-950">Questions</a>
