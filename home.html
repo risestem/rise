@@ -21,59 +21,97 @@
   <script type="module" src="/scripts/loadHeader.js"></script>
   <!-- Main Content Section Below Header -->
   <section id="home" class="min-h-screen bg-gray-50 w-full relative overflow-hidden">
-    <!-- Alpine.js Carousel -->
-    <div 
-      x-data="{
-        images: [
-          '/public/enpeng_happy.jpeg',
-          '/public/group_waiting_to_test.jpeg',
-          '/public/lab.jpeg'
-        ],
-        currentIndex: 0,
-        next() { this.currentIndex = (this.currentIndex + 1) % this.images.length },
-        prev() { this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length },
-        autoRotate() {
-          setInterval(() => this.next(), 5000);
-        }
-      }"
-      x-init="autoRotate()"
-      class="w-full h-[80vh] relative flex items-center justify-center"
-    >
-      <!-- Slides -->
+  <!-- Alpine.js Carousel -->
+  <div 
+    x-data="{
+      images: [
+        { url: '/public/enpeng_happy.jpeg', position: 'bg-top' },
+        { url: '/public/group_waiting_to_test.jpeg', position: 'bg-[center_40%]' },
+        { url: '/public/lab.jpeg', position: 'bg-top' }
+      ],
+      currentIndex: 0,
+      prevIndex: 0,
+      next() {
+        this.prevIndex = this.currentIndex;
+        this.currentIndex = (this.currentIndex + 1) % this.images.length;
+      },
+      prev() {
+        this.prevIndex = this.currentIndex;
+        this.currentIndex = (this.currentIndex - 1 + this.images.length) % this.images.length;
+      },
+      autoRotate() {
+        setInterval(() => this.next(), 5000);
+      }
+    }"
+    x-init="
+      autoRotate();
+      images.forEach(img => {
+        const i = new Image();
+        i.src = img.url;
+      });
+    "
+    class="w-full h-[80vh] relative overflow-hidden"
+  >
+    <!-- Slides -->
+    <div class="absolute inset-0 w-full h-full">
       <template x-for="(image, index) in images" :key="index">
         <div 
-          x-show="currentIndex === index"
-          class="absolute inset-0 bg-cover bg-top bg-no-repeat transition-opacity duration-1000"
-          :style="`background-image: url(${image})`"
+          class="absolute inset-0 w-full h-full transition-transform duration-1000 ease-in-out"
+          :class="[
+            index === currentIndex ? 'translate-x-0 z-20' : index === prevIndex ? '-translate-x-full z-10' : 'translate-x-full z-0',
+            'bg-cover bg-no-repeat'
+          ]"
+          :style="`background-image: url(${image.url})`"
+          :class="image.position"
         ></div>
       </template>
-  
-      <!-- Overlay -->
-      <div class="absolute inset-0 bg-black opacity-40 z-0"></div>
-  
-      <!-- Content -->
-      <div class="fadeInUp-animation flex flex-col text-left items-center px-6 sm:px-16 md:px-32 z-10">
-        <h1 class="font-poppins text-3xl font-extrabold pt-8 text-white md:text-4xl xl:text-5xl self-start">
-          RISE STEM
-        </h1>
-        <p class="text-white font-semibold md:text-xl lg:text-2xl self-start">
-          Inspiring the next generation of <br>
-          innovators, problem solvers, <br>
-          creators, and critical thinkers.
+    </div>
+
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-black opacity-40 z-30"></div>
+
+    <!-- Content -->
+    <div class="fadeInUp-animation flex flex-col text-left items-center px-6 sm:px-16 md:px-32 z-40">
+      <h1 class="font-poppins text-3xl font-extrabold pt-8 text-white md:text-4xl xl:text-5xl self-start">
+        RISE STEM
+      </h1>
+      <p class="text-white font-semibold md:text-xl lg:text-2xl self-start">
+        Inspiring the next generation of <br>
+        innovators, problem solvers, <br>
+        creators, and critical thinkers.
+      </p>
+    </div>
+
+    <!-- Dot Controls -->
+    <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2 z-50">
+      <template x-for="(image, index) in images" :key="index">
+        <button
+          class="w-3 h-3 rounded-full"
+          :class="currentIndex === index ? 'bg-white' : 'bg-white/50'"
+          @click="prevIndex = currentIndex; currentIndex = index"
+        ></button>
+      </template>
+    </div>
+  </div>
+
+  <!-- Welcome Content Box -->
+  <div class="w-full px-6 sm:px-6 md:px-16 lg:px-24 -mt-8 z-30 relative pb-8">
+    <div class="bg-white fadeInUp-animation p-4 rounded-2xl border border-gray-300 shadow-md justify-center">
+      <div class="flex justify-center text-center">
+        <h2 class="fadeInUp-animation text-3xl font-poppins font-semibold text-purple-950 md:text-4xl">
+          Welcome to <span class="font-extrabold">RISE</span>
+        </h2>
+      </div>
+
+      <div class="flex justify-center items-center pt-8 sm:px-16 lg:px-32 flex-col">
+        <p class="fadeInUp-animation text-md text-gray-500 leading-relaxed text-center sm:px-4 md:px-8 lg:px-16 xl:px-32">
+          RISE (Reinventing, Innovation, STEM, and Education) is a student-run organization aiming to empower students with free access to STEM education.
+          Through hands-on projects and mentorship, we aim to inspire the next generation of engineers and coders.
         </p>
       </div>
-  
-      <!-- Controls (optional) -->
-      <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2 z-20">
-        <template x-for="(image, index) in images" :key="index">
-          <button
-            class="w-3 h-3 rounded-full"
-            :class="currentIndex === index ? 'bg-white' : 'bg-white/50'"
-            @click="currentIndex = index"
-          ></button>
-        </template>
-      </div>
     </div>
+  </div>
+    
     <div class="w-full px-6 sm:px-6 md:px-16 lg:px-24 -mt-8 z-30 relative pb-8">
       <!-- Rounded Box with content that will change -->
       <div class="bg-white fadeInUp-animation p-4 rounded-2xl border border-gray-300 shadow-md justify-center">
