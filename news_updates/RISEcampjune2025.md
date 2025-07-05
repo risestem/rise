@@ -9,4 +9,4 @@ water electrolysis. Students explored key concepts like friction, center of grav
 and curiosity in STEM. RISE STEM is continuing its mission this fall with an after-school camp, one-day workshops, and
 the launch of [RISE Kits](https://github.com/risestem/stem-kits) to expand access to DIY engineering experiences.
 
-Read more about our impact during RISE camp here! [RISE STEM Camp Report (PDF)](https://github.com/risestem/rise/blob/main/public/RISE%20STEM%20Camp%20Report.pdf)
+Read more about our impact during RISE camp here! [RISE STEM Camp Report (PDF)](https://github.com/risestem/rise/raw/main/public/RISE%20STEM%20Camp%20Report.pdf)
