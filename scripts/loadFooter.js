@@ -11,7 +11,7 @@ const footerHTML = `
         <div class="flex flex-col justify-center text-sm sm:text-base leading-tight">
           <div>
             <a class="hover:text-gray-500 text-gray-500 font-semibold">Email:</a>
-            <a href="mailto:contact@risestem.org" class="text-gray-500 hover:text-blue-500 hover:underline font-medium">rise.stemedu@gmail.com</a>
+            <a href="mailto:contact@risestem.org" class="text-gray-500 hover:text-blue-500 hover:underline font-medium">contact@risestem.org</a>
           </div>
           <div>
             <a class="hover:text-gray-500 text-gray-500 font-semibold">Phone:</a>
