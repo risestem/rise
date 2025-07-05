@@ -48,7 +48,7 @@
         this.setIndex((this.currentIndex - 1 + this.images.length) % this.images.length, -1);
       },
       autoRotate() {
-        this.interval = setInterval(() => this.next(), 5000);
+        this.interval = setInterval(() => this.next(), 10000);
       },
       stopRotate() {
         clearInterval(this.interval);
