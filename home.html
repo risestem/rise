@@ -20,92 +20,93 @@
   <div id="header-container"></div>
   <script type="module" src="/scripts/loadHeader.js"></script>
   <!-- Main Content Section Below Header -->
-  <section id="home" class="min-h-screen bg-gray-50 w-full relative overflow-hidden">
-  <!-- Alpine.js Carousel -->
+ <section id="home" class="min-h-screen bg-gray-50 w-full relative overflow-hidden">
   <div 
-  x-data="{
-    images: [
-      { url: '/public/enpeng_happy.jpeg', position: 'bg-top' },
-      { url: '/public/group_waiting_to_test.jpeg', position: 'bg-[center_40%]' },
-      { url: '/public/lab.jpeg', position: 'bg-top' }
-    ],
-    currentIndex: 0,
-    animating: false,
-    direction: 1, // 1 for next, -1 for prev
-    interval: null,
-    setIndex(newIdx, dir = 1) {
-      if (this.animating || newIdx === this.currentIndex) return;
-      this.direction = dir;
-      this.animating = true;
-      this.currentIndex = newIdx;
-      setTimeout(() => { this.animating = false }, 600); // duration should match transition
-    },
-    next() {
-      let idx = (this.currentIndex + 1) % this.images.length;
-      this.setIndex(idx, 1);
-    },
-    prev() {
-      let idx = (this.currentIndex - 1 + this.images.length) % this.images.length;
-      this.setIndex(idx, -1);
-    },
-    autoRotate() {
-      this.interval = setInterval(() => this.next(), 5000);
-    },
-    stopRotate() {
-      if (this.interval) clearInterval(this.interval);
-    }
-  }"
-  x-init="
-    autoRotate();
-    images.forEach(img => { const i = new Image(); i.src = img.url; });
-  "
-  @mouseenter="stopRotate()" @mouseleave="autoRotate()"
-  class="w-full h-[80vh] relative overflow-hidden"
->
-  <!-- Slides -->
-  <div class="absolute inset-0 z-0 w-full h-full">
-    <template x-for="(image, index) in images" :key="index">
-      <div 
-        class="absolute inset-0 w-full h-full transition-transform duration-700 ease-in-out bg-cover bg-no-repeat"
-        :class="[
-          index === currentIndex ? 'translate-x-0 z-20 opacity-100' :
-          (direction === 1 && index === (currentIndex - 1 + images.length) % images.length) ? '-translate-x-full z-10 opacity-0' : 
-          (direction === -1 && index === (currentIndex + 1) % images.length) ? 'translate-x-full z-10 opacity-0' : 
-          'translate-x-full z-0 opacity-0',
-          image.position
-        ]"
-        :style="`background-image: url(${image.url});`"
-      ></div>
-    </template>
+    x-data="{
+      images: [
+        { url: '/public/enpeng_happy.jpeg', position: 'bg-top' },
+        { url: '/public/group_waiting_to_test.jpeg', position: 'bg-[center_40%]' },
+        { url: '/public/lab.jpeg', position: 'bg-top' }
+      ],
+      currentIndex: 0,
+      previousIndex: 0,
+      direction: 1,
+      animating: false,
+      interval: null,
+      setIndex(newIdx, dir = 1) {
+        if (this.animating || newIdx === this.currentIndex) return;
+        this.direction = dir;
+        this.previousIndex = this.currentIndex;
+        this.currentIndex = newIdx;
+        this.animating = true;
+        setTimeout(() => { this.animating = false }, 700);
+      },
+      next() {
+        this.setIndex((this.currentIndex + 1) % this.images.length, 1);
+      },
+      prev() {
+        this.setIndex((this.currentIndex - 1 + this.images.length) % this.images.length, -1);
+      },
+      autoRotate() {
+        this.interval = setInterval(() => this.next(), 5000);
+      },
+      stopRotate() {
+        clearInterval(this.interval);
+      }
+    }"
+    x-init="
+      autoRotate();
+      images.forEach(img => { const i = new Image(); i.src = img.url; });
+    "
+    @mouseenter="stopRotate()" @mouseleave="autoRotate()"
+    class="w-full h-[80vh] relative overflow-hidden"
+  >
+
+    <!-- Slides -->
+    <div class="absolute inset-0 z-0 w-full h-full overflow-hidden">
+      <template x-for="(image, index) in images" :key="index">
+        <div 
+          class="absolute inset-0 w-full h-full bg-cover bg-no-repeat transition-all duration-700 ease-in-out"
+          :class="[
+            index === currentIndex 
+              ? 'translate-x-0 z-30 opacity-100' 
+              : (index === previousIndex && direction === 1)
+                ? '-translate-x-full z-20 opacity-100'
+                : (index === previousIndex && direction === -1)
+                  ? 'translate-x-full z-20 opacity-100'
+                  : 'translate-x-full z-10 opacity-0',
+            image.position
+          ]"
+          :style="`background-image: url(${image.url});`"
+        ></div>
+      </template>
+    </div>
+
+    <!-- Overlay text -->
+    <div class="absolute inset-0 z-40 flex flex-col justify-center items-center text-center px-6 sm:px-16 md:px-32 h-full pointer-events-none">
+      <h1 class="font-poppins text-3xl font-extrabold pt-8 text-white md:text-4xl xl:text-5xl drop-shadow-lg">
+        RISE STEM
+      </h1>
+      <p class="text-white font-semibold md:text-xl lg:text-2xl mt-4 drop-shadow-lg">
+        Inspiring the next generation of <br>
+        innovators, problem solvers, <br>
+        creators, and critical thinkers.
+      </p>
+    </div>
+
+    <!-- Overlay background -->
+    <div class="absolute inset-0 bg-black opacity-40 z-30 pointer-events-none"></div>
+
+    <!-- Dot Indicators -->
+    <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2 z-50 mb-5 pointer-events-none">
+      <template x-for="(image, index) in images" :key="index">
+        <div
+          class="w-3 h-3 rounded-full"
+          :class="currentIndex === index ? 'bg-white' : 'bg-white/50'"
+        ></div>
+      </template>
+    </div>
   </div>
-
-  <!-- Content (above overlay for visibility) -->
-  <div class="absolute inset-0 z-40 flex flex-col justify-center items-center text-center px-6 sm:px-16 md:px-32 h-full pointer-events-none">
-    <h1 class="font-poppins text-3xl font-extrabold pt-8 text-white md:text-4xl xl:text-5xl drop-shadow-lg">
-      RISE STEM
-    </h1>
-    <p class="text-white font-semibold md:text-xl lg:text-2xl mt-4 drop-shadow-lg">
-      Inspiring the next generation of <br>
-      innovators, problem solvers, <br>
-      creators, and critical thinkers.
-    </p>
-  </div>
-
-  <!-- Overlay (below the text) -->
-  <div class="absolute inset-0 bg-black opacity-40 z-30 pointer-events-none"></div>
-
-  <!-- Dot Controls -->
-  <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2 z-50 mb-5 pointer-events-none">
-  <template x-for="(image, index) in images" :key="index">
-    <button
-      class="w-3 h-3 rounded-full focus:outline-none"
-      :class="currentIndex === index ? 'bg-white' : 'bg-white/50'"
-      :aria-label="`Go to slide ${index+1}`"
-      tabindex="-1"
-      disabled
-    ></button>
-  </template>
-</div>
 
 <!-- Welcome Content Box (single instance, deduped) -->
 <div class="w-full px-6 sm:px-6 md:px-16 lg:px-24 -mt-8 z-30 relative pb-8">
