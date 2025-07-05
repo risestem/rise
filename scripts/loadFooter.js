@@ -21,7 +21,7 @@ const footerHTML = `
       </div>
 
       <!-- Navigation, Policy, Socials (all in 1 row, right of logo+contact) -->
-      <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-5 text-sm sm:text-base">
+      <div class="flex flex-col sm:flex-row sm:items-center text-gray-500 gap-2 sm:gap-5 text-sm sm:text-base">
         <!-- Navigation Links -->
         <div class="flex space-x-3">
           <a href="/about" class="hover:text-purple-950">About</a>
