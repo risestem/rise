@@ -53,7 +53,7 @@
     class="w-full h-[80vh] relative overflow-hidden"
   >
     <!-- Slides -->
-    <div class="absolute inset-0 w-full h-full">
+    <div class="absolute inset-0 z-0 w-full h-full">
       <template x-for="(image, index) in images" :key="index">
         <div 
           class="absolute inset-0 w-full h-full transition-transform duration-1000 ease-in-out"
@@ -71,7 +71,7 @@
     <div class="absolute inset-0 bg-black opacity-40 z-30"></div>
 
     <!-- Content -->
-   <div class="fadeInUp-animation flex flex-col justify-center items-center text-center px-6 sm:px-16 md:px-32 z-40 h-full">
+   <div class="fadeInUp-animation flex flex-col justify-center items-center text-center px-6 sm:px-16 md:px-32 z-50 h-full">
     <h1 class="font-poppins text-3xl font-extrabold pt-8 text-white md:text-4xl xl:text-5xl">
       RISE STEM
     </h1>
@@ -84,7 +84,7 @@
 
 
     <!-- Dot Controls -->
-    <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2 z-50">
+    <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2 z-50 mb-4">
       <template x-for="(image, index) in images" :key="index">
         <button
           class="w-3 h-3 rounded-full"
