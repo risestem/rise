@@ -1,1 +1,194 @@
-<img src="/public/lick.gif" alt="Description of the GIF">
+<!doctype html>
+<html lang="en">
+  <head>
+    <script src="https://unpkg.com/alpinejs" defer></script>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/public/logo1.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Workshops - RISE STEM</title>
+    <link href="/src/style.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/animations.css">
+    <style>
+      html { scroll-behavior: smooth; }
+      .calendar-iframe { min-height: 600px; width: 100%; border: 0; }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Header -->
+    <div id="header-container"></div>
+    <script type="module" src="/scripts/loadHeader.js"></script>
+
+    <section class="min-h-screen bg-gray-50 w-full relative overflow-hidden pt-8">
+      <div class="w-full px-6 sm:px-6 md:px-16 lg:px-24 z-30 relative pb-8">
+        <!-- Page Title -->
+        <div class="bg-white fadeInUp-animation p-4 rounded-2xl border border-gray-300 shadow-md mb-8">
+          <div class="flex justify-center text-center">
+            <h2 class="fadeInUp-animation text-3xl font-poppins font-semibold text-purple-950 md:text-4xl">
+              Upcoming <span class="font-extrabold">Workshops</span>
+            </h2>
+          </div>
+          <div class="flex justify-center items-center pt-4 flex-col">
+            <p class="fadeInUp-animation text-md text-gray-500 leading-relaxed text-center sm:px-4">
+              Explore, build, compete, and discover! RISE STEM workshops are hands-on, collaborative, and open to all students.<br>
+              See the calendar below for upcoming events and details about each workshop.
+            </p>
+          </div>
+        </div>
+
+        <!-- Calendar Embed (Google Calendar or similar) -->
+        <div class="bg-white fadeInUp-animation p-4 rounded-2xl border border-gray-300 shadow-md mb-12">
+          <h3 class="text-xl font-bold text-purple-950 mb-4">Workshop Calendar</h3>
+          <!-- Replace the src below with your actual Google Calendar embed link -->
+          <iframe class="calendar-iframe"
+            src="https://calendar.google.com/calendar/embed?src=your_calendar_id&amp;ctz=America%2FNew_York"
+            style="border: 0"
+            frameborder="0"
+            scrolling="no">
+          </iframe>
+        </div>
+
+        <!-- Workshop Cards -->
+        <div class="w-full flex justify-center z-30">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
+            <!-- Sci-Bowl -->
+            <div class="fadeInUp-animation overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg flex flex-col">
+              <div class="w-full bg-cover bg-center" style="background-image: url('https://source.unsplash.com/400x200/?science,competition'); height: 160px;"></div>
+              <div class="flex flex-col flex-1 justify-between p-4 space-y-4">
+                <span class="text-xl font-bold text-purple-950">Sci-Bowl</span>
+                <div class="text-sm text-gray-500">
+                  Compete in a fast-paced science competition and test your knowledge in biology, chemistry, physics, and more!
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <a href="/materials/scibowl.pdf" target="_blank" class="text-sm px-4 py-2 bg-purple-950 text-white rounded-full font-semibold hover:bg-purple-700 transition">PDF Materials</a>
+                  <a href="/slides/scibowl_slides.pdf" target="_blank" class="text-sm px-4 py-2 bg-purple-100 text-purple-950 rounded-full font-semibold hover:bg-purple-200 transition">Slides</a>
+                </div>
+              </div>
+            </div>
+            <!-- Kit Workshop -->
+            <div class="fadeInUp-animation overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg flex flex-col">
+              <div class="w-full bg-cover bg-center" style="background-image: url('https://source.unsplash.com/400x200/?robotics,kit'); height: 160px;"></div>
+              <div class="flex flex-col flex-1 justify-between p-4 space-y-4">
+                <span class="text-xl font-bold text-purple-950">Kit Workshop</span>
+                <div class="text-sm text-gray-500">
+                  Build and program your own engineering kits—learn about circuits, sensors, and more through hands-on projects.
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <a href="/materials/kit_workshop.pdf" target="_blank" class="text-sm px-4 py-2 bg-purple-950 text-white rounded-full font-semibold hover:bg-purple-700 transition">PDF</a>
+                </div>
+              </div>
+            </div>
+            <!-- Bridges -->
+            <div class="fadeInUp-animation overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg flex flex-col">
+              <div class="w-full bg-cover bg-center" style="background-image: url('https://source.unsplash.com/400x200/?bridge,engineering'); height: 160px;"></div>
+              <div class="flex flex-col flex-1 justify-between p-4 space-y-4">
+                <span class="text-xl font-bold text-purple-950">Bridges</span>
+                <div class="text-sm text-gray-500">
+                  Design, build, and test model bridges to see whose structure can hold the most weight. Learn about forces and design!
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <a href="/materials/bridges.pdf" target="_blank" class="text-sm px-4 py-2 bg-purple-950 text-white rounded-full font-semibold hover:bg-purple-700 transition">PDF</a>
+                </div>
+              </div>
+            </div>
+            <!-- Tower -->
+            <div class="fadeInUp-animation overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg flex flex-col">
+              <div class="w-full bg-cover bg-center" style="background-image: url('https://source.unsplash.com/400x200/?tower,stem'); height: 160px;"></div>
+              <div class="flex flex-col flex-1 justify-between p-4 space-y-4">
+                <span class="text-xl font-bold text-purple-950">Tower</span>
+                <div class="text-sm text-gray-500">
+                  Work in teams to build the tallest and most stable tower using everyday materials. Test your engineering and creativity!
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <a href="/materials/tower.pdf" target="_blank" class="text-sm px-4 py-2 bg-purple-950 text-white rounded-full font-semibold hover:bg-purple-700 transition">PDF</a>
+                </div>
+              </div>
+            </div>
+            <!-- Coding a Game Workshop -->
+            <div class="fadeInUp-animation overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg flex flex-col">
+              <div class="w-full bg-cover bg-center" style="background-image: url('https://source.unsplash.com/400x200/?coding,computer'); height: 160px;"></div>
+              <div class="flex flex-col flex-1 justify-between p-4 space-y-4">
+                <span class="text-xl font-bold text-purple-950">Coding a Game Workshop</span>
+                <div class="text-sm text-gray-500">
+                  Learn basic coding concepts and build your own mini-game! No prior experience needed—just bring your curiosity.
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <a href="/materials/game_coding.pdf" target="_blank" class="text-sm px-4 py-2 bg-purple-950 text-white rounded-full font-semibold hover:bg-purple-700 transition">PDF</a>
+                  <a href="/slides/game_coding_slides.pdf" target="_blank" class="text-sm px-4 py-2 bg-purple-100 text-purple-950 rounded-full font-semibold hover:bg-purple-200 transition">Slides</a>
+                </div>
+              </div>
+            </div>
+            <!-- Air Cannon & Kinematics -->
+            <div class="fadeInUp-animation overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg flex flex-col">
+              <div class="w-full bg-cover bg-center" style="background-image: url('https://source.unsplash.com/400x200/?physics,projectile'); height: 160px;"></div>
+              <div class="flex flex-col flex-1 justify-between p-4 space-y-4">
+                <span class="text-xl font-bold text-purple-950">Air Cannon & Kinematics</span>
+                <div class="text-sm text-gray-500">
+                  Launch projectiles and learn about motion, velocity, and the science behind trajectories with our air cannon activity!
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <a href="/materials/aircannon.pdf" target="_blank" class="text-sm px-4 py-2 bg-purple-950 text-white rounded-full font-semibold hover:bg-purple-700 transition">PDF</a>
+                  <a href="/slides/aircannon_slides.pdf" target="_blank" class="text-sm px-4 py-2 bg-purple-100 text-purple-950 rounded-full font-semibold hover:bg-purple-200 transition">Slides</a>
+                </div>
+              </div>
+            </div>
+            <!-- Ice Cream Lab -->
+            <div class="fadeInUp-animation overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg flex flex-col">
+              <div class="w-full bg-cover bg-center" style="background-image: url('https://source.unsplash.com/400x200/?icecream,science'); height: 160px;"></div>
+              <div class="flex flex-col flex-1 justify-between p-4 space-y-4">
+                <span class="text-xl font-bold text-purple-950">Ice Cream Lab</span>
+                <div class="text-sm text-gray-500">
+                  Mix, shake, and freeze your own ice cream while learning about chemistry, states of matter, and heat transfer.
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <a href="/materials/icecream.pdf" target="_blank" class="text-sm px-4 py-2 bg-purple-950 text-white rounded-full font-semibold hover:bg-purple-700 transition">PDF</a>
+                </div>
+              </div>
+            </div>
+            <!-- Physics Exploration Day -->
+            <div class="fadeInUp-animation overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg flex flex-col">
+              <div class="w-full bg-cover bg-center" style="background-image: url('https://source.unsplash.com/400x200/?physics,experiment'); height: 160px;"></div>
+              <div class="flex flex-col flex-1 justify-between p-4 space-y-4">
+                <span class="text-xl font-bold text-purple-950">Physics Exploration Day</span>
+                <div class="text-sm text-gray-500">
+                  Rotate through different hands-on physics demos and experiments—explore concepts like force, motion, and energy.
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <a href="/materials/physics_day.pdf" target="_blank" class="text-sm px-4 py-2 bg-purple-950 text-white rounded-full font-semibold hover:bg-purple-700 transition">PDF</a>
+                </div>
+              </div>
+            </div>
+            <!-- 3d Print/Cad Day -->
+            <div class="fadeInUp-animation overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg flex flex-col">
+              <div class="w-full bg-cover bg-center" style="background-image: url('https://source.unsplash.com/400x200/?3dprinting,cad'); height: 160px;"></div>
+              <div class="flex flex-col flex-1 justify-between p-4 space-y-4">
+                <span class="text-xl font-bold text-purple-950">3D Print/CAD Day</span>
+                <div class="text-sm text-gray-500">
+                  Discover the basics of 3D modeling and printing, design your own object, and see it come to life with a 3D printer!
+                </div>
+                <div class="flex flex-wrap gap-2">
+                  <a href="/materials/3dprint.pdf" target="_blank" class="text-sm px-4 py-2 bg-purple-950 text-white rounded-full font-semibold hover:bg-purple-700 transition">PDF</a>
+                  <a href="/slides/3dprint_slides.pdf" target="_blank" class="text-sm px-4 py-2 bg-purple-100 text-purple-950 rounded-full font-semibold hover:bg-purple-200 transition">Slides</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Optional: Add an RSVP or interest form below -->
+        <div class="mt-16 w-full flex justify-center">
+          <div class="bg-white border border-gray-300 rounded-2xl shadow-md p-8 w-full max-w-xl text-center">
+            <h3 class="text-2xl font-bold text-purple-950 mb-2">Want to join a workshop?</h3>
+            <p class="text-gray-500 mb-4">Fill out our interest form to get updates and reserve your spot!</p>
+            <a href="https://forms.gle/your-workshop-signup-form" target="_blank" class="inline-block px-8 py-3 bg-purple-950 text-white font-bold rounded-full hover:bg-purple-700 transition">
+              Sign Up Now
+            </a>
+          </div>
+        </div>
+      </div>
+      <!-- Footer -->
+      <div id="footer-container"></div>
+      <script type="module" src="/scripts/loadFooter.js"></script>
+    </section>
+  </body>
+</html>
