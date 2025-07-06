@@ -26,7 +26,7 @@ const footerHTML = `
         <div class="flex space-x-3">
           <a href="/about" class="hover:text-purple-950">About</a>
           <a href="/questions" class="hover:text-purple-950">FAQ</a>
-          <a href="/news" class="hover:text-purple-950">News</a>
+          <a href="/news_overview" class="hover:text-purple-950">News</a>
         </div>
         <!-- Policies -->
         <div class="flex space-x-2">
