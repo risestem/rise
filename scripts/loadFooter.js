@@ -36,7 +36,7 @@ const footerHTML = `
         </div>
         <!-- Social Icons -->
         <div class="flex items-center space-x-3">
-          <a href="#" aria-label="YouTube" class="hover:text-purple-950" title="YouTube">
+          <a href="https://www.youtube.com/@risestemedu" aria-label="YouTube" class="hover:text-purple-950" title="YouTube">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-2C18.88 4 12 4 12 4s-6.88 0-8.59.42a2.78 2.78 0 0 0-1.95 2A29.94 29.94 0 0 0 1 12a29.94 29.94 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 2C5.12 20 12 20 12 20s6.88 0 8.59-.42a2.78 2.78 0 0 0 1.95-2A29.94 29.94 0 0 0 23 12a29.94 29.94 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
           </a>
           <a href="#" aria-label="Instagram" class="hover:text-purple-950" title="Instagram">
