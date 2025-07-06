@@ -181,25 +181,43 @@
 </div>
 
 <script>
-// Modal open/close logic
-const contactModal = document.getElementById('contact-modal');
-const openContactBtn = document.querySelector('button.bg-purple-950');
-const closeContactBtn = document.getElementById('close-contact-modal');
+  document.addEventListener('header:loaded', function() {
+    setupContactModal();
+  });
 
-if (openContactBtn && contactModal && closeContactBtn) {
-  openContactBtn.addEventListener('click', function(e) {
-    e.preventDefault();
-    contactModal.classList.remove('hidden');
+  document.addEventListener('DOMContentLoaded', function() {
+    setupContactModal();
   });
-  closeContactBtn.addEventListener('click', function() {
-    contactModal.classList.add('hidden');
-  });
-  contactModal.addEventListener('click', function(e) {
-    if (e.target === contactModal) {
-      contactModal.classList.add('hidden');
+
+  function setupContactModal() {
+    const contactModal = document.getElementById('contact-modal');
+    const closeContactBtn = document.getElementById('close-contact-modal');
+
+    const openContactBtns = Array.from(document.querySelectorAll('button, a')).filter(
+            el => el.textContent && el.textContent.trim().toLowerCase() === "contact us"
+    );
+
+    openContactBtns.forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        if (contactModal) contactModal.classList.remove('hidden');
+      });
+    });
+
+    if (closeContactBtn) {
+      closeContactBtn.addEventListener('click', function() {
+        contactModal.classList.add('hidden');
+      });
     }
-  });
-}
+
+    if (contactModal) {
+      contactModal.addEventListener('click', function(e) {
+        if (e.target === contactModal) {
+          contactModal.classList.add('hidden');
+        }
+      });
+    }
+  }
 </script>
 <!-- Footer -->
 
