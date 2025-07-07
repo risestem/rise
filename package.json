@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "backend": "node backend/server.js"
   },
   "devDependencies": {
     "vite": "^6.1.0"
@@ -14,6 +15,8 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.0.5",
     "flowbite": "^3.1.2",
-    "tailwindcss": "^4.0.5"
+    "tailwindcss": "^4.0.5",
+    "express": "^4.18.2",
+    "cors": "^2.8.5"
   }
 }
