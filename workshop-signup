@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>RISE Workshop Signup</title>
+    <link rel="icon" type="image/svg+xml" href="/public/logo1.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="/src/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="/src/animations.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet" />
+    <style>
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 font-poppins">
+    <div id="header-container"></div>
+    <script type="module" src="/scripts/loadHeader.js"></script>
+
+    <section class="max-w-4xl mx-auto px-6 py-16 pt-32">
+      <h1 class="text-4xl font-extrabold text-purple-950 mb-6 text-center">Workshop Signup</h1>
+      <p class="text-center text-gray-500 text-sm mb-8">Join a free STEM workshop with RISE</p>
+
+      <form id="signupForm" class="space-y-6">
+        <div>
+          <label class="block font-medium">Participant Name</label>
+          <input type="text" name="participantName" required class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+        </div>
+
+        <div>
+          <label class="block font-medium">Age / Grade</label>
+          <input type="text" name="ageGrade" required class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+        </div>
+
+        <div>
+          <label class="block font-medium">Parent/Guardian Name</label>
+          <input type="text" name="guardianName" required class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+        </div>
+
+        <div>
+          <label class="block font-medium">Parent/Guardian Email</label>
+          <input type="email" name="guardianEmail" required class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+        </div>
+
+        <div>
+          <label class="block font-medium">Emergency Contact Number</label>
+          <input type="tel" name="emergencyContact" required class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+        </div>
+
+        <div>
+          <label class="block font-medium mb-2">Select Workshop</label>
+          <div class="space-y-2">
+            <label class="flex items-center">
+              <input type="radio" name="workshop" value="Intro to Coding" required class="mr-2" />
+              Intro to Coding (Slots left: <span id="codingCount">5</span>)
+            </label>
+            <label class="flex items-center">
+              <input type="radio" name="workshop" value="Robotics Basics" required class="mr-2" />
+              Robotics Basics (Slots left: <span id="roboticsCount">3</span>)
+            </label>
+            <label class="flex items-center">
+              <input type="radio" name="workshop" value="Creative Tech" required class="mr-2" />
+              Creative Tech (Slots left: <span id="creativeCount">4</span>)
+            </label>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-medium">Special Needs / Notes</label>
+          <textarea name="notes" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-md"></textarea>
+        </div>
+
+        <div class="flex items-start">
+          <input type="checkbox" id="consent" required class="mr-2 mt-1" />
+          <label for="consent">I give permission for my child to participate in RISE workshops and to be contacted regarding updates.</label>
+        </div>
+
+        <button type="submit" class="w-full py-3 bg-purple-950 text-white font-bold rounded-md hover:bg-purple-900">Submit</button>
+      </form>
+    </section>
+
+    <div id="footer-container"></div>
+    <script type="module" src="/scripts/loadFooter.js"></script>
+    <script>
+      const workshopLimits = {
+        "Intro to Coding": 5,
+        "Robotics Basics": 3,
+        "Creative Tech": 4
+      };
+
+      const currentCounts = {
+        "Intro to Coding": 0,
+        "Robotics Basics": 0,
+        "Creative Tech": 0
+      };
+
+      const form = document.getElementById('signupForm');
+
+      function updateCountsDisplay() {
+        document.getElementById('codingCount').textContent = workshopLimits["Intro to Coding"] - currentCounts["Intro to Coding"];
+        document.getElementById('roboticsCount').textContent = workshopLimits["Robotics Basics"] - currentCounts["Robotics Basics"];
+        document.getElementById('creativeCount').textContent = workshopLimits["Creative Tech"] - currentCounts["Creative Tech"];
+      }
+
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const data = new FormData(form);
+        const selectedWorkshop = data.get("workshop");
+
+        if (currentCounts[selectedWorkshop] < workshopLimits[selectedWorkshop]) {
+          currentCounts[selectedWorkshop]++;
+          alert("Signup successful for " + selectedWorkshop + "!");
+          form.reset();
+          updateCountsDisplay();
+        } else {
+          alert("Sorry, " + selectedWorkshop + " is full.");
+        }
+      });
+
+      updateCountsDisplay();
+    </script>
+  </body>
+</html>
