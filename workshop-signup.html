@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Workshop Signu - RISE STEM</title>
+    <title>Workshop Signup - RISE STEM</title>
     <link rel="icon" type="image/svg+xml" href="/public/logo1.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/src/style.css" rel="stylesheet" />
@@ -26,42 +26,42 @@
       <form id="signupForm" class="space-y-6">
         <div>
           <label class="block font-medium">Participant Name</label>
-          <input type="text" name="participantName" required class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+          <input type="text" name="participantName" required class="w-full px-4 py-2 border !outline-none focus:border-purple-950 bg-white text-gray-500 border-gray-300 rounded-md" />
         </div>
 
         <div>
           <label class="block font-medium">Age / Grade</label>
-          <input type="text" name="ageGrade" required class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+          <input type="text" name="ageGrade" required class="w-full px-4 py-2 border !outline-none focus:border-purple-950  bg-white text-gray-500 border-gray-300 rounded-md" />
         </div>
 
         <div>
           <label class="block font-medium">Parent/Guardian Name</label>
-          <input type="text" name="guardianName" required class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+          <input type="text" name="guardianName" required class="w-full px-4 py-2 bg-white !outline-none focus:border-purple-950 text-gray-500 border border-gray-300 rounded-md" />
         </div>
 
         <div>
           <label class="block font-medium">Parent/Guardian Email</label>
-          <input type="email" name="guardianEmail" required class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+          <input type="email" name="guardianEmail" required class="w-full px-4 py-2 bg-white !outline-none focus:border-purple-950 text-gray-500 border border-gray-300 rounded-md" />
         </div>
 
         <div>
           <label class="block font-medium">Emergency Contact Number</label>
-          <input type="tel" name="emergencyContact" required class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+          <input type="tel" name="emergencyContact" required class="w-full px-4 py-2 bg-white !outline-none focus:border-purple-950 text-gray-500 border border-gray-300 rounded-md" />
         </div>
 
         <div>
           <label class="block font-medium mb-2">Select Workshop</label>
           <div class="space-y-2">
             <label class="flex items-center">
-              <input type="radio" name="workshop" value="Intro to Coding" required class="mr-2" />
+              <input type="radio" name="workshop" value="Intro to Coding" required class="bg-white !outline-none focus:border-purple-950 text-gray-500 mr-2" />
               Intro to Coding, July 31 (Slots left: <span id="codingCount">5</span>)
             </label>
             <label class="flex items-center">
-              <input type="radio" name="workshop" value="Robotics Basics" required class="mr-2" />
+              <input type="radio" name="workshop" value="Robotics Basics" required class="mr-2 !outline-none focus:border-purple-950 bg-white text-gray-500" />
               Robotics Basics, July 31 (Slots left: <span id="roboticsCount">3</span>)
             </label>
             <label class="flex items-center">
-              <input type="radio" name="workshop" value="Creative Tech" required class="mr-2" />
+              <input type="radio" name="workshop" value="Creative Tech" required class="mr-2 !outline-none focus:border-purple-950 bg-white text-gray-500" />
               Creative Tech, August 1 (Slots left: <span id="creativeCount">4</span>)
             </label>
           </div>
@@ -69,11 +69,11 @@
 
         <div>
           <label class="block font-medium">Special Needs / Notes</label>
-          <textarea name="notes" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-md"></textarea>
+          <textarea name="notes" rows="3" class="w-full px-4 py-2 border border-gray-300 !outline-none focus:border-purple-950 rounded-md bg-white text-gray-500"></textarea>
         </div>
 
         <div class="flex items-start">
-          <input type="checkbox" id="consent" required class="mr-2 mt-1" />
+          <input type="checkbox" id="consent" required class="mr-2 mt-1 bg-white text-gray-500" />
           <label for="consent">I give permission for my child to participate in RISE workshops and to be contacted regarding updates.</label>
         </div>
 
