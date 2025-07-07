@@ -26,27 +26,27 @@
       <form id="signupForm" class="space-y-6">
         <div>
           <label class="block font-medium">Participant Name</label>
-          <input type="text" name="participantName" required class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+          <input type="text" name="participantName" required class="w-full px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-500" />
         </div>
 
         <div>
           <label class="block font-medium">Age / Grade</label>
-          <input type="text" name="ageGrade" required class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+          <input type="text" name="ageGrade" required class="w-full px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-500" />
         </div>
 
         <div>
           <label class="block font-medium">Parent/Guardian Name</label>
-          <input type="text" name="guardianName" required class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+          <input type="text" name="guardianName" required class="w-full px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-500" />
         </div>
 
         <div>
           <label class="block font-medium">Parent/Guardian Email</label>
-          <input type="email" name="guardianEmail" required class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+          <input type="email" name="guardianEmail" required class="w-full px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-500" />
         </div>
 
         <div>
           <label class="block font-medium">Emergency Contact Number</label>
-          <input type="tel" name="emergencyContact" required class="w-full px-4 py-2 border border-gray-300 rounded-md" />
+          <input type="tel" name="emergencyContact" required class="w-full px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-500" />
         </div>
 
         <div>
@@ -69,7 +69,7 @@
 
         <div>
           <label class="block font-medium">Special Needs / Notes</label>
-          <textarea name="notes" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-md"></textarea>
+          <textarea name="notes" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-md bg-white text-gray-500"></textarea>
         </div>
 
         <div class="flex items-start">
@@ -124,18 +124,47 @@
         document.getElementById('creativeCount').textContent = workshopLimits["Creative Tech"] - currentCounts["Creative Tech"];
       }
 
-      form.addEventListener('submit', function(e) {
+      form.addEventListener('submit', async function(e) {
         e.preventDefault();
         const data = new FormData(form);
         const selectedWorkshop = data.get("workshop");
 
-        if (currentCounts[selectedWorkshop] < workshopLimits[selectedWorkshop]) {
-          currentCounts[selectedWorkshop]++;
-          alert("Signup successful for " + selectedWorkshop + "!");
-          form.reset();
-          updateCountsDisplay();
-        } else {
+        // Check slot availability first
+        if (currentCounts[selectedWorkshop] >= workshopLimits[selectedWorkshop]) {
           alert("Sorry, " + selectedWorkshop + " is full.");
+          return;
+        }
+
+        // Convert FormData to regular object
+        const formDataObj = {};
+        for (let [key, value] of data.entries()) {
+          formDataObj[key] = value;
+        }
+
+        try {
+          // Send data to backend
+          const response = await fetch('http://localhost:3001/api/signup', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formDataObj)
+          });
+
+          const result = await response.json();
+
+          if (response.ok && result.success) {
+            // Only update counts and reset form if backend confirms success
+            currentCounts[selectedWorkshop]++;
+            alert("Signup successful for " + selectedWorkshop + "! Your registration has been saved.");
+            form.reset();
+            updateCountsDisplay();
+          } else {
+            alert("Error submitting signup: " + (result.error || 'Unknown error'));
+          }
+        } catch (error) {
+          console.error('Network error:', error);
+          alert("Error submitting signup. Please check if the backend server is running and try again.");
         }
       });
 
