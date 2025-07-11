@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Terms of Use - RISE STEM</title>
+    <title>Scroll Video - RISE STEM</title>
     <link rel="icon" type="image/svg+xml" href="/public/logo1.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="/src/style.css" rel="stylesheet" />
@@ -13,6 +13,242 @@
       html {
         scroll-behavior: smooth;
       }
+
+      .scroll-video-container {
+        position: fixed;
+        top: 50%;
+        right: 50px;
+        transform: translateY(-50%);
+        width: 400px;
+        height: 300px;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        z-index: 100;
+      }
+
+      .scroll-video-frame {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: opacity 0.1s ease;
+      }
+
+      .content-section {
+        min-height: 100vh;
+        padding: 80px 60px;
+        max-width: 600px;
+      }
+
+      .progress-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+        z-index: 200;
+        transition: width 0.1s ease;
+      }
+
+      @media (max-width: 768px) {
+        .scroll-video-container {
+          width: 280px;
+          height: 210px;
+          right: 20px;
+        }
+
+        .content-section {
+          padding: 60px 30px;
+          max-width: calc(100% - 320px);
+        }
+      }
     </style>
   </head>
+  <body class="bg-gray-50 font-['Poppins']">
+    <!-- Progress Bar -->
+    <div class="progress-bar" id="progressBar"></div>
+
+    <!-- Fixed Video Container -->
+    <div class="scroll-video-container">
+      <img
+        id="videoFrame"
+        class="scroll-video-frame"
+        src="public/v3_frames/frame_0001.png"
+        alt="Video Frame"
+      />
+    </div>
+
+    <!-- Main Content -->
+    <div class="min-h-screen">
+      <!-- Section 1 -->
+      <section class="content-section">
+        <h1 class="text-4xl font-bold text-gray-800 mb-6">Welcome to Our Story</h1>
+        <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+          As you scroll through this page, watch the video animation play alongside our content.
+          This creates an immersive storytelling experience that engages viewers in a unique way.
+        </p>
+        <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor
+          incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+          exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+        </p>
+        <p class="text-lg text-gray-600 leading-relaxed">
+          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+          fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+          culpa qui officia deserunt mollit anim id est laborum.
+        </p>
+      </section>
+
+      <!-- Section 2 -->
+      <section class="content-section bg-white">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6">Chapter Two: Innovation</h2>
+        <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+          The video continues to play as we explore new concepts and ideas. Each frame
+          corresponds to your scroll position, creating a seamless narrative flow.
+        </p>
+        <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+          Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+          doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore
+          veritatis et quasi architecto beatae vitae dicta sunt explicabo.
+        </p>
+        <p class="text-lg text-gray-600 leading-relaxed">
+          Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit,
+          sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+        </p>
+      </section>
+
+      <!-- Section 3 -->
+      <section class="content-section bg-gray-100">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6">Chapter Three: Discovery</h2>
+        <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+          As we reach the middle of our journey, the video animation reveals more details
+          and brings our story to life through synchronized visual storytelling.
+        </p>
+        <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+          Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur,
+          adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et
+          dolore magnam aliquam quaerat voluptatem.
+        </p>
+        <p class="text-lg text-gray-600 leading-relaxed">
+          Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit
+          laboriosam, nisi ut aliquid ex ea commodi consequatur.
+        </p>
+      </section>
+
+      <!-- Section 4 -->
+      <section class="content-section bg-white">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6">Chapter Four: Transformation</h2>
+        <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+          The transformation continues as we scroll deeper into the content. Each pixel
+          of scroll movement corresponds to a frame in our video sequence.
+        </p>
+        <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+          Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam
+          nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas
+          nulla pariatur.
+        </p>
+        <p class="text-lg text-gray-600 leading-relaxed">
+          At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis
+          praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias.
+        </p>
+      </section>
+
+      <!-- Section 5 -->
+      <section class="content-section bg-gray-50">
+        <h2 class="text-3xl font-bold text-gray-800 mb-6">Chapter Five: Conclusion</h2>
+        <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+          As we reach the end of our scroll journey, the video animation completes its
+          sequence, bringing our story full circle with a satisfying conclusion.
+        </p>
+        <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+          Excepturi sint occaecati cupiditate non provident, similique sunt in culpa
+          qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
+        </p>
+        <p class="text-lg text-gray-600 leading-relaxed">
+          Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore,
+          cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod
+          maxime placeat facere possimus.
+        </p>
+      </section>
+    </div>
+
+    <script>
+      // Configuration
+      const totalFrames = 150;
+      const frameBasePath = 'public/v3_frames/frame_';
+
+      // Get elements
+      const videoFrame = document.getElementById('videoFrame');
+      const progressBar = document.getElementById('progressBar');
+
+      // Preload some frames for smoother experience
+      const preloadedFrames = new Map();
+
+      function preloadFrame(frameNumber) {
+        if (!preloadedFrames.has(frameNumber)) {
+          const img = new Image();
+          const paddedNumber = frameNumber.toString().padStart(4, '0');
+          img.src = `${frameBasePath}${paddedNumber}.png`;
+          preloadedFrames.set(frameNumber, img);
+        }
+        return preloadedFrames.get(frameNumber);
+      }
+
+      // Preload first few frames
+      for (let i = 1; i <= Math.min(10, totalFrames); i++) {
+        preloadFrame(i);
+      }
+
+      function updateVideoFrame() {
+        // Calculate scroll progress (0 to 1)
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollProgress = Math.min(scrollTop / scrollHeight, 1);
+
+        // Calculate frame number based on scroll progress
+        const frameNumber = Math.max(1, Math.min(totalFrames, Math.floor(scrollProgress * totalFrames) + 1));
+
+        // Update progress bar
+        progressBar.style.width = `${scrollProgress * 100}%`;
+
+        // Update video frame
+        const paddedNumber = frameNumber.toString().padStart(4, '0');
+        const newSrc = `${frameBasePath}${paddedNumber}.png`;
+
+        if (videoFrame.src !== newSrc) {
+          videoFrame.src = newSrc;
+
+          // Preload next few frames
+          for (let i = 1; i <= 3; i++) {
+            const nextFrame = frameNumber + i;
+            if (nextFrame <= totalFrames) {
+              preloadFrame(nextFrame);
+            }
+          }
+        }
+      }
+
+      // Throttle scroll events for better performance
+      let ticking = false;
+
+      function handleScroll() {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            updateVideoFrame();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }
+
+      // Add scroll event listener
+      window.addEventListener('scroll', handleScroll);
+
+      // Initialize on page load
+      window.addEventListener('load', updateVideoFrame);
+
+      // Handle window resize
+      window.addEventListener('resize', updateVideoFrame);
+    </script>
+  </body>
 </html>
