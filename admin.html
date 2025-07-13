@@ -1,32 +1,78 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Curriculum Admin HQ - RISE STEM</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" type="image/svg+xml" href="/public/logo1.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Curriculum Admin HQ - RISE STEM</title>
   <link href="/src/style.css" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    html { scroll-behavior: smooth; }
+    .form-section-title { color: #4a1d96; font-weight: bold; font-size: 1.5rem; margin-bottom: 1rem; }
+    .admin-form-box { background: #fff; border-radius: 0.75rem; box-shadow: 0 4px 24px rgba(0,0,0,0.06); padding: 2rem; }
+    .admin-form-label { font-weight: 600; color: #4a1d96; }
+    .admin-form-input, .admin-form-select { width: 100%; border: 1px solid #cbd5e1; border-radius: 0.375rem; padding: 0.5rem; margin-bottom: 1rem; font-size: 1rem; }
+    .admin-form-input:focus, .admin-form-select:focus { outline: none; border-color: #4a1d96; }
+    .admin-btn { background: #4a1d96; color: #fff; font-weight: 700; border-radius: 0.375rem; padding: 0.6rem 1.5rem; margin-right: 0.5rem; transition: background 0.2s, transform 0.2s; }
+    .admin-btn:hover { background: #2f0d5a; transform: scale(1.04); }
+    .admin-btn-danger { background: #dc2626; color: #fff; }
+    .admin-btn-danger:hover { background: #9f1c1c; }
+    .admin-section-box { background: #f3f4f6; border-radius: 0.75rem; box-shadow: 0 2px 12px rgba(0,0,0,0.03); padding: 1.5rem; margin-bottom: 2rem; }
+    .admin-day-box { background: #fff; border-radius: 0.5rem; box-shadow: 0 1px 6px rgba(0,0,0,0.04); padding: 1rem; margin-bottom: 1rem; }
+  </style>
 </head>
-<body class="bg-gray-50 min-h-screen w-full">
-  <!-- Header -->
+<body class="bg-gray-50 w-full min-h-screen">
+  <!-- Header/Navigation -->
   <div id="header-container"></div>
   <script type="module" src="/scripts/loadHeader.js"></script>
-
-  <section class="container mx-auto pt-16 px-4">
-    <h1 class="text-4xl font-extrabold text-purple-950 mb-6 text-center">Curriculum Admin HQ</h1>
-    <div class="bg-white p-8 rounded-lg shadow-md mb-8">
-      <div id="admin-curriculum"></div>
-      <button id="add-section-btn" class="mt-6 bg-purple-950 text-white font-bold px-6 py-2 rounded transition hover:scale-105">
-        Add New Section
-      </button>
-      <button id="download-json-btn" class="mt-6 ml-4 bg-green-700 text-white font-bold px-6 py-2 rounded transition hover:scale-105">
-        Download Curriculum JSON
-      </button>
+  <!-- Main Content -->
+  <section class="min-h-screen w-full pt-16">
+    <div class="container mx-auto px-6 flex flex-col lg:flex-row">
+      <!-- Left Side Info -->
+      <div class="-mt-6 w-full lg:w-1/3 hidden lg:block px-12">
+        <div class="bg-purple-950 pt-12 min-h-full text-white px-8 p-6 rounded-lg sticky top-20">
+          <h2 class="text-2xl font-bold mb-6">Admin HQ</h2>
+          <nav class="space-y-4">
+            <div>
+              <span class="block font-semibold text-lg w-full text-left transition-colors duration-300 flex justify-between items-center">
+                Curriculum Editor
+              </span>
+            </div>
+            <div>
+              <span class="block font-semibold text-lg w-full text-left transition-colors duration-300 flex justify-between items-center">
+                Download JSON
+              </span>
+            </div>
+            <div>
+              <span class="block font-semibold text-lg w-full text-left transition-colors duration-300 flex justify-between items-center">
+                Section Management
+              </span>
+            </div>
+          </nav>
+        </div>
+      </div>
+      <!-- Main Form Content -->
+      <div class="w-full lg:w-3/5 py-6">
+        <div class="flex items-center text-lg font-normal mb-8 text-purple-950">
+          <a href="/home" class="hover:underline">Home</a>
+          <span class="mx-4">›</span>
+          <a href="/curriculum" class="hover:underline">Curriculum</a>
+          <span class="mx-4">›</span>
+          <span class="font-bold">Admin HQ</span>
+        </div>
+        <div class="admin-form-box">
+          <h1 class="text-4xl font-extrabold text-purple-950 mb-8 text-center">Curriculum Admin HQ</h1>
+          <div id="admin-curriculum"></div>
+          <div class="flex flex-col md:flex-row gap-4 mt-6 justify-center">
+            <button id="add-section-btn" class="admin-btn">Add New Section</button>
+            <button id="download-json-btn" class="admin-btn bg-green-700 hover:bg-green-800">Download Curriculum JSON</button>
+          </div>
+          <div id="json-preview" class="hidden bg-gray-200 p-4 rounded mt-6"></div>
+        </div>
+      </div>
     </div>
-    <div id="json-preview" class="hidden bg-gray-200 p-4 rounded mt-6"></div>
   </section>
-
   <!-- Footer -->
   <div id="footer-container"></div>
   <script type="module" src="/scripts/loadFooter.js"></script>
