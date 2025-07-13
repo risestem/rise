@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Curriculum Admin HQ - RISE STEM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/public/logo1.svg" />
+  <link href="/src/style.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen w-full">
+  <!-- Header -->
+  <div id="header-container"></div>
+  <script type="module" src="/scripts/loadHeader.js"></script>
+
+  <section class="container mx-auto pt-16 px-4">
+    <h1 class="text-4xl font-extrabold text-purple-950 mb-6 text-center">Curriculum Admin HQ</h1>
+    <div class="bg-white p-8 rounded-lg shadow-md mb-8">
+      <div id="admin-curriculum"></div>
+      <button id="add-section-btn" class="mt-6 bg-purple-950 text-white font-bold px-6 py-2 rounded transition hover:scale-105">
+        Add New Section
+      </button>
+      <button id="download-json-btn" class="mt-6 ml-4 bg-green-700 text-white font-bold px-6 py-2 rounded transition hover:scale-105">
+        Download Curriculum JSON
+      </button>
+    </div>
+    <div id="json-preview" class="hidden bg-gray-200 p-4 rounded mt-6"></div>
+  </section>
+
+  <!-- Footer -->
+  <div id="footer-container"></div>
+  <script type="module" src="/scripts/loadFooter.js"></script>
+  <script src="/scripts/adminHQ.js"></script>
+</body>
+</html>
