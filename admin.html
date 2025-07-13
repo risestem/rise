@@ -8,12 +8,14 @@
   <link href="/src/style.css" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
- <!-- Header -->
-<div id="header-container"></div>
-<script type="module" src="/scripts/loadHeader.js"></script>
-<section class="bg-gray-50 w-full text-gray-800 relative overflow-hidden font-poppins">
-    <!-- Main Content -->
-    <section class="max-w-4xl mx-auto px-6 py-16 pt-32">
+<body class="bg-gray-50 text-gray-800 font-poppins">
+
+  <!-- Header -->
+  <div id="header-container"></div>
+  <script type="module" src="/scripts/loadHeader.js"></script>
+
+  <!-- Main Content -->
+  <section class="max-w-4xl mx-auto px-6 py-16 pt-32">
     <h1 class="text-4xl font-extrabold text-purple-950 mb-6 text-center">Curriculum Admin HQ</h1>
     <div class="bg-white p-8 rounded-lg shadow-md mb-8">
       <div id="admin-curriculum"></div>
@@ -24,12 +26,200 @@
         Download Curriculum JSON
       </button>
     </div>
-    <div id="json-preview" class="hidden bg-gray-200 p-4 rounded mt-6"></div>
+    <div id="json-preview" class="hidden bg-gray-200 p-4 rounded mt-6 whitespace-pre-wrap font-mono text-sm"></div>
   </section>
 
   <!-- Footer -->
   <div id="footer-container"></div>
   <script type="module" src="/scripts/loadFooter.js"></script>
-  <script src="/scripts/adminHQ.js"></script>
-</section>
+
+  <!-- Admin HQ Logic -->
+  <script>
+    let curriculum = {
+      sections: [
+        {
+          id: "coding",
+          name: "Coding",
+          days: [
+            { id: "day1", title: "Day 1 - Python Intro", pdf: "", ppt: "" }
+          ]
+        },
+        {
+          id: "engineering",
+          name: "Engineering",
+          days: [
+            { id: "day1", title: "Day 1 - Intro to Engineering", pdf: "", ppt: "" }
+          ]
+        }
+      ]
+    };
+
+    const adminDiv = document.getElementById('admin-curriculum');
+    const addSectionBtn = document.getElementById('add-section-btn');
+    const downloadJsonBtn = document.getElementById('download-json-btn');
+    const jsonPreview = document.getElementById('json-preview');
+
+    function uniqueId(prefix) {
+      return prefix + Math.random().toString(36).substr(2, 6);
+    }
+
+    function renderCurriculum() {
+      adminDiv.innerHTML = '';
+      curriculum.sections.forEach((section, sectionIdx) => {
+        const sectionPanel = document.createElement('div');
+        sectionPanel.className = `mb-8 border rounded-lg p-6 bg-gray-50 shadow`;
+
+        sectionPanel.innerHTML = `
+          <div class="flex flex-col md:flex-row md:items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <input type="text" value="${section.name}"
+                class="section-name bg-white border border-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-600 rounded px-2 py-1 font-bold text-purple-950 text-xl w-48"
+                data-section="${sectionIdx}" />
+            </div>
+            <button class="delete-section-btn text-red-600 hover:bg-red-100 px-3 py-1 rounded transition" data-section="${sectionIdx}">
+              Delete Section
+            </button>
+          </div>
+          <h2 class="text-lg font-semibold mb-4 text-purple-900">${section.name} Curriculum Days</h2>
+          <div class="days-list mb-4"></div>
+          <button class="add-day-btn bg-purple-950 text-white px-4 py-1 rounded font-bold transition hover:scale-105" data-section="${sectionIdx}">
+            Add New Day
+          </button>
+        `;
+
+        const daysList = sectionPanel.querySelector('.days-list');
+        section.days.forEach((day, dayIdx) => {
+          const dayDiv = document.createElement('div');
+          dayDiv.className = "mb-3 p-4 rounded border bg-white shadow-sm";
+          dayDiv.innerHTML = `
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-2 mb-2">
+              <input type="text" value="${day.title}"
+                class="day-title bg-white border border-purple-300 focus:outline-none focus:ring-2 focus:ring-purple-600 rounded px-2 py-1 w-full font-medium text-purple-900"
+                data-section="${sectionIdx}" data-day="${dayIdx}" />
+              <button class="delete-day-btn text-red-600 hover:bg-red-100 px-3 py-1 rounded transition" data-section="${sectionIdx}" data-day="${dayIdx}">
+                Delete Day
+              </button>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <label class="block text-gray-600">PDF Link:
+                <input type="text" value="${day.pdf}" class="day-pdf bg-white border border-gray-300 rounded px-2 py-1 w-full focus:outline-none focus:ring-2 focus:ring-purple-600" data-section="${sectionIdx}" data-day="${dayIdx}" />
+              </label>
+              <label class="block text-gray-600">PPT Link:
+                <input type="text" value="${day.ppt}" class="day-ppt bg-white border border-gray-300 rounded px-2 py-1 w-full focus:outline-none focus:ring-2 focus:ring-purple-600" data-section="${sectionIdx}" data-day="${dayIdx}" />
+              </label>
+            </div>
+          `;
+          daysList.appendChild(dayDiv);
+        });
+
+        adminDiv.appendChild(sectionPanel);
+      });
+
+      addListeners();
+    }
+
+    function addListeners() {
+      document.querySelectorAll('.section-name').forEach(input => {
+        input.addEventListener('input', function () {
+          const idx = this.dataset.section;
+          curriculum.sections[idx].name = this.value;
+        });
+        input.addEventListener('blur', renderCurriculum);
+        input.addEventListener('keypress', function (e) {
+          if (e.key === 'Enter') {
+            e.preventDefault();
+            this.blur();
+          }
+        });
+      });
+
+      document.querySelectorAll('.delete-section-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+          const idx = this.dataset.section;
+          if (confirm('Delete this section and all its days?')) {
+            curriculum.sections.splice(idx, 1);
+            renderCurriculum();
+          }
+        });
+      });
+
+      document.querySelectorAll('.add-day-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+          const idx = this.dataset.section;
+          curriculum.sections[idx].days.push({
+            id: uniqueId('day'),
+            title: `Day ${curriculum.sections[idx].days.length + 1}`,
+            pdf: "",
+            ppt: ""
+          });
+          renderCurriculum();
+        });
+      });
+
+      document.querySelectorAll('.day-title').forEach(input => {
+        input.addEventListener('input', function () {
+          const sIdx = this.dataset.section;
+          const dIdx = this.dataset.day;
+          curriculum.sections[sIdx].days[dIdx].title = this.value;
+        });
+      });
+
+      document.querySelectorAll('.day-pdf').forEach(input => {
+        input.addEventListener('input', function () {
+          const sIdx = this.dataset.section;
+          const dIdx = this.dataset.day;
+          curriculum.sections[sIdx].days[dIdx].pdf = this.value;
+        });
+      });
+
+      document.querySelectorAll('.day-ppt').forEach(input => {
+        input.addEventListener('input', function () {
+          const sIdx = this.dataset.section;
+          const dIdx = this.dataset.day;
+          curriculum.sections[sIdx].days[dIdx].ppt = this.value;
+        });
+      });
+
+      document.querySelectorAll('.delete-day-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+          const sIdx = this.dataset.section;
+          const dIdx = this.dataset.day;
+          if (confirm('Delete this day?')) {
+            curriculum.sections[sIdx].days.splice(dIdx, 1);
+            renderCurriculum();
+          }
+        });
+      });
+    }
+
+    addSectionBtn.addEventListener('click', () => {
+      const sectionName = prompt('Section name (e.g. Coding, Engineering, Science):');
+      if (!sectionName) return;
+      curriculum.sections.push({
+        id: uniqueId('section'),
+        name: sectionName,
+        days: []
+      });
+      renderCurriculum();
+    });
+
+    downloadJsonBtn.addEventListener('click', () => {
+      const jsonStr = JSON.stringify(curriculum, null, 2);
+      jsonPreview.classList.remove('hidden');
+      jsonPreview.textContent = jsonStr;
+
+      const blob = new Blob([jsonStr], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "curriculum.json";
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+    });
+
+    renderCurriculum();
+  </script>
+</body>
 </html>
