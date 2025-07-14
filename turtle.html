@@ -18,6 +18,19 @@
         scroll-behavior: smooth;
       }
 
+      body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .main-content {
+        flex: 1;
+        padding-bottom: 2rem;
+      }
+
       .scroll-video-container {
         position: fixed;
         top: 50%;
@@ -39,9 +52,24 @@
       }
 
       .content-section {
-        min-height: 100vh;
-        padding: 80px 60px;
+        padding: 40px 60px;
         max-width: 600px;
+        margin-bottom: 2rem;
+      }
+
+      .content-section h1,
+      .content-section h2 {
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+      }
+
+      .content-section p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+
+      .content-section p:last-child {
+        margin-bottom: 0;
       }
 
       .progress-bar {
@@ -62,8 +90,21 @@
         }
 
         .content-section {
-          padding: 60px 30px;
+          padding: 30px 30px;
           max-width: calc(100% - 320px);
+        }
+      }
+
+      @media (max-width: 640px) {
+        .scroll-video-container {
+          width: 240px;
+          height: 180px;
+          right: 10px;
+        }
+
+        .content-section {
+          padding: 20px 20px;
+          max-width: calc(100% - 260px);
         }
       }
     </style>
@@ -87,22 +128,22 @@
     </div>
 
     <!-- Main Content -->
-    <div class="min-h-screen pt-20">
+    <div class="main-content pt-20">
       <!-- Section 1 -->
       <section class="content-section">
-        <div class="bg-white fadeInUp-animation p-8 rounded-2xl border border-gray-300 shadow-md">
-          <h1 class="text-4xl font-bold text-purple-950 mb-6">Welcome to RISE STEM</h1>
-          <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+        <div class="fadeInUp-animation">
+          <h1 class="text-4xl font-bold text-purple-950">Welcome to RISE STEM</h1>
+          <p class="text-lg text-gray-700">
             As you scroll through this page, watch our interactive animation play alongside our story.
             This demonstrates how technology can create engaging educational experiences that inspire
             young minds to explore STEM fields.
           </p>
-          <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+          <p class="text-lg text-gray-700">
             At RISE STEM, we believe in making science, technology, engineering, and mathematics
             accessible and exciting for all students. Our innovative approach combines hands-on
             learning with cutting-edge technology to create memorable educational experiences.
           </p>
-          <p class="text-lg text-gray-600 leading-relaxed">
+          <p class="text-lg text-gray-700">
             Through our programs, workshops, and community initiatives, we're building the next
             generation of innovators, problem-solvers, and leaders who will shape our future.
           </p>
@@ -111,19 +152,19 @@
 
       <!-- Section 2 -->
       <section class="content-section">
-        <div class="bg-white fadeInUp-animation p-8 rounded-2xl border border-gray-300 shadow-md">
-          <h2 class="text-3xl font-bold text-purple-950 mb-6">Our Educational Innovation</h2>
-          <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+        <div class="fadeInUp-animation">
+          <h2 class="text-3xl font-bold text-purple-950">Our Educational Innovation</h2>
+          <p class="text-lg text-gray-700">
             The animation continues to play as we explore our innovative teaching methods. Each frame
             represents our commitment to creating engaging, technology-enhanced learning experiences
             that make STEM subjects come alive for students.
           </p>
-          <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+          <p class="text-lg text-gray-700">
             Our curriculum integrates real-world applications with fundamental concepts, ensuring
             students not only learn the theory but also understand how STEM principles apply to
             solving actual challenges in their communities and beyond.
           </p>
-          <p class="text-lg text-gray-600 leading-relaxed">
+          <p class="text-lg text-gray-700">
             From robotics and coding to environmental science and engineering design, we provide
             comprehensive programs that nurture curiosity and develop critical thinking skills
             essential for success in the 21st century.
@@ -133,19 +174,19 @@
 
       <!-- Section 3 -->
       <section class="content-section">
-        <div class="bg-white fadeInUp-animation p-8 rounded-2xl border border-gray-300 shadow-md">
-          <h2 class="text-3xl font-bold text-purple-950 mb-6">Student Discovery & Growth</h2>
-          <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+        <div class="fadeInUp-animation">
+          <h2 class="text-3xl font-bold text-purple-950">Student Discovery & Growth</h2>
+          <p class="text-lg text-gray-700">
             As we reach the heart of our mission, the animation reveals the transformative
             journey our students experience. Through hands-on projects and collaborative
             learning, students discover their potential and develop confidence in STEM fields.
           </p>
-          <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+          <p class="text-lg text-gray-700">
             Our students work on real projects that matter to their communities, from designing
             sustainable solutions to environmental challenges to creating apps that solve
             everyday problems. This practical approach ensures learning is both meaningful and memorable.
           </p>
-          <p class="text-lg text-gray-600 leading-relaxed">
+          <p class="text-lg text-gray-700">
             We celebrate every breakthrough moment, from a student's first successful code
             compilation to their innovative engineering design. These victories, big and small,
             build the foundation for lifelong learning and achievement.
@@ -155,19 +196,19 @@
 
       <!-- Section 4 -->
       <section class="content-section">
-        <div class="bg-white fadeInUp-animation p-8 rounded-2xl border border-gray-300 shadow-md">
-          <h2 class="text-3xl font-bold text-purple-950 mb-6">Community Impact & Transformation</h2>
-          <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+        <div class="fadeInUp-animation">
+          <h2 class="text-3xl font-bold text-purple-950">Community Impact & Transformation</h2>
+          <p class="text-lg text-gray-700">
             The transformation continues as our students become leaders in their communities.
             Each scroll through our story represents the ripple effect of quality STEM education,
             creating positive change that extends far beyond the classroom.
           </p>
-          <p class="text-lg text-gray-600 mb-6 leading-relaxed">
+          <p class="text-lg text-gray-700">
             Our alumni go on to pursue careers in technology, engineering, medicine, and research,
             but more importantly, they carry with them the problem-solving mindset and innovative
             thinking that RISE STEM has helped cultivate.
           </p>
-          <p class="text-lg text-gray-600 leading-relaxed">
+          <p class="text-lg text-gray-700">
             Through partnerships with local schools, community organizations, and industry leaders,
             we're building a network of support that ensures every student has access to quality
             STEM education and the opportunity to reach their full potential.
@@ -176,21 +217,22 @@
       </section>
 
       <!-- Section 5 -->
-      <section class="content-section bg-gray-50">
-        <h2 class="text-3xl font-bold text-gray-800 mb-6">Chapter Five: Conclusion</h2>
-        <p class="text-lg text-gray-600 mb-6 leading-relaxed">
-          As we reach the end of our scroll journey, the video animation completes its
-          sequence, bringing our story full circle with a satisfying conclusion.
-        </p>
-        <p class="text-lg text-gray-600 mb-6 leading-relaxed">
-          Excepturi sint occaecati cupiditate non provident, similique sunt in culpa
-          qui officia deserunt mollitia animi, id est laborum et dolorum fuga.
-        </p>
-        <p class="text-lg text-gray-600 leading-relaxed">
-          Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore,
-          cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod
-          maxime placeat facere possimus.
-        </p>
+      <section class="content-section">
+        <div class="fadeInUp-animation">
+          <h2 class="text-3xl font-bold text-purple-950">Looking Forward</h2>
+          <p class="text-lg text-gray-700">
+            As we reach the end of our scroll journey, the video animation completes its
+            sequence, bringing our story full circle with a satisfying conclusion.
+          </p>
+          <p class="text-lg text-gray-700">
+            The future of STEM education is bright, and we're excited to continue pushing
+            the boundaries of what's possible when innovative teaching meets passionate learning.
+          </p>
+          <p class="text-lg text-gray-700">
+            Join us in this mission to inspire, educate, and empower the next generation
+            of STEM leaders who will tackle tomorrow's greatest challenges.
+          </p>
+        </div>
       </section>
     </div>
 
