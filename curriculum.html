@@ -8,30 +8,21 @@
   <link href="/src/style.css" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    html {
-      scroll-behavior: smooth;
-    }
-    .section-content {
-      display: none;
-    }
-    .section-content.active {
-      display: block;
-    }
-    .tab-button.active {
-      background-color: #4a1d96;
-      color: white;
-    }
+    html { scroll-behavior: smooth; }
+    .section-content { display: none; }
+    .section-content.active { display: block; }
+    .tab-button.active { background-color: #4a1d96; color: white; }
   </style>
 </head>
 <body>
 <!-- Header/Navigation -->
 <div id="header-container"></div>
 <script type="module" src="/scripts/loadHeader.js"></script>
+
 <!-- Main content -->
 <section class="min-h-screen bg-gray-50 w-full pt-16">
   <!-- Hero Banner -->
   <div class="w-full h-[60vh] bg-[url('/public/number_of_kids_doing_reaction.jpeg')] bg-cover bg-[center_70%] bg-no-repeat flex items-center justify-center relative">
-    <!-- Gradient Overlay -->
     <div class="absolute inset-0 bg-black opacity-50"></div>
     <div class="flex flex-col text-center items-center justify-center px-6 sm:px-16 md:px-32 z-10">
       <h1 class="mt-16 text-3xl font-extrabold text-white md:text-4xl xl:text-5xl justify-center">
@@ -40,40 +31,13 @@
     </div>
   </div>
 
-  <!-- Curriculum Content Section -->
   <section class="bg-white">
     <div class="container mx-auto px-6 flex flex-col lg:flex-row">
-      <!-- Left Side Navigation -->
-      <div class="-mt-6 w-full lg:w-1/3 hidden lg:block px-12">
-        <div class="bg-purple-950 pt-12 min-h-full text-white px-8 p-6 rounded-lg sticky top-20">
-          <h2 class="text-2xl font-bold mb-6">In This Section</h2>
-          <nav class="space-y-4">
-            <button id="nav-coding-btn" class="block font-semibold text-lg w-full text-left transition-colors duration-300 hover:text-gray-300 flex justify-between items-center">
-              Coding
-              <span id="coding-icon">+</span>
-            </button>
-            <nav id="coding-subnav" class="space-y-2 pl-4 hidden">
-              <a href="#coding-day1" class="block text-md text-white hover:text-gray-300 transition-colors duration-300">Day 1 - Python Intro</a>
-              <a href="#coding-day2" class="block text-md text-white hover:text-gray-300 transition-colors duration-300">Day 2 - Python Intro Cont.</a>
-              <a href="#coding-day3" class="block text-md text-white hover:text-gray-300 transition-colors duration-300">Day 3 - Pygame Intro</a>
-              <a href="#coding-day4" class="block text-md text-white hover:text-gray-300 transition-colors duration-300">Day 4 - Pygame Project</a>
-            </nav>
-            <button id="nav-engineering-btn" class="block font-semibold text-lg w-full text-left transition-colors duration-300 hover:text-gray-300 flex justify-between items-center">
-              Engineering
-              <span id="engineering-icon">+</span>
-            </button>
-            <nav id="engineering-subnav" class="space-y-2 pl-4 hidden">
-              <a href="#engineering-day1" class="block text-md text-white hover:text-gray-300 transition-colors duration-300">Day 1 - Intro to Engineering</a>
-              <a href="#engineering-day2" class="block text-md text-white hover:text-gray-300 transition-colors duration-300">Day 2 - Civil Engineering</a>
-              <a href="#engineering-day3" class="block text-md text-white hover:text-gray-300 transition-colors duration-300">Day 3 - Mechanical Engineering</a>
-              <a href="#engineering-day4" class="block text-md text-white hover:text-gray-300 transition-colors duration-300">Day 4 - Aerospace Engineering</a>
-              <a href="#engineering-day5" class="block text-md text-white hover:text-gray-300 transition-colors duration-300">Day 5 - Chemical Engineering</a>
-            </nav>
-          </nav>
-        </div>
-      </div>
 
-  <!-- Main Content -->
+      <!-- Left Side Navigation -->
+      <div id="curriculum-nav" class="-mt-6 w-full lg:w-1/3 hidden lg:block px-12"></div>
+
+      <!-- Main Content -->
       <div class="w-full lg:w-3/5 py-6">
         <!-- Breadcrumb Navigation -->
         <div class="flex items-center text-lg font-normal mb-8 text-purple-950">
@@ -85,362 +49,19 @@
         </div>
 
         <!-- Section Tabs (Mobile & Tablet) -->
-        <div class="flex mb-6 lg:hidden">
-          <button id="coding-tab" class="hidden tab-button flex-1 py-3 px-4 font-bold text-center rounded-tl-lg rounded-bl-lg border border-purple-950">Coding</button>
-          <button id="engineering-tab" class="hidden tab-button flex-1 py-3 px-4 font-bold text-center rounded-tr-lg rounded-br-lg border border-purple-950">Engineering</button>
-        </div>
+        <div id="curriculum-tabs" class="flex mb-6 lg:hidden"></div>
 
-        <!-- Add this after the tab buttons but before the coding content -->
+        <!-- Welcome -->
         <div id="welcome-content" class="section-content active">
           <h1 class="text-3xl md:text-5xl font-extrabold text-purple-950 mb-8">Curriculum</h1>
           <p class="text-lg mb-12 text-gray-500">
             Welcome to the Rise Engineering & Coding curriculum page. Please select a subject from the tabs above to explore our curriculum materials.
           </p>
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div class="border p-6 rounded-lg shadow-md bg-white flex flex-col z-30 h-full">
-              <h2 class="text-2xl font-bold text-purple-950 mb-4">Coding</h2>
-              <p class="text-gray-500 mb-4">
-                Our Python coding curriculum introduces students to programming concepts through interactive lessons and Pygame projects.
-              </p>
-              <div class="flex-grow"></div>
-              <button id="view-coding-btn" class="mt-4 px-6 py-2 bg-purple-950 text-white rounded-md transform transition-all duration-300 hover:scale-110">
-                View Curriculum
-              </button>
-            </div>
-            <div class="border p-6 rounded-lg shadow-md bg-white flex flex-col z-30 h-full">
-              <h2 class="text-2xl font-bold text-purple-950 mb-4">Engineering</h2>
-              <p class="text-gray-500 mb-4">
-                Explore various engineering disciplines through hands-on projects and engaging activities.
-              </p>
-              <div class="flex-grow"></div>
-              <button id="view-engineering-btn" class="mt-4 px-6 py-2 bg-purple-950 text-white rounded-md  transform transition-all duration-300 hover:scale-110">
-                View Curriculum
-              </button>
-            </div>
-          </div>
+          <div id="welcome-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
         </div>
 
-        <!-- Coding Content -->
-        <div id="coding-content" class="section-content">
-          <!-- Subject Header -->
-          <h1 class="text-3xl md:text-5xl font-extrabold text-purple-950 mb-8">Coding Curriculum</h1>
-
-          <!-- Subject Leader Info -->
-          <p class="text-lg mb-12 text-gray-500">
-            Our curriculum is intended to introduce students to the Python coding language through the free Pygame library. Pygame is a set of Python modules designed for writing games. Our goal is to inspire a passion for computer science through fun and engaging lessons.
-          </p>
-
-          <!-- Subject Accordion -->
-          <div class="space-y-4">
-            <!-- Day 1 -->
-            <div id="coding-day1" class="border bg-gray-200 rounded">
-              <button class="accordion-btn flex justify-between items-center w-full p-4 text-left text-purple-950 font-bold text-xl focus:outline-none">
-                Day 1 - Python Intro
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </button>
-              <div class="accordion-content hidden p-4 bg-white">
-                <!-- Embed PDF -->
-                <iframe src="https://docs.google.com/document/d/1eICUvEQ3_uHh-qA_6q5cnUWxjsJNSMX6p_n61pH70Tw/preview" class="w-full h-screen" frameborder="0"></iframe>
-
-                <!-- Download Boxes -->
-                <div class="mt-6 border border-gray-300 rounded-lg">
-                  <!-- File 1 -->
-                  <div class="flex items-center justify-between p-4 border-b border-gray-300">
-                    <span class="text-lg text-gray-500">Python Introduction Curriculum.pdf</span>
-                    <a href="https://docs.google.com/document/d/1eICUvEQ3_uHh-qA_6q5cnUWxjsJNSMX6p_n61pH70Tw/export?format=pdf" target="_blank">
-                      <button class="px-6 py-2 bg-white border border-gray-300 text-gray-500 rounded-lg hover:bg-gray-100 transition">
-                        Download
-                      </button>
-                    </a>
-                  </div>
-                  <!-- Divider -->
-                  <div class="border-t-1 border-gray-300"></div>
-                  <!-- File 2 -->
-                  <div class="flex items-center justify-between p-4">
-                    <span class="text-lg text-gray-500">Python Introduction Slideshow.pptx</span>
-                    <a href="/public/Day 1 & 2 - PythonBasics.pptx" download>
-                      <button class="px-6 py-2 bg-white border border-gray-300 text-gray-500 rounded-lg hover:bg-gray-100 transition">
-                        Download
-                      </button>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Day 2 -->
-            <div id="coding-day2" class="border bg-gray-200 rounded">
-              <button class="accordion-btn flex justify-between items-center w-full p-4 text-left text-purple-950 font-bold text-xl focus:outline-none">
-                Day 2 - Python Intro Continued
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </button>
-              <div class="accordion-content hidden p-4 bg-white">
-                <!-- Embed PDF -->
-                <iframe src="https://docs.google.com/document/d/1eICUvEQ3_uHh-qA_6q5cnUWxjsJNSMX6p_n61pH70Tw/edit?tab=t.0" class="w-full h-screen" frameborder="0"></iframe>
-
-                <!-- Download Boxes -->
-                <div class="mt-6 border border-gray-300 rounded-lg">
-                  <!-- File 1 -->
-                  <div class="flex items-center justify-between p-4 border-b border-gray-300">
-                    <span class="text-lg text-gray-500">Python Introduction Curriculum.pdf</span>
-                    <a href="https://docs.google.com/document/d/1eICUvEQ3_uHh-qA_6q5cnUWxjsJNSMX6p_n61pH70Tw/edit?tab=t.0" download>
-                      <button class="px-6 py-2 bg-white border border-gray-300 text-gray-500 rounded-lg hover:bg-gray-100 transition">
-                        Download
-                      </button>
-                    </a>
-                  </div>
-                  <!-- Divider -->
-                  <div class="border-t-1 border-gray-300"></div>
-                  <!-- File 2 -->
-                  <div class="flex items-center justify-between p-4">
-                    <span class="text-lg text-gray-500">Python Introduction Slideshow.pptx</span>
-                    <a href="/public/Day 1 & 2 - PythonBasics.pptx" download>
-                      <button class="px-6 py-2 bg-white border border-gray-300 text-gray-500 rounded-lg hover:bg-gray-100 transition">
-                        Download
-                      </button>
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-
-            </div>
-
-            <!-- Day 3 -->
-            <div id="coding-day3" class="border bg-gray-200 rounded">
-              <button class="accordion-btn flex justify-between items-center w-full p-4 text-left text-purple-950 font-bold text-xl focus:outline-none">
-                Day 3 - Pygame Intro
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </button>
-              <div class="accordion-content hidden p-4 bg-white text-gray-500">
-                <p>Coming Soon...</p>
-              </div>
-            </div>
-
-            <!-- Day 4 -->
-            <div id="coding-day4" class="border bg-gray-200 rounded">
-              <button class="accordion-btn flex justify-between items-center w-full p-4 text-left text-purple-950 font-bold text-xl focus:outline-none">
-                Day 4 - Pygame Project
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </button>
-              <div class="accordion-content hidden p-4 bg-white text-gray-500">
-                <p>Coming Soon...</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Engineering Content -->
-        <div id="engineering-content" class="section-content">
-          <!-- Subject Header -->
-          <h1 class="text-3xl md:text-5xl font-extrabold text-purple-950 mb-8">Engineering Curriculum</h1>
-
-          <!-- Subject Leader Info -->
-          <p class="text-lg mb-12 text-gray-500">
-            Our curriculum is intended to introduce students to the field of engineering. By exploring 4 different types of engineering, students will be exposed to what engineers do, how to solve real-world problems, and will engage in projects that represent their learning.
-          </p>
-
-          <!-- Subject Accordion -->
-          <div class="space-y-4">
-            <!-- Day 1 -->
-            <div id="engineering-day1" class="border bg-gray-200 rounded">
-              <button class="accordion-btn flex justify-between items-center w-full p-4 text-left text-purple-950 font-bold text-xl focus:outline-none">
-                Day 1 - Intro to Engineering
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </button>
-              <div class="accordion-content hidden p-4 bg-white">
-                <!-- Embed PDF -->
-                <iframe src="https://docs.google.com/document/d/1gVn1aoMOBSc5j0_stWED7c68lUs0BK0VcI1UEeoVduc/preview" class="w-full h-screen" frameborder="0"></iframe>
-
-                <!-- Download Boxes -->
-                <div class="mt-6 border border-gray-300 rounded-lg">
-                  <!-- File 1 -->
-                  <div class="flex items-center justify-between p-4 border-b border-gray-300">
-                    <span class="text-lg text-gray-500">Intro to Engineering Curriculum.pdf</span>
-                    <a href="https://docs.google.com/document/d/1gVn1aoMOBSc5j0_stWED7c68lUs0BK0VcI1UEeoVduc/edit?tab=t.0" download>
-                      <button class="px-6 py-2 bg-white border border-gray-300 text-gray-500 rounded-lg hover:bg-gray-100 transition">
-                        Download
-                      </button>
-                    </a>
-                  </div>
-                  <!-- Divider -->
-                  <div class="border-t-1 border-gray-300"></div>
-                  <!-- File 2 -->
-                  <div class="flex items-center justify-between p-4">
-                    <span class="text-lg text-gray-500">Intro to Engineering.pptx</span>
-                    <a href="/public/Day 1 Intro to Engineering NEW.pptx" download>
-                      <button class="px-6 py-2 bg-white border border-gray-300 text-gray-500 rounded-lg hover:bg-gray-100 transition">
-                        Download
-                      </button>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Day 2 -->
-            <div id="engineering-day2" class="border bg-gray-200 rounded">
-              <button class="accordion-btn flex justify-between items-center w-full p-4 text-left text-purple-950 font-bold text-xl focus:outline-none">
-                Day 2 - Civil Engineering
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </button>
-              <div class="accordion-content hidden p-4 bg-white">
-                <!-- Embed PDF -->
-                <iframe src="https://docs.google.com/document/d/1tId-KipEvLHqdEocHJ2NZF5NrRw6hnrtoDCGs8cWSYo/preview" class="w-full h-screen" frameborder="0"></iframe>
-
-                <!-- Download Boxes -->
-                <div class="mt-6 border border-gray-300 rounded-lg">
-                  <!-- File 1 -->
-                  <div class="flex items-center justify-between p-4 border-b border-gray-300">
-                    <span class="text-lg text-gray-500">Civil Engineering Curriculum.pdf</span>
-                    <a href="https://docs.google.com/document/d/1tId-KipEvLHqdEocHJ2NZF5NrRw6hnrtoDCGs8cWSYo/edit?tab=t.0" download>
-                      <button class="px-6 py-2 bg-white border border-gray-300 text-gray-500 rounded-lg hover:bg-gray-100 transition">
-                        Download
-                      </button>
-                    </a>
-                  </div>
-                  <!-- Divider -->
-                  <div class="border-t-1 border-gray-300"></div>
-                  <!-- File 2 -->
-                  <div class="flex items-center justify-between p-4">
-                    <span class="text-lg text-gray-500">Civil Engineering.pptx</span>
-                    <a href="/public/Day 2 - Civil Engineering.pptx" download>
-                      <button class="px-6 py-2 bg-white border border-gray-300 text-gray-500 rounded-lg hover:bg-gray-100 transition">
-                        Download
-                      </button>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Day 3 -->
-            <div id="engineering-day3" class="border bg-gray-200 rounded">
-              <button class="accordion-btn flex justify-between items-center w-full p-4 text-left text-purple-950 font-bold text-xl focus:outline-none">
-                Day 3 - Mechanical Engineering
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </button>
-              <div class="accordion-content hidden p-4 bg-white">
-                <!-- Embed PDF -->
-                <iframe src="https://docs.google.com/document/d/1XRu8wik5itG_2wc8RV6ahZ4KE3w-_XMLBG7gW09en3U/preview" class="w-full h-screen" frameborder="0"></iframe>
-
-                <!-- Download Boxes -->
-                <div class="mt-6 border border-gray-300 rounded-lg">
-                  <!-- File 1 -->
-                  <div class="flex items-center justify-between p-4 border-b border-gray-300">
-                    <span class="text-lg text-gray-500">Mechanical Engineering Curriculum.pdf</span>
-                    <a href="https://docs.google.com/document/d/1XRu8wik5itG_2wc8RV6ahZ4KE3w-_XMLBG7gW09en3U/edit?tab=t.0" download>
-                      <button class="px-6 py-2 bg-white border border-gray-300 text-gray-500 rounded-lg hover:bg-gray-100 transition">
-                        Download
-                      </button>
-                    </a>
-                  </div>
-                  <!-- Divider -->
-                  <div class="border-t-1 border-gray-300"></div>
-                  <!-- File 2 -->
-                  <div class="flex items-center justify-between p-4">
-                    <span class="text-lg text-gray-500">Mechanical Engineering.pptx</span>
-                    <a href="/public/Day 3 - Mechanical Engineering UPDATED.pptx" download>
-                      <button class="px-6 py-2 bg-white border border-gray-300 text-gray-500 rounded-lg hover:bg-gray-100 transition">
-                        Download
-                      </button>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Day 4 -->
-            <div id="engineering-day4" class="border bg-gray-200 rounded">
-              <button class="accordion-btn flex justify-between items-center w-full p-4 text-left text-purple-950 font-bold text-xl focus:outline-none">
-                Day 4 - Aerospace Engineering
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </button>
-              <div class="accordion-content hidden p-4 bg-white">
-                <!-- Embed PDF -->
-                <iframe src="https://docs.google.com/document/d/1J8YV2hZV7vMqBmkNN0ybtWt7ZWusKSc5mnzZ_GNtg2M/preview" class="w-full h-screen" frameborder="0"></iframe>
-
-                <!-- Download Boxes -->
-                <div class="mt-6 border border-gray-300 rounded-lg">
-                  <!-- File 1 -->
-                  <div class="flex items-center justify-between p-4 border-b border-gray-300">
-                    <span class="text-lg text-gray-500">Aerospace Engineering Curriculum.pdf</span>
-                    <a href="https://docs.google.com/document/d/1J8YV2hZV7vMqBmkNN0ybtWt7ZWusKSc5mnzZ_GNtg2M/edit?tab=t.0" download>
-                      <button class="px-6 py-2 bg-white border border-gray-300 text-gray-500 rounded-lg hover:bg-gray-100 transition">
-                        Download
-                      </button>
-                    </a>
-                  </div>
-                  <!-- Divider -->
-                  <div class="border-t-1 border-gray-300"></div>
-                  <!-- File 2 -->
-                  <div class="flex items-center justify-between p-4">
-                    <span class="text-lg text-gray-500">Aerospace Engineering.pptx</span>
-                    <a href="/public/Day 4 - Aerospace Engineering.pptx" download>
-                      <button class="px-6 py-2 bg-white border border-gray-300 text-gray-500 rounded-lg hover:bg-gray-100 transition">
-                        Download
-                      </button>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Day 5 -->
-            <div id="engineering-day5" class="border bg-gray-200 rounded">
-              <button class="accordion-btn flex justify-between items-center w-full p-4 text-left text-purple-950 font-bold text-xl focus:outline-none">
-                Day 5 - Chemical Engineering
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                </svg>
-              </button>
-              <div class="accordion-content hidden p-4 bg-white">
-                <!-- Embed PDF -->
-                <iframe src="https://docs.google.com/document/d/1YPgboiWMLOaYQVKC-DLHOvFJIoDDvbyTKDUh0LsZr78/preview" class="w-full h-screen" frameborder="0"></iframe>
-
-                <!-- Download Boxes -->
-                <div class="mt-6 border border-gray-300 rounded-lg">
-                  <!-- File 1 -->
-                  <div class="flex items-center justify-between p-4 border-b border-gray-300">
-                    <span class="text-lg text-gray-500">Chemical Engineering Curriculum.pdf</span>
-                    <a href="https://docs.google.com/document/d/1YPgboiWMLOaYQVKC-DLHOvFJIoDDvbyTKDUh0LsZr78/edit?tab=t.0" download>
-                      <button class="px-6 py-2 bg-white border border-gray-300 text-gray-500 rounded-lg hover:bg-gray-100 transition">
-                        Download
-                      </button>
-                    </a>
-                  </div>
-                  <!-- Divider -->
-                  <div class="border-t-1 border-gray-300"></div>
-                  <!-- File 2 -->
-                  <div class="flex items-center justify-between p-4">
-                    <span class="text-lg text-gray-500">Chemical Engineering (Google Slides)</span>
-                    <a href="https://docs.google.com/presentation/d/1ToIvs1hwWYi81sRUmIrROCD6LMepWft9BvXW_DGTyls/edit?slide=id.g155242cd9ab_0_28622#slide=id.g155242cd9ab_0_28622">
-                      <button class="px-6 py-2 bg-white border border-gray-300 text-gray-500 rounded-lg hover:bg-gray-100 transition">
-                        Download
-                      </button>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <!-- Dynamic curriculum content will be injected here -->
+        <div id="curriculum-sections"></div>
       </div>
     </div>
   </section>
@@ -450,281 +71,190 @@
   <script type="module" src="/scripts/loadFooter.js"></script>
 </section>
 
-<!-- Contact Modal (hidden by default) -->
-<div id="contact-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
-  <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-8 relative">
-    <button id="close-contact-modal" class="absolute top-2 right-2 text-gray-400 hover:text-purple-700 text-2xl font-bold">&times;</button>
-    <h3 class="text-3xl font-extrabold text-purple-950 mb-4 text-center">Contact Us</h3>
-    <form action="https://formspree.io/f/xwpvqjel" method="POST" class="space-y-4">
-      <div>
-        <label for="modal-email" class="block text-sm font-medium text-gray-700">Email</label>
-        <input type="email" name="email" id="modal-email" required class="w-full px-4 py-2 border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-black" placeholder="Enter your email" />
-      </div>
-      <div>
-        <label for="modal-message" class="block text-sm font-medium text-gray-700">Message</label>
-        <textarea name="message" id="modal-message" required rows="4" class="w-full px-4 py-2 border bg-white border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 text-black" placeholder="Enter your message"></textarea>
-      </div>
-      <div class="flex justify-center">
-        <button type="submit" class="w-full px-4 py-2 font-bold bg-purple-950 text-white rounded-md transition-all duration-200">Send</button>
-      </div>
-    </form>
-  </div>
-</div>
-
-<!-- JavaScript -->
 <script>
-  // === DEBUGGING START ===
-  function logDebug(msg, ...args) {
-    console.log('[DEBUG]', msg, ...args);
-  }
+async function loadCurriculum() {
+  const res = await fetch('/curriculum.json');
+  if (!res.ok) return null;
+  return await res.json();
+}
 
-  function logError(msg, ...args) {
-    console.error('[ERROR]', msg, ...args);
-  }
+function createNav(sections) {
+  const nav = document.createElement('div');
+  nav.className = "bg-purple-950 pt-12 min-h-full text-white px-8 p-6 rounded-lg sticky top-20";
+  nav.innerHTML = '<h2 class="text-2xl font-bold mb-6">In This Section</h2>';
+  const navList = document.createElement('nav');
+  navList.className = "space-y-4";
+  sections.forEach(section => {
+    const btnId = `nav-${section.id}-btn`;
+    const subnavId = `${section.id}-subnav`;
+    const iconId = `${section.id}-icon`;
+    const btn = document.createElement('button');
+    btn.id = btnId;
+    btn.className = "block font-semibold text-lg w-full text-left transition-colors duration-300 hover:text-gray-300 flex justify-between items-center";
+    btn.innerHTML = `${section.name} <span id="${iconId}">+</span>`;
 
-  logDebug('Script loaded and running.');
-
-  // === Main Elements
-  const welcomeContent = document.getElementById('welcome-content');
-  const viewCodingBtn = document.getElementById('view-coding-btn');
-  const viewEngineeringBtn = document.getElementById('view-engineering-btn');
-  const breadcrumbSeparator = document.getElementById('breadcrumb-separator');
-  const currentSection = document.getElementById('current-section');
-  logDebug('Main elements:', {
-    welcomeContent, viewCodingBtn, viewEngineeringBtn, breadcrumbSeparator, currentSection
-  });
-
-  // Mobile navigation toggle
-  try {
-    const hamburgerBtn = document.getElementById("hamburger-btn");
-    hamburgerBtn.addEventListener("click", function() {
-      logDebug('Hamburger menu clicked.');
-      const navbar = document.getElementById("navbar-sticky");
-      const isExpanded = this.getAttribute("aria-expanded") === "true";
-      logDebug('Navbar state before toggle:', {isExpanded, navbar});
-      navbar.classList.toggle("hidden", isExpanded);
-      this.setAttribute("aria-expanded", !isExpanded);
-      logDebug('Navbar state after toggle:', {navbarHidden: navbar.classList.contains('hidden')});
+    const subnav = document.createElement('nav');
+    subnav.id = subnavId;
+    subnav.className = "space-y-2 pl-4 hidden";
+    section.days.forEach(day => {
+      const a = document.createElement('a');
+      a.href = `#${section.id}-day${day.id.replace('day', '')}`;
+      a.className = "block text-md text-white hover:text-gray-300 transition-colors duration-300";
+      a.textContent = day.title;
+      subnav.appendChild(a);
     });
-  } catch (e) {
-    logError('Error setting up hamburger menu:', e);
-  }
+    navList.appendChild(btn);
+    navList.appendChild(subnav);
+  });
+  nav.appendChild(navList);
+  return nav;
+}
 
-  // Accordion functionality
+function createTabs(sections) {
+  const tabs = document.createElement('div');
+  tabs.className = "flex mb-6 lg:hidden";
+  sections.forEach((section, i) => {
+    const tab = document.createElement('button');
+    tab.id = `${section.id}-tab`;
+    tab.className = `tab-button flex-1 py-3 px-4 font-bold text-center rounded border border-purple-950${i===0?' active':''}`;
+    tab.textContent = section.name;
+    tabs.appendChild(tab);
+  });
+  return tabs;
+}
+
+function createWelcomeGrid(sections) {
+  const grid = document.createElement('div');
+  grid.className = "grid grid-cols-1 md:grid-cols-2 gap-8";
+  sections.forEach(section => {
+    const card = document.createElement('div');
+    card.className = "border p-6 rounded-lg shadow-md bg-white flex flex-col z-30 h-full";
+    card.innerHTML = `
+      <h2 class="text-2xl font-bold text-purple-950 mb-4">${section.name}</h2>
+      <p class="text-gray-500 mb-4">
+        ${section.id === 'coding'
+          ? 'Our Python coding curriculum introduces students to programming concepts through interactive lessons and Pygame projects.'
+          : 'Explore various engineering disciplines through hands-on projects and engaging activities.'}
+      </p>
+      <div class="flex-grow"></div>
+      <button id="view-${section.id}-btn" class="mt-4 px-6 py-2 bg-purple-950 text-white rounded-md transform transition-all duration-300 hover:scale-110">
+        View Curriculum
+      </button>
+    `;
+    grid.appendChild(card);
+  });
+  return grid;
+}
+
+function createSectionContent(sections) {
+  const container = document.createElement('div');
+  sections.forEach((section, i) => {
+    const secDiv = document.createElement('div');
+    secDiv.id = `${section.id}-content`;
+    secDiv.className = `section-content${i === 0 ? ' active' : ''}`;
+    secDiv.innerHTML = `
+      <h1 class="text-3xl md:text-5xl font-extrabold text-purple-950 mb-8">${section.name} Curriculum</h1>
+      <p class="text-lg mb-12 text-gray-500">
+        ${section.id === 'coding'
+          ? 'Our curriculum is intended to introduce students to the Python coding language through the free Pygame library. Pygame is a set of Python modules designed for writing games. Our goal is to inspire a passion for computer science through fun and engaging lessons.'
+          : 'Our curriculum is intended to introduce students to the field of engineering. By exploring different types of engineering, students will be exposed to what engineers do, how to solve real-world problems, and will engage in projects that represent their learning.'}
+      </p>
+      <div class="space-y-4">
+        ${section.days.map(day => `
+          <div id="${section.id}-day${day.id.replace('day', '')}" class="border bg-gray-200 rounded">
+            <button class="accordion-btn flex justify-between items-center w-full p-4 text-left text-purple-950 font-bold text-xl focus:outline-none">
+              ${day.title}
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+            </button>
+            <div class="accordion-content hidden p-4 bg-white">
+              ${day.pdf ? `<iframe src="${day.pdf}" class="w-full h-screen" frameborder="0"></iframe>` : `<p>Coming Soon...</p>`}
+              ${(day.pdf || day.ppt) ? `
+              <div class="mt-6 border border-gray-300 rounded-lg">
+                ${day.pdf ? `
+                <div class="flex items-center justify-between p-4 border-b border-gray-300">
+                  <span class="text-lg text-gray-500">${day.title} Curriculum.pdf</span>
+                  <a href="${day.pdf}" target="_blank"><button class="px-6 py-2 bg-white border border-gray-300 text-gray-500 rounded-lg hover:bg-gray-100 transition">Download</button></a>
+                </div>` : ''}
+                ${day.ppt ? `
+                <div class="flex items-center justify-between p-4">
+                  <span class="text-lg text-gray-500">${day.title} Slideshow.pptx</span>
+                  <a href="${day.ppt}" download><button class="px-6 py-2 bg-white border border-gray-300 text-gray-500 rounded-lg hover:bg-gray-100 transition">Download</button></a>
+                </div>` : ''}
+              </div>
+              ` : ''}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+    container.appendChild(secDiv);
+  });
+  return container;
+}
+
+// Main loader
+loadCurriculum().then(curriculum => {
+  if (!curriculum) return;
+
+  // Navigation (sidebar)
+  document.getElementById('curriculum-nav').appendChild(createNav(curriculum.sections));
+
+  // Tabs (mobile/tablet)
+  document.getElementById('curriculum-tabs').appendChild(createTabs(curriculum.sections));
+
+  // Welcome grid
+  document.getElementById('welcome-grid').replaceWith(createWelcomeGrid(curriculum.sections));
+
+  // Section content
+  document.getElementById('curriculum-sections').replaceWith(createSectionContent(curriculum.sections));
+
+  // Accordion JS
   document.querySelectorAll('.accordion-btn').forEach(button => {
     button.addEventListener('click', () => {
-      logDebug('Accordion button clicked:', button);
       const content = button.nextElementSibling;
       content.classList.toggle('hidden');
-      logDebug('Accordion content toggled:', content, 'Hidden:', content.classList.contains('hidden'));
-
-      // Change arrow direction
       const svg = button.querySelector('svg');
-      if (content.classList.contains('hidden')) {
-        svg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>';
-      } else {
-        svg.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>';
-      }
+      svg.innerHTML = content.classList.contains('hidden')
+        ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>'
+        : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7"></path>';
     });
   });
 
-  // Section toggling (mobile/tablet)
-  const codingTab = document.getElementById('coding-tab');
-  const engineeringTab = document.getElementById('engineering-tab');
-  const codingContent = document.getElementById('coding-content');
-  const engineeringContent = document.getElementById('engineering-content');
-  logDebug('Tab elements:', {codingTab, engineeringTab, codingContent, engineeringContent});
-
-  if (codingTab) {
-    codingTab.addEventListener('click', () => {
-      logDebug('Coding tab clicked.');
-      codingTab.classList.add('active');
-      engineeringTab.classList.remove('active');
-      codingContent.classList.add('active');
-      engineeringContent.classList.remove('active');
-      welcomeContent.classList.remove('active');
-      breadcrumbSeparator.classList.remove('hidden');
-      currentSection.classList.remove('hidden');
-      currentSection.textContent = 'Coding';
-
-      // Automatically expand coding subnav and collapse engineering subnav
-      document.getElementById("coding-subnav").classList.remove("hidden");
-      document.getElementById("engineering-subnav").classList.add("hidden");
-      document.getElementById("coding-icon").textContent = "-";
-      document.getElementById("engineering-icon").textContent = "+";
-    });
-  } else {
-    logError('codingTab not found in DOM!');
-  }
-
-  if (engineeringTab) {
-    engineeringTab.addEventListener('click', () => {
-      logDebug('Engineering tab clicked.');
-      engineeringTab.classList.add('active');
-      codingTab.classList.remove('active');
-      engineeringContent.classList.add('active');
-      codingContent.classList.remove('active');
-      welcomeContent.classList.remove('active');
-      breadcrumbSeparator.classList.remove('hidden');
-      currentSection.classList.remove('hidden');
-      currentSection.textContent = 'Engineering';
-
-      // Automatically expand engineering subnav and collapse coding subnav
-      document.getElementById("engineering-subnav").classList.remove("hidden");
-      document.getElementById("coding-subnav").classList.add("hidden");
-      document.getElementById("engineering-icon").textContent = "-";
-      document.getElementById("coding-icon").textContent = "+";
-    });
-  } else {
-    logError('engineeringTab not found in DOM!');
-  }
-
-  if (viewCodingBtn) {
-    viewCodingBtn.addEventListener('click', () => {
-      logDebug('View Coding Curriculum button clicked.');
-      if (codingTab) {
-        logDebug('Triggering codingTab.click()');
-        codingTab.click();
-      } else {
-        logError('codingTab is null, cannot trigger click.');
-      }
-    });
-  } else {
-    logError('viewCodingBtn not found in DOM!');
-  }
-
-  if (viewEngineeringBtn) {
-    viewEngineeringBtn.addEventListener('click', () => {
-      logDebug('View Engineering Curriculum button clicked.');
-      if (engineeringTab) {
-        logDebug('Triggering engineeringTab.click()');
-        engineeringTab.click();
-      } else {
-        logError('engineeringTab is null, cannot trigger click.');
-      }
-    });
-  } else {
-    logError('viewEngineeringBtn not found in DOM!');
-  }
-
-  // Sidebar navigation (desktop)
-  const navCodingBtn = document.getElementById('nav-coding-btn');
-  const navEngineeringBtn = document.getElementById('nav-engineering-btn');
-  const btn = document.getElementById('coding-subnav');
-  const btn2 = document.getElementById('engineering-subnav');
-
-  logDebug('Sidebar elements:', {navCodingBtn, navEngineeringBtn, btn, btn2});
-
-  if (navCodingBtn) {
-    navCodingBtn.addEventListener('click', () => {
-      logDebug('Sidebar Coding nav button clicked.');
-      document.getElementById("coding-subnav").classList.toggle("hidden");
-
-      const codingIcon = document.getElementById("coding-icon");
-      const engineeringIcon = document.getElementById("engineering-icon");
-
-      codingIcon.textContent = codingIcon.textContent === "+" ? "-" : "+";
-
-      // Also update mobile/tablet tabs for consistency
-      if (codingTab) codingTab.classList.toggle('active');
-    });
-  }
-
-  if (btn) {
-    btn.addEventListener('click', () => {
-      logDebug('Sidebar Coding subnav clicked.');
-      codingContent.classList.add('active');
-      engineeringContent.classList.remove('active');
-      welcomeContent.classList.remove('active');
-      currentSection.textContent = 'Coding';
-    });
-  }
-
-  if (navEngineeringBtn) {
-    navEngineeringBtn.addEventListener('click', () => {
-      logDebug('Sidebar Engineering nav button clicked.');
-      document.getElementById("engineering-subnav").classList.toggle("hidden");
-
-      const codingIcon = document.getElementById("coding-icon");
-      const engineeringIcon = document.getElementById("engineering-icon");
-
-      engineeringIcon.textContent = engineeringIcon.textContent === "+" ? "-" : "+";
-
-      // Also update mobile/tablet tabs for consistency
-      if (codingTab) codingTab.classList.toggle('active');
-      if (engineeringTab) engineeringTab.classList.toggle('active');
-    });
-  }
-
-  if (btn2) {
-    btn2.addEventListener('click', () => {
-      logDebug('Sidebar Engineering subnav clicked.');
-      engineeringContent.classList.add('active');
-      codingContent.classList.remove('active');
-      welcomeContent.classList.remove('active');
-      currentSection.textContent = 'Engineering';
-    });
-  }
-
-  // Also update the mobile/tablet tab buttons to control the subnavs
-  if (codingTab) {
-    codingTab.addEventListener('click', () => {
-      logDebug('Coding tab (redundant handler) clicked.');
-      codingTab.classList.add('active');
-      engineeringTab.classList.remove('active');
-      codingContent.classList.add('active');
-      engineeringContent.classList.remove('active');
-      welcomeContent.classList.remove('active');
-      breadcrumbSeparator.classList.remove('hidden');
-      currentSection.classList.remove('hidden');
-      currentSection.textContent = 'Coding';
-    });
-  }
-
-  if (engineeringTab) {
-    engineeringTab.addEventListener('click', () => {
-      logDebug('Engineering tab (redundant handler) clicked.');
-      engineeringTab.classList.add('active');
-      codingTab.classList.remove('active');
-      engineeringContent.classList.add('active');
-      codingContent.classList.remove('active');
-      welcomeContent.classList.remove('active');
-      breadcrumbSeparator.classList.remove('hidden');
-      currentSection.classList.remove('hidden');
-      currentSection.textContent = 'Engineering';
-    });
-  }
-
-  function setupContactModal() {
-  const contactModal = document.getElementById('contact-modal');
-  const closeContactBtn = document.getElementById('close-contact-modal');
-
-  // Find all "Contact Us" buttons/links in header
-  const openContactBtns = Array.from(document.querySelectorAll('button, a')).filter(
-    el => el.textContent && el.textContent.trim().toLowerCase() === "contact us"
-  );
-
-  openContactBtns.forEach(btn => {
-    btn.addEventListener('click', function(e) {
-      e.preventDefault();
-      if (contactModal) contactModal.classList.remove('hidden');
-    });
+  // Tab and nav logic
+  curriculum.sections.forEach((section, i) => {
+    // Tabs
+    const tab = document.getElementById(`${section.id}-tab`);
+    if (tab) {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab-button').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        document.querySelectorAll('.section-content').forEach(sec => sec.classList.remove('active'));
+        document.getElementById(`${section.id}-content`).classList.add('active');
+        document.getElementById('welcome-content').classList.remove('active');
+        document.getElementById('breadcrumb-separator').classList.remove('hidden');
+        document.getElementById('current-section').classList.remove('hidden');
+        document.getElementById('current-section').textContent = section.name;
+      });
+    }
+    // Welcome buttons
+    const viewBtn = document.getElementById(`view-${section.id}-btn`);
+    if (viewBtn) {
+      viewBtn.addEventListener('click', () => {
+        if (tab) tab.click();
+      });
+    }
+    // Sidebar nav
+    const navBtn = document.getElementById(`nav-${section.id}-btn`);
+    const subnav = document.getElementById(`${section.id}-subnav`);
+    const icon = document.getElementById(`${section.id}-icon`);
+    if (navBtn && subnav && icon) {
+      navBtn.addEventListener('click', () => {
+        subnav.classList.toggle('hidden');
+        icon.textContent = icon.textContent === '+' ? '-' : '+';
+      });
+    }
   });
-
-  if (closeContactBtn) {
-    closeContactBtn.addEventListener('click', function() {
-      contactModal.classList.add('hidden');
-    });
-  }
-
-  if (contactModal) {
-    contactModal.addEventListener('click', function(e) {
-      if (e.target === contactModal) {
-        contactModal.classList.add('hidden');
-      }
-    });
-  }
-}
+});
 </script>
 </body>
 </html>
