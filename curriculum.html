@@ -151,7 +151,7 @@ function createSectionContent(sections) {
   sections.forEach((section, i) => {
     const secDiv = document.createElement('div');
     secDiv.id = `${section.id}-content`;
-    secDiv.className = `section-content${i === 0 ? ' active' : ''}`;
+    secDiv.className = `section-content`;
     secDiv.innerHTML = `
       <h1 class="text-3xl md:text-5xl font-extrabold text-purple-950 mb-8">${section.name} Curriculum</h1>
       <p class="text-lg mb-12 text-gray-500">
@@ -229,8 +229,8 @@ loadCurriculum().then(curriculum => {
         document.querySelectorAll('.tab-button').forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
         document.querySelectorAll('.section-content').forEach(sec => sec.classList.remove('active'));
-        document.getElementById(`${section.id}-content`).classList.add('active');
         document.getElementById('welcome-content').classList.remove('active');
+        document.getElementById(`${section.id}-content`).classList.add('active');
         document.getElementById('breadcrumb-separator').classList.remove('hidden');
         document.getElementById('current-section').classList.remove('hidden');
         document.getElementById('current-section').textContent = section.name;
