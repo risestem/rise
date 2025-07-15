@@ -61,7 +61,7 @@
         </div>
 
         <!-- Dynamic curriculum content will be injected here -->
-        <div id="curriculum-sections"></div>
+        <div id="curriculum-sections bg-gray-50"></div>
       </div>
     </div>
   </section>
@@ -128,13 +128,15 @@ function createWelcomeGrid(sections) {
   grid.className = "grid grid-cols-1 md:grid-cols-2 gap-8";
   sections.forEach(section => {
     const card = document.createElement('div');
-    card.className = "border p-6 rounded-lg shadow-md bg-white flex flex-col z-30 h-full";
+    card.className = "border p-6 rounded-lg shadow-md bg-gray-50 flex flex-col z-30 h-full";
     card.innerHTML = `
       <h2 class="text-2xl font-bold text-purple-950 mb-4">${section.name}</h2>
       <p class="text-gray-500 mb-4">
-        ${section.id === 'coding'
+        ${section.welcome_description || (
+          section.id === 'coding'
           ? 'Our Python coding curriculum introduces students to programming concepts through interactive lessons and Pygame projects.'
-          : 'Explore various engineering disciplines through hands-on projects and engaging activities.'}
+          : 'Explore various engineering disciplines through hands-on projects and engaging activities.'
+        )}
       </p>
       <div class="flex-grow"></div>
       <button id="view-${section.id}-btn" class="mt-4 px-6 py-2 bg-purple-950 text-white rounded-md transform transition-all duration-300 hover:scale-110">
@@ -153,11 +155,13 @@ function createSectionContent(sections) {
     secDiv.id = `${section.id}-content`;
     secDiv.className = `section-content`;
     secDiv.innerHTML = `
-      <h1 class="text-3xl md:text-5xl font-extrabold text-purple-950 mb-8">${section.name} Curriculum</h1>
+      <h1 class="text-3xl md:text-5xl font-extrabold bg-gray-50 text-purple-950 mb-8">${section.name} Curriculum</h1>
       <p class="text-lg mb-12 text-gray-500">
-        ${section.id === 'coding'
+        ${section.description || (
+          section.id === 'coding'
           ? 'Our curriculum is intended to introduce students to the Python coding language through the free Pygame library. Pygame is a set of Python modules designed for writing games. Our goal is to inspire a passion for computer science through fun and engaging lessons.'
-          : 'Our curriculum is intended to introduce students to the field of engineering. By exploring different types of engineering, students will be exposed to what engineers do, how to solve real-world problems, and will engage in projects that represent their learning.'}
+          : 'Our curriculum is intended to introduce students to the field of engineering. By exploring different types of engineering, students will be exposed to what engineers do, how to solve real-world problems, and will engage in projects that represent their learning.'
+        )}
       </p>
       <div class="space-y-4">
         ${section.days.map(day => `
@@ -167,6 +171,7 @@ function createSectionContent(sections) {
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
             </button>
             <div class="accordion-content hidden p-4 bg-white">
+              ${day.description ? `<p class="mb-4 text-gray-500">${day.description}</p>` : ''}
               ${day.pdf ? `<iframe src="${day.pdf}" class="w-full h-screen" frameborder="0"></iframe>` : `<p>Coming Soon...</p>`}
               ${(day.pdf || day.ppt) ? `
               <div class="mt-6 border border-gray-300 rounded-lg">
