@@ -1,0 +1,70 @@
+{
+  "sections": [
+    {
+      "id": "coding",
+      "name": "Coding",
+      "days": [
+        {
+          "id": "day1",
+          "title": "Day 1 - Python Intro",
+          "pdf": "https://docs.google.com/document/d/1eICUvEQ3_uHh-qA_6q5cnUWxjsJNSMX6p_n61pH70Tw/preview",
+          "ppt": "/public/Day 1 & 2 - PythonBasics.pptx"
+        },
+        {
+          "id": "day2",
+          "title": "Day 2 - Python Intro Continued",
+          "pdf": "https://docs.google.com/document/d/1eICUvEQ3_uHh-qA_6q5cnUWxjsJNSMX6p_n61pH70Tw/edit?tab=t.0",
+          "ppt": "/public/Day 1 & 2 - PythonBasics.pptx"
+        },
+        {
+          "id": "day3",
+          "title": "Day 3 - Pygame Intro",
+          "pdf": "",
+          "ppt": ""
+        },
+        {
+          "id": "day4",
+          "title": "Day 4 - Pygame Project",
+          "pdf": "",
+          "ppt": ""
+        }
+      ]
+    },
+    {
+      "id": "engineering",
+      "name": "Engineering",
+      "days": [
+        {
+          "id": "day1",
+          "title": "Day 1 - Intro to Engineering",
+          "pdf": "https://docs.google.com/document/d/1gVn1aoMOBSc5j0_stWED7c68lUs0BK0VcI1UEeoVduc/preview",
+          "ppt": "/public/Day 1 Intro to Engineering NEW.pptx"
+        },
+        {
+          "id": "day2",
+          "title": "Day 2 - Civil Engineering",
+          "pdf": "https://docs.google.com/document/d/1tId-KipEvLHqdEocHJ2NZF5NrRw6hnrtoDCGs8cWSYo/preview",
+          "ppt": "/public/Day 2 - Civil Engineering.pptx"
+        },
+        {
+          "id": "day3",
+          "title": "Day 3 - Mechanical Engineering",
+          "pdf": "https://docs.google.com/document/d/1XRu8wik5itG_2wc8RV6ahZ4KE3w-_XMLBG7gW09en3U/preview",
+          "ppt": "/public/Day 3 - Mechanical Engineering UPDATED.pptx"
+        },
+        {
+          "id": "day4",
+          "title": "Day 4 - Aerospace Engineering",
+          "pdf": "https://docs.google.com/document/d/1J8YV2hZV7vMqBmkNN0ybtWt7ZWusKSc5mnzZ_GNtg2M/preview",
+          "ppt": "/public/Day 4 - Aerospace Engineering.pptx"
+        },
+        {
+          "id": "day5",
+          "title": "Day 5 - Chemical Engineering",
+          "pdf": "https://docs.google.com/document/d/1YPgboiWMLOaYQVKC-DLHOvFJIoDDvbyTKDUh0LsZr78/preview",
+          "ppt": "https://docs.google.com/presentation/d/1ToIvs1hwWYi81sRUmIrROCD6LMepWft9BvXW_DGTyls/edit?slide=id.g155242cd9ab_0_28622#slide=id.g155242cd9ab_0_28622"
+        }
+      ]
+    }
+  ]
+}
