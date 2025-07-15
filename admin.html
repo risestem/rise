@@ -104,7 +104,9 @@
               Delete Section
             </button>
           </div>
-          <label class="block text-gray-600 mb-2 font-semibold">Section Description:</label>
+          <label class="block text-gray-600 mb-2 font-semibold">Welcome Description:</label>
+          <textarea class="welcome-description bg-white border border-gray-300 rounded px-2 py-1 w-full focus:outline-none focus:ring-2 focus:ring-purple-600 mb-4" rows="2" data-section="${sectionIdx}">${section.welcome_description || ''}</textarea>
+          <label class="block text-gray-600 mb-2 font-semibold">Detailed Description:</label>
           <textarea class="section-description bg-white border border-gray-300 rounded px-2 py-1 w-full focus:outline-none focus:ring-2 focus:ring-purple-600 mb-4" rows="2" data-section="${sectionIdx}">${section.description || ''}</textarea>
           <h2 class="text-lg font-semibold mb-4 text-purple-900">${section.name} Curriculum Days</h2>
           <div class="days-list mb-4"></div>
@@ -157,6 +159,14 @@
             this.blur();
           }
         });
+      });
+
+      document.querySelectorAll('.welcome-description').forEach(textarea => {
+        textarea.addEventListener('input', function () {
+          const idx = this.dataset.section;
+          curriculum.sections[idx].welcome_description = this.value;
+        });
+        textarea.addEventListener('blur', renderCurriculum);
       });
 
       document.querySelectorAll('.section-description').forEach(textarea => {
@@ -235,6 +245,7 @@
       curriculum.sections.push({
         id: uniqueId('section'),
         name: sectionName,
+        welcome_description: "",
         description: "",
         days: []
       });
