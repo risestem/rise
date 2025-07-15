@@ -27,12 +27,6 @@
           "title": "Day 4 - Pygame Project",
           "pdf": "",
           "ppt": ""
-        },
-        {
-          "id": "daywb4fsu",
-          "title": "Day 5 - TEST DAY",
-          "pdf": "",
-          "ppt": ""
         }
       ]
     },
@@ -69,6 +63,19 @@
           "title": "Day 5 - Chemical Engineering",
           "pdf": "https://docs.google.com/document/d/1YPgboiWMLOaYQVKC-DLHOvFJIoDDvbyTKDUh0LsZr78/preview",
           "ppt": "https://docs.google.com/presentation/d/1ToIvs1hwWYi81sRUmIrROCD6LMepWft9BvXW_DGTyls/edit?slide=id.g155242cd9ab_0_28622#slide=id.g155242cd9ab_0_28622"
+        }
+      ]
+    },
+    {
+      "id": "sectionzujj41",
+      "name": "Test",
+      "description": "This is a test section",
+      "days": [
+        {
+          "id": "dayf5x9ex",
+          "title": "Day 1 - Test",
+          "pdf": "",
+          "ppt": ""
         }
       ]
     }
