@@ -61,7 +61,7 @@
         </div>
 
         <!-- Dynamic curriculum content will be injected here -->
-        <div id="curriculum-sections bg-gray-50"></div>
+        <div id="curriculum-sections"></div>
       </div>
     </div>
   </section>
@@ -73,9 +73,14 @@
 
 <script>
 async function loadCurriculum() {
-  const res = await fetch('/curriculum.json');
-  if (!res.ok) return null;
-  return await res.json();
+  try {
+    const res = await fetch('/curriculum.json');
+    if (!res.ok) throw new Error('Could not load curriculum.json');
+    return await res.json();
+  } catch (e) {
+    console.error('Error loading curriculum.json:', e);
+    return null;
+  }
 }
 
 function createNav(sections) {
@@ -113,10 +118,10 @@ function createNav(sections) {
 function createTabs(sections) {
   const tabs = document.createElement('div');
   tabs.className = "flex mb-6 lg:hidden";
-  sections.forEach((section, i) => {
+  sections.forEach((section) => {
     const tab = document.createElement('button');
     tab.id = `${section.id}-tab`;
-    tab.className = `tab-button flex-1 py-3 px-4 font-bold text-center rounded border border-purple-950${i===0?' active':''}`;
+    tab.className = `tab-button flex-1 py-3 px-4 font-bold text-center rounded border border-purple-950`;
     tab.textContent = section.name;
     tabs.appendChild(tab);
   });
@@ -150,7 +155,7 @@ function createWelcomeGrid(sections) {
 
 function createSectionContent(sections) {
   const container = document.createElement('div');
-  sections.forEach((section, i) => {
+  sections.forEach((section) => {
     const secDiv = document.createElement('div');
     secDiv.id = `${section.id}-content`;
     secDiv.className = `section-content`;
@@ -171,7 +176,6 @@ function createSectionContent(sections) {
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
             </button>
             <div class="accordion-content hidden p-4 bg-white">
-              ${day.description ? `<p class="mb-4 text-gray-500">${day.description}</p>` : ''}
               ${day.pdf ? `<iframe src="${day.pdf}" class="w-full h-screen" frameborder="0"></iframe>` : `<p>Coming Soon...</p>`}
               ${(day.pdf || day.ppt) ? `
               <div class="mt-6 border border-gray-300 rounded-lg">
@@ -199,7 +203,10 @@ function createSectionContent(sections) {
 
 // Main loader
 loadCurriculum().then(curriculum => {
-  if (!curriculum) return;
+  if (!curriculum || !curriculum.sections || !Array.isArray(curriculum.sections)) {
+    document.getElementById('welcome-content').innerHTML += `<div class="mt-12 text-center text-red-600">Failed to load curriculum. Please check curriculum.json.</div>`;
+    return;
+  }
 
   // Navigation (sidebar)
   document.getElementById('curriculum-nav').appendChild(createNav(curriculum.sections));
@@ -208,10 +215,14 @@ loadCurriculum().then(curriculum => {
   document.getElementById('curriculum-tabs').appendChild(createTabs(curriculum.sections));
 
   // Welcome grid
-  document.getElementById('welcome-grid').replaceWith(createWelcomeGrid(curriculum.sections));
+  const welcomeGrid = createWelcomeGrid(curriculum.sections);
+  const oldGrid = document.getElementById('welcome-grid');
+  if (oldGrid) oldGrid.replaceWith(welcomeGrid);
 
   // Section content
-  document.getElementById('curriculum-sections').replaceWith(createSectionContent(curriculum.sections));
+  const curriculumSections = createSectionContent(curriculum.sections);
+  const oldSections = document.getElementById('curriculum-sections');
+  if (oldSections) oldSections.replaceWith(curriculumSections);
 
   // Accordion JS
   document.querySelectorAll('.accordion-btn').forEach(button => {
@@ -226,7 +237,7 @@ loadCurriculum().then(curriculum => {
   });
 
   // Tab and nav logic
-  curriculum.sections.forEach((section, i) => {
+  curriculum.sections.forEach((section) => {
     // Tabs
     const tab = document.getElementById(`${section.id}-tab`);
     if (tab) {
