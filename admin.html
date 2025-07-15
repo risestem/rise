@@ -22,6 +22,20 @@
     <section class="flex flex-col mx-auto justify-center max-w-4xl">
       <h1 class="text-4xl font-extrabold text-purple-950 mb-6 text-center">Curriculum Admin HQ</h1>
       <div class="bg-white p-8 rounded-lg shadow-md mb-8">
+        <div class="mb-4">
+          <label class="block font-semibold text-purple-900 mb-2" for="github-token">GitHub Token (repo scope):</label>
+          <input type="password" id="github-token" class="bg-white border border-purple-300 rounded px-2 py-1 w-full text-purple-950" placeholder="ghp_..." autocomplete="off">
+          <div class="text-xs text-gray-500 mt-1">Your token is only used locally, never sent to a server.</div>
+        </div>
+        <div class="mb-4 flex gap-2">
+          <button id="load-github-btn" class="bg-blue-700 text-white font-bold px-4 py-2 rounded transition hover:scale-105">
+            Load Curriculum from GitHub
+          </button>
+          <button id="push-github-btn" class="bg-green-700 text-white font-bold px-4 py-2 rounded transition hover:scale-105">
+            Push Curriculum to GitHub
+          </button>
+        </div>
+        <div id="github-status" class="mb-4 text-sm"></div>
         <div id="admin-curriculum"></div>
         <button id="add-section-btn" class="mt-6 bg-purple-950 text-white font-bold px-6 py-2 rounded transition hover:scale-105">
           Add New Section
@@ -39,6 +53,13 @@
 
   <!-- Admin HQ Logic -->
   <script>
+    // ---- SETTINGS ----
+    // Change these for your repo!
+    const GITHUB_OWNER = 'risestem'; // e.g. "braydenwatt"
+    const GITHUB_REPO = 'rise';  // e.g. "rise-stem-curriculum"
+    const GITHUB_FILE_PATH = 'curriculum.json'; // e.g. "curriculum.json" or "data/curriculum.json"
+    // ------------------
+
     let curriculum = {
       sections: [
         {
@@ -62,6 +83,10 @@
     const addSectionBtn = document.getElementById('add-section-btn');
     const downloadJsonBtn = document.getElementById('download-json-btn');
     const jsonPreview = document.getElementById('json-preview');
+    const githubTokenInput = document.getElementById('github-token');
+    const loadGithubBtn = document.getElementById('load-github-btn');
+    const pushGithubBtn = document.getElementById('push-github-btn');
+    const githubStatus = document.getElementById('github-status');
 
     function uniqueId(prefix) {
       return prefix + Math.random().toString(36).substr(2, 6);
@@ -221,6 +246,88 @@
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
+    });
+
+    // --------- GITHUB INTEGRATION ---------
+
+    // Helper: Get Token
+    function getGithubToken() {
+      return githubTokenInput.value.trim();
+    }
+
+    // Helper: Set Status
+    function setStatus(msg, type='info') {
+      githubStatus.textContent = msg;
+      githubStatus.className = 'mb-4 text-sm ' + (type === 'error' ? 'text-red-700' : 'text-green-700');
+    }
+
+    // Load curriculum.json from GitHub
+    loadGithubBtn.addEventListener('click', async () => {
+      const token = getGithubToken();
+      if (!token) {
+        setStatus('Please enter your GitHub token.', 'error');
+        return;
+      }
+      setStatus('Loading curriculum.json from GitHub...');
+      try {
+        const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FILE_PATH}`;
+        const res = await fetch(url, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (!res.ok) throw new Error('GitHub API error: ' + res.status);
+        const data = await res.json();
+        if (!data.content) throw new Error('No file content found.');
+        const jsonStr = atob(data.content.replace(/\n/g, ''));
+        curriculum = JSON.parse(jsonStr);
+        renderCurriculum();
+        setStatus('Loaded curriculum.json from GitHub!', 'success');
+      } catch (err) {
+        setStatus('Error loading from GitHub: ' + err.message, 'error');
+      }
+    });
+
+    // Push curriculum.json to GitHub (create/update file)
+    pushGithubBtn.addEventListener('click', async () => {
+      const token = getGithubToken();
+      if (!token) {
+        setStatus('Please enter your GitHub token.', 'error');
+        return;
+      }
+      setStatus('Preparing to push curriculum.json to GitHub...');
+      try {
+        // 1. Get file SHA if file exists
+        let sha = undefined;
+        const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FILE_PATH}`;
+        const getRes = await fetch(url, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+        if (getRes.ok) {
+          const fileData = await getRes.json();
+          sha = fileData.sha;
+        }
+
+        // 2. PUT updated file
+        const jsonStr = JSON.stringify(curriculum, null, 2);
+        const contentB64 = btoa(unescape(encodeURIComponent(jsonStr)));
+        const body = {
+          message: "Update curriculum.json via Admin HQ",
+          content: contentB64,
+        };
+        if (sha) body.sha = sha;
+
+        const putRes = await fetch(url, {
+          method: 'PUT',
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body)
+        });
+        if (!putRes.ok) throw new Error('Failed to push. GitHub API: ' + putRes.status);
+        setStatus('Successfully pushed curriculum.json to GitHub!', 'success');
+      } catch (err) {
+        setStatus('Error pushing to GitHub: ' + err.message, 'error');
+      }
     });
 
     renderCurriculum();
