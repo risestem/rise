@@ -24,7 +24,7 @@
       <div class="bg-white p-8 rounded-lg shadow-md mb-8">
         <div class="mb-4">
           <label class="block font-semibold text-purple-900 mb-2" for="github-token">GitHub Token (repo scope):</label>
-          <input type="password" id="github-token" class="bg-white border border-purple-300 rounded px-2 py-1 w-full text-purple-950" placeholder="ghp_..." autocomplete="off">
+          <input type="password" id="github-token" class="bg-white border border-purple-300 rounded px-2 py-1 w-full text-purple-950" placeholder="github_pat_..." autocomplete="off">
           <div class="text-xs text-gray-500 mt-1">Your token is only used locally, never sent to a server.</div>
         </div>
         <div class="mb-4 flex gap-2">
@@ -54,30 +54,13 @@
   <!-- Admin HQ Logic -->
   <script>
     // ---- SETTINGS ----
-    // Change these for your repo!
-    const GITHUB_OWNER = 'risestem'; // e.g. "braydenwatt"
-    const GITHUB_REPO = 'rise';  // e.g. "rise-stem-curriculum"
-    const GITHUB_FILE_PATH = 'curriculum.json'; // e.g. "curriculum.json" or "data/curriculum.json"
+    const GITHUB_OWNER = 'risestem';
+    const GITHUB_REPO = 'rise';
+    const GITHUB_FILE_PATH = 'curriculum.json';
     // ------------------
 
-    let curriculum = {
-      sections: [
-        {
-          id: "coding",
-          name: "Coding",
-          days: [
-            { id: "day1", title: "Day 1 - Python Intro", pdf: "", ppt: "" }
-          ]
-        },
-        {
-          id: "engineering",
-          name: "Engineering",
-          days: [
-            { id: "day1", title: "Day 1 - Intro to Engineering", pdf: "", ppt: "" }
-          ]
-        }
-      ]
-    };
+    let curriculum = null; // Initially null, until loaded or created
+    let curriculumLoadedFromGithub = false;
 
     const adminDiv = document.getElementById('admin-curriculum');
     const addSectionBtn = document.getElementById('add-section-btn');
@@ -94,6 +77,18 @@
 
     function renderCurriculum() {
       adminDiv.innerHTML = '';
+
+      if (!curriculum) {
+        adminDiv.innerHTML = `
+          <div class="text-center py-12 text-gray-500 text-lg">
+            Curriculum data has not been loaded yet.<br>
+            Click <span class="font-bold text-purple-900">"Load Curriculum from GitHub"</span> to fetch your curriculum.<br>
+            Or start building a curriculum by adding a new section.
+          </div>
+        `;
+        return;
+      }
+
       curriculum.sections.forEach((section, sectionIdx) => {
         const sectionPanel = document.createElement('div');
         sectionPanel.className = `mb-8 border rounded-lg p-6 bg-white`;
@@ -222,6 +217,9 @@
     }
 
     addSectionBtn.addEventListener('click', () => {
+      if (!curriculum) {
+        curriculum = { sections: [] };
+      }
       const sectionName = prompt('Section name (e.g. Coding, Engineering, Science):');
       if (!sectionName) return;
       curriculum.sections.push({
@@ -233,6 +231,10 @@
     });
 
     downloadJsonBtn.addEventListener('click', () => {
+      if (!curriculum) {
+        alert("No curriculum data to download. Please load from GitHub or add a section first.");
+        return;
+      }
       const jsonStr = JSON.stringify(curriculum, null, 2);
       jsonPreview.classList.remove('hidden');
       jsonPreview.textContent = jsonStr;
@@ -250,18 +252,15 @@
 
     // --------- GITHUB INTEGRATION ---------
 
-    // Helper: Get Token
     function getGithubToken() {
       return githubTokenInput.value.trim();
     }
 
-    // Helper: Set Status
     function setStatus(msg, type='info') {
       githubStatus.textContent = msg;
       githubStatus.className = 'mb-4 text-sm ' + (type === 'error' ? 'text-red-700' : 'text-green-700');
     }
 
-    // Load curriculum.json from GitHub
     loadGithubBtn.addEventListener('click', async () => {
       const token = getGithubToken();
       if (!token) {
@@ -279,23 +278,29 @@
         if (!data.content) throw new Error('No file content found.');
         const jsonStr = atob(data.content.replace(/\n/g, ''));
         curriculum = JSON.parse(jsonStr);
+        curriculumLoadedFromGithub = true;
         renderCurriculum();
         setStatus('Loaded curriculum.json from GitHub!', 'success');
       } catch (err) {
         setStatus('Error loading from GitHub: ' + err.message, 'error');
+        curriculum = null;
+        curriculumLoadedFromGithub = false;
+        renderCurriculum();
       }
     });
 
-    // Push curriculum.json to GitHub (create/update file)
     pushGithubBtn.addEventListener('click', async () => {
       const token = getGithubToken();
       if (!token) {
         setStatus('Please enter your GitHub token.', 'error');
         return;
       }
+      if (!curriculum) {
+        setStatus('No curriculum data to push. Please load or create curriculum first.', 'error');
+        return;
+      }
       setStatus('Preparing to push curriculum.json to GitHub...');
       try {
-        // 1. Get file SHA if file exists
         let sha = undefined;
         const url = `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/contents/${GITHUB_FILE_PATH}`;
         const getRes = await fetch(url, {
@@ -306,7 +311,6 @@
           sha = fileData.sha;
         }
 
-        // 2. PUT updated file
         const jsonStr = JSON.stringify(curriculum, null, 2);
         const contentB64 = btoa(unescape(encodeURIComponent(jsonStr)));
         const body = {
@@ -330,6 +334,7 @@
       }
     });
 
+    // Initial render: show clarifying message, not curriculum data
     renderCurriculum();
   </script>
 </body>
