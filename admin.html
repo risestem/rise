@@ -126,8 +126,6 @@
                 Delete Day
               </button>
             </div>
-            <label class="block text-gray-600 mb-2 font-semibold">Day Description:</label>
-            <textarea class="day-description bg-white border border-gray-300 rounded px-2 py-1 w-full focus:outline-none focus:ring-2 focus:ring-purple-600 mb-2" rows="2" data-section="${sectionIdx}" data-day="${dayIdx}">${day.description || ''}</textarea>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-2">
               <label class="block text-gray-600">PDF Link:
                 <input type="text" value="${day.pdf}" class="day-pdf bg-white border border-gray-300 rounded px-2 py-1 w-full focus:outline-none focus:ring-2 focus:ring-purple-600" data-section="${sectionIdx}" data-day="${dayIdx}" />
@@ -186,8 +184,7 @@
             id: uniqueId('day'),
             title: `Day ${curriculum.sections[idx].days.length + 1}`,
             pdf: "",
-            ppt: "",
-            description: ""
+            ppt: ""
           });
           renderCurriculum();
         });
@@ -199,15 +196,6 @@
           const dIdx = this.dataset.day;
           curriculum.sections[sIdx].days[dIdx].title = this.value;
         });
-      });
-
-      document.querySelectorAll('.day-description').forEach(textarea => {
-        textarea.addEventListener('input', function () {
-          const sIdx = this.dataset.section;
-          const dIdx = this.dataset.day;
-          curriculum.sections[sIdx].days[dIdx].description = this.value;
-        });
-        textarea.addEventListener('blur', renderCurriculum);
       });
 
       document.querySelectorAll('.day-pdf').forEach(input => {
