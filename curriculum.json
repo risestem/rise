@@ -65,19 +65,6 @@
           "ppt": "https://docs.google.com/presentation/d/1ToIvs1hwWYi81sRUmIrROCD6LMepWft9BvXW_DGTyls/edit?slide=id.g155242cd9ab_0_28622#slide=id.g155242cd9ab_0_28622"
         }
       ]
-    },
-    {
-      "id": "sectionzujj41",
-      "name": "Test",
-      "description": "This is a test section",
-      "days": [
-        {
-          "id": "dayf5x9ex",
-          "title": "Day 1 - Test",
-          "pdf": "",
-          "ppt": ""
-        }
-      ]
     }
   ]
 }
