@@ -31,14 +31,21 @@
         padding-bottom: 2rem;
       }
 
+      .content-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 40px;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
       .scroll-video-container {
-        position: fixed;
-        top: 50%;
-        right: 120px;
-        transform: translateY(-50%);
-        width: 700px;
+        position: relative;
+        width: 60%;
         height: 500px;
-        z-index: 100;
+        float: right;
+        margin-left: 40px;
       }
 
       .scroll-video-frame {
@@ -49,8 +56,9 @@
       }
 
       .content-section {
-        padding: 40px 60px;
-        max-width: 600px;
+        width: 35%;
+        float: left;
+        padding: 40px 20px;
         margin-bottom: 2rem;
         opacity: 0;
         transform: translateY(20px);
@@ -62,13 +70,6 @@
         transform: translateY(0);
       }
 
-      .content-section {
-        padding: 40px 60px;
-        max-width: 600px;
-        margin-bottom: 2rem;
-      }
-
-      .content-section h1,
       .content-section h2 {
         margin-bottom: 1.5rem;
         line-height: 1.2;
@@ -140,64 +141,66 @@
 
     <!-- Main Content -->
     <div class="main-content pt-20">
-      <!-- Section 1 -->
-      <section class="content-section" id="textSection1">
-        <div class="fadeInUp-animation">
+      <div class="content-container">
+        <!-- Fixed Video Container -->
+        <div class="scroll-video-container">
+          <img
+            id="videoFrame"
+            class="scroll-video-frame"
+            src="public/v4_frames_web/turtleExplodev40001.png"
+            alt="Video Frame"
+          />
+        </div>
+
+        <!-- Section 1 -->
+        <section class="content-section" id="textSection1">
           <h2 class="text-2xl font-bold text-purple-950">Welcome to RISE STEM</h2>
           <p class="text-lg text-gray-700">
             As you scroll through this page, watch our interactive animation play alongside our story.
             This demonstrates how technology can create engaging educational experiences that inspire
             young minds to explore STEM fields.
           </p>
-        </div>
-      </section>
+        </section>
 
-      <!-- Section 2 -->
-      <section class="content-section" id="textSection2">
-        <div class="fadeInUp-animation">
+        <!-- Section 2 -->
+        <section class="content-section" id="textSection2">
           <h2 class="text-2xl font-bold text-purple-950">Our Educational Innovation</h2>
           <p class="text-lg text-gray-700">
             The animation continues to play as we explore our innovative teaching methods. Each frame
             represents our commitment to creating engaging, technology-enhanced learning experiences
             that make STEM subjects come alive for students.
           </p>
-        </div>
-      </section>
+        </section>
 
-      <!-- Section 3 -->
-      <section class="content-section" id="textSection3">
-        <div class="fadeInUp-animation">
+        <!-- Section 3 -->
+        <section class="content-section" id="textSection3">
           <h2 class="text-2xl font-bold text-purple-950">Student Discovery & Growth</h2>
           <p class="text-lg text-gray-700">
             As we reach the heart of our mission, the animation reveals the transformative
             journey our students experience. Through hands-on projects and collaborative
             learning, students discover their potential and develop confidence in STEM fields.
           </p>
-        </div>
-      </section>
+        </section>
 
-      <!-- Section 4 -->
-      <section class="content-section" id="textSection4">
-        <div class="fadeInUp-animation">
+        <!-- Section 4 -->
+        <section class="content-section" id="textSection4">
           <h2 class="text-2xl font-bold text-purple-950">Community Impact & Transformation</h2>
           <p class="text-lg text-gray-700">
             The transformation continues as our students become leaders in their communities.
             Each scroll through our story represents the ripple effect of quality STEM education,
             creating positive change that extends far beyond the classroom.
           </p>
-        </div>
-      </section>
+        </section>
 
-      <!-- Section 5 -->
-      <section class="content-section" id="textSection5">
-        <div class="fadeInUp-animation">
+        <!-- Section 5 -->
+        <section class="content-section" id="textSection5">
           <h2 class="text-2xl font-bold text-purple-950">Looking Forward</h2>
           <p class="text-lg text-gray-700">
             As we reach the end of our scroll journey, the video animation completes its
             sequence, bringing our story full circle with a satisfying conclusion.
           </p>
-        </div>
-      </section>
+        </section>
+      </div>
     </div>
 
     <!-- Main Content -->
