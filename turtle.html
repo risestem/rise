@@ -38,14 +38,17 @@
         background: white;
         border-radius: 12px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        min-height: 100vh;
+        position: relative;
       }
 
       .scroll-video-container {
-        position: relative;
-        width: 60%;
-        height: 500px;
-        float: right;
-        margin-left: 40px;
+        position: absolute;
+        right: 40px;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 50%;
+        height: 600px;
       }
 
       .scroll-video-frame {
@@ -56,9 +59,9 @@
       }
 
       .content-section {
-        width: 35%;
+        width: 45%;
         float: left;
-        padding: 40px 20px;
+        padding: 0 20px;
         margin-bottom: 2rem;
         opacity: 0;
         transform: translateY(20px);
@@ -68,6 +71,20 @@
       .content-section.active {
         opacity: 1;
         transform: translateY(0);
+      }
+
+      .content-section h2 {
+        margin-bottom: 1.5rem;
+        line-height: 1.2;
+      }
+
+      .content-section p {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
+
+      .content-section p:last-child {
+        margin-bottom: 0;
       }
 
       .content-section h2 {
@@ -128,16 +145,6 @@
 
     <!-- Progress Bar -->
     <div class="progress-bar" id="progressBar"></div>
-
-    <!-- Fixed Video Container -->
-    <div class="scroll-video-container">
-      <img
-        id="videoFrame"
-        class="scroll-video-frame"
-        src="public/v4_frames_web/turtleExplodev40001.png"
-        alt="Video Frame"
-      />
-    </div>
 
     <!-- Main Content -->
     <div class="main-content pt-20">
