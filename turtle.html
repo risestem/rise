@@ -66,7 +66,7 @@
       .scroll-text-section {
         opacity: 0;
         transform: translateX(-50px);
-        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: opacity 0.4s ease-out, transform 0.4s ease-out;
         position: absolute;
         width: 100%;
         top: 0;
@@ -76,6 +76,7 @@
       .scroll-text-section.active {
         opacity: 1;
         transform: translateX(0);
+        transition: opacity 0.4s ease-out, transform 0.4s ease-out;
       }
 
       .scroll-text-section.exit {
@@ -351,7 +352,7 @@
         const animationHeight = animationContainer.offsetHeight;
         
         // Calculate progress based on scroll within animation container
-        scrollProgress = Math.min(scrollTop / (animationHeight * 3), 1); // Multiply by 3 to make scrolling slower
+        scrollProgress = Math.min(scrollTop / (animationHeight * 5), 1); // Multiply by 5 for slower scrolling
         
         // Update frame
         updateVideoFrame();
@@ -399,7 +400,7 @@
             textSections[currentTextSection].classList.remove('exit');
             textSections[newSectionIndex].classList.add('active');
             currentTextSection = newSectionIndex;
-          }, 300);
+          }, 400); // Increased delay for smoother transitions
         }
       }
 
@@ -465,7 +466,7 @@
         window.addEventListener('wheel', (e) => {
           if (!animationComplete) {
             e.preventDefault();
-            scrollProgress = Math.min(scrollProgress + (e.deltaY > 0 ? 0.02 : -0.02), 1);
+            scrollProgress = Math.min(scrollProgress + (e.deltaY > 0 ? 0.01 : -0.01), 1); // Slower wheel speed
             scrollProgress = Math.max(scrollProgress, 0);
             
             updateVideoFrame();
