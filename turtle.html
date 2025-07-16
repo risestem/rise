@@ -36,8 +36,8 @@
         top: 50%;
         right: 120px;
         transform: translateY(-50%);
-        width: 600px;
-        height: 450px;
+        width: 700px;
+        height: 500px;
         z-index: 100;
       }
 
@@ -51,12 +51,11 @@
       .scroll-text-container {
         position: fixed;
         top: 50%;
-        left: 120px;
+        left: 200px;
         transform: translateY(-50%);
-        width: 400px;
-        height: 450px;
+        width: 300px;
+        height: 500px;
         z-index: 100;
-        overflow-y: auto;
         padding: 20px;
         background: rgba(255, 255, 255, 0.95);
         backdrop-filter: blur(10px);
@@ -66,19 +65,20 @@
 
       .scroll-text-content {
         height: 100%;
+        overflow-y: auto;
+        scroll-behavior: smooth;
       }
 
       .scroll-text-section {
-        opacity: 0;
-        transition: opacity 0.3s ease;
         margin-bottom: 40px;
         padding: 20px;
         border-radius: 8px;
         background: rgba(255, 255, 255, 0.1);
+        transition: transform 0.3s ease;
       }
 
       .scroll-text-section.active {
-        opacity: 1;
+        transform: translateX(20px);
       }
 
       .content-section {
@@ -353,10 +353,15 @@
         // Calculate frame number based on scroll progress
         const frameNumber = Math.max(1, Math.min(totalFrames, Math.floor(scrollProgress * totalFrames) + 1));
 
-        // Update text sections
+        // Update text sections with smooth scrolling
         const totalSections = textSections.length;
         const sectionProgress = Math.floor(scrollProgress * totalSections);
         
+        // Calculate scroll position for text container
+        const scrollPosition = (sectionProgress / totalSections) * textContainer.scrollHeight;
+        textContainer.scrollTop = scrollPosition;
+        
+        // Update active section
         textSections.forEach((section, index) => {
           section.classList.toggle('active', index === sectionProgress);
         });
