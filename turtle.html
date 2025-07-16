@@ -48,37 +48,18 @@
         transition: opacity 0.1s ease;
       }
 
-      .scroll-text-container {
-        position: fixed;
-        top: 50%;
-        left: 200px;
-        transform: translateY(-50%);
-        width: 300px;
-        height: 500px;
-        z-index: 100;
-        padding: 20px;
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(10px);
-        border-radius: 12px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      .content-section {
+        padding: 40px 60px;
+        max-width: 600px;
+        margin-bottom: 2rem;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
       }
 
-      .scroll-text-content {
-        height: 100%;
-        overflow-y: auto;
-        scroll-behavior: smooth;
-      }
-
-      .scroll-text-section {
-        margin-bottom: 40px;
-        padding: 20px;
-        border-radius: 8px;
-        background: rgba(255, 255, 255, 0.1);
-        transition: transform 0.3s ease;
-      }
-
-      .scroll-text-section.active {
-        transform: translateX(20px);
+      .content-section.active {
+        opacity: 1;
+        transform: translateY(0);
       }
 
       .content-section {
@@ -157,10 +138,11 @@
       />
     </div>
 
-    <!-- Synchronized Text Container -->
-    <div class="scroll-text-container">
-      <div class="scroll-text-content">
-        <div class="scroll-text-section" id="textSection1">
+    <!-- Main Content -->
+    <div class="main-content pt-20">
+      <!-- Section 1 -->
+      <section class="content-section" id="textSection1">
+        <div class="fadeInUp-animation">
           <h2 class="text-2xl font-bold text-purple-950">Welcome to RISE STEM</h2>
           <p class="text-lg text-gray-700">
             As you scroll through this page, watch our interactive animation play alongside our story.
@@ -168,7 +150,11 @@
             young minds to explore STEM fields.
           </p>
         </div>
-        <div class="scroll-text-section" id="textSection2">
+      </section>
+
+      <!-- Section 2 -->
+      <section class="content-section" id="textSection2">
+        <div class="fadeInUp-animation">
           <h2 class="text-2xl font-bold text-purple-950">Our Educational Innovation</h2>
           <p class="text-lg text-gray-700">
             The animation continues to play as we explore our innovative teaching methods. Each frame
@@ -176,7 +162,11 @@
             that make STEM subjects come alive for students.
           </p>
         </div>
-        <div class="scroll-text-section" id="textSection3">
+      </section>
+
+      <!-- Section 3 -->
+      <section class="content-section" id="textSection3">
+        <div class="fadeInUp-animation">
           <h2 class="text-2xl font-bold text-purple-950">Student Discovery & Growth</h2>
           <p class="text-lg text-gray-700">
             As we reach the heart of our mission, the animation reveals the transformative
@@ -184,7 +174,11 @@
             learning, students discover their potential and develop confidence in STEM fields.
           </p>
         </div>
-        <div class="scroll-text-section" id="textSection4">
+      </section>
+
+      <!-- Section 4 -->
+      <section class="content-section" id="textSection4">
+        <div class="fadeInUp-animation">
           <h2 class="text-2xl font-bold text-purple-950">Community Impact & Transformation</h2>
           <p class="text-lg text-gray-700">
             The transformation continues as our students become leaders in their communities.
@@ -192,14 +186,18 @@
             creating positive change that extends far beyond the classroom.
           </p>
         </div>
-        <div class="scroll-text-section" id="textSection5">
+      </section>
+
+      <!-- Section 5 -->
+      <section class="content-section" id="textSection5">
+        <div class="fadeInUp-animation">
           <h2 class="text-2xl font-bold text-purple-950">Looking Forward</h2>
           <p class="text-lg text-gray-700">
             As we reach the end of our scroll journey, the video animation completes its
             sequence, bringing our story full circle with a satisfying conclusion.
           </p>
         </div>
-      </div>
+      </section>
     </div>
 
     <!-- Main Content -->
@@ -345,7 +343,6 @@
       }
 
       function updateVideoFrame() {
-        // Update video frame and text sections
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
         const scrollProgress = Math.min(scrollTop / scrollHeight, 1);
@@ -353,13 +350,9 @@
         // Calculate frame number based on scroll progress
         const frameNumber = Math.max(1, Math.min(totalFrames, Math.floor(scrollProgress * totalFrames) + 1));
 
-        // Update text sections with smooth scrolling
+        // Update text sections
         const totalSections = textSections.length;
         const sectionProgress = Math.floor(scrollProgress * totalSections);
-        
-        // Calculate scroll position for text container
-        const scrollPosition = (sectionProgress / totalSections) * textContainer.scrollHeight;
-        textContainer.scrollTop = scrollPosition;
         
         // Update active section
         textSections.forEach((section, index) => {
