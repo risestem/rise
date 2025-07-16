@@ -34,7 +34,7 @@
       .scroll-video-container {
         position: fixed;
         top: 50%;
-        right: 50px;
+        right: 120px;
         transform: translateY(-50%);
         width: 600px;
         height: 450px;
@@ -48,74 +48,13 @@
         transition: opacity 0.1s ease;
       }
 
-      .progress-bar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 4px;
-        background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-        z-index: 200;
-        transition: width 0.1s ease;
-      }
-
-      .content-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 40px;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        position: relative;
-        display: flex;
-        align-items: center;
-        margin-top: 100px;
-        min-height: calc(100vh - 100px);
-      }
-
-      .scroll-video-container {
-        position: absolute;
-        right: 40px;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 50%;
-        height: 600px;
-        z-index: 10;
-      }
-
-      .scroll-video-frame {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: opacity 0.1s ease;
-      }
-
       .content-section {
-        width: 45%;
-        margin: 0 20px 2rem 0;
-        opacity: 0;
-        transform: translateY(20px);
-        transition: opacity 0.5s ease, transform 0.5s ease;
+        padding: 40px 60px;
+        max-width: 600px;
+        margin-bottom: 2rem;
       }
 
-      .content-section.active {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .content-section h2 {
-        margin-bottom: 1.5rem;
-        line-height: 1.2;
-      }
-
-      .content-section p {
-        margin-bottom: 1rem;
-        line-height: 1.6;
-      }
-
-      .content-section p:last-child {
-        margin-bottom: 0;
-      }
-
+      .content-section h1,
       .content-section h2 {
         margin-bottom: 1.5rem;
         line-height: 1.2;
@@ -175,23 +114,123 @@
     <!-- Progress Bar -->
     <div class="progress-bar" id="progressBar"></div>
 
+    <!-- Fixed Video Container -->
+    <div class="scroll-video-container">
+      <img
+        id="videoFrame"
+        class="scroll-video-frame"
+        src="public/v4_frames_web/turtleExplodev40001.png"
+        alt="Video Frame"
+      />
+    </div>
+
     <!-- Main Content -->
-    <div class="main-content">
-      <!-- Fixed Video Container -->
-      <div class="scroll-video-container">
-        <img
-          id="videoFrame"
-          class="scroll-video-frame"
-          src="public/v4_frames/turtleExplodev40001.png"
-          alt="Video Frame"
-        />
-      </div>
-      <h2 class="text-2xl font-bold text-purple-950">Welcome to RISE STEM</h2>
-      <p class="text-lg text-gray-700">
-        As you scroll through this page, watch our interactive animation play alongside our story.
-        This demonstrates how technology can create engaging educational experiences that inspire
-        young minds to explore STEM fields.
-      </p>
+    <div class="main-content pt-20">
+      <!-- Section 1 -->
+      <section class="content-section">
+        <div class="fadeInUp-animation">
+          <h1 class="text-4xl font-bold text-purple-950">Welcome to RISE STEM</h1>
+          <p class="text-lg text-gray-700">
+            As you scroll through this page, watch our interactive animation play alongside our story.
+            This demonstrates how technology can create engaging educational experiences that inspire
+            young minds to explore STEM fields.
+          </p>
+          <p class="text-lg text-gray-700">
+            At RISE STEM, we believe in making science, technology, engineering, and mathematics
+            accessible and exciting for all students. Our innovative approach combines hands-on
+            learning with cutting-edge technology to create memorable educational experiences.
+          </p>
+          <p class="text-lg text-gray-700">
+            Through our programs, workshops, and community initiatives, we're building the next
+            generation of innovators, problem-solvers, and leaders who will shape our future.
+          </p>
+        </div>
+      </section>
+
+      <!-- Section 2 -->
+      <section class="content-section">
+        <div class="fadeInUp-animation">
+          <h2 class="text-3xl font-bold text-purple-950">Our Educational Innovation</h2>
+          <p class="text-lg text-gray-700">
+            The animation continues to play as we explore our innovative teaching methods. Each frame
+            represents our commitment to creating engaging, technology-enhanced learning experiences
+            that make STEM subjects come alive for students.
+          </p>
+          <p class="text-lg text-gray-700">
+            Our curriculum integrates real-world applications with fundamental concepts, ensuring
+            students not only learn the theory but also understand how STEM principles apply to
+            solving actual challenges in their communities and beyond.
+          </p>
+          <p class="text-lg text-gray-700">
+            From robotics and coding to environmental science and engineering design, we provide
+            comprehensive programs that nurture curiosity and develop critical thinking skills
+            essential for success in the 21st century.
+          </p>
+        </div>
+      </section>
+
+      <!-- Section 3 -->
+      <section class="content-section">
+        <div class="fadeInUp-animation">
+          <h2 class="text-3xl font-bold text-purple-950">Student Discovery & Growth</h2>
+          <p class="text-lg text-gray-700">
+            As we reach the heart of our mission, the animation reveals the transformative
+            journey our students experience. Through hands-on projects and collaborative
+            learning, students discover their potential and develop confidence in STEM fields.
+          </p>
+          <p class="text-lg text-gray-700">
+            Our students work on real projects that matter to their communities, from designing
+            sustainable solutions to environmental challenges to creating apps that solve
+            everyday problems. This practical approach ensures learning is both meaningful and memorable.
+          </p>
+          <p class="text-lg text-gray-700">
+            We celebrate every breakthrough moment, from a student's first successful code
+            compilation to their innovative engineering design. These victories, big and small,
+            build the foundation for lifelong learning and achievement.
+          </p>
+        </div>
+      </section>
+
+      <!-- Section 4 -->
+      <section class="content-section">
+        <div class="fadeInUp-animation">
+          <h2 class="text-3xl font-bold text-purple-950">Community Impact & Transformation</h2>
+          <p class="text-lg text-gray-700">
+            The transformation continues as our students become leaders in their communities.
+            Each scroll through our story represents the ripple effect of quality STEM education,
+            creating positive change that extends far beyond the classroom.
+          </p>
+          <p class="text-lg text-gray-700">
+            Our alumni go on to pursue careers in technology, engineering, medicine, and research,
+            but more importantly, they carry with them the problem-solving mindset and innovative
+            thinking that RISE STEM has helped cultivate.
+          </p>
+          <p class="text-lg text-gray-700">
+            Through partnerships with local schools, community organizations, and industry leaders,
+            we're building a network of support that ensures every student has access to quality
+            STEM education and the opportunity to reach their full potential.
+          </p>
+        </div>
+      </section>
+
+      <!-- Section 5 -->
+      <section class="content-section">
+        <div class="fadeInUp-animation">
+          <h2 class="text-3xl font-bold text-purple-950">Looking Forward</h2>
+          <p class="text-lg text-gray-700">
+            As we reach the end of our scroll journey, the video animation completes its
+            sequence, bringing our story full circle with a satisfying conclusion.
+          </p>
+          <p class="text-lg text-gray-700">
+            The future of STEM education is bright, and we're excited to continue pushing
+            the boundaries of what's possible when innovative teaching meets passionate learning.
+          </p>
+          <p class="text-lg text-gray-700">
+            Join us in this mission to inspire, educate, and empower the next generation
+            of STEM leaders who will tackle tomorrow's greatest challenges.
+          </p>
+        </div>
+      </section>
     </div>
 
     <!-- Footer Section -->
@@ -201,14 +240,32 @@
     <script>
       // Configuration
       const totalFrames = 150;
-      const frameBasePath = 'public/v4_frames/turtleExplodev4';
+      const frameBasePath = 'public/v4_frames_web/turtleExplodev4';
 
-      // Initialize video frame
+      // Get elements
       const videoFrame = document.getElementById('videoFrame');
       const progressBar = document.getElementById('progressBar');
 
-      // Update video frame
+      // Preload some frames for smoother experience
+      const preloadedFrames = new Map();
+
+      function preloadFrame(frameNumber) {
+        if (!preloadedFrames.has(frameNumber)) {
+          const img = new Image();
+          const paddedNumber = frameNumber.toString().padStart(4, '0');
+          img.src = `${frameBasePath}${paddedNumber}.png`;
+          preloadedFrames.set(frameNumber, img);
+        }
+        return preloadedFrames.get(frameNumber);
+      }
+
+      // Preload first few frames
+      for (let i = 1; i <= Math.min(10, totalFrames); i++) {
+        preloadFrame(i);
+      }
+
       function updateVideoFrame() {
+        // Calculate scroll progress (0 to 1)
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
         const scrollProgress = Math.min(scrollTop / scrollHeight, 1);
@@ -225,9 +282,49 @@
 
         if (videoFrame.src !== newSrc) {
           videoFrame.src = newSrc;
+
+          // Preload next few frames
+          for (let i = 1; i <= 3; i++) {
+            const nextFrame = frameNumber + i;
+            if (nextFrame <= totalFrames) {
+              preloadFrame(nextFrame);
+            }
+          }
         }
       }
+
+      // Throttle scroll events for better performance
+      let ticking = false;
+
+      function handleScroll() {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            updateVideoFrame();
+            ticking = false;
+          });
+          ticking = true;
+        }
       }
+
+      // Add scroll event listener
+      window.addEventListener('scroll', handleScroll);
+
+      // Initialize on page load
+      window.addEventListener('load', updateVideoFrame);
+
+      // Handle window resize
+      window.addEventListener('resize', updateVideoFrame);
+    </script>
+  </body>
+</html>
+      const totalFrames = 150;
+      const frameBasePath = 'public/v4_frames_web/turtleExplodev4';
+      const textSections = document.querySelectorAll('.scroll-text-section');
+      const textContainer = document.querySelector('.scroll-text-container');
+
+      // Initialize video frame
+      const videoFrame = document.getElementById('videoFrame');
+      const progressBar = document.getElementById('progressBar');
 
       // Preload a frames for smoother experience
       const preloadedFrames = new Map();
@@ -247,12 +344,49 @@
         preloadFrame(i);
       }
 
+      function updateVideoFrame() {
+        // Update video frame and text sections
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const scrollProgress = Math.min(scrollTop / scrollHeight, 1);
+
+        // Calculate frame number based on scroll progress
+        const frameNumber = Math.max(1, Math.min(totalFrames, Math.floor(scrollProgress * totalFrames) + 1));
+
+        // Update text sections
+        const totalSections = textSections.length;
+        const sectionProgress = Math.floor(scrollProgress * totalSections);
+        
+        textSections.forEach((section, index) => {
+          section.classList.toggle('active', index === sectionProgress);
+        });
+
+        // Update progress bar
+        progressBar.style.width = `${scrollProgress * 100}%`;
+
+        // Update video frame
+        const paddedNumber = frameNumber.toString().padStart(4, '0');
+        const newSrc = `${frameBasePath}${paddedNumber}.png`;
+
+        if (videoFrame.src !== newSrc) {
+          videoFrame.src = newSrc;
+
+          // Preload next few frames
+          for (let i = 1; i <= 3; i++) {
+            const nextFrame = frameNumber + i;
+            if (nextFrame <= totalFrames) {
+              preloadFrame(nextFrame);
+            }
+          }
+        }
+      }
+
       // Throttle scroll events for better performance
       let ticking = false;
 
       function handleScroll() {
         if (!ticking) {
-          window.requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
             updateVideoFrame();
             ticking = false;
           });
@@ -264,7 +398,52 @@
       window.addEventListener('scroll', handleScroll);
 
       // Initialize on page load
+      window.addEventListener('load', updateVideoFrame);
+
+      // Handle window resize
+      window.addEventListener('resize', updateVideoFrame);
+    </script>
+  </body>
+</html>
+      // Handle window resize
+      window.addEventListener('resize', updateVideoFrame);
+    </script>
+  </body>
+</html>
+    </script>
+  </body>
+</html>
+
+      // Initialize on page load
       updateVideoFrame();
+
+      // Handle window resize
+      window.addEventListener('resize', updateVideoFrame);
+    </script>
+  </body>
+</html>
+      // Throttle scroll events for better performance
+      let ticking = false;
+
+      function handleScroll() {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            updateVideoFrame();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }
+
+      // Initialize scroll progress
+      let scrollProgress = 0;
+
+      // Add scroll event listener
+      window.addEventListener('scroll', handleScroll);
+
+      // Initialize on page load
+      updateVideoFrame();
+
       // Handle window resize
       window.addEventListener('resize', updateVideoFrame);
     </script>
