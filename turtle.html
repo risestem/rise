@@ -24,11 +24,31 @@
         min-height: 100vh;
         display: flex;
         flex-direction: column;
+        overflow: hidden; /* Prevent scrolling until animation is complete */
       }
 
       .main-content {
         flex: 1;
         padding-bottom: 2rem;
+      }
+
+      .banner {
+        background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+        color: white;
+        padding: 40px 0;
+        text-align: center;
+      }
+
+      .banner h1 {
+        font-size: 3rem;
+        margin: 0;
+        font-weight: 700;
+      }
+
+      .banner p {
+        font-size: 1.25rem;
+        margin-top: 1rem;
+        opacity: 0.9;
       }
 
       .content-container {
@@ -38,21 +58,21 @@
         background: white;
         border-radius: 12px;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        min-height: 100vh;
         position: relative;
         display: flex;
         align-items: center;
+        margin-top: 100px;
+        min-height: calc(100vh - 100px);
       }
 
       .scroll-video-container {
-        position: fixed;
-        right: 50%;
-        transform: translateX(50%);
+        position: absolute;
+        right: 40px;
+        top: 50%;
+        transform: translateY(-50%);
         width: 50%;
         height: 600px;
         z-index: 10;
-        top: 50%;
-        transform: translateX(50%) translateY(-50%);
       }
 
       .scroll-video-frame {
@@ -148,8 +168,14 @@
     <!-- Progress Bar -->
     <div class="progress-bar" id="progressBar"></div>
 
+    <!-- Banner -->
+    <div class="banner">
+      <h1>RISE STEM</h1>
+      <p>Scroll to explore our story through animation</p>
+    </div>
+
     <!-- Main Content -->
-    <div class="main-content pt-20">
+    <div class="main-content">
       <!-- Fixed Video Container -->
       <div class="scroll-video-container">
         <img
@@ -341,10 +367,6 @@
       
       // Update video frame and text sections
       function updateVideoFrame() {
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
-        const scrollProgress = Math.min(scrollTop / scrollHeight, 1);
-
         // Calculate frame number based on scroll progress
         const frameNumber = Math.max(1, Math.min(totalFrames, Math.floor(scrollProgress * totalFrames) + 1));
 
@@ -374,6 +396,11 @@
           if (videoFrame.src !== newSrc) {
             videoFrame.src = newSrc;
           }
+        }
+
+        // Only allow actual page scrolling after animation is complete
+        if (!canScroll) {
+          window.scrollTo(0, 0);
         }
       }
 
@@ -408,11 +435,11 @@
         }
       }
 
+      // Initialize scroll progress
+      let scrollProgress = 0;
+
       // Add scroll event listener
       window.addEventListener('scroll', handleScroll);
-
-      // Prevent scrolling initially
-      document.body.style.overflow = 'hidden';
 
       // Initialize on page load
       updateVideoFrame();
