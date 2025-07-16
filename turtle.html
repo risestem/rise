@@ -50,8 +50,6 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
       }
 
       /* Text Container */
@@ -68,7 +66,7 @@
       .scroll-text-section {
         opacity: 0;
         transform: translateX(-50px);
-        transition: all 0.6s ease-out;
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         position: absolute;
         width: 100%;
         top: 0;
@@ -83,6 +81,7 @@
       .scroll-text-section.exit {
         opacity: 0;
         transform: translateX(50px);
+        transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
       .scroll-text-section h2 {
@@ -196,6 +195,10 @@
     </style>
   </head>
   <body>
+    <!-- Header -->
+    <div id="header-container"></div>
+    <script type="module" src="/scripts/loadHeader.js"></script>
+
     <!-- Progress Bar -->
     <div class="progress-bar" id="progressBar"></div>
 
@@ -254,6 +257,10 @@
         </div>
       </div>
     </div>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+    <script type="module" src="/scripts/loadFooter.js"></script>
 
     <!-- Post-Animation Content -->
     <div class="post-animation-content">
