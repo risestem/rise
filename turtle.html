@@ -40,15 +40,17 @@
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         min-height: 100vh;
         position: relative;
+        display: flex;
+        align-items: center;
       }
 
       .scroll-video-container {
-        position: absolute;
-        right: 40px;
-        top: 50%;
-        transform: translateY(-50%);
+        position: fixed;
+        right: 50%;
+        transform: translateX(50%);
         width: 50%;
         height: 600px;
+        z-index: 10;
       }
 
       .scroll-video-frame {
@@ -60,9 +62,7 @@
 
       .content-section {
         width: 45%;
-        float: left;
-        padding: 0 20px;
-        margin-bottom: 2rem;
+        margin: 0 20px 2rem 0;
         opacity: 0;
         transform: translateY(20px);
         transition: opacity 0.5s ease, transform 0.5s ease;
@@ -148,17 +148,17 @@
 
     <!-- Main Content -->
     <div class="main-content pt-20">
-      <div class="content-container">
-        <!-- Fixed Video Container -->
-        <div class="scroll-video-container">
-          <img
-            id="videoFrame"
-            class="scroll-video-frame"
-            src="public/v4_frames_web/turtleExplodev40001.png"
-            alt="Video Frame"
-          />
-        </div>
+      <!-- Fixed Video Container -->
+      <div class="scroll-video-container">
+        <img
+          id="videoFrame"
+          class="scroll-video-frame"
+          src="public/v4_frames_web/turtleExplodev40001.png"
+          alt="Video Frame"
+        />
+      </div>
 
+      <div class="content-container">
         <!-- Section 1 -->
         <section class="content-section" id="textSection1">
           <h2 class="text-2xl font-bold text-purple-950">Welcome to RISE STEM</h2>
