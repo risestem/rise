@@ -34,10 +34,10 @@
       .scroll-video-container {
         position: fixed;
         top: 50%;
-        right: 50px;
+        right: 120px;
         transform: translateY(-50%);
-        width: 400px;
-        height: 300px;
+        width: 600px;
+        height: 450px;
         z-index: 100;
       }
 
@@ -46,6 +46,39 @@
         height: 100%;
         object-fit: cover;
         transition: opacity 0.1s ease;
+      }
+
+      .scroll-text-container {
+        position: fixed;
+        top: 50%;
+        left: 120px;
+        transform: translateY(-50%);
+        width: 400px;
+        height: 450px;
+        z-index: 100;
+        overflow-y: auto;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      }
+
+      .scroll-text-content {
+        height: 100%;
+      }
+
+      .scroll-text-section {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        margin-bottom: 40px;
+        padding: 20px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.1);
+      }
+
+      .scroll-text-section.active {
+        opacity: 1;
       }
 
       .content-section {
@@ -122,6 +155,51 @@
         src="public/v4_frames_web/turtleExplodev40001.png"
         alt="Video Frame"
       />
+    </div>
+
+    <!-- Synchronized Text Container -->
+    <div class="scroll-text-container">
+      <div class="scroll-text-content">
+        <div class="scroll-text-section" id="textSection1">
+          <h2 class="text-2xl font-bold text-purple-950">Welcome to RISE STEM</h2>
+          <p class="text-lg text-gray-700">
+            As you scroll through this page, watch our interactive animation play alongside our story.
+            This demonstrates how technology can create engaging educational experiences that inspire
+            young minds to explore STEM fields.
+          </p>
+        </div>
+        <div class="scroll-text-section" id="textSection2">
+          <h2 class="text-2xl font-bold text-purple-950">Our Educational Innovation</h2>
+          <p class="text-lg text-gray-700">
+            The animation continues to play as we explore our innovative teaching methods. Each frame
+            represents our commitment to creating engaging, technology-enhanced learning experiences
+            that make STEM subjects come alive for students.
+          </p>
+        </div>
+        <div class="scroll-text-section" id="textSection3">
+          <h2 class="text-2xl font-bold text-purple-950">Student Discovery & Growth</h2>
+          <p class="text-lg text-gray-700">
+            As we reach the heart of our mission, the animation reveals the transformative
+            journey our students experience. Through hands-on projects and collaborative
+            learning, students discover their potential and develop confidence in STEM fields.
+          </p>
+        </div>
+        <div class="scroll-text-section" id="textSection4">
+          <h2 class="text-2xl font-bold text-purple-950">Community Impact & Transformation</h2>
+          <p class="text-lg text-gray-700">
+            The transformation continues as our students become leaders in their communities.
+            Each scroll through our story represents the ripple effect of quality STEM education,
+            creating positive change that extends far beyond the classroom.
+          </p>
+        </div>
+        <div class="scroll-text-section" id="textSection5">
+          <h2 class="text-2xl font-bold text-purple-950">Looking Forward</h2>
+          <p class="text-lg text-gray-700">
+            As we reach the end of our scroll journey, the video animation completes its
+            sequence, bringing our story full circle with a satisfying conclusion.
+          </p>
+        </div>
+      </div>
     </div>
 
     <!-- Main Content -->
@@ -241,12 +319,14 @@
       // Configuration
       const totalFrames = 150;
       const frameBasePath = 'public/v4_frames_web/turtleExplodev4';
+      const textSections = document.querySelectorAll('.scroll-text-section');
+      const textContainer = document.querySelector('.scroll-text-container');
 
-      // Get elements
+      // Initialize video frame
       const videoFrame = document.getElementById('videoFrame');
       const progressBar = document.getElementById('progressBar');
 
-      // Preload some frames for smoother experience
+      // Preload a frames for smoother experience
       const preloadedFrames = new Map();
 
       function preloadFrame(frameNumber) {
@@ -265,13 +345,21 @@
       }
 
       function updateVideoFrame() {
-        // Calculate scroll progress (0 to 1)
+        // Update video frame and text sections
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
         const scrollProgress = Math.min(scrollTop / scrollHeight, 1);
 
         // Calculate frame number based on scroll progress
         const frameNumber = Math.max(1, Math.min(totalFrames, Math.floor(scrollProgress * totalFrames) + 1));
+
+        // Update text sections
+        const totalSections = textSections.length;
+        const sectionProgress = Math.floor(scrollProgress * totalSections);
+        
+        textSections.forEach((section, index) => {
+          section.classList.toggle('active', index === sectionProgress);
+        });
 
         // Update progress bar
         progressBar.style.width = `${scrollProgress * 100}%`;
