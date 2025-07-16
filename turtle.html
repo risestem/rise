@@ -44,12 +44,17 @@
         height: 70vh;
         max-width: 600px;
         z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
 
       .scroll-video-frame {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        height: auto;
+        object-fit: contain;
       }
 
       /* Text Container */
@@ -389,18 +394,26 @@
       function updateTextSections() {
         const totalSections = textSections.length;
         const newSectionIndex = Math.min(Math.floor(scrollProgress * totalSections), totalSections - 1);
-        
+
         if (newSectionIndex !== currentTextSection) {
-          // Remove active class from current section
+          // First, exit the current section
           textSections[currentTextSection].classList.remove('active');
           textSections[currentTextSection].classList.add('exit');
-          
-          // Add active class to new section
+
+          // Wait for exit animation to complete, then show new section
           setTimeout(() => {
+            // Remove exit class from old section
             textSections[currentTextSection].classList.remove('exit');
-            textSections[newSectionIndex].classList.add('active');
+
+            // Update current section index
             currentTextSection = newSectionIndex;
-          }, 800); // Much longer delay for slower text transitions
+
+            // Show new section after a brief pause
+            setTimeout(() => {
+              textSections[currentTextSection].classList.add('active');
+            }, 200); // Brief pause between exit and enter
+
+          }, 1200); // Wait for exit animation to complete (matches CSS transition time)
         }
       }
 
