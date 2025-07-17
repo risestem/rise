@@ -65,12 +65,14 @@
 
     <div class="animation-container" id="animationContainer">
       <div class="scroll-video-container">
-        <img
+        <video
           id="videoFrame"
           class="scroll-video-frame"
-          src="public/v4_frames/turtleExplodev40001.png"
-          alt="Video Frame"
-        />
+          src="public/animation_v5_alpha.webm"
+          muted
+          preload="auto"
+          playsinline
+        ></video>
       </div>
       <div class="scroll-text-container">
         <div class="scroll-text-section" id="textSection1">
@@ -106,48 +108,49 @@
     <script type="module" src="/scripts/loadFooter.js"></script>
 
     <script>
-      const totalFrames = 150;
-      const frameBasePath = 'public/v4_frames/turtleExplodev4';
       const textSections = [
-        { id: 'textSection1', startFrame:   1, endFrame:  43 },
-        { id: 'textSection2', startFrame:  45, endFrame:  88 },
-        { id: 'textSection3', startFrame:  90, endFrame:  135 },
-        { id: 'textSection4', startFrame:  127, endFrame: 150 },
+        { id: 'textSection1', startTime: 0, endTime: 0.287 },     // 0% to 28.7% of video
+        { id: 'textSection2', startTime: 0.3, endTime: 0.587 },   // 30% to 58.7% of video
+        { id: 'textSection3', startTime: 0.6, endTime: 0.9 },     // 60% to 90% of video
+        { id: 'textSection4', startTime: 0.847, endTime: 1.0 },   // 84.7% to 100% of video
       ];
 
-      let currentFrame = 1;
       let scrollProgress = 0;
       let targetProgress = 0;
       let animationComplete = false;
       let activeTextSection = null;
-      const preloadedFrames = new Map();
+      let video = null;
+      let videoDuration = 0;
 
-      function preloadFrame(n) {
-        if (n < 1 || n > totalFrames) return;
-        if (!preloadedFrames.has(n)) {
-          const img = new Image();
-          img.src = `${frameBasePath}${String(n).padStart(4,'0')}.png`;
-          preloadedFrames.set(n, img);
-        }
-      }
-      function preloadInitialFrames() {
-        for (let i = 1; i <= Math.min(30, totalFrames); i++) preloadFrame(i);
+      function initializeVideo() {
+        video = document.getElementById('videoFrame');
+        video.addEventListener('loadedmetadata', () => {
+          videoDuration = video.duration;
+          console.log('Video duration:', videoDuration);
+        });
+        video.addEventListener('canplaythrough', () => {
+          console.log('Video ready to play');
+        });
       }
 
       function updateVideoFrame() {
-        const frameNum = Math.floor(scrollProgress * (totalFrames - 1)) + 1;
-        if (frameNum !== currentFrame) {
-          currentFrame = frameNum;
-          document.getElementById('videoFrame').src =
-            `${frameBasePath}${String(frameNum).padStart(4,'0')}.png`;
-          for (let i = 1; i <= 5; i++) preloadFrame(frameNum + i);
+        if (!video || !videoDuration) return;
+        
+        const targetTime = scrollProgress * videoDuration;
+        
+        // Only update if the time difference is significant to avoid constant seeking
+        if (Math.abs(video.currentTime - targetTime) > 0.1) {
+          video.currentTime = targetTime;
         }
       }
 
       function updateTextSections() {
+        const currentVideoTime = scrollProgress * videoDuration;
+        
         const section = textSections.find(
-          s => currentFrame >= s.startFrame && currentFrame <= s.endFrame
+          s => currentVideoTime >= s.startTime * videoDuration && currentVideoTime <= s.endTime * videoDuration
         );
+        
         if (section && (!activeTextSection || activeTextSection.id !== section.id)) {
           if (activeTextSection) hideTextSection(activeTextSection);
           showTextSection(section);
@@ -163,11 +166,17 @@
         el.classList.remove('exit-left','exit-right');
         el.classList.add('active');
       }
+      
       function hideTextSection(s) {
         const el = document.getElementById(s.id);
         el.classList.remove('active');
+        
+        // Determine exit direction based on scroll direction
+        const currentVideoTime = scrollProgress * videoDuration;
+        const sectionEndTime = s.endTime * videoDuration;
+        
         el.classList.add(
-          currentFrame > s.endFrame ? 'exit-right' : 'exit-left'
+          currentVideoTime > sectionEndTime ? 'exit-right' : 'exit-left'
         );
       }
 
@@ -203,12 +212,14 @@
 
       function init() {
         document.body.style.overflow = 'hidden';
-        preloadInitialFrames();
+        initializeVideo();
         requestAnimationFrame(animate);
+        
         window.addEventListener('wheel', e => {
           e.preventDefault();
           handleScroll(e.deltaY);
         }, { passive: false });
+        
         window.addEventListener('keydown', e => {
           if (e.key === 'ArrowDown' || e.key === 'PageDown') {
             e.preventDefault();
