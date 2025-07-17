@@ -37,11 +37,6 @@
       .post-animation-content {
         min-height: 100vh;
         padding: 4rem 2rem;
-        max-width: 1200px;
-        margin: 2rem auto 0;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.5s ease, visibility 0.5s ease;
@@ -159,6 +154,18 @@
           }
           
           targetProgress = Math.max(0, Math.min(1, newProgress)); 
+        } else {
+          // Animation is complete, check for scroll up to re-enter animation
+          if (deltaY < 0) {
+            // User is scrolling up, re-enter animation mode
+            reenterAnimation();
+            // Start from near the end of the animation
+            targetProgress = 0.95;
+            scrollProgress = 0.95;
+            updateVideoFrame();
+            updateProgressBar();
+            updateTextSections();
+          }
         }
       }
       function animate() { 
@@ -196,18 +203,28 @@
           postContent.scrollIntoView({ behavior: 'smooth' });
         }, 800);
       }
+      function reenterAnimation() {
+        animationComplete = false;
+        
+        // Hide post-animation content
+        const postContent = document.querySelector('.post-animation-content');
+        postContent.classList.remove('visible');
+        
+        // Disable body scrolling to re-enter animation mode
+        document.body.style.overflow = 'hidden';
+        
+        // Scroll back to animation container
+        const animationContainer = document.getElementById('animationContainer');
+        animationContainer.scrollIntoView({ behavior: 'smooth' });
+      }
       function init() { 
         document.body.style.overflow = 'hidden'; 
         preloadInitialFrames(); 
         requestAnimationFrame(animate);
         
         const onWheel = e => { 
-          if (!animationComplete) {
-            // Animation is still running, handle scroll for animation
-            e.preventDefault(); 
-            handleScroll(e.deltaY); 
-          }
-          // Once animation is complete, let browser handle normal scrolling
+          e.preventDefault(); 
+          handleScroll(e.deltaY); 
         };
         window.addEventListener('wheel', onWheel, { passive: false });
         
@@ -222,8 +239,17 @@
               e.preventDefault(); 
               handleScroll(-100); 
             } 
+          } else {
+            // Animation is complete, handle keyboard for re-entering animation
+            if (e.key === 'ArrowUp' || e.key === 'PageUp') { 
+              e.preventDefault(); 
+              handleScroll(-100); 
+            }
+            if (e.key === 'ArrowDown' || e.key === 'PageDown') { 
+              // Let normal scrolling happen in post-content
+              return;
+            }
           }
-          // If animation is complete, let browser handle normal keyboard scrolling
         };
         window.addEventListener('keydown', onKeydown);
       }
