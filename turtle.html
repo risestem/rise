@@ -173,22 +173,19 @@
       function init() {
         document.body.style.overflow = 'hidden';
         initVideo();
-        requestAnimationFrame(animate);
-        window.addEventListener('wheel', e => {
-          e.preventDefault(); handleScroll(e.deltaY);
-        }, { passive: false });
+        // animation will start once video can play through
+        window.addEventListener('wheel', e => { e.preventDefault(); handleScroll(e.deltaY); }, { passive: false });
         window.addEventListener('keydown', e => {
-          if (['ArrowDown','PageDown'].includes(e.key)) {
-            e.preventDefault(); handleScroll(100);
-          } else if (['ArrowUp','PageUp'].includes(e.key)) {
-            e.preventDefault(); handleScroll(-100);
-          }
+          if (['ArrowDown','PageDown'].includes(e.key)) { e.preventDefault(); handleScroll(100); }
+          else if (['ArrowUp','PageUp'].includes(e.key)) { e.preventDefault(); handleScroll(-100); }
         });
       }
 
+      // start init on load
       window.addEventListener('load', init);
       window.addEventListener('resize', () => {
-        updateVideoFrame(); updateTextSections(); updateProgressBar();
+        updateProgressBar();
+        updateTextSections();
       });
     </script>
   </body>
