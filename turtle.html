@@ -1,117 +1,125 @@
 <!doctype html>
 <html lang="en">
 <head>
+  <script src="https://unpkg.com/alpinejs" defer></script>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Scroll‑Scrub Video – RISE STEM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Scroll‑Scrub Video</title>
+  <link rel="icon" type="image/svg+xml" href="/public/logo1.svg" />
+  <link rel="icon" type="image/png" href="/public/favicon-32x32.png" />
+  <link rel="shortcut icon" href="/public/favicon.ico" />
+  <link rel="apple-touch-icon" href="/public/apple-touch-icon.png" />
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
-    html { scroll-behavior: smooth; }
-    body { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background-color: #f9fafb; }
-    .animation-container { height: 100vh; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; }
-    .scroll-video-container { position: absolute; right: 5%; top: 50%; transform: translateY(-50%); width: 60%; height: 85vh; max-width: 800px; z-index: 10; }
-    .scroll-video-frame { width: 100%; height: 100%; object-fit: contain; background: transparent; }
-    .scroll-text-container { position: absolute; left: 5%; top: 50%; transform: translateY(-50%); width: 35%; max-width: 450px; z-index: 20; height: 200px; }
-    .scroll-text-section { position: absolute; width: 100%; opacity: 0; transform: translateX(-100px); transition: all 0.5s cubic-bezier(0.4,0,0.2,1); pointer-events: none; }
-    .scroll-text-section.active { opacity: 1; transform: translateX(0); pointer-events: auto; }
-    .scroll-text-section.exit-right { opacity: 0; transform: translateX(100px); }
-    .scroll-text-section.exit-left  { opacity: 0; transform: translateX(-100px); }
-    .progress-bar { position: fixed; top: 0; left: 0; height: 4px; background: linear-gradient(90deg,#3b82f6,#8b5cf6); z-index: 100; width: 0%; }
-    .post-animation-content { min-height: 100vh; padding: 4rem 2rem; max-width: 1200px; margin: 2rem auto 0; background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    /* reset */
+    html, body { margin:0; padding:0; }
+
+    /* wrapper whose height defines scroll length */
+    .scrub-video-wrapper {
+      position: relative;
+      width: 100%;
+    }
+
+    /* container that sticks the video */
+    .scrub-video-container {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
+    }
+
+    /* fill container */
+    .scrub-video-container video {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
   </style>
 </head>
 <body>
-  <div class="progress-bar" id="progressBar"></div>
+  <!-- Header -->
+  <div id="header-container"></div>
+  <script type="module" src="/scripts/loadHeader.js"></script>
 
-  <div class="animation-container">
-    <div class="scroll-video-container">
+  <!-- the single wrapper -->
+  <div class="scrub-video-wrapper">
+    <div class="scrub-video-container">
       <video
-        id="videoFrame"
-        class="scroll-video-frame"
-        src="public/animation_v5_keyframes.webm"
+        id="video"
+        src="public/animation_v5_alpha.webm"
         muted
-        playsinline
-        preload="auto">
+        playsinline>
       </video>
     </div>
-    <div class="scroll-text-container">
-      <div class="scroll-text-section" id="textSection1">
-        <h2>Innovation in Learning</h2>
-        <p>Discover how cutting-edge tech transforms traditional education into immersive, interactive experiences.</p>
-      </div>
-      <div class="scroll-text-section" id="textSection2">
-        <h2>Student Engagement</h2>
-        <p>Our hands-on approach ensures every student actively participates, building confidence and practical skills.</p>
-      </div>
-      <div class="scroll-text-section" id="textSection3">
-        <h2>Scientific Discovery</h2>
-        <p>Through experimentation, students uncover the wonders of science and develop critical thinking abilities.</p>
-      </div>
-      <div class="scroll-text-section" id="textSection4">
-        <h2>Community Building</h2>
-        <p>Our collaborative environment fosters teamwork and communication skills essential for success in STEM.</p>
-      </div>
-      <div class="scroll-text-section" id="textSection5">
-        <h2>Shaping the Future</h2>
-        <p>Empowering the next generation of innovators and leaders to tackle tomorrow's greatest challenges.</p>
-      </div>
-    </div>
   </div>
 
-  <div class="post-animation-content">
-    <h1>Discover More About RISE STEM</h1>
-    <!-- your post-animation content -->
-  </div>
+  <!-- Footer -->
+  <div id="footer-container"></div>
+  <script type="module" src="/scripts/loadFooter.js"></script>
 
   <script>
-    const textSections = [
-      { id: 'textSection1', start: 0.00, end: 0.20 },
-      { id: 'textSection2', start: 0.25, end: 0.45 },
-      { id: 'textSection3', start: 0.50, end: 0.70 },
-      { id: 'textSection4', start: 0.75, end: 0.90 },
-      { id: 'textSection5', start: 0.90, end: 1.00 }
-    ];
+    class ScrubVideoManager {
+      constructor() {
+        this.wrapper   = document.querySelector('.scrub-video-wrapper');
+        this.container = this.wrapper.querySelector('.scrub-video-container');
+        this.video     = this.container.querySelector('video');
 
-    let progress = 0;
-    let videoDuration = 0;
-    const video = document.getElementById('videoFrame');
+        // when metadata loads, size wrapper & compute positions
+        this.video.addEventListener('loadedmetadata', this.onLoaded.bind(this));
+        // re‑compute on resize
+        window.addEventListener('resize', this.onResize.bind(this));
+        // scrub on scroll
+        document.addEventListener('scroll', this.onScroll.bind(this), { passive: true });
 
-    video.addEventListener('loadedmetadata', () => {
-      videoDuration = video.duration;
-      video.pause(); // never auto‑play
+        // fetch the whole video blob so seeks never wait :contentReference[oaicite:2]{index=2}
+        this.fetchVideo(this.video);
+      }
+
+      onLoaded() {
+        // duration in seconds
+        this.duration = this.video.duration;
+        // make scrollable area = duration × viewport height :contentReference[oaicite:3]{index=3}
+        this.wrapper.style.height = `${this.duration * window.innerHeight}px`;
+        this.updatePositions();
+      }
+
+      updatePositions() {
+        // top of wrapper in document
+        this.top = this.wrapper.offsetTop;
+        // scrollY at which the wrapper bottom reaches viewport bottom
+        this.bottom = this.top + this.wrapper.offsetHeight - window.innerHeight;
+      }
+
+      onScroll() {
+        if (!this.duration) return;
+        const y = window.scrollY;
+        // clamp 0→1
+        const progress = Math.max(0, Math.min((y - this.top) / (this.bottom - this.top), 1));
+        this.video.currentTime = progress * this.duration;
+      }
+
+      onResize() {
+        // re‑size wrapper if viewport height changed
+        this.wrapper.style.height = `${this.duration * window.innerHeight}px`;
+        this.updatePositions();
+      }
+
+      fetchVideo(videoEl) {
+        const src = videoEl.getAttribute('src');
+        fetch(src)
+          .then(res => res.blob())
+          .then(blob => {
+            videoEl.src = URL.createObjectURL(blob);
+          });
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      new ScrubVideoManager();
     });
-
-    function updateTextSections(p) {
-      const active = textSections.find(s => p >= s.start && p <= s.end);
-      textSections.forEach(s => {
-        const el = document.getElementById(s.id);
-        if (active && active.id === s.id) {
-          el.classList.add('active');
-          el.classList.remove('exit-left', 'exit-right');
-        } else {
-          if (el.classList.contains('active')) {
-            el.classList.remove('active');
-            const exitClass = (p > s.end) ? 'exit-right' : 'exit-left';
-            el.classList.add(exitClass);
-            setTimeout(() => el.classList.remove('exit-left', 'exit-right'), 500);
-          }
-        }
-      });
-    }
-
-    function updateProgressBar(p) {
-      document.getElementById('progressBar').style.width = `${p * 100}%`;
-    }
-
-    const scrollSpeed = 0.005;
-    window.addEventListener('wheel', e => {
-      e.preventDefault();
-      progress = Math.max(0, Math.min(1, progress + e.deltaY * scrollSpeed));
-      video.currentTime = progress * videoDuration;
-      updateTextSections(progress);
-      updateProgressBar(progress);
-    }, { passive: false });
   </script>
 </body>
 </html>
