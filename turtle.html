@@ -18,49 +18,26 @@
       html { scroll-behavior: smooth; }
       body { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background-color: #f9fafb; }
 
-      /* Container & Layout */
+      /* Layout */
       .animation-container { height: 100vh; overflow: hidden; position: relative; background: white; display: flex; align-items: center; justify-content: center; }
-      .scroll-video-container { position: absolute; right: 5%; top: 50%; transform: translateY(-50%); width: 60%; height: 85vh; max-width: 800px; z-index: 10; display: flex; align-items: center; justify-content: center; }
-      .scroll-video-frame { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
+      .scroll-video-container { position: absolute; right: 5%; top: 50%; transform: translateY(-50%); width: 60%; height: 85vh; max-width: 800px; z-index: 10; }
+      .scroll-video-frame { width: 100%; height: 100%; object-fit: contain; background: transparent; }
       .scroll-text-container { position: absolute; left: 5%; top: 50%; transform: translateY(-50%); width: 35%; max-width: 450px; z-index: 20; height: 200px; }
-
-      /* Text sections */
-      .scroll-text-section { position: absolute; width: 100%; top: 0; left: 0; opacity: 0; transform: translateX(-100px); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none; }
+      .scroll-text-section { position: absolute; width: 100%; opacity: 0; transform: translateX(-100px); transition: all 0.5s cubic-bezier(0.4,0,0.2,1); pointer-events: none; }
       .scroll-text-section.active { opacity: 1; transform: translateX(0); pointer-events: auto; }
       .scroll-text-section.exit-right { opacity: 0; transform: translateX(100px); }
       .scroll-text-section.exit-left  { opacity: 0; transform: translateX(-100px); }
-
-      .scroll-text-section h2 { font-size: 2rem; font-weight: bold; color: #581c87; margin-bottom: 1.5rem; line-height: 1.2; }
-      .scroll-text-section p  { font-size: 1.1rem; color: #374151; line-height: 1.6; margin-bottom: 1rem; }
-
-      /* Progress Bar */
-      .progress-bar { position: fixed; top: 0; left: 0; height: 4px; background: linear-gradient(90deg, #3b82f6, #8b5cf6); z-index: 100; transition: width 0.2s ease; }
-
-      /* Post-animation */
+      .scroll-text-section h2 { font-size: 2rem; font-weight: bold; color: #581c87; margin-bottom: 1.5rem; }
+      .scroll-text-section p  { font-size: 1.1rem; color: #374151; line-height: 1.6; }
+      .progress-bar { position: fixed; top: 0; left: 0; height: 4px; background: linear-gradient(90deg,#3b82f6,#8b5cf6); transition: width 0.2s ease; z-index: 100; }
       .post-animation-content { min-height: 100vh; padding: 4rem 2rem; max-width: 1200px; margin: 2rem auto 0; background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-      .post-animation-content h1 { font-size: 3rem; font-weight: bold; color: #581c87; margin-bottom: 2rem; text-align: center; }
-      .post-animation-content h2 { font-size: 2rem; font-weight: bold; color: #581c87; margin: 3rem 0 1.5rem; }
-      .post-animation-content p  { font-size: 1.1rem; color: #374151; line-height: 1.7; margin-bottom: 1.5rem; }
-
-      /* Responsive */
-      @media (max-width: 768px) {
-        .scroll-video-container { width: 90%; height: 60vh; right: 5%; top: 20%; }
-        .scroll-text-container  { width: 90%; left: 5%; top: 80%; }
-        .scroll-text-section h2  { font-size: 1.5rem; }
-        .scroll-text-section p   { font-size: 1rem; }
-      }
-      @media (max-width: 640px) {
-        .animation-container  { flex-direction: column; padding: 2rem 1rem; }
-        .scroll-video-container { position: relative; width: 100%; height: 40vh; right: auto; top: auto; transform: none; margin-bottom: 2rem; }
-        .scroll-text-container   { position: relative; width: 100%; left: auto; top: auto; transform: none; }
-      }
     </style>
   </head>
   <body>
     <!-- Header -->
     <div id="header-container"></div>
     <script type="module" src="/scripts/loadHeader.js"></script>
-    
+
     <div class="progress-bar" id="progressBar"></div>
 
     <div class="animation-container" id="animationContainer">
@@ -69,9 +46,7 @@
           id="videoFrame"
           class="scroll-video-frame"
           src="public/animation_v5_alpha.webm"
-          muted
-          preload="auto"
-          playsinline
+          muted playsinline preload="auto"
         ></video>
       </div>
       <div class="scroll-text-container">
@@ -100,7 +75,7 @@
 
     <div class="post-animation-content">
       <h1>Discover More About RISE STEM</h1>
-      <!-- Add your post-animation content here -->
+      <!-- your post-animation content -->
     </div>
 
     <!-- Footer -->
@@ -109,48 +84,42 @@
 
     <script>
       const textSections = [
-        { id: 'textSection1', startTime: 0, endTime: 0.287 },     // 0% to 28.7% of video
-        { id: 'textSection2', startTime: 0.3, endTime: 0.587 },   // 30% to 58.7% of video
-        { id: 'textSection3', startTime: 0.6, endTime: 0.9 },     // 60% to 90% of video
-        { id: 'textSection4', startTime: 0.847, endTime: 1.0 },   // 84.7% to 100% of video
+        { id: 'textSection1', start: 0,   end: 0.2 },
+        { id: 'textSection2', start: 0.25,end: 0.45 },
+        { id: 'textSection3', start: 0.5, end: 0.7 },
+        { id: 'textSection4', start: 0.75,end: 0.9 },
+        { id: 'textSection5', start: 0.9, end: 1.0 }
       ];
 
       let scrollProgress = 0;
       let targetProgress = 0;
       let animationComplete = false;
       let activeTextSection = null;
-      let video = null;
+      let video = document.getElementById('videoFrame');
       let videoDuration = 0;
 
-      function initializeVideo() {
+      function initVideo() {
         video = document.getElementById('videoFrame');
-        video.addEventListener('loadedmetadata', () => {
+        // grab duration immediately if metadata already loaded
+        if (video.readyState >= 1) {
           videoDuration = video.duration;
-          console.log('Video duration:', videoDuration);
-        });
-        video.addEventListener('canplaythrough', () => {
-          console.log('Video ready to play');
-        });
+        } else {
+          video.addEventListener('loadedmetadata', () => {
+            videoDuration = video.duration;
+          });
+        }
       }
 
       function updateVideoFrame() {
-        if (!video || !videoDuration) return;
-        
-        const targetTime = scrollProgress * videoDuration;
-        
-        // Only update if the time difference is significant to avoid constant seeking
-        if (Math.abs(video.currentTime - targetTime) > 0.1) {
-          video.currentTime = targetTime;
+        if (videoDuration > 0) {
+          video.currentTime = scrollProgress * videoDuration;
         }
       }
 
       function updateTextSections() {
-        const currentVideoTime = scrollProgress * videoDuration;
-        
-        const section = textSections.find(
-          s => currentVideoTime >= s.startTime * videoDuration && currentVideoTime <= s.endTime * videoDuration
+        const section = textSections.find(s =>
+          scrollProgress >= s.start && scrollProgress <= s.end
         );
-        
         if (section && (!activeTextSection || activeTextSection.id !== section.id)) {
           if (activeTextSection) hideTextSection(activeTextSection);
           showTextSection(section);
@@ -166,17 +135,12 @@
         el.classList.remove('exit-left','exit-right');
         el.classList.add('active');
       }
-      
       function hideTextSection(s) {
         const el = document.getElementById(s.id);
         el.classList.remove('active');
-        
-        // Determine exit direction based on scroll direction
-        const currentVideoTime = scrollProgress * videoDuration;
-        const sectionEndTime = s.endTime * videoDuration;
-        
+        // exit direction based on scroll direction
         el.classList.add(
-          currentVideoTime > sectionEndTime ? 'exit-right' : 'exit-left'
+          scrollProgress > s.end ? 'exit-right' : 'exit-left'
         );
       }
 
@@ -185,7 +149,7 @@
           `${scrollProgress * 100}%`;
       }
 
-      const scrollSpeed = 0.0008; // tuning
+      const scrollSpeed = 0.001;
       function handleScroll(deltaY) {
         targetProgress = Math.max(0, Math.min(1,
           targetProgress + deltaY * scrollSpeed
@@ -193,52 +157,42 @@
       }
 
       function animate() {
+        // ease towards target
         scrollProgress += (targetProgress - scrollProgress) * 0.1;
         updateVideoFrame();
-        updateProgressBar();
         updateTextSections();
+        updateProgressBar();
         if (!animationComplete && scrollProgress >= 1) {
-          completeAnimation();
+          animationComplete = true;
+          document.body.style.overflow = 'auto';
+          document.querySelector('.post-animation-content')
+            .scrollIntoView({ behavior: 'smooth' });
         }
         requestAnimationFrame(animate);
       }
 
-      function completeAnimation() {
-        animationComplete = true;
-        document.body.style.overflow = 'auto';
-        document.querySelector('.post-animation-content')
-          .scrollIntoView({ behavior: 'smooth' });
-      }
-
       function init() {
         document.body.style.overflow = 'hidden';
-        initializeVideo();
+        initVideo();
         requestAnimationFrame(animate);
-        
         window.addEventListener('wheel', e => {
           e.preventDefault();
           handleScroll(e.deltaY);
         }, { passive: false });
-        
         window.addEventListener('keydown', e => {
-          if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-            e.preventDefault();
-            handleScroll(100);
-          }
-          if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-            e.preventDefault();
-            handleScroll(-100);
+          if (['ArrowDown','PageDown'].includes(e.key)) {
+            e.preventDefault(); handleScroll(100);
+          } else if (['ArrowUp','PageUp'].includes(e.key)) {
+            e.preventDefault(); handleScroll(-100);
           }
         });
       }
 
       window.addEventListener('load', init);
       window.addEventListener('resize', () => {
-        if (!animationComplete) {
-          updateVideoFrame();
-          updateProgressBar();
-          updateTextSections();
-        }
+        updateVideoFrame();
+        updateTextSections();
+        updateProgressBar();
       });
     </script>
   </body>
