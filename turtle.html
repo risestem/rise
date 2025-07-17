@@ -68,7 +68,7 @@
         <img
           id="videoFrame"
           class="scroll-video-frame"
-          src="public/v5_webp/turtleExplodev40001.webp"
+          src="public/v5_webp/turtleExplodev500001.webp"
           alt="Video Frame"
         />
       </div>
@@ -107,7 +107,7 @@
 
     <script>
       const totalFrames = 150;
-      const frameBasePath = 'public/v5_webp/turtleExplodev4';
+      const frameBasePath = 'public/v5_webp/turtleExplodev5';
       const textSections = [
         { id: 'textSection1', startFrame:   1, endFrame:  43 },
         { id: 'textSection2', startFrame:  45, endFrame:  88 },
@@ -126,7 +126,7 @@
         if (n < 1 || n > totalFrames) return;
         if (!preloadedFrames.has(n)) {
           const img = new Image();
-          img.src = `${frameBasePath}${String(n).padStart(4,'0')}.webp`;
+          img.src = `${frameBasePath}${String(n).padStart(5,'0')}.webp`;
           preloadedFrames.set(n, img);
         }
       }
@@ -139,7 +139,7 @@
         if (frameNum !== currentFrame) {
           currentFrame = frameNum;
           document.getElementById('videoFrame').src =
-            `${frameBasePath}${String(frameNum).padStart(4,'0')}.webp`;
+            `${frameBasePath}${String(frameNum).padStart(5,'0')}.webp`;
           for (let i = 1; i <= 5; i++) preloadFrame(frameNum + i);
         }
       }
