@@ -209,7 +209,14 @@
 
         // Auto-scroll to post-animation content after a brief delay
         setTimeout(() => {
-          postContent.scrollIntoView({ behavior: 'smooth' });
+          // Account for fixed header height when scrolling
+          const headerHeight = 80; // Approximate header height in pixels
+          const postContentTop = postContent.offsetTop - headerHeight;
+
+          window.scrollTo({
+            top: postContentTop,
+            behavior: 'smooth'
+          });
         }, 800);
       }
       function reenterAnimation() {
@@ -222,9 +229,15 @@
         // Disable body scrolling to re-enter animation mode
         document.body.style.overflow = 'hidden';
         
-        // Scroll back to animation container
+        // Scroll back to animation container, accounting for header
         const animationContainer = document.getElementById('animationContainer');
-        animationContainer.scrollIntoView({ behavior: 'smooth' });
+        const headerHeight = 80; // Approximate header height in pixels
+        const animationTop = animationContainer.offsetTop - headerHeight;
+
+        window.scrollTo({
+          top: animationTop,
+          behavior: 'smooth'
+        });
       }
       function init() { 
         document.body.style.overflow = 'hidden'; 
