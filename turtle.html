@@ -46,7 +46,7 @@
           id="videoFrame"
           class="scroll-video-frame"
           src="public/animation_v5_alpha.webm"
-          muted playsinline preload="auto"
+          muted autoplay playsinline preload="auto"
         ></video>
       </div>
       <div class="scroll-text-container">
@@ -95,12 +95,15 @@
       let targetProgress = 0;
       let animationComplete = false;
       let activeTextSection = null;
-      let video = document.getElementById('videoFrame');
+      let video;
       let videoDuration = 0;
 
       function initVideo() {
         video = document.getElementById('videoFrame');
-        // grab duration immediately if metadata already loaded
+        // ensure video is playing to allow seeks
+        video.play().catch(() => {
+          /* autoplay might be blocked; silent fail */
+        });
         if (video.readyState >= 1) {
           videoDuration = video.duration;
         } else {
@@ -138,7 +141,6 @@
       function hideTextSection(s) {
         const el = document.getElementById(s.id);
         el.classList.remove('active');
-        // exit direction based on scroll direction
         el.classList.add(
           scrollProgress > s.end ? 'exit-right' : 'exit-left'
         );
@@ -157,11 +159,8 @@
       }
 
       function animate() {
-        // ease towards target
         scrollProgress += (targetProgress - scrollProgress) * 0.1;
-        updateVideoFrame();
-        updateTextSections();
-        updateProgressBar();
+        updateVideoFrame(); updateTextSections(); updateProgressBar();
         if (!animationComplete && scrollProgress >= 1) {
           animationComplete = true;
           document.body.style.overflow = 'auto';
@@ -176,8 +175,7 @@
         initVideo();
         requestAnimationFrame(animate);
         window.addEventListener('wheel', e => {
-          e.preventDefault();
-          handleScroll(e.deltaY);
+          e.preventDefault(); handleScroll(e.deltaY);
         }, { passive: false });
         window.addEventListener('keydown', e => {
           if (['ArrowDown','PageDown'].includes(e.key)) {
@@ -190,9 +188,7 @@
 
       window.addEventListener('load', init);
       window.addEventListener('resize', () => {
-        updateVideoFrame();
-        updateTextSections();
-        updateProgressBar();
+        updateVideoFrame(); updateTextSections(); updateProgressBar();
       });
     </script>
   </body>
