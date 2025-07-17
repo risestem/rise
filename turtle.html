@@ -1,608 +1,172 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <script src="https://unpkg.com/alpinejs" defer></script>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/public/logo1.svg" />
-    <link rel="icon" type="image/png" href="/public/favicon-32x32.png">
-    <link rel="shortcut icon" href="/public/favicon.ico">
-    <link rel="apple-touch-icon" href="/public/apple-touch-icon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Scroll Video - RISE STEM</title>
+    <script src="https://unpkg.com/alpinejs" defer></script>
+    <link rel="icon" type="image/svg+xml" href="/public/logo1.svg" />
+    <link rel="icon" type="image/png" href="/public/favicon-32x32.png" />
+    <link rel="shortcut icon" href="/public/favicon.ico" />
+    <link rel="apple-touch-icon" href="/public/apple-touch-icon.png" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-      html {
-        scroll-behavior: smooth;
-      }
-
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: 'Poppins', sans-serif;
-        background-color: #f9fafb;
-      }
-
-      /* Animation Container - Fixed height during animation */
-      .animation-container {
-        height: 100vh;
-        overflow: hidden;
-        position: relative;
-        background: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      /* Video Container */
-      .scroll-video-container {
-        position: absolute;
-        right: 10%;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 45%;
-        height: 70vh;
-        max-width: 600px;
-        z-index: 10;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .scroll-video-frame {
-        max-width: 100%;
-        max-height: 100%;
-        width: auto;
-        height: auto;
-        object-fit: contain;
-      }
-
-      /* Text Container */
-      .scroll-text-container {
-        position: absolute;
-        left: 10%;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 40%;
-        max-width: 500px;
-        z-index: 20;
-        height: 200px; /* Fixed height to prevent jumping */
-      }
-
-      .scroll-text-section {
-        position: absolute;
-        width: 100%;
-        top: 0;
-        left: 0;
-        opacity: 0;
-        transform: translateX(-100px);
-        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-        pointer-events: none;
-      }
-
-      .scroll-text-section.active {
-        opacity: 1;
-        transform: translateX(0);
-        pointer-events: auto;
-      }
-
-      .scroll-text-section.exit-right {
-        opacity: 0;
-        transform: translateX(100px);
-      }
-
-      .scroll-text-section.exit-left {
-        opacity: 0;
-        transform: translateX(-100px);
-      }
-
-      .scroll-text-section h2 {
-        font-size: 2rem;
-        font-weight: bold;
-        color: #581c87;
-        margin-bottom: 1.5rem;
-        line-height: 1.2;
-      }
-
-      .scroll-text-section p {
-        font-size: 1.1rem;
-        color: #374151;
-        line-height: 1.6;
-        margin-bottom: 1rem;
-      }
-
-      /* Progress Bar */
-      .progress-bar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 4px;
-        background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-        z-index: 100;
-        transition: width 0.3s ease;
-      }
-
-      /* Content after animation */
-      .post-animation-content {
-        min-height: 100vh;
-        padding: 4rem 2rem;
-        max-width: 1200px;
-        margin: 0 auto;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-top: 2rem;
-      }
-
-      .post-animation-content h1 {
-        font-size: 3rem;
-        font-weight: bold;
-        color: #581c87;
-        margin-bottom: 2rem;
-        text-align: center;
-      }
-
-      .post-animation-content h2 {
-        font-size: 2rem;
-        font-weight: bold;
-        color: #581c87;
-        margin: 3rem 0 1.5rem 0;
-      }
-
-      .post-animation-content p {
-        font-size: 1.1rem;
-        color: #374151;
-        line-height: 1.7;
-        margin-bottom: 1.5rem;
-      }
-
-      /* Responsive Design */
+      html { scroll-behavior: smooth; }
+      body { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background-color: #f9fafb; }
+      .animation-container { height: 100vh; overflow: hidden; position: relative; background: white; display: flex; align-items: center; justify-content: center; }
+      .scroll-video-container { position: absolute; right: 10%; top: 50%; transform: translateY(-50%); width: 45%; height: 70vh; max-width: 600px; z-index: 10; display: flex; align-items: center; justify-content: center; }
+      .scroll-video-frame { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
+      .scroll-text-container { position: absolute; left: 10%; top: 50%; transform: translateY(-50%); width: 40%; max-width: 500px; z-index: 20; height: 200px; }
+      .scroll-text-section { position: absolute; width: 100%; top: 0; left: 0; opacity: 0; transform: translateX(-100px); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none; }
+      .scroll-text-section.active { opacity: 1; transform: translateX(0); pointer-events: auto; }
+      .scroll-text-section.exit-right { opacity: 0; transform: translateX(100px); }
+      .scroll-text-section.exit-left  { opacity: 0; transform: translateX(-100px); }
+      .scroll-text-section h2 { font-size: 2rem; font-weight: bold; color: #581c87; margin-bottom: 1.5rem; line-height: 1.2; }
+      .scroll-text-section p  { font-size: 1.1rem; color: #374151; line-height: 1.6; margin-bottom: 1rem; }
+      .progress-bar { position: fixed; top: 0; left: 0; height: 4px; background: linear-gradient(90deg, #3b82f6, #8b5cf6); z-index: 100; transition: width 0.3s ease; }
+      .post-animation-content { min-height: 100vh; padding: 4rem 2rem; max-width: 1200px; margin: 2rem auto 0; background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+      .post-animation-content h1 { font-size: 3rem; font-weight: bold; color: #581c87; margin-bottom: 2rem; text-align: center; }
+      .post-animation-content h2 { font-size: 2rem; font-weight: bold; color: #581c87; margin: 3rem 0 1.5rem; }
+      .post-animation-content p  { font-size: 1.1rem; color: #374151; line-height: 1.7; margin-bottom: 1.5rem; }
       @media (max-width: 768px) {
-        .scroll-video-container {
-          width: 90%;
-          height: 50vh;
-          right: 5%;
-          top: 20%;
-        }
-
-        .scroll-text-container {
-          width: 90%;
-          left: 5%;
-          top: 75%;
-        }
-
-        .scroll-text-section h2 {
-          font-size: 1.5rem;
-        }
-
-        .scroll-text-section p {
-          font-size: 1rem;
-        }
+        .scroll-video-container { width: 90%; height: 50vh; right: 5%; top: 20%; }
+        .scroll-text-container  { width: 90%; left: 5%; top: 75%; }
+        .scroll-text-section h2  { font-size: 1.5rem; }
+        .scroll-text-section p   { font-size: 1rem; }
       }
-
       @media (max-width: 640px) {
-        .animation-container {
-          flex-direction: column;
-          padding: 2rem 1rem;
-        }
-
-        .scroll-video-container {
-          position: relative;
-          width: 100%;
-          height: 40vh;
-          right: auto;
-          top: auto;
-          transform: none;
-          margin-bottom: 2rem;
-        }
-
-        .scroll-text-container {
-          position: relative;
-          width: 100%;
-          left: auto;
-          top: auto;
-          transform: none;
-        }
+        .animation-container  { flex-direction: column; padding: 2rem 1rem; }
+        .scroll-video-container { position: relative; width: 100%; height: 40vh; right: auto; top: auto; transform: none; margin-bottom: 2rem; }
+        .scroll-text-container   { position: relative; width: 100%; left: auto; top: auto; transform: none; }
       }
     </style>
   </head>
   <body>
-    <!-- Header -->
-    <div id="header-container"></div>
-
-    <!-- Progress Bar -->
     <div class="progress-bar" id="progressBar"></div>
-
-    <!-- Animation Container -->
     <div class="animation-container" id="animationContainer">
-      <!-- Video Container -->
       <div class="scroll-video-container">
-        <img
-          id="videoFrame"
-          class="scroll-video-frame"
-          src="public/v4_frames_web/turtleExplodev40001.png"
-          alt="Video Frame"
-        />
+        <img id="videoFrame" class="scroll-video-frame" src="public/v4_frames_web/turtleExplodev40001.png" alt="Video Frame" />
       </div>
-
-      <!-- Text Container -->
       <div class="scroll-text-container">
-        <!-- Section 1: Innovation -->
         <div class="scroll-text-section" id="textSection1">
           <h2>Innovation in Learning</h2>
-          <p>
-            Discover how cutting-edge technology transforms traditional education into immersive, interactive experiences that captivate and inspire students.
-          </p>
+          <p>Discover how cutting-edge technology transforms traditional education into immersive, interactive experiences.</p>
         </div>
-
-        <!-- Section 2: Engagement -->
         <div class="scroll-text-section" id="textSection2">
           <h2>Student Engagement</h2>
-          <p>
-            Our hands-on approach ensures every student actively participates in their learning journey, building confidence and practical skills.
-          </p>
+          <p>Our hands-on approach ensures every student actively participates, building confidence and practical skills.</p>
         </div>
-
-        <!-- Section 3: Discovery -->
         <div class="scroll-text-section" id="textSection3">
           <h2>Scientific Discovery</h2>
-          <p>
-            Through experimentation and exploration, students uncover the wonders of science while developing critical thinking abilities.
-          </p>
+          <p>Through experimentation, students uncover the wonders of science and develop critical thinking abilities.</p>
         </div>
-
-        <!-- Section 4: Community -->
         <div class="scroll-text-section" id="textSection4">
           <h2>Community Building</h2>
-          <p>
-            Our collaborative environment fosters teamwork and communication skills essential for success in STEM careers.
-          </p>
+          <p>Our collaborative environment fosters teamwork and communication skills essential for success in STEM.</p>
         </div>
-
-        <!-- Section 5: Future -->
         <div class="scroll-text-section" id="textSection5">
           <h2>Shaping the Future</h2>
-          <p>
-            Empowering the next generation of innovators, problem-solvers, and leaders who will tackle tomorrow's greatest challenges.
-          </p>
+          <p>Empowering the next generation of innovators and leaders to tackle tomorrow's greatest challenges.</p>
         </div>
       </div>
     </div>
-
-    <!-- Post-Animation Content -->
     <div class="post-animation-content">
       <h1>Discover More About RISE STEM</h1>
-      
-      <h2>Our Mission</h2>
-      <p>
-        At RISE STEM, we believe in making science, technology, engineering, and mathematics accessible and exciting for all students. Our innovative approach combines hands-on learning with cutting-edge technology to create memorable educational experiences.
-      </p>
-      <p>
-        Through our programs, workshops, and community initiatives, we're building the next generation of innovators, problem-solvers, and leaders who will shape our future.
-      </p>
-
-      <h2>Comprehensive Programs</h2>
-      <p>
-        Our curriculum integrates real-world applications with fundamental concepts, ensuring students not only learn the theory but also understand how STEM principles apply to solving actual challenges in their communities and beyond.
-      </p>
-      <p>
-        From robotics and coding to environmental science and engineering design, we provide comprehensive programs that nurture curiosity and develop critical thinking skills essential for success in the 21st century.
-      </p>
-
-      <h2>Real-World Impact</h2>
-      <p>
-        Our students work on real projects that matter to their communities, from designing sustainable solutions to environmental challenges to creating apps that solve everyday problems. This practical approach ensures learning is both meaningful and memorable.
-      </p>
-      <p>
-        We celebrate every breakthrough moment, from a student's first successful code compilation to their innovative engineering design. These victories, big and small, build the foundation for lifelong learning and achievement.
-      </p>
-
-      <h2>Building Tomorrow's Leaders</h2>
-      <p>
-        Our alumni go on to pursue careers in technology, engineering, medicine, and research, but more importantly, they carry with them the problem-solving mindset and innovative thinking that RISE STEM has helped cultivate.
-      </p>
-      <p>
-        Through partnerships with local schools, community organizations, and industry leaders, we're building a network of support that ensures every student has access to quality STEM education and the opportunity to reach their full potential.
-      </p>
-
-      <h2>Join Our Mission</h2>
-      <p>
-        The future of STEM education is bright, and we're excited to continue pushing the boundaries of what's possible when innovative teaching meets passionate learning.
-      </p>
-      <p>
-        Join us in this mission to inspire, educate, and empower the next generation of STEM leaders who will tackle tomorrow's greatest challenges.
-      </p>
+      <!-- your post-animation content here -->
     </div>
-
     <script>
-      // Configuration
       const totalFrames = 150;
       const frameBasePath = 'public/v4_frames_web/turtleExplodev4';
-      
-      // Define frame ranges for each text section with gaps
       const textSections = [
-        { 
-          id: 'textSection1', 
-          startFrame: 1, 
-          endFrame: 25, 
-          title: 'Innovation in Learning' 
-        },
-        { 
-          id: 'textSection2', 
-          startFrame: 35, 
-          endFrame: 55, 
-          title: 'Student Engagement' 
-        },
-        { 
-          id: 'textSection3', 
-          startFrame: 65, 
-          endFrame: 85, 
-          title: 'Scientific Discovery' 
-        },
-        { 
-          id: 'textSection4', 
-          startFrame: 95, 
-          endFrame: 115, 
-          title: 'Community Building' 
-        },
-        { 
-          id: 'textSection5', 
-          startFrame: 125, 
-          endFrame: 150, 
-          title: 'Shaping the Future' 
-        }
+        { id: 'textSection1', startFrame: 1,   endFrame: 30 },
+        { id: 'textSection2', startFrame: 35,  endFrame: 55 },
+        { id: 'textSection3', startFrame: 65,  endFrame: 85 },
+        { id: 'textSection4', startFrame: 95,  endFrame:115 },
+        { id: 'textSection5', startFrame:125,  endFrame:150 }
       ];
-
-      // Get DOM elements
-      const videoFrame = document.getElementById('videoFrame');
-      const progressBar = document.getElementById('progressBar');
-      const animationContainer = document.getElementById('animationContainer');
-
-      // Animation state
       let currentFrame = 1;
       let scrollProgress = 0;
       let animationComplete = false;
       let activeTextSection = null;
-      let previousFrame = 1;
-
-      // Preload frames for smoother experience
       const preloadedFrames = new Map();
 
-      function preloadFrame(frameNumber) {
-        if (frameNumber < 1 || frameNumber > totalFrames) return null;
-        
-        if (!preloadedFrames.has(frameNumber)) {
+      function preloadFrame(n) {
+        if (n < 1 || n > totalFrames) return;
+        if (!preloadedFrames.has(n)) {
           const img = new Image();
-          const paddedNumber = frameNumber.toString().padStart(4, '0');
-          img.src = `${frameBasePath}${paddedNumber}.png`;
-          preloadedFrames.set(frameNumber, img);
+          img.src = `${frameBasePath}${String(n).padStart(4,'0')}.png`;
+          preloadedFrames.set(n, img);
         }
-        return preloadedFrames.get(frameNumber);
       }
-
-      // Preload initial frames
       function preloadInitialFrames() {
-        for (let i = 1; i <= Math.min(30, totalFrames); i++) {
-          preloadFrame(i);
-        }
+        for (let i = 1; i <= Math.min(30, totalFrames); i++) preloadFrame(i);
       }
-
-      // Update video frame
       function updateVideoFrame() {
-        const frameNumber = Math.max(1, Math.min(totalFrames, Math.floor(scrollProgress * totalFrames) + 1));
-        
-        if (frameNumber !== currentFrame) {
-          previousFrame = currentFrame;
-          currentFrame = frameNumber;
-          
-          const paddedNumber = frameNumber.toString().padStart(4, '0');
-          const newSrc = `${frameBasePath}${paddedNumber}.png`;
-          
-          videoFrame.src = newSrc;
-          
-          // Preload next few frames
-          for (let i = 1; i <= 5; i++) {
-            const nextFrame = frameNumber + i;
-            if (nextFrame <= totalFrames) {
-              preloadFrame(nextFrame);
-            }
-          }
-          
-          // Update text sections
-          updateTextSections();
+        const frameNum = Math.floor(scrollProgress * (totalFrames - 1)) + 1;
+        if (frameNum !== currentFrame) {
+          currentFrame = frameNum;
+          document.getElementById('videoFrame').src = 
+            `${frameBasePath}${String(frameNum).padStart(4,'0')}.png`;
+          for (let i = 1; i <= 5; i++) preloadFrame(frameNum + i);
         }
       }
-
-      // Update text sections based on current frame
       function updateTextSections() {
-        const scrollDirection = currentFrame > previousFrame ? 1 : -1;
-        
-        // Find which section should be active
-        let targetSection = null;
-        for (const section of textSections) {
-          if (currentFrame >= section.startFrame && currentFrame <= section.endFrame) {
-            targetSection = section;
-            break;
-          }
-        }
-        
-        // If target section is different from active section
-        if (targetSection && (!activeTextSection || targetSection.id !== activeTextSection.id)) {
-          // Hide current section if exists
-          if (activeTextSection) {
-            hideTextSection(activeTextSection, scrollDirection);
-          }
-          
-          // Show new section after a brief delay
-          setTimeout(() => {
-            showTextSection(targetSection, scrollDirection);
-            activeTextSection = targetSection;
-          }, activeTextSection ? 250 : 0);
-        }
-        // If we're outside any section range, hide current section
-        else if (!targetSection && activeTextSection) {
-          hideTextSection(activeTextSection, scrollDirection);
+        const section = textSections.find(s => currentFrame >= s.startFrame && currentFrame <= s.endFrame);
+        if (section && (!activeTextSection || activeTextSection.id !== section.id)) {
+          if (activeTextSection) hideTextSection(activeTextSection);
+          showTextSection(section);
+          activeTextSection = section;
+        } else if (!section && activeTextSection) {
+          hideTextSection(activeTextSection);
           activeTextSection = null;
         }
       }
-
-      // Show text section
-      function showTextSection(section, direction) {
-        const element = document.getElementById(section.id);
-        if (!element) return;
-        
-        // Reset classes
-        element.classList.remove('active', 'exit-right', 'exit-left');
-        
-        // Set initial position based on direction
-        if (direction >= 0) {
-          element.style.transform = 'translateX(-100px)';
-        } else {
-          element.style.transform = 'translateX(100px)';
-        }
-        element.style.opacity = '0';
-        
-        // Force reflow
-        element.offsetHeight;
-        
-        // Animate in
-        element.classList.add('active');
-        
-        console.log(`Showing section: ${section.title} (frames ${section.startFrame}-${section.endFrame})`);
+      function showTextSection(s) {
+        const el = document.getElementById(s.id);
+        el.classList.remove('exit-left','exit-right');
+        el.classList.add('active');
       }
-
-      // Hide text section
-      function hideTextSection(section, direction) {
-        const element = document.getElementById(section.id);
-        if (!element) return;
-        
-        element.classList.remove('active');
-        
-        // Exit in the direction of scroll
-        if (direction > 0) {
-          element.classList.add('exit-right');
-        } else {
-          element.classList.add('exit-left');
-        }
-        
-        console.log(`Hiding section: ${section.title}`);
+      function hideTextSection(s) {
+        const el = document.getElementById(s.id);
+        el.classList.remove('active');
+        el.classList.add(currentFrame > s.endFrame ? 'exit-right' : 'exit-left');
       }
-
-      // Update progress bar
       function updateProgressBar() {
-        progressBar.style.width = `${scrollProgress * 100}%`;
+        document.getElementById('progressBar').style.width = `${scrollProgress*100}%`;
       }
-
-      // Handle scroll during animation
       function handleScroll(deltaY) {
         if (animationComplete) return;
-        
-        const scrollSpeed = 0.008; // Adjust this to change scroll sensitivity
-        const previousProgress = scrollProgress;
-        
-        scrollProgress += deltaY * scrollSpeed;
-        scrollProgress = Math.max(0, Math.min(1, scrollProgress));
-        
+        const step = 1 / totalFrames;
+        scrollProgress = deltaY > 0
+          ? Math.min(1, scrollProgress + step)
+          : Math.max(0, scrollProgress - step);
         updateVideoFrame();
         updateProgressBar();
-        
-        // Check if animation is complete
-        if (scrollProgress >= 1 && !animationComplete) {
-          completeAnimation();
-        }
+        updateTextSections();
+        if (scrollProgress >= 1) completeAnimation();
       }
-
-      // Complete animation
       function completeAnimation() {
         animationComplete = true;
         document.body.style.overflow = 'auto';
-        
-        // Show final content
-        const postContent = document.querySelector('.post-animation-content');
-        if (postContent) {
-          postContent.scrollIntoView({ behavior: 'smooth' });
-        }
-        
-        console.log('Animation completed');
+        document.querySelector('.post-animation-content').scrollIntoView({ behavior: 'smooth' });
       }
-
-      // Initialize
       function init() {
-        console.log('Initializing scroll video animation...');
-        
-        // Reset state
-        currentFrame = 1;
-        scrollProgress = 0;
-        animationComplete = false;
-        activeTextSection = null;
-        previousFrame = 1;
-        
-        // Hide all text sections initially
-        textSections.forEach(section => {
-          const element = document.getElementById(section.id);
-          if (element) {
-            element.classList.remove('active', 'exit-right', 'exit-left');
-          }
-        });
-        
-        // Disable normal scrolling
         document.body.style.overflow = 'hidden';
-        
-        // Preload frames
         preloadInitialFrames();
-        
-        // Initial update
         updateVideoFrame();
         updateProgressBar();
-        
-        // Add event listeners
-        window.addEventListener('wheel', (e) => {
-          if (!animationComplete) {
-            e.preventDefault();
-            handleScroll(e.deltaY);
-          }
-        }, { passive: false });
-        
-        // Touch support for mobile
-        let touchStartY = 0;
-        window.addEventListener('touchstart', (e) => {
-          touchStartY = e.touches[0].clientY;
+        updateTextSections();
+        window.addEventListener('wheel', e => { e.preventDefault(); handleScroll(e.deltaY); }, { passive: false });
+        window.addEventListener('keydown', e => {
+          if (e.key==='ArrowDown'||e.key==='PageDown') { e.preventDefault(); handleScroll(1); }
+          if (e.key==='ArrowUp'  ||e.key==='PageUp')   { e.preventDefault(); handleScroll(-1); }
         });
-        
-        window.addEventListener('touchmove', (e) => {
-          if (!animationComplete) {
-            e.preventDefault();
-            const touchY = e.touches[0].clientY;
-            const deltaY = touchStartY - touchY;
-            handleScroll(deltaY);
-            touchStartY = touchY;
-          }
-        }, { passive: false });
-        
-        // Keyboard support
-        window.addEventListener('keydown', (e) => {
-          if (!animationComplete) {
-            if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-              e.preventDefault();
-              handleScroll(50);
-            } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-              e.preventDefault();
-              handleScroll(-50);
-            }
-          }
-        });
-        
-        console.log('Animation initialized with', textSections.length, 'text sections');
       }
-
-      // Start when page loads
       window.addEventListener('load', init);
-      
-      // Handle window resize
       window.addEventListener('resize', () => {
         if (!animationComplete) {
-          updateVideoFrame();
-          updateProgressBar();
+          updateVideoFrame(); updateProgressBar(); updateTextSections();
         }
       });
     </script>
