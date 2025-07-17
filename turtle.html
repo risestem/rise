@@ -66,6 +66,8 @@
         width: 40%;
         max-width: 500px;
         z-index: 20;
+        border: 2px solid red; /* Debug border */
+        background: rgba(255, 255, 255, 0.1); /* Debug background */
       }
 
       .scroll-text-section {
@@ -77,6 +79,7 @@
         top: 0;
         left: 0;
         pointer-events: none;
+        visibility: hidden;
       }
 
       .scroll-text-section.active {
@@ -84,6 +87,7 @@
         transform: translateX(0);
         transition: opacity 0.3s ease-out, transform 0.3s ease-out;
         pointer-events: auto;
+        visibility: visible;
       }
 
       .scroll-text-section.exit-right {
@@ -91,6 +95,7 @@
         transform: translateX(100px);
         transition: opacity 0.3s ease-out, transform 0.3s ease-out;
         pointer-events: none;
+        visibility: hidden;
       }
 
       .scroll-text-section.exit-left {
@@ -98,6 +103,7 @@
         transform: translateX(-100px);
         transition: opacity 0.3s ease-out, transform 0.3s ease-out;
         pointer-events: none;
+        visibility: hidden;
       }
 
       .scroll-text-section h2 {
@@ -342,6 +348,10 @@
       // Initialize elements
       const videoFrame = document.getElementById('videoFrame');
       const progressBar = document.getElementById('progressBar');
+
+      console.log('Text sections found:', textSections.length);
+      console.log('Video frame element:', videoFrame);
+      console.log('Progress bar element:', progressBar);
 
       // Animation state
       let animationComplete = false;
@@ -611,6 +621,14 @@
         updateVideoFrame();
         updateTextSections(); // Force initial text section check
         updateProgressBar();
+        
+        // Show first text section immediately since we start at frame 1
+        setTimeout(() => {
+          const firstSection = textSections[0];
+          firstSection.classList.add('active');
+          currentTextSection = 0;
+          console.log('Manually activated first section');
+        }, 100);
       }
 
       // Start when page loads
