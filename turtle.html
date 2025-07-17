@@ -4,31 +4,44 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Scroll Video - RISE STEM</title>
-    <script src="https://unpkg.com/alpinejs" defer></script>
     <link rel="icon" type="image/svg+xml" href="/public/logo1.svg" />
     <link rel="icon" type="image/png" href="/public/favicon-32x32.png" />
     <link rel="shortcut icon" href="/public/favicon.ico" />
     <link rel="apple-touch-icon" href="/public/apple-touch-icon.png" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
     <style>
       html { scroll-behavior: smooth; }
       body { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background-color: #f9fafb; }
+
+      /* Container & Layout */
       .animation-container { height: 100vh; overflow: hidden; position: relative; background: white; display: flex; align-items: center; justify-content: center; }
       .scroll-video-container { position: absolute; right: 10%; top: 50%; transform: translateY(-50%); width: 45%; height: 70vh; max-width: 600px; z-index: 10; display: flex; align-items: center; justify-content: center; }
       .scroll-video-frame { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
       .scroll-text-container { position: absolute; left: 10%; top: 50%; transform: translateY(-50%); width: 40%; max-width: 500px; z-index: 20; height: 200px; }
+
+      /* Text sections */
       .scroll-text-section { position: absolute; width: 100%; top: 0; left: 0; opacity: 0; transform: translateX(-100px); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none; }
       .scroll-text-section.active { opacity: 1; transform: translateX(0); pointer-events: auto; }
       .scroll-text-section.exit-right { opacity: 0; transform: translateX(100px); }
       .scroll-text-section.exit-left  { opacity: 0; transform: translateX(-100px); }
+
       .scroll-text-section h2 { font-size: 2rem; font-weight: bold; color: #581c87; margin-bottom: 1.5rem; line-height: 1.2; }
       .scroll-text-section p  { font-size: 1.1rem; color: #374151; line-height: 1.6; margin-bottom: 1rem; }
-      .progress-bar { position: fixed; top: 0; left: 0; height: 4px; background: linear-gradient(90deg, #3b82f6, #8b5cf6); z-index: 100; transition: width 0.3s ease; }
+
+      /* Progress Bar */
+      .progress-bar { position: fixed; top: 0; left: 0; height: 4px; background: linear-gradient(90deg, #3b82f6, #8b5cf6); z-index: 100; transition: width 0.2s ease; }
+
+      /* Post-animation */
       .post-animation-content { min-height: 100vh; padding: 4rem 2rem; max-width: 1200px; margin: 2rem auto 0; background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
       .post-animation-content h1 { font-size: 3rem; font-weight: bold; color: #581c87; margin-bottom: 2rem; text-align: center; }
       .post-animation-content h2 { font-size: 2rem; font-weight: bold; color: #581c87; margin: 3rem 0 1.5rem; }
       .post-animation-content p  { font-size: 1.1rem; color: #374151; line-height: 1.7; margin-bottom: 1.5rem; }
+
+      /* Responsive */
       @media (max-width: 768px) {
         .scroll-video-container { width: 90%; height: 50vh; right: 5%; top: 20%; }
         .scroll-text-container  { width: 90%; left: 5%; top: 75%; }
@@ -44,14 +57,20 @@
   </head>
   <body>
     <div class="progress-bar" id="progressBar"></div>
+
     <div class="animation-container" id="animationContainer">
       <div class="scroll-video-container">
-        <img id="videoFrame" class="scroll-video-frame" src="public/v4_frames_web/turtleExplodev40001.png" alt="Video Frame" />
+        <img
+          id="videoFrame"
+          class="scroll-video-frame"
+          src="public/v4_frames_web/turtleExplodev40001.png"
+          alt="Video Frame"
+        />
       </div>
       <div class="scroll-text-container">
         <div class="scroll-text-section" id="textSection1">
           <h2>Innovation in Learning</h2>
-          <p>Discover how cutting-edge technology transforms traditional education into immersive, interactive experiences.</p>
+          <p>Discover how cutting-edge tech transforms traditional education into immersive, interactive experiences.</p>
         </div>
         <div class="scroll-text-section" id="textSection2">
           <h2>Student Engagement</h2>
@@ -71,22 +90,26 @@
         </div>
       </div>
     </div>
+
     <div class="post-animation-content">
       <h1>Discover More About RISE STEM</h1>
-      <!-- your post-animation content here -->
+      <!-- Add your post-animation content here -->
     </div>
+
     <script>
       const totalFrames = 150;
       const frameBasePath = 'public/v4_frames_web/turtleExplodev4';
       const textSections = [
-        { id: 'textSection1', startFrame: 1,   endFrame: 30 },
-        { id: 'textSection2', startFrame: 35,  endFrame: 55 },
-        { id: 'textSection3', startFrame: 65,  endFrame: 85 },
-        { id: 'textSection4', startFrame: 95,  endFrame:115 },
-        { id: 'textSection5', startFrame:125,  endFrame:150 }
+        { id: 'textSection1', startFrame:   1, endFrame:  30 },
+        { id: 'textSection2', startFrame:  35, endFrame:  55 },
+        { id: 'textSection3', startFrame:  65, endFrame:  85 },
+        { id: 'textSection4', startFrame:  95, endFrame: 115 },
+        { id: 'textSection5', startFrame: 125, endFrame: 150 }
       ];
+
       let currentFrame = 1;
       let scrollProgress = 0;
+      let targetProgress = 0;
       let animationComplete = false;
       let activeTextSection = null;
       const preloadedFrames = new Map();
@@ -102,17 +125,21 @@
       function preloadInitialFrames() {
         for (let i = 1; i <= Math.min(30, totalFrames); i++) preloadFrame(i);
       }
+
       function updateVideoFrame() {
         const frameNum = Math.floor(scrollProgress * (totalFrames - 1)) + 1;
         if (frameNum !== currentFrame) {
           currentFrame = frameNum;
-          document.getElementById('videoFrame').src = 
+          document.getElementById('videoFrame').src =
             `${frameBasePath}${String(frameNum).padStart(4,'0')}.png`;
           for (let i = 1; i <= 5; i++) preloadFrame(frameNum + i);
         }
       }
+
       function updateTextSections() {
-        const section = textSections.find(s => currentFrame >= s.startFrame && currentFrame <= s.endFrame);
+        const section = textSections.find(
+          s => currentFrame >= s.startFrame && currentFrame <= s.endFrame
+        );
         if (section && (!activeTextSection || activeTextSection.id !== section.id)) {
           if (activeTextSection) hideTextSection(activeTextSection);
           showTextSection(section);
@@ -122,6 +149,7 @@
           activeTextSection = null;
         }
       }
+
       function showTextSection(s) {
         const el = document.getElementById(s.id);
         el.classList.remove('exit-left','exit-right');
@@ -130,43 +158,67 @@
       function hideTextSection(s) {
         const el = document.getElementById(s.id);
         el.classList.remove('active');
-        el.classList.add(currentFrame > s.endFrame ? 'exit-right' : 'exit-left');
+        el.classList.add(
+          currentFrame > s.endFrame ? 'exit-right' : 'exit-left'
+        );
       }
+
       function updateProgressBar() {
-        document.getElementById('progressBar').style.width = `${scrollProgress*100}%`;
+        document.getElementById('progressBar').style.width =
+          `${scrollProgress * 100}%`;
       }
+
+      const scrollSpeed = 0.0008; // tuning
       function handleScroll(deltaY) {
-        if (animationComplete) return;
-        const step = 1 / totalFrames;
-        scrollProgress = deltaY > 0
-          ? Math.min(1, scrollProgress + step)
-          : Math.max(0, scrollProgress - step);
+        targetProgress = Math.max(0, Math.min(1,
+          targetProgress + deltaY * scrollSpeed
+        ));
+      }
+
+      function animate() {
+        scrollProgress += (targetProgress - scrollProgress) * 0.1;
         updateVideoFrame();
         updateProgressBar();
         updateTextSections();
-        if (scrollProgress >= 1) completeAnimation();
+        if (!animationComplete && scrollProgress >= 1) {
+          completeAnimation();
+        }
+        requestAnimationFrame(animate);
       }
+
       function completeAnimation() {
         animationComplete = true;
         document.body.style.overflow = 'auto';
-        document.querySelector('.post-animation-content').scrollIntoView({ behavior: 'smooth' });
+        document.querySelector('.post-animation-content')
+          .scrollIntoView({ behavior: 'smooth' });
       }
+
       function init() {
         document.body.style.overflow = 'hidden';
         preloadInitialFrames();
-        updateVideoFrame();
-        updateProgressBar();
-        updateTextSections();
-        window.addEventListener('wheel', e => { e.preventDefault(); handleScroll(e.deltaY); }, { passive: false });
+        requestAnimationFrame(animate);
+        window.addEventListener('wheel', e => {
+          e.preventDefault();
+          handleScroll(e.deltaY);
+        }, { passive: false });
         window.addEventListener('keydown', e => {
-          if (e.key==='ArrowDown'||e.key==='PageDown') { e.preventDefault(); handleScroll(1); }
-          if (e.key==='ArrowUp'  ||e.key==='PageUp')   { e.preventDefault(); handleScroll(-1); }
+          if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+            e.preventDefault();
+            handleScroll(100);
+          }
+          if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+            e.preventDefault();
+            handleScroll(-100);
+          }
         });
       }
+
       window.addEventListener('load', init);
       window.addEventListener('resize', () => {
         if (!animationComplete) {
-          updateVideoFrame(); updateProgressBar(); updateTextSections();
+          updateVideoFrame();
+          updateProgressBar();
+          updateTextSections();
         }
       });
     </script>
