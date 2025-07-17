@@ -75,7 +75,11 @@
 
     function updateVideoFrame() {
       if (videoDuration > 0) {
-        video.currentTime = scrollProgress * videoDuration;
+        const targetTime = scrollProgress * videoDuration;
+        // Only update if there's a significant difference to avoid constant seeking
+        if (Math.abs(video.currentTime - targetTime) > 0.05) {
+          video.currentTime = targetTime;
+        }
       }
     }
 
@@ -92,19 +96,25 @@
     }
 
     function showTextSection(s) {
-      document.getElementById(s.id).classList.add('active');
+      const el = document.getElementById(s.id);
+      el.classList.remove('exit-left', 'exit-right');
+      el.classList.add('active');
     }
     function hideTextSection(s) {
       const el = document.getElementById(s.id);
       el.classList.remove('active');
       el.classList.add(scrollProgress > s.end ? 'exit-right' : 'exit-left');
+      // Remove exit classes after animation
+      setTimeout(() => {
+        el.classList.remove('exit-left', 'exit-right');
+      }, 500);
     }
 
     function updateProgressBar() {
       document.getElementById('progressBar').style.width = `${scrollProgress * 100}%`;
     }
 
-    const scrollSpeed = 0.001;
+    const scrollSpeed = 0.005; // Increased scroll speed
     function handleScroll(deltaY) {
       targetProgress = Math.max(0, Math.min(1, targetProgress + deltaY * scrollSpeed));
     }
@@ -126,9 +136,17 @@
       video = document.getElementById('videoFrame');
       video.addEventListener('loadedmetadata', () => {
         videoDuration = video.duration;
+        console.log('Video duration:', videoDuration);
+      });
+      video.addEventListener('canplaythrough', () => {
+        console.log('Video can play through');
       });
       requestAnimationFrame(animate);
-      window.addEventListener('wheel', e => { e.preventDefault(); handleScroll(e.deltaY); }, { passive: false });
+      window.addEventListener('wheel', e => { 
+        e.preventDefault(); 
+        handleScroll(e.deltaY);
+        console.log('Scroll delta:', e.deltaY, 'Target progress:', targetProgress);
+      }, { passive: false });
       window.addEventListener('keydown', e => {
         if (['ArrowDown','PageDown'].includes(e.key)) { e.preventDefault(); handleScroll(100); }
         else if (['ArrowUp','PageUp'].includes(e.key)) { e.preventDefault(); handleScroll(-100); }
