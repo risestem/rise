@@ -20,9 +20,9 @@
 
       /* Container & Layout */
       .animation-container { height: 100vh; overflow: hidden; position: relative; background: white; display: flex; align-items: center; justify-content: center; }
-      .scroll-video-container { position: absolute; right: 10%; top: 50%; transform: translateY(-50%); width: 45%; height: 70vh; max-width: 600px; z-index: 10; display: flex; align-items: center; justify-content: center; }
+      .scroll-video-container { position: absolute; right: 5%; top: 50%; transform: translateY(-50%); width: 60%; height: 85vh; max-width: 800px; z-index: 10; display: flex; align-items: center; justify-content: center; }
       .scroll-video-frame { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
-      .scroll-text-container { position: absolute; left: 10%; top: 50%; transform: translateY(-50%); width: 40%; max-width: 500px; z-index: 20; height: 200px; }
+      .scroll-text-container { position: absolute; left: 5%; top: 50%; transform: translateY(-50%); width: 35%; max-width: 450px; z-index: 20; height: 200px; }
 
       /* Text sections */
       .scroll-text-section { position: absolute; width: 100%; top: 0; left: 0; opacity: 0; transform: translateX(-100px); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none; }
@@ -44,8 +44,8 @@
 
       /* Responsive */
       @media (max-width: 768px) {
-        .scroll-video-container { width: 90%; height: 50vh; right: 5%; top: 20%; }
-        .scroll-text-container  { width: 90%; left: 5%; top: 75%; }
+        .scroll-video-container { width: 90%; height: 60vh; right: 5%; top: 20%; }
+        .scroll-text-container  { width: 90%; left: 5%; top: 80%; }
         .scroll-text-section h2  { font-size: 1.5rem; }
         .scroll-text-section p   { font-size: 1rem; }
       }
@@ -68,7 +68,7 @@
         <img
           id="videoFrame"
           class="scroll-video-frame"
-          src="public/v4_frames_web/turtleExplodev40001.png"
+          src="public/v4_frames/turtleExplodev40001.png"
           alt="Video Frame"
         />
       </div>
@@ -107,7 +107,7 @@
 
     <script>
       const totalFrames = 150;
-      const frameBasePath = 'public/v4_frames_web/turtleExplodev4';
+      const frameBasePath = 'public/v4_frames/turtleExplodev4';
       const textSections = [
         { id: 'textSection1', startFrame:   1, endFrame:  43 },
         { id: 'textSection2', startFrame:  45, endFrame:  88 },
