@@ -20,9 +20,9 @@
 
       /* Container & Layout */
       .animation-container { height: 100vh; overflow: hidden; position: relative; background: white; display: flex; align-items: center; justify-content: center; }
-      .scroll-video-container { position: absolute; right: 10%; top: 50%; transform: translateY(-50%); width: 45%; height: 70vh; max-width: 600px; z-index: 10; display: flex; align-items: center; justify-content: center; }
+      .scroll-video-container { position: absolute; right: 5%; top: 50%; transform: translateY(-50%); width: 65%; height: 90vh; max-width: 900px; z-index: 10; display: flex; align-items: center; justify-content: center; }
       .scroll-video-frame { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
-      .scroll-text-container { position: absolute; left: 10%; top: 50%; transform: translateY(-50%); width: 40%; max-width: 500px; z-index: 20; height: 200px; }
+      .scroll-text-container { position: absolute; left: 5%; top: 50%; transform: translateY(-50%); width: 30%; max-width: 400px; z-index: 20; height: 200px; }
 
       /* Text sections */
       .scroll-text-section { position: absolute; width: 100%; top: 0; left: 0; opacity: 0; transform: translateX(-100px); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none; }
@@ -44,14 +44,14 @@
 
       /* Responsive */
       @media (max-width: 768px) {
-        .scroll-video-container { width: 90%; height: 50vh; right: 5%; top: 20%; }
-        .scroll-text-container  { width: 90%; left: 5%; top: 75%; }
+        .scroll-video-container { width: 90%; height: 65vh; right: 5%; top: 20%; }
+        .scroll-text-container  { width: 90%; left: 5%; top: 85%; }
         .scroll-text-section h2  { font-size: 1.5rem; }
         .scroll-text-section p   { font-size: 1rem; }
       }
       @media (max-width: 640px) {
         .animation-container  { flex-direction: column; padding: 2rem 1rem; }
-        .scroll-video-container { position: relative; width: 100%; height: 40vh; right: auto; top: auto; transform: none; margin-bottom: 2rem; }
+        .scroll-video-container { position: relative; width: 100%; height: 50vh; right: auto; top: auto; transform: none; margin-bottom: 2rem; }
         .scroll-text-container   { position: relative; width: 100%; left: auto; top: auto; transform: none; }
       }
     </style>
