@@ -1,622 +1,173 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <script src="https://unpkg.com/alpinejs" defer></script>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/public/logo1.svg" />
-    <link rel="icon" type="image/png" href="/public/favicon-32x32.png">
-    <link rel="shortcut icon" href="/public/favicon.ico">
-    <link rel="apple-touch-icon" href="/public/apple-touch-icon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Scroll Video - RISE STEM</title>
+    <script src="https://unpkg.com/alpinejs" defer></script>
+    <link rel="icon" type="image/svg+xml" href="/public/logo1.svg" />
+    <link rel="icon" type="image/png" href="/public/favicon-32x32.png" />
+    <link rel="shortcut icon" href="/public/favicon.ico" />
+    <link rel="apple-touch-icon" href="/public/apple-touch-icon.png" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-      html {
-        scroll-behavior: smooth;
-      }
-
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: 'Poppins', sans-serif;
-        background-color: #f9fafb;
-      }
-
-      /* Animation Container - Fixed height during animation */
-      .animation-container {
-        height: 100vh;
-        overflow: hidden;
-        position: relative;
-        background: white;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      /* Video Container */
-      .scroll-video-container {
-        position: absolute;
-        right: 10%;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 45%;
-        height: 70vh;
-        max-width: 600px;
-        z-index: 10;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .scroll-video-frame {
-        max-width: 100%;
-        max-height: 100%;
-        width: auto;
-        height: auto;
-        object-fit: contain;
-      }
-
-      /* Text Container */
-      .scroll-text-container {
-        position: absolute;
-        left: 10%;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 40%;
-        max-width: 500px;
-        z-index: 20;
-      }
-
-      .scroll-text-section {
-        opacity: 0;
-        transform: translateX(-100px);
-        transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-        position: absolute;
-        width: 100%;
-        top: 0;
-        left: 0;
-        pointer-events: none;
-      }
-
-      .scroll-text-section.active {
-        opacity: 1;
-        transform: translateX(0);
-        transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-        pointer-events: auto;
-      }
-
-      .scroll-text-section.exit-right {
-        opacity: 0;
-        transform: translateX(100px);
-        transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-        pointer-events: none;
-      }
-
-      .scroll-text-section.exit-left {
-        opacity: 0;
-        transform: translateX(-100px);
-        transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-        pointer-events: none;
-      }
-
-      .scroll-text-section h2 {
-        font-size: 2rem;
-        font-weight: bold;
-        color: #581c87;
-        margin-bottom: 1.5rem;
-        line-height: 1.2;
-      }
-
-      .scroll-text-section p {
-        font-size: 1.1rem;
-        color: #374151;
-        line-height: 1.6;
-        margin-bottom: 1rem;
-      }
-
-      /* Progress Bar */
-      .progress-bar {
-        position: fixed;
-        top: 0;
-        left: 0;
-        height: 4px;
-        background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-        z-index: 100;
-        transition: width 0.3s ease;
-      }
-
-      /* Content after animation */
-      .post-animation-content {
-        min-height: 100vh;
-        padding: 4rem 2rem;
-        max-width: 1200px;
-        margin: 0 auto;
-        background: white;
-        border-radius: 12px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        margin-top: 2rem;
-      }
-
-      .post-animation-content h1 {
-        font-size: 3rem;
-        font-weight: bold;
-        color: #581c87;
-        margin-bottom: 2rem;
-        text-align: center;
-      }
-
-      .post-animation-content h2 {
-        font-size: 2rem;
-        font-weight: bold;
-        color: #581c87;
-        margin: 3rem 0 1.5rem 0;
-      }
-
-      .post-animation-content p {
-        font-size: 1.1rem;
-        color: #374151;
-        line-height: 1.7;
-        margin-bottom: 1.5rem;
-      }
-
-      /* Responsive Design */
+      html { scroll-behavior: smooth; }
+      body { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background-color: #f9fafb; }
+      .animation-container { height: 100vh; overflow: hidden; position: relative; background: white; display: flex; align-items: center; justify-content: center; }
+      .scroll-video-container { position: absolute; right: 10%; top: 50%; transform: translateY(-50%); width: 45%; height: 70vh; max-width: 600px; z-index: 10; display: flex; align-items: center; justify-content: center; }
+      .scroll-video-frame { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
+      .scroll-text-container { position: absolute; left: 10%; top: 50%; transform: translateY(-50%); width: 40%; max-width: 500px; z-index: 20; height: 200px; }
+      .scroll-text-section { position: absolute; width: 100%; top: 0; left: 0; opacity: 0; transform: translateX(-100px); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none; }
+      .scroll-text-section.active { opacity: 1; transform: translateX(0); pointer-events: auto; }
+      .scroll-text-section.exit-right { opacity: 0; transform: translateX(100px); }
+      .scroll-text-section.exit-left  { opacity: 0; transform: translateX(-100px); }
+      .scroll-text-section h2 { font-size: 2rem; font-weight: bold; color: #581c87; margin-bottom: 1.5rem; line-height: 1.2; }
+      .scroll-text-section p  { font-size: 1.1rem; color: #374151; line-height: 1.6; margin-bottom: 1rem; }
+      .progress-bar { position: fixed; top: 0; left: 0; height: 4px; background: linear-gradient(90deg, #3b82f6, #8b5cf6); z-index: 100; transition: width 0.3s ease; }
+      .post-animation-content { min-height: 100vh; padding: 4rem 2rem; max-width: 1200px; margin: 2rem auto 0; background: white; border-radius: 12px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+      .post-animation-content h1 { font-size: 3rem; font-weight: bold; color: #581c87; margin-bottom: 2rem; text-align: center; }
+      .post-animation-content h2 { font-size: 2rem; font-weight: bold; color: #581c87; margin: 3rem 0 1.5rem; }
+      .post-animation-content p  { font-size: 1.1rem; color: #374151; line-height: 1.7; margin-bottom: 1.5rem; }
       @media (max-width: 768px) {
-        .scroll-video-container {
-          width: 90%;
-          height: 50vh;
-          right: 5%;
-          top: 20%;
-        }
-
-        .scroll-text-container {
-          width: 90%;
-          left: 5%;
-          top: 75%;
-        }
-
-        .scroll-text-section h2 {
-          font-size: 1.5rem;
-        }
-
-        .scroll-text-section p {
-          font-size: 1rem;
-        }
+        .scroll-video-container { width: 90%; height: 50vh; right: 5%; top: 20%; }
+        .scroll-text-container  { width: 90%; left: 5%; top: 75%; }
+        .scroll-text-section h2  { font-size: 1.5rem; }
+        .scroll-text-section p   { font-size: 1rem; }
       }
-
       @media (max-width: 640px) {
-        .animation-container {
-          flex-direction: column;
-          padding: 2rem 1rem;
-        }
-
-        .scroll-video-container {
-          position: relative;
-          width: 100%;
-          height: 40vh;
-          right: auto;
-          top: auto;
-          transform: none;
-          margin-bottom: 2rem;
-        }
-
-        .scroll-text-container {
-          position: relative;
-          width: 100%;
-          left: auto;
-          top: auto;
-          transform: none;
-        }
+        .animation-container  { flex-direction: column; padding: 2rem 1rem; }
+        .scroll-video-container { position: relative; width: 100%; height: 40vh; right: auto; top: auto; transform: none; margin-bottom: 2rem; }
+        .scroll-text-container   { position: relative; width: 100%; left: auto; top: auto; transform: none; }
       }
     </style>
   </head>
   <body>
-    <!-- Header -->
-    <div id="header-container"></div>
-    <script type="module" src="/scripts/loadHeader.js"></script>
-
-    <!-- Progress Bar -->
     <div class="progress-bar" id="progressBar"></div>
-
-    <!-- Animation Container -->
     <div class="animation-container" id="animationContainer">
-      <!-- Video Container -->
       <div class="scroll-video-container">
-        <img
-          id="videoFrame"
-          class="scroll-video-frame"
-          src="public/v4_frames_web/turtleExplodev40001.png"
-          alt="Video Frame"
-        />
+        <img id="videoFrame" class="scroll-video-frame" src="public/v4_frames_web/turtleExplodev40001.png" alt="Video Frame" />
       </div>
-
-      <!-- Text Container -->
       <div class="scroll-text-container">
-        <!-- Section 1 -->
         <div class="scroll-text-section" id="textSection1">
-          <h2>Welcome to RISE STEM</h2>
-          <p>
-            Watch our interactive animation as we tell our story. This demonstrates how technology can create engaging educational experiences that inspire young minds to explore STEM fields.
-          </p>
+          <h2>Innovation in Learning</h2>
+          <p>Discover how cutting-edge technology transforms traditional education into immersive, interactive experiences.</p>
         </div>
-
-        <!-- Section 2 -->
         <div class="scroll-text-section" id="textSection2">
-          <h2>Educational Innovation</h2>
-          <p>
-            Our innovative teaching methods come to life through technology-enhanced learning experiences that make STEM subjects engaging and accessible to all students.
-          </p>
+          <h2>Student Engagement</h2>
+          <p>Our hands-on approach ensures every student actively participates, building confidence and practical skills.</p>
         </div>
-
-        <!-- Section 3 -->
         <div class="scroll-text-section" id="textSection3">
-          <h2>Student Discovery</h2>
-          <p>
-            Through hands-on projects and collaborative learning, students discover their potential and develop confidence in STEM fields through transformative experiences.
-          </p>
+          <h2>Scientific Discovery</h2>
+          <p>Through experimentation, students uncover the wonders of science and develop critical thinking abilities.</p>
         </div>
-
-        <!-- Section 4 -->
         <div class="scroll-text-section" id="textSection4">
-          <h2>Community Impact</h2>
-          <p>
-            Our students become leaders in their communities, creating positive change that extends far beyond the classroom through quality STEM education.
-          </p>
+          <h2>Community Building</h2>
+          <p>Our collaborative environment fosters teamwork and communication skills essential for success in STEM.</p>
         </div>
-
-        <!-- Section 5 -->
         <div class="scroll-text-section" id="textSection5">
-          <h2>Looking Forward</h2>
-          <p>
-            As we complete our journey, we continue building the next generation of innovators, problem-solvers, and leaders who will shape our future.
-          </p>
+          <h2>Shaping the Future</h2>
+          <p>Empowering the next generation of innovators and leaders to tackle tomorrow's greatest challenges.</p>
         </div>
       </div>
     </div>
-
-    <!-- Footer -->
-    <div id="footer-container"></div>
-    <script type="module" src="/scripts/loadFooter.js"></script>
-
-    <!-- Post-Animation Content -->
     <div class="post-animation-content">
       <h1>Discover More About RISE STEM</h1>
-      
-      <h2>Our Mission</h2>
-      <p>
-        At RISE STEM, we believe in making science, technology, engineering, and mathematics accessible and exciting for all students. Our innovative approach combines hands-on learning with cutting-edge technology to create memorable educational experiences.
-      </p>
-      <p>
-        Through our programs, workshops, and community initiatives, we're building the next generation of innovators, problem-solvers, and leaders who will shape our future.
-      </p>
-
-      <h2>Comprehensive Programs</h2>
-      <p>
-        Our curriculum integrates real-world applications with fundamental concepts, ensuring students not only learn the theory but also understand how STEM principles apply to solving actual challenges in their communities and beyond.
-      </p>
-      <p>
-        From robotics and coding to environmental science and engineering design, we provide comprehensive programs that nurture curiosity and develop critical thinking skills essential for success in the 21st century.
-      </p>
-
-      <h2>Real-World Impact</h2>
-      <p>
-        Our students work on real projects that matter to their communities, from designing sustainable solutions to environmental challenges to creating apps that solve everyday problems. This practical approach ensures learning is both meaningful and memorable.
-      </p>
-      <p>
-        We celebrate every breakthrough moment, from a student's first successful code compilation to their innovative engineering design. These victories, big and small, build the foundation for lifelong learning and achievement.
-      </p>
-
-      <h2>Building Tomorrow's Leaders</h2>
-      <p>
-        Our alumni go on to pursue careers in technology, engineering, medicine, and research, but more importantly, they carry with them the problem-solving mindset and innovative thinking that RISE STEM has helped cultivate.
-      </p>
-      <p>
-        Through partnerships with local schools, community organizations, and industry leaders, we're building a network of support that ensures every student has access to quality STEM education and the opportunity to reach their full potential.
-      </p>
-
-      <h2>Join Our Mission</h2>
-      <p>
-        The future of STEM education is bright, and we're excited to continue pushing the boundaries of what's possible when innovative teaching meets passionate learning.
-      </p>
-      <p>
-        Join us in this mission to inspire, educate, and empower the next generation of STEM leaders who will tackle tomorrow's greatest challenges.
-      </p>
+      <!-- your post-animation content here -->
     </div>
-
     <script>
-      // Configuration
       const totalFrames = 150;
       const frameBasePath = 'public/v4_frames_web/turtleExplodev4';
-      const textSections = document.querySelectorAll('.scroll-text-section');
-      const animationContainer = document.getElementById('animationContainer');
-      
-      // Define frame ranges for each text section
-      const sectionFrameRanges = [
-        { start: 1, end: 30 },     // Welcome (frames 1-30)
-        { start: 31, end: 60 },    // Educational Innovation (frames 31-60)
-        { start: 61, end: 90 },    // Student Discovery (frames 61-90)
-        { start: 91, end: 120 },   // Community Impact (frames 91-120)
-        { start: 121, end: 150 }   // Looking Forward (frames 121-150)
+      const textSections = [
+        { id: 'textSection1', startFrame: 1,   endFrame: 30 },
+        { id: 'textSection2', startFrame: 35,  endFrame: 55 },
+        { id: 'textSection3', startFrame: 65,  endFrame: 85 },
+        { id: 'textSection4', startFrame: 95,  endFrame:115 },
+        { id: 'textSection5', startFrame:125,  endFrame:150 }
       ];
-
-      // Initialize elements
-      const videoFrame = document.getElementById('videoFrame');
-      const progressBar = document.getElementById('progressBar');
-
-      // Animation state
-      let animationComplete = false;
       let currentFrame = 1;
-      let currentTextSection = -1; // Start with no active section
       let scrollProgress = 0;
-      let lastFrame = 0;
-      let scrollDirection = 0; // 1 for down, -1 for up, 0 for stationary
-      let isTransitioning = false;
-
-      // Preload frames for smoother experience
+      let animationComplete = false;
+      let activeTextSection = null;
       const preloadedFrames = new Map();
 
-      function preloadFrame(frameNumber) {
-        if (!preloadedFrames.has(frameNumber)) {
+      function preloadFrame(n) {
+        if (n < 1 || n > totalFrames) return;
+        if (!preloadedFrames.has(n)) {
           const img = new Image();
-          const paddedNumber = frameNumber.toString().padStart(4, '0');
-          img.src = `${frameBasePath}${paddedNumber}.png`;
-          preloadedFrames.set(frameNumber, img);
-        }
-        return preloadedFrames.get(frameNumber);
-      }
-
-      // Preload first batch of frames
-      for (let i = 1; i <= Math.min(20, totalFrames); i++) {
-        preloadFrame(i);
-      }
-
-      // Calculate scroll-based progress during animation phase
-      function calculateAnimationProgress() {
-        if (animationComplete) return;
-
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        const animationHeight = animationContainer.offsetHeight;
-        
-        // Calculate progress based on scroll within animation container
-        scrollProgress = Math.min(scrollTop / (animationHeight * 5), 1); // Multiply by 5 for faster scrolling
-        
-        // Update frame
-        updateVideoFrame();
-        updateTextSections();
-        updateProgressBar();
-
-        // Check if animation is complete
-        if (scrollProgress >= 1) {
-          completeAnimation();
+          img.src = `${frameBasePath}${String(n).padStart(4,'0')}.png`;
+          preloadedFrames.set(n, img);
         }
       }
-
+      function preloadInitialFrames() {
+        for (let i = 1; i <= Math.min(30, totalFrames); i++) preloadFrame(i);
+      }
       function updateVideoFrame() {
-        // Calculate frame number based on scroll progress
-        const frameNumber = Math.max(1, Math.min(totalFrames, Math.floor(scrollProgress * totalFrames) + 1));
-        
-        if (frameNumber !== currentFrame) {
-          currentFrame = frameNumber;
-          const paddedNumber = frameNumber.toString().padStart(4, '0');
-          const newSrc = `${frameBasePath}${paddedNumber}.png`;
-          
-          videoFrame.src = newSrc;
-
-          // Preload next few frames
-          for (let i = 1; i <= 5; i++) {
-            const nextFrame = frameNumber + i;
-            if (nextFrame <= totalFrames) {
-              preloadFrame(nextFrame);
-            }
-          }
-
-          // Update text sections based on current frame
-          updateTextSections();
+        const frameNum = Math.floor(scrollProgress * (totalFrames - 1)) + 1;
+        if (frameNum !== currentFrame) {
+          currentFrame = frameNum;
+          document.getElementById('videoFrame').src = 
+            `${frameBasePath}${String(frameNum).padStart(4,'0')}.png`;
+          for (let i = 1; i <= 5; i++) preloadFrame(frameNum + i);
         }
       }
-
       function updateTextSections() {
-        // Determine scroll direction
-        if (currentFrame > lastFrame) {
-          scrollDirection = 1; // Scrolling down
-        } else if (currentFrame < lastFrame) {
-          scrollDirection = -1; // Scrolling up
+        const section = textSections.find(s => currentFrame >= s.startFrame && currentFrame <= s.endFrame);
+        if (section && (!activeTextSection || activeTextSection.id !== section.id)) {
+          if (activeTextSection) hideTextSection(activeTextSection);
+          showTextSection(section);
+          activeTextSection = section;
+        } else if (!section && activeTextSection) {
+          hideTextSection(activeTextSection);
+          activeTextSection = null;
         }
-        
-        // Find which section this frame belongs to
-        const targetSectionIndex = sectionFrameRanges.findIndex(range => 
-          currentFrame >= range.start && currentFrame <= range.end
-        );
-
-        // If we're in a valid section and it's different from current section
-        if (targetSectionIndex !== -1 && targetSectionIndex !== currentTextSection && !isTransitioning) {
-          isTransitioning = true;
-          
-          // Exit current section if it exists
-          if (currentTextSection >= 0 && currentTextSection < textSections.length) {
-            const currentSection = textSections[currentTextSection];
-            currentSection.classList.remove('active');
-            
-            // Apply exit animation based on scroll direction
-            if (scrollDirection === 1) {
-              // Scrolling down - exit to the right
-              currentSection.classList.add('exit-right');
-            } else {
-              // Scrolling up - exit to the left
-              currentSection.classList.add('exit-left');
-            }
-          }
-
-          // Wait for exit animation to complete, then enter new section
-          setTimeout(() => {
-            // Clean up previous section
-            if (currentTextSection >= 0 && currentTextSection < textSections.length) {
-              const prevSection = textSections[currentTextSection];
-              prevSection.classList.remove('exit-right', 'exit-left');
-            }
-
-            // Update current section index
-            currentTextSection = targetSectionIndex;
-
-            // Enter new section
-            const newSection = textSections[currentTextSection];
-            
-            // Set initial position based on scroll direction (or default for first load)
-            if (scrollDirection === 1 || scrollDirection === 0) {
-              // Scrolling down or initial load - fly in from the left
-              newSection.style.transform = 'translateX(-100px)';
-              newSection.style.opacity = '0';
-            } else {
-              // Scrolling up - fly in from the right
-              newSection.style.transform = 'translateX(100px)';
-              newSection.style.opacity = '0';
-            }
-            
-            // Force reflow
-            newSection.offsetHeight;
-            
-            // Activate the section
-            newSection.classList.add('active');
-            
-            isTransitioning = false;
-          }, currentTextSection >= 0 ? 300 : 0); // No delay for initial load
-        }
-        
-        // If we're outside all sections, hide current section
-        if (targetSectionIndex === -1 && currentTextSection >= 0 && !isTransitioning) {
-          isTransitioning = true;
-          
-          const currentSection = textSections[currentTextSection];
-          currentSection.classList.remove('active');
-          
-          // Apply exit animation based on scroll direction
-          if (scrollDirection === 1) {
-            currentSection.classList.add('exit-right');
-          } else {
-            currentSection.classList.add('exit-left');
-          }
-          
-          setTimeout(() => {
-            currentSection.classList.remove('exit-right', 'exit-left');
-            currentTextSection = -1;
-            isTransitioning = false;
-          }, 300);
-        }
-
-        // Update last frame for direction detection
-        lastFrame = currentFrame;
       }
-
+      function showTextSection(s) {
+        const el = document.getElementById(s.id);
+        el.classList.remove('exit-left','exit-right');
+        el.classList.add('active');
+      }
+      function hideTextSection(s) {
+        const el = document.getElementById(s.id);
+        el.classList.remove('active');
+        el.classList.add(currentFrame > s.endFrame ? 'exit-right' : 'exit-left');
+      }
       function updateProgressBar() {
-        progressBar.style.width = `${scrollProgress * 100}%`;
+        document.getElementById('progressBar').style.width = `${scrollProgress*100}%`;
       }
-
+      function handleScroll(deltaY) {
+        if (animationComplete) return;
+        const step = 1 / totalFrames;
+        scrollProgress = deltaY > 0
+          ? Math.min(1, scrollProgress + step)
+          : Math.max(0, scrollProgress - step);
+        updateVideoFrame();
+        updateProgressBar();
+        updateTextSections();
+        if (scrollProgress >= 1) completeAnimation();
+      }
       function completeAnimation() {
         animationComplete = true;
         document.body.style.overflow = 'auto';
-        
-        // Remove scroll event listener for animation
-        window.removeEventListener('scroll', handleAnimationScroll);
-        
-        // Add normal scroll behavior
-        window.addEventListener('scroll', handleNormalScroll);
+        document.querySelector('.post-animation-content').scrollIntoView({ behavior: 'smooth' });
       }
-
-      function handleAnimationScroll(e) {
-        if (!animationComplete) {
-          e.preventDefault();
-          calculateAnimationProgress();
-        }
-      }
-
-      function handleNormalScroll() {
-        // Normal scrolling behavior after animation is complete
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        const normalProgress = scrollTop / maxScroll;
-        
-        progressBar.style.width = `${normalProgress * 100}%`;
-      }
-
-      // Prevent normal scrolling during animation
-      function preventScroll(e) {
-        if (!animationComplete) {
-          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-          calculateAnimationProgress();
-          
-          // Keep the page at the top during animation
-          if (scrollProgress < 1) {
-            window.scrollTo(0, 0);
-          }
-        }
-      }
-
-      // Initialize
       function init() {
-        // Set up initial state
-        animationComplete = false;
-        currentFrame = 1;
-        currentTextSection = -1; // Start with no active section
-        scrollProgress = 0;
-        scrollDirection = 0;
-        isTransitioning = false;
-        
-        // Hide all text sections initially
-        textSections.forEach(section => {
-          section.classList.remove('active', 'exit-right', 'exit-left');
-        });
-        
-        // Disable normal scrolling initially
         document.body.style.overflow = 'hidden';
-        
-        // Add scroll event listener for animation
-        window.addEventListener('scroll', preventScroll);
-        
-        // Add wheel event for better control
-        window.addEventListener('wheel', (e) => {
-          if (!animationComplete) {
-            e.preventDefault();
-            const previousProgress = scrollProgress;
-            scrollProgress = Math.min(scrollProgress + (e.deltaY > 0 ? 0.01 : -0.01), 1); // Faster wheel speed
-            scrollProgress = Math.max(scrollProgress, 0);
-            
-            // Update scroll direction based on wheel delta
-            if (e.deltaY > 0) {
-              scrollDirection = 1; // Scrolling down
-            } else if (e.deltaY < 0) {
-              scrollDirection = -1; // Scrolling up
-            }
-            
-            updateVideoFrame();
-            updateTextSections();
-            updateProgressBar();
-            
-            if (scrollProgress >= 1) {
-              completeAnimation();
-            }
-          }
-        }, { passive: false });
-        
-        // Initial update
+        preloadInitialFrames();
         updateVideoFrame();
         updateProgressBar();
-        
-        // Show first section since we start at frame 1
-        setTimeout(() => {
-          currentTextSection = 0;
-          const firstSection = textSections[0];
-          firstSection.classList.add('active');
-        }, 100);
+        updateTextSections();
+        window.addEventListener('wheel', e => { e.preventDefault(); handleScroll(e.deltaY); }, { passive: false });
+        window.addEventListener('keydown', e => {
+          if (e.key==='ArrowDown'||e.key==='PageDown') { e.preventDefault(); handleScroll(1); }
+          if (e.key==='ArrowUp'  ||e.key==='PageUp')   { e.preventDefault(); handleScroll(-1); }
+        });
       }
-
-      // Start when page loads
       window.addEventListener('load', init);
-      
-      // Handle window resize
       window.addEventListener('resize', () => {
-        updateVideoFrame();
-        updateProgressBar();
+        if (!animationComplete) {
+          updateVideoFrame(); updateProgressBar(); updateTextSections();
+        }
       });
     </script>
   </body>
