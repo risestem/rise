@@ -66,44 +66,34 @@
         width: 40%;
         max-width: 500px;
         z-index: 20;
-        border: 2px solid red; /* Debug border */
-        background: rgba(255, 255, 255, 0.1); /* Debug background */
+        height: 200px; /* Fixed height to prevent jumping */
       }
 
       .scroll-text-section {
-        opacity: 0;
-        transform: translateX(-100px);
-        transition: opacity 0.3s ease-out, transform 0.3s ease-out;
         position: absolute;
         width: 100%;
         top: 0;
         left: 0;
+        opacity: 0;
+        transform: translateX(-100px);
+        transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         pointer-events: none;
-        visibility: hidden;
       }
 
       .scroll-text-section.active {
         opacity: 1;
         transform: translateX(0);
-        transition: opacity 0.3s ease-out, transform 0.3s ease-out;
         pointer-events: auto;
-        visibility: visible;
       }
 
       .scroll-text-section.exit-right {
         opacity: 0;
         transform: translateX(100px);
-        transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-        pointer-events: none;
-        visibility: hidden;
       }
 
       .scroll-text-section.exit-left {
         opacity: 0;
         transform: translateX(-100px);
-        transition: opacity 0.3s ease-out, transform 0.3s ease-out;
-        pointer-events: none;
-        visibility: hidden;
       }
 
       .scroll-text-section h2 {
@@ -219,7 +209,6 @@
   <body>
     <!-- Header -->
     <div id="header-container"></div>
-    <script type="module" src="/scripts/loadHeader.js"></script>
 
     <!-- Progress Bar -->
     <div class="progress-bar" id="progressBar"></div>
@@ -238,51 +227,47 @@
 
       <!-- Text Container -->
       <div class="scroll-text-container">
-        <!-- Section 1 -->
+        <!-- Section 1: Innovation -->
         <div class="scroll-text-section" id="textSection1">
-          <h2>Welcome to RISE STEM</h2>
+          <h2>Innovation in Learning</h2>
           <p>
-            Watch our interactive animation as we tell our story. This demonstrates how technology can create engaging educational experiences that inspire young minds to explore STEM fields.
+            Discover how cutting-edge technology transforms traditional education into immersive, interactive experiences that captivate and inspire students.
           </p>
         </div>
 
-        <!-- Section 2 -->
+        <!-- Section 2: Engagement -->
         <div class="scroll-text-section" id="textSection2">
-          <h2>Educational Innovation</h2>
+          <h2>Student Engagement</h2>
           <p>
-            Our innovative teaching methods come to life through technology-enhanced learning experiences that make STEM subjects engaging and accessible to all students.
+            Our hands-on approach ensures every student actively participates in their learning journey, building confidence and practical skills.
           </p>
         </div>
 
-        <!-- Section 3 -->
+        <!-- Section 3: Discovery -->
         <div class="scroll-text-section" id="textSection3">
-          <h2>Student Discovery</h2>
+          <h2>Scientific Discovery</h2>
           <p>
-            Through hands-on projects and collaborative learning, students discover their potential and develop confidence in STEM fields through transformative experiences.
+            Through experimentation and exploration, students uncover the wonders of science while developing critical thinking abilities.
           </p>
         </div>
 
-        <!-- Section 4 -->
+        <!-- Section 4: Community -->
         <div class="scroll-text-section" id="textSection4">
-          <h2>Community Impact</h2>
+          <h2>Community Building</h2>
           <p>
-            Our students become leaders in their communities, creating positive change that extends far beyond the classroom through quality STEM education.
+            Our collaborative environment fosters teamwork and communication skills essential for success in STEM careers.
           </p>
         </div>
 
-        <!-- Section 5 -->
+        <!-- Section 5: Future -->
         <div class="scroll-text-section" id="textSection5">
-          <h2>Looking Forward</h2>
+          <h2>Shaping the Future</h2>
           <p>
-            As we complete our journey, we continue building the next generation of innovators, problem-solvers, and leaders who will shape our future.
+            Empowering the next generation of innovators, problem-solvers, and leaders who will tackle tomorrow's greatest challenges.
           </p>
         </div>
       </div>
     </div>
-
-    <!-- Footer -->
-    <div id="footer-container"></div>
-    <script type="module" src="/scripts/loadFooter.js"></script>
 
     <!-- Post-Animation Content -->
     <div class="post-animation-content">
@@ -333,39 +318,59 @@
       // Configuration
       const totalFrames = 150;
       const frameBasePath = 'public/v4_frames_web/turtleExplodev4';
-      const textSections = document.querySelectorAll('.scroll-text-section');
-      const animationContainer = document.getElementById('animationContainer');
       
-      // Define frame ranges for each text section
-      const sectionFrameRanges = [
-        { start: 1, end: 30 },     // Welcome (frames 1-30)
-        { start: 31, end: 60 },    // Educational Innovation (frames 31-60)
-        { start: 61, end: 90 },    // Student Discovery (frames 61-90)
-        { start: 91, end: 120 },   // Community Impact (frames 91-120)
-        { start: 121, end: 150 }   // Looking Forward (frames 121-150)
+      // Define frame ranges for each text section with gaps
+      const textSections = [
+        { 
+          id: 'textSection1', 
+          startFrame: 1, 
+          endFrame: 25, 
+          title: 'Innovation in Learning' 
+        },
+        { 
+          id: 'textSection2', 
+          startFrame: 35, 
+          endFrame: 55, 
+          title: 'Student Engagement' 
+        },
+        { 
+          id: 'textSection3', 
+          startFrame: 65, 
+          endFrame: 85, 
+          title: 'Scientific Discovery' 
+        },
+        { 
+          id: 'textSection4', 
+          startFrame: 95, 
+          endFrame: 115, 
+          title: 'Community Building' 
+        },
+        { 
+          id: 'textSection5', 
+          startFrame: 125, 
+          endFrame: 150, 
+          title: 'Shaping the Future' 
+        }
       ];
 
-      // Initialize elements
+      // Get DOM elements
       const videoFrame = document.getElementById('videoFrame');
       const progressBar = document.getElementById('progressBar');
-
-      console.log('Text sections found:', textSections.length);
-      console.log('Video frame element:', videoFrame);
-      console.log('Progress bar element:', progressBar);
+      const animationContainer = document.getElementById('animationContainer');
 
       // Animation state
-      let animationComplete = false;
       let currentFrame = 1;
-      let currentTextSection = -1; // Start with no active section
       let scrollProgress = 0;
-      let lastFrame = 0;
-      let scrollDirection = 0; // 1 for down, -1 for up, 0 for stationary
-      let isTransitioning = false;
+      let animationComplete = false;
+      let activeTextSection = null;
+      let previousFrame = 1;
 
       // Preload frames for smoother experience
       const preloadedFrames = new Map();
 
       function preloadFrame(frameNumber) {
+        if (frameNumber < 1 || frameNumber > totalFrames) return null;
+        
         if (!preloadedFrames.has(frameNumber)) {
           const img = new Image();
           const paddedNumber = frameNumber.toString().padStart(4, '0');
@@ -375,46 +380,26 @@
         return preloadedFrames.get(frameNumber);
       }
 
-      // Preload first batch of frames
-      for (let i = 1; i <= Math.min(20, totalFrames); i++) {
-        preloadFrame(i);
-      }
-
-      // Calculate scroll-based progress during animation phase
-      function calculateAnimationProgress() {
-        if (animationComplete) return;
-
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        const animationHeight = animationContainer.offsetHeight;
-        
-        // Calculate progress based on scroll within animation container
-        scrollProgress = Math.min(scrollTop / (animationHeight * 5), 1); // Multiply by 5 for faster scrolling
-        
-        // Update frame
-        updateVideoFrame();
-        updateTextSections();
-        updateProgressBar();
-
-        // Check if animation is complete
-        if (scrollProgress >= 1) {
-          completeAnimation();
+      // Preload initial frames
+      function preloadInitialFrames() {
+        for (let i = 1; i <= Math.min(30, totalFrames); i++) {
+          preloadFrame(i);
         }
       }
 
+      // Update video frame
       function updateVideoFrame() {
-        // Calculate frame number based on scroll progress
         const frameNumber = Math.max(1, Math.min(totalFrames, Math.floor(scrollProgress * totalFrames) + 1));
         
-        console.log('Scroll progress:', scrollProgress, 'Frame number:', frameNumber, 'Current frame:', currentFrame);
-        
         if (frameNumber !== currentFrame) {
+          previousFrame = currentFrame;
           currentFrame = frameNumber;
+          
           const paddedNumber = frameNumber.toString().padStart(4, '0');
           const newSrc = `${frameBasePath}${paddedNumber}.png`;
           
           videoFrame.src = newSrc;
-
+          
           // Preload next few frames
           for (let i = 1; i <= 5; i++) {
             const nextFrame = frameNumber + i;
@@ -422,213 +407,192 @@
               preloadFrame(nextFrame);
             }
           }
-
-          // Update text sections based on current frame
+          
+          // Update text sections
           updateTextSections();
         }
       }
 
+      // Update text sections based on current frame
       function updateTextSections() {
-        // Determine scroll direction
-        if (currentFrame > lastFrame) {
-          scrollDirection = 1; // Scrolling down
-        } else if (currentFrame < lastFrame) {
-          scrollDirection = -1; // Scrolling up
+        const scrollDirection = currentFrame > previousFrame ? 1 : -1;
+        
+        // Find which section should be active
+        let targetSection = null;
+        for (const section of textSections) {
+          if (currentFrame >= section.startFrame && currentFrame <= section.endFrame) {
+            targetSection = section;
+            break;
+          }
         }
         
-        // Find which section this frame belongs to
-        const targetSectionIndex = sectionFrameRanges.findIndex(range => 
-          currentFrame >= range.start && currentFrame <= range.end
-        );
-
-        console.log('Current frame:', currentFrame, 'Target section:', targetSectionIndex, 'Current section:', currentTextSection);
-
-        // If we're in a valid section and it's different from current section
-        if (targetSectionIndex !== -1 && targetSectionIndex !== currentTextSection && !isTransitioning) {
-          isTransitioning = true;
-          
-          // Exit current section if it exists
-          if (currentTextSection >= 0 && currentTextSection < textSections.length) {
-            const currentSection = textSections[currentTextSection];
-            currentSection.classList.remove('active');
-            
-            // Apply exit animation based on scroll direction
-            if (scrollDirection === 1) {
-              // Scrolling down - exit to the right
-              currentSection.classList.add('exit-right');
-            } else {
-              // Scrolling up - exit to the left
-              currentSection.classList.add('exit-left');
-            }
-          }
-
-          // Wait for exit animation to complete, then enter new section
-          setTimeout(() => {
-            // Clean up previous section
-            if (currentTextSection >= 0 && currentTextSection < textSections.length) {
-              const prevSection = textSections[currentTextSection];
-              prevSection.classList.remove('exit-right', 'exit-left');
-            }
-
-            // Update current section index
-            currentTextSection = targetSectionIndex;
-
-            // Enter new section
-            const newSection = textSections[currentTextSection];
-            
-            // Remove any existing classes
-            newSection.classList.remove('active', 'exit-right', 'exit-left');
-            
-            // Set initial position based on scroll direction (or default for first load)
-            if (scrollDirection === 1 || scrollDirection === 0) {
-              // Scrolling down or initial load - fly in from the left
-              newSection.style.transform = 'translateX(-100px)';
-              newSection.style.opacity = '0';
-            } else {
-              // Scrolling up - fly in from the right
-              newSection.style.transform = 'translateX(100px)';
-              newSection.style.opacity = '0';
-            }
-            
-            // Force reflow
-            newSection.offsetHeight;
-            
-            // Activate the section
-            newSection.classList.add('active');
-            
-            console.log('Activated section:', targetSectionIndex, newSection);
-            
-            isTransitioning = false;
-          }, currentTextSection >= 0 ? 300 : 0); // No delay for initial load
-        }
-        
-        // If we're outside all sections, hide current section
-        if (targetSectionIndex === -1 && currentTextSection >= 0 && !isTransitioning) {
-          isTransitioning = true;
-          
-          const currentSection = textSections[currentTextSection];
-          currentSection.classList.remove('active');
-          
-          // Apply exit animation based on scroll direction
-          if (scrollDirection === 1) {
-            currentSection.classList.add('exit-right');
-          } else {
-            currentSection.classList.add('exit-left');
+        // If target section is different from active section
+        if (targetSection && (!activeTextSection || targetSection.id !== activeTextSection.id)) {
+          // Hide current section if exists
+          if (activeTextSection) {
+            hideTextSection(activeTextSection, scrollDirection);
           }
           
+          // Show new section after a brief delay
           setTimeout(() => {
-            currentSection.classList.remove('exit-right', 'exit-left');
-            currentTextSection = -1;
-            isTransitioning = false;
-          }, 300);
+            showTextSection(targetSection, scrollDirection);
+            activeTextSection = targetSection;
+          }, activeTextSection ? 250 : 0);
         }
-
-        // Update last frame for direction detection
-        lastFrame = currentFrame;
+        // If we're outside any section range, hide current section
+        else if (!targetSection && activeTextSection) {
+          hideTextSection(activeTextSection, scrollDirection);
+          activeTextSection = null;
+        }
       }
 
+      // Show text section
+      function showTextSection(section, direction) {
+        const element = document.getElementById(section.id);
+        if (!element) return;
+        
+        // Reset classes
+        element.classList.remove('active', 'exit-right', 'exit-left');
+        
+        // Set initial position based on direction
+        if (direction >= 0) {
+          element.style.transform = 'translateX(-100px)';
+        } else {
+          element.style.transform = 'translateX(100px)';
+        }
+        element.style.opacity = '0';
+        
+        // Force reflow
+        element.offsetHeight;
+        
+        // Animate in
+        element.classList.add('active');
+        
+        console.log(`Showing section: ${section.title} (frames ${section.startFrame}-${section.endFrame})`);
+      }
+
+      // Hide text section
+      function hideTextSection(section, direction) {
+        const element = document.getElementById(section.id);
+        if (!element) return;
+        
+        element.classList.remove('active');
+        
+        // Exit in the direction of scroll
+        if (direction > 0) {
+          element.classList.add('exit-right');
+        } else {
+          element.classList.add('exit-left');
+        }
+        
+        console.log(`Hiding section: ${section.title}`);
+      }
+
+      // Update progress bar
       function updateProgressBar() {
         progressBar.style.width = `${scrollProgress * 100}%`;
       }
 
+      // Handle scroll during animation
+      function handleScroll(deltaY) {
+        if (animationComplete) return;
+        
+        const scrollSpeed = 0.008; // Adjust this to change scroll sensitivity
+        const previousProgress = scrollProgress;
+        
+        scrollProgress += deltaY * scrollSpeed;
+        scrollProgress = Math.max(0, Math.min(1, scrollProgress));
+        
+        updateVideoFrame();
+        updateProgressBar();
+        
+        // Check if animation is complete
+        if (scrollProgress >= 1 && !animationComplete) {
+          completeAnimation();
+        }
+      }
+
+      // Complete animation
       function completeAnimation() {
         animationComplete = true;
         document.body.style.overflow = 'auto';
         
-        // Remove scroll event listener for animation
-        window.removeEventListener('scroll', handleAnimationScroll);
-        
-        // Add normal scroll behavior
-        window.addEventListener('scroll', handleNormalScroll);
-      }
-
-      function handleAnimationScroll(e) {
-        if (!animationComplete) {
-          e.preventDefault();
-          calculateAnimationProgress();
+        // Show final content
+        const postContent = document.querySelector('.post-animation-content');
+        if (postContent) {
+          postContent.scrollIntoView({ behavior: 'smooth' });
         }
-      }
-
-      function handleNormalScroll() {
-        // Normal scrolling behavior after animation is complete
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-        const normalProgress = scrollTop / maxScroll;
         
-        progressBar.style.width = `${normalProgress * 100}%`;
-      }
-
-      // Prevent normal scrolling during animation
-      function preventScroll(e) {
-        if (!animationComplete) {
-          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-          calculateAnimationProgress();
-          
-          // Keep the page at the top during animation
-          if (scrollProgress < 1) {
-            window.scrollTo(0, 0);
-          }
-        }
+        console.log('Animation completed');
       }
 
       // Initialize
       function init() {
-        // Set up initial state
-        animationComplete = false;
+        console.log('Initializing scroll video animation...');
+        
+        // Reset state
         currentFrame = 1;
-        currentTextSection = -1; // Start with no active section
         scrollProgress = 0;
-        scrollDirection = 0;
-        isTransitioning = false;
+        animationComplete = false;
+        activeTextSection = null;
+        previousFrame = 1;
         
         // Hide all text sections initially
         textSections.forEach(section => {
-          section.classList.remove('active', 'exit-right', 'exit-left');
+          const element = document.getElementById(section.id);
+          if (element) {
+            element.classList.remove('active', 'exit-right', 'exit-left');
+          }
         });
         
-        // Disable normal scrolling initially
+        // Disable normal scrolling
         document.body.style.overflow = 'hidden';
         
-        // Add scroll event listener for animation
-        window.addEventListener('scroll', preventScroll);
-        
-        // Add wheel event for better control
-        window.addEventListener('wheel', (e) => {
-          if (!animationComplete) {
-            e.preventDefault();
-            const previousProgress = scrollProgress;
-            scrollProgress = Math.min(scrollProgress + (e.deltaY > 0 ? 0.01 : -0.01), 1); // Faster wheel speed
-            scrollProgress = Math.max(scrollProgress, 0);
-            
-            // Update scroll direction based on wheel delta
-            if (e.deltaY > 0) {
-              scrollDirection = 1; // Scrolling down
-            } else if (e.deltaY < 0) {
-              scrollDirection = -1; // Scrolling up
-            }
-            
-            updateVideoFrame();
-            updateTextSections();
-            updateProgressBar();
-            
-            if (scrollProgress >= 1) {
-              completeAnimation();
-            }
-          }
-        }, { passive: false });
+        // Preload frames
+        preloadInitialFrames();
         
         // Initial update
         updateVideoFrame();
-        updateTextSections(); // Force initial text section check
         updateProgressBar();
         
-        // Show first text section immediately since we start at frame 1
-        setTimeout(() => {
-          const firstSection = textSections[0];
-          firstSection.classList.add('active');
-          currentTextSection = 0;
-          console.log('Manually activated first section');
-        }, 100);
+        // Add event listeners
+        window.addEventListener('wheel', (e) => {
+          if (!animationComplete) {
+            e.preventDefault();
+            handleScroll(e.deltaY);
+          }
+        }, { passive: false });
+        
+        // Touch support for mobile
+        let touchStartY = 0;
+        window.addEventListener('touchstart', (e) => {
+          touchStartY = e.touches[0].clientY;
+        });
+        
+        window.addEventListener('touchmove', (e) => {
+          if (!animationComplete) {
+            e.preventDefault();
+            const touchY = e.touches[0].clientY;
+            const deltaY = touchStartY - touchY;
+            handleScroll(deltaY);
+            touchStartY = touchY;
+          }
+        }, { passive: false });
+        
+        // Keyboard support
+        window.addEventListener('keydown', (e) => {
+          if (!animationComplete) {
+            if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+              e.preventDefault();
+              handleScroll(50);
+            } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+              e.preventDefault();
+              handleScroll(-50);
+            }
+          }
+        });
+        
+        console.log('Animation initialized with', textSections.length, 'text sections');
       }
 
       // Start when page loads
@@ -636,8 +600,10 @@
       
       // Handle window resize
       window.addEventListener('resize', () => {
-        updateVideoFrame();
-        updateProgressBar();
+        if (!animationComplete) {
+          updateVideoFrame();
+          updateProgressBar();
+        }
       });
     </script>
   </body>
