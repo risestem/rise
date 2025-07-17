@@ -3,19 +3,33 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Scroll‑Scrub Video</title>
+  <title>Scroll‑Scrub PNG Frames</title>
   <script src="https://unpkg.com/alpinejs" defer></script>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <style>
     html, body { margin:0; padding:0; font-family:'Poppins',sans-serif; }
-    .scrub-video-wrapper { position: relative; width:100%; }
-    .scrub-video-container {
-      position: sticky; top:0;
-      width:100%; height:100vh; overflow:hidden; background:#000;
+    /* wrapper whose height = frames × viewportHeight */
+    .scrub-video-wrapper {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
     }
-    .scrub-video-container video {
-      width:100%; height:100%; object-fit:contain;
+    /* canvas sticks in place */
+    .scrub-video-container {
+      position: sticky;
+      top: 0;
+      width: 100%;
+      height: 100vh;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* fill container */
+    #scrubCanvas {
+      max-width: 100%;
+      max-height: 100%;
     }
   </style>
 </head>
@@ -24,15 +38,10 @@
   <div id="header-container"></div>
   <script type="module" src="/scripts/loadHeader.js"></script>
 
-  <!-- SCRUB-WRAPPER -->
+  <!-- scrub wrapper -->
   <div class="scrub-video-wrapper">
     <div class="scrub-video-container">
-      <video
-        class="js-scrub-video"
-        src="public/animation_v5_alpha.webm"
-        muted playsinline preload="metadata"
-        disablePictureInPicture>
-      </video>
+      <canvas id="scrubCanvas"></canvas>
     </div>
   </div>
 
@@ -41,94 +50,91 @@
   <script type="module" src="/scripts/loadFooter.js"></script>
 
   <script>
-    class ScrubVideoManager {
-      constructor() {
-        this.wrappers = document.querySelectorAll('.scrub-video-wrapper');
-        this.data     = [];
-        this.onResize = this.onResize.bind(this);
-        this.onScroll = this.onScroll.bind(this);
-        this.ioCb     = this.intersectionObserverCallback.bind(this);
+    class FrameScrubber {
+      constructor({ frameCount, framePathPattern }) {
+        this.frameCount    = frameCount;
+        this.framePath     = framePathPattern;  // e.g. '/public/frames/frame{num}.png'
+        this.frames        = new Array(frameCount);
+        this.currentReq    = null;
+        this.lastDrawn     = -1;
 
-        // 1) IntersectionObserver to detect when each video is fully in view
-        const observer = new IntersectionObserver(this.ioCb, { threshold: 1 });
-        observer.context = this;
+        // DOM refs
+        this.wrapper   = document.querySelector('.scrub-video-wrapper');
+        this.container = this.wrapper.querySelector('.scrub-video-container');
+        this.canvas    = document.getElementById('scrubCanvas');
+        this.ctx       = this.canvas.getContext('2d');
 
-        this.wrappers.forEach((wrapper, i) => {
-          const container = wrapper.querySelector('.scrub-video-container');
-          const video     = container.querySelector('video');
+        // preload all frames
+        this.preloadFrames();
+        // initial layout
+        window.addEventListener('resize', () => this.onResize());
+        document.addEventListener('scroll', () => this.onScroll(), { passive: true });
 
-          wrapper.setAttribute('data-index', i);
-          observer.observe(container);
-
-          this.data[i] = { wrapper, container, video };
-          this.forceLoad(video);
-        });
-
-        window.addEventListener('resize', this.onResize);
-        document.addEventListener('scroll', this.onScroll, { passive:true });
+        // do one resize/draw on init
+        this.onResize();
+        this.drawFrame(0);
       }
 
-      // 7) “Force‑load” video so all frames are buffered
-      forceLoad(video) {
-        fetch(video.src)
-          .then(r => r.blob())
-          .then(blob => {
-            video.src = URL.createObjectURL(blob);
-            video.preload = 'auto';
-            video.load();
-          });
-      }
-
-      intersectionObserverCallback(entries) {
-        entries.forEach(entry => {
-          const idx = entry.target
-                         .closest('.scrub-video-wrapper')
-                         .getAttribute('data-index');
-          const { wrapper, video } = this.data[idx];
-
-          if (entry.intersectionRatio === 1) {
-            // once fully visible, size the scroll‑area
-            const dur = video.duration;
-            this.data[idx].duration = dur;
-            wrapper.style.height = `${dur * window.innerHeight}px`;
-            this.updateBounds(idx);
-          }
-        });
-      }
-
-      updateBounds(i) {
-        const { wrapper } = this.data[i];
-        const top    = wrapper.offsetTop;
-        const bot    = top + wrapper.offsetHeight - window.innerHeight;
-        this.data[i].top    = top;
-        this.data[i].bottom = bot;
+      preloadFrames() {
+        for (let i = 0; i < this.frameCount; i++) {
+          const img = new Image();
+          const num = String(i + 1).padStart(4, '0'); // v4_frames uses 4-digit padding starting from 1
+          img.src   = this.framePath.replace('{num}', num);
+          this.frames[i] = img;
+        }
       }
 
       onResize() {
-        // re‑compute heights & bounds for all
-        this.data.forEach((d,i) => {
-          if (!d.duration) return;
-          d.wrapper.style.height = `${d.duration * window.innerHeight}px`;
-          this.updateBounds(i);
-        });
+        // make wrapper height = frameCount * viewportHeight
+        const vh = window.innerHeight;
+        this.wrapper.style.height = `${this.frameCount * vh}px`;
+        // recompute scroll bounds
+        this.top    = this.wrapper.offsetTop;
+        this.height = this.wrapper.offsetHeight - vh;
+        // fit canvas to container
+        const cw = this.container.clientWidth;
+        const ch = this.container.clientHeight;
+        this.canvas.width  = cw;
+        this.canvas.height = ch;
+        // redraw current frame
+        this.drawFrame(this.lastDrawn >= 0 ? this.lastDrawn : 0);
       }
 
       onScroll() {
-        // for each active wrapper (only one visible at a time at threshold=1)
-        this.data.forEach(d => {
-          if (!d.duration) return;
-          const y = window.scrollY;
-          // only scrub when fully in view
-          if (y >= d.top && y <= d.bottom + window.innerHeight) {
-            const prog = (y - d.top) / (d.bottom - d.top);
-            d.video.currentTime = Math.max(0, Math.min(prog,1)) * d.duration;
-          }
+        if (this.currentReq) return;
+        this.currentReq = requestAnimationFrame(() => {
+          const y = window.scrollY - this.top;
+          const prog = Math.max(0, Math.min(1, y / this.height));
+          const idx  = Math.floor(prog * (this.frameCount - 1));
+          this.drawFrame(idx);
+          this.currentReq = null;
         });
+      }
+
+      drawFrame(idx) {
+        if (idx === this.lastDrawn) return;
+        const img = this.frames[idx];
+        if (!img.complete) return; // not loaded yet
+        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+        // draw centered: maintain aspect ratio
+        const scale = Math.min(
+          this.canvas.width  / img.naturalWidth,
+          this.canvas.height / img.naturalHeight
+        );
+        const w = img.naturalWidth * scale;
+        const h = img.naturalHeight * scale;
+        const x = (this.canvas.width - w) / 2;
+        const y = (this.canvas.height - h) / 2;
+        this.ctx.drawImage(img, x, y, w, h);
+        this.lastDrawn = idx;
       }
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      new ScrubVideoManager();
+      new FrameScrubber({
+        frameCount: 150,
+        framePathPattern: 'public/v4_frames/turtleExplodev4{num}.png'
+      });
     });
   </script>
 </body>
