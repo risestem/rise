@@ -223,8 +223,24 @@
         requestAnimationFrame(animate);
         
         const onWheel = e => { 
-          e.preventDefault(); 
-          handleScroll(e.deltaY); 
+          if (!animationComplete) {
+            // Animation is running, prevent default and handle animation scrolling
+            e.preventDefault(); 
+            handleScroll(e.deltaY); 
+          } else {
+            // Animation is complete, check if we need to re-enter animation
+            if (e.deltaY < 0) {
+              // User is scrolling up, check if we're at the top of post-content
+              const postContent = document.querySelector('.post-animation-content');
+              if (postContent.scrollTop === 0 || window.scrollY <= postContent.offsetTop) {
+                // We're at the top of post-content, re-enter animation
+                e.preventDefault();
+                handleScroll(e.deltaY);
+              }
+              // Otherwise, let normal scrolling happen
+            }
+            // For scrolling down in post-content, let normal scrolling happen
+          }
         };
         window.addEventListener('wheel', onWheel, { passive: false });
         
@@ -242,8 +258,12 @@
           } else {
             // Animation is complete, handle keyboard for re-entering animation
             if (e.key === 'ArrowUp' || e.key === 'PageUp') { 
-              e.preventDefault(); 
-              handleScroll(-100); 
+              // Check if we're at the top of the page before re-entering animation
+              if (window.scrollY <= 100) {
+                e.preventDefault(); 
+                handleScroll(-100); 
+              }
+              // Otherwise, let normal scrolling happen
             }
             if (e.key === 'ArrowDown' || e.key === 'PageDown') { 
               // Let normal scrolling happen in post-content
