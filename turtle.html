@@ -1,41 +1,21 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <script src="https://unpkg.com/alpinejs" defer></script>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Scroll‑Scrub Video</title>
-  <link rel="icon" type="image/svg+xml" href="/public/logo1.svg" />
-  <link rel="icon" type="image/png" href="/public/favicon-32x32.png" />
-  <link rel="shortcut icon" href="/public/favicon.ico" />
-  <link rel="apple-touch-icon" href="/public/apple-touch-icon.png" />
+  <script src="https://unpkg.com/alpinejs" defer></script>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
   <style>
-    /* reset */
-    html, body { margin:0; padding:0; }
-
-    /* wrapper whose height defines scroll length */
-    .scrub-video-wrapper {
-      position: relative;
-      width: 100%;
-    }
-
-    /* container that sticks the video */
+    html, body { margin:0; padding:0; font-family:'Poppins',sans-serif; }
+    .scrub-video-wrapper { position: relative; width:100%; }
     .scrub-video-container {
-      position: sticky;
-      top: 0;
-      width: 100%;
-      height: 100vh;
-      overflow: hidden;
-      background: #000;
+      position: sticky; top:0;
+      width:100%; height:100vh; overflow:hidden; background:#000;
     }
-
-    /* fill container */
     .scrub-video-container video {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
+      width:100%; height:100%; object-fit:contain;
     }
   </style>
 </head>
@@ -44,15 +24,13 @@
   <div id="header-container"></div>
   <script type="module" src="/scripts/loadHeader.js"></script>
 
-  <!-- the single wrapper -->
+  <!-- SCRUB-WRAPPER -->
   <div class="scrub-video-wrapper">
     <div class="scrub-video-container">
       <video
-        id="video"
+        class="js-scrub-video"
         src="public/animation_v5_alpha.webm"
-        muted
-        playsinline
-        preload="auto"
+        muted playsinline preload="metadata"
         disablePictureInPicture>
       </video>
     </div>
@@ -65,85 +43,87 @@
   <script>
     class ScrubVideoManager {
       constructor() {
-        this.wrapper   = document.querySelector('.scrub-video-wrapper');
-        this.container = this.wrapper.querySelector('.scrub-video-container');
-        this.video     = this.container.querySelector('video');
-        
-        // Performance optimizations
-        this.lastSeekTime = 0;
-        this.seekThreshold = 0.1; // Only seek if difference is > 0.1 seconds
-        this.rafId = null;
-        this.pendingSeek = false;
+        this.wrappers = document.querySelectorAll('.scrub-video-wrapper');
+        this.data     = [];
+        this.onResize = this.onResize.bind(this);
+        this.onScroll = this.onScroll.bind(this);
+        this.ioCb     = this.intersectionObserverCallback.bind(this);
 
-        // when metadata loads, size wrapper & compute positions
-        this.video.addEventListener('loadedmetadata', this.onLoaded.bind(this));
-        // re‑compute on resize
-        window.addEventListener('resize', this.onResize.bind(this));
-        // scrub on scroll with throttling
-        document.addEventListener('scroll', this.onScrollThrottled.bind(this), { passive: true });
+        // 1) IntersectionObserver to detect when each video is fully in view
+        const observer = new IntersectionObserver(this.ioCb, { threshold: 1 });
+        observer.context = this;
 
-        // fetch the whole video blob so seeks never wait
-        this.fetchVideo(this.video);
+        this.wrappers.forEach((wrapper, i) => {
+          const container = wrapper.querySelector('.scrub-video-container');
+          const video     = container.querySelector('video');
+
+          wrapper.setAttribute('data-index', i);
+          observer.observe(container);
+
+          this.data[i] = { wrapper, container, video };
+          this.forceLoad(video);
+        });
+
+        window.addEventListener('resize', this.onResize);
+        document.addEventListener('scroll', this.onScroll, { passive:true });
       }
 
-      onLoaded() {
-        // duration in seconds
-        this.duration = this.video.duration;
-        // make scrollable area = duration × viewport height
-        this.wrapper.style.height = `${this.duration * window.innerHeight}px`;
-        this.updatePositions();
+      // 7) “Force‑load” video so all frames are buffered
+      forceLoad(video) {
+        fetch(video.src)
+          .then(r => r.blob())
+          .then(blob => {
+            video.src = URL.createObjectURL(blob);
+            video.preload = 'auto';
+            video.load();
+          });
       }
 
-      updatePositions() {
-        // top of wrapper in document
-        this.top = this.wrapper.offsetTop;
-        // scrollY at which the wrapper bottom reaches viewport bottom
-        this.bottom = this.top + this.wrapper.offsetHeight - window.innerHeight;
+      intersectionObserverCallback(entries) {
+        entries.forEach(entry => {
+          const idx = entry.target
+                         .closest('.scrub-video-wrapper')
+                         .getAttribute('data-index');
+          const { wrapper, video } = this.data[idx];
+
+          if (entry.intersectionRatio === 1) {
+            // once fully visible, size the scroll‑area
+            const dur = video.duration;
+            this.data[idx].duration = dur;
+            wrapper.style.height = `${dur * window.innerHeight}px`;
+            this.updateBounds(idx);
+          }
+        });
       }
 
-      onScrollThrottled() {
-        if (this.rafId) return;
-        
-        this.rafId = requestAnimationFrame(() => {
-          this.onScroll();
-          this.rafId = null;
+      updateBounds(i) {
+        const { wrapper } = this.data[i];
+        const top    = wrapper.offsetTop;
+        const bot    = top + wrapper.offsetHeight - window.innerHeight;
+        this.data[i].top    = top;
+        this.data[i].bottom = bot;
+      }
+
+      onResize() {
+        // re‑compute heights & bounds for all
+        this.data.forEach((d,i) => {
+          if (!d.duration) return;
+          d.wrapper.style.height = `${d.duration * window.innerHeight}px`;
+          this.updateBounds(i);
         });
       }
 
       onScroll() {
-        if (!this.duration) return;
-        const y = window.scrollY;
-        // clamp 0→1
-        const progress = Math.max(0, Math.min((y - this.top) / (this.bottom - this.top), 1));
-        const targetTime = progress * this.duration;
-        
-        // Only seek if the difference is significant enough
-        if (Math.abs(this.video.currentTime - targetTime) > this.seekThreshold) {
-          this.video.currentTime = targetTime;
-        }
-      }
-
-      onResize() {
-        // re‑size wrapper if viewport height changed
-        this.wrapper.style.height = `${this.duration * window.innerHeight}px`;
-        this.updatePositions();
-      }
-
-      fetchVideo(videoEl) {
-        const src = videoEl.getAttribute('src');
-        fetch(src)
-          .then(res => res.blob())
-          .then(blob => {
-            videoEl.src = URL.createObjectURL(blob);
-            // Optimize video for scrubbing
-            videoEl.preload = 'auto';
-            videoEl.load();
-          })
-          .catch(err => {
-            console.error('Failed to fetch video:', err);
-            // Fallback to direct src
-            videoEl.src = src;
-          });
+        // for each active wrapper (only one visible at a time at threshold=1)
+        this.data.forEach(d => {
+          if (!d.duration) return;
+          const y = window.scrollY;
+          // only scrub when fully in view
+          if (y >= d.top && y <= d.bottom + window.innerHeight) {
+            const prog = (y - d.top) / (d.bottom - d.top);
+            d.video.currentTime = Math.max(0, Math.min(prog,1)) * d.duration;
+          }
+        });
       }
     }
 
