@@ -22,7 +22,7 @@
       .animation-container { height: 100vh; overflow: hidden; position: relative; background: white; display: flex; align-items: center; justify-content: center; }
       .scroll-video-container { position: absolute; right: 0%; top: 50%; transform: translateY(-50%); width: 65%; height: 100vh; max-width: none; z-index: 10; display: flex; align-items: center; justify-content: center; }
       .scroll-video-frame { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
-      .scroll-text-container { position: absolute; left: 25%; top: 50%; transform: translateY(-50%); width: 35%; max-width: 500px; z-index: 20; height: 200px; }
+      .scroll-text-container { position: absolute; left: 8%; top: 50%; transform: translateY(-50%); width: 25%; max-width: 400px; z-index: 20; height: 200px; }
 
       /* Text sections */
       .scroll-text-section { position: absolute; width: 100%; top: 0; left: 0; opacity: 0; transform: translateX(-100px); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none; }
@@ -85,14 +85,6 @@
           <h2>Scientific Discovery</h2>
           <p>Through experimentation, students uncover the wonders of science and develop critical thinking abilities.</p>
         </div>
-        <div class="scroll-text-section" id="textSection4">
-          <h2>Community Building</h2>
-          <p>Our collaborative environment fosters teamwork and communication skills essential for success in STEM.</p>
-        </div>
-        <div class="scroll-text-section" id="textSection5">
-          <h2>Shaping the Future</h2>
-          <p>Empowering the next generation of innovators and leaders to tackle tomorrow's greatest challenges.</p>
-        </div>
       </div>
     </div>
 
@@ -109,10 +101,9 @@
       const totalFrames = 150;
       const frameBasePath = 'public/v5_webp/turtleExplodev5';
       const textSections = [
-        { id: 'textSection1', startFrame:   1, endFrame:  43 },
-        { id: 'textSection2', startFrame:  45, endFrame:  88 },
-        { id: 'textSection3', startFrame:  90, endFrame:  135 },
-        { id: 'textSection4', startFrame:  127, endFrame: 150 },
+        { id: 'textSection1', startFrame:   1, endFrame:  50 },
+        { id: 'textSection2', startFrame:  52, endFrame:  102 },
+        { id: 'textSection3', startFrame:  104, endFrame:  150 }
       ];
 
       let currentFrame = 1;
