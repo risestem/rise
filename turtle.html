@@ -51,7 +51,9 @@
         id="video"
         src="public/animation_v5_alpha.webm"
         muted
-        playsinline>
+        playsinline
+        preload="auto"
+        disablePictureInPicture>
       </video>
     </div>
   </div>
@@ -66,22 +68,28 @@
         this.wrapper   = document.querySelector('.scrub-video-wrapper');
         this.container = this.wrapper.querySelector('.scrub-video-container');
         this.video     = this.container.querySelector('video');
+        
+        // Performance optimizations
+        this.lastSeekTime = 0;
+        this.seekThreshold = 0.1; // Only seek if difference is > 0.1 seconds
+        this.rafId = null;
+        this.pendingSeek = false;
 
         // when metadata loads, size wrapper & compute positions
         this.video.addEventListener('loadedmetadata', this.onLoaded.bind(this));
         // re‑compute on resize
         window.addEventListener('resize', this.onResize.bind(this));
-        // scrub on scroll
-        document.addEventListener('scroll', this.onScroll.bind(this), { passive: true });
+        // scrub on scroll with throttling
+        document.addEventListener('scroll', this.onScrollThrottled.bind(this), { passive: true });
 
-        // fetch the whole video blob so seeks never wait :contentReference[oaicite:2]{index=2}
+        // fetch the whole video blob so seeks never wait
         this.fetchVideo(this.video);
       }
 
       onLoaded() {
         // duration in seconds
         this.duration = this.video.duration;
-        // make scrollable area = duration × viewport height :contentReference[oaicite:3]{index=3}
+        // make scrollable area = duration × viewport height
         this.wrapper.style.height = `${this.duration * window.innerHeight}px`;
         this.updatePositions();
       }
@@ -93,12 +101,26 @@
         this.bottom = this.top + this.wrapper.offsetHeight - window.innerHeight;
       }
 
+      onScrollThrottled() {
+        if (this.rafId) return;
+        
+        this.rafId = requestAnimationFrame(() => {
+          this.onScroll();
+          this.rafId = null;
+        });
+      }
+
       onScroll() {
         if (!this.duration) return;
         const y = window.scrollY;
         // clamp 0→1
         const progress = Math.max(0, Math.min((y - this.top) / (this.bottom - this.top), 1));
-        this.video.currentTime = progress * this.duration;
+        const targetTime = progress * this.duration;
+        
+        // Only seek if the difference is significant enough
+        if (Math.abs(this.video.currentTime - targetTime) > this.seekThreshold) {
+          this.video.currentTime = targetTime;
+        }
       }
 
       onResize() {
@@ -113,6 +135,14 @@
           .then(res => res.blob())
           .then(blob => {
             videoEl.src = URL.createObjectURL(blob);
+            // Optimize video for scrubbing
+            videoEl.preload = 'auto';
+            videoEl.load();
+          })
+          .catch(err => {
+            console.error('Failed to fetch video:', err);
+            // Fallback to direct src
+            videoEl.src = src;
           });
       }
     }
