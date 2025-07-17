@@ -71,7 +71,7 @@
       .scroll-text-section {
         opacity: 0;
         transform: translateX(-50px);
-        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        transition: opacity 0.4s ease-out, transform 0.4s ease-out;
         position: absolute;
         width: 100%;
         top: 0;
@@ -81,13 +81,13 @@
       .scroll-text-section.active {
         opacity: 1;
         transform: translateX(0);
-        transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        transition: opacity 0.4s ease-out, transform 0.4s ease-out;
       }
 
       .scroll-text-section.exit {
         opacity: 0;
         transform: translateX(50px);
-        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
       }
 
       .scroll-text-section h2 {
@@ -319,6 +319,15 @@
       const frameBasePath = 'public/v4_frames_web/turtleExplodev4';
       const textSections = document.querySelectorAll('.scroll-text-section');
       const animationContainer = document.getElementById('animationContainer');
+      
+      // Define frame ranges for each text section
+      const sectionFrameRanges = [
+        { start: 1, end: 30 },     // Welcome (frames 1-30)
+        { start: 31, end: 60 },    // Educational Innovation (frames 31-60)
+        { start: 61, end: 90 },    // Student Discovery (frames 61-90)
+        { start: 91, end: 120 },   // Community Impact (frames 91-120)
+        { start: 121, end: 150 }   // Looking Forward (frames 121-150)
+      ];
 
       // Initialize elements
       const videoFrame = document.getElementById('videoFrame');
@@ -329,6 +338,7 @@
       let currentFrame = 1;
       let currentTextSection = 0;
       let scrollProgress = 0;
+      let lastFrame = 0;
 
       // Preload frames for smoother experience
       const preloadedFrames = new Map();
@@ -388,33 +398,64 @@
               preloadFrame(nextFrame);
             }
           }
+
+          // Update text sections based on current frame
+          updateTextSections();
         }
       }
 
       function updateTextSections() {
-        const totalSections = textSections.length;
-        const newSectionIndex = Math.min(Math.floor(scrollProgress * totalSections), totalSections - 1);
+        // Get the current frame range based on current frame number
+        const currentRange = sectionFrameRanges.find(range => 
+          currentFrame >= range.start && currentFrame <= range.end
+        );
 
-        if (newSectionIndex !== currentTextSection) {
-          // First, exit the current section
-          textSections[currentTextSection].classList.remove('active');
-          textSections[currentTextSection].classList.add('exit');
+        // Get the next and previous ranges
+        const currentIndex = sectionFrameRanges.findIndex(range => 
+          currentFrame >= range.start && currentFrame <= range.end
+        );
+        const nextRange = sectionFrameRanges[currentIndex + 1];
+        const prevRange = sectionFrameRanges[currentIndex - 1];
 
-          // Wait for exit animation to complete, then show new section
+        // If we're in a valid range and it's different from current section
+        if (currentRange && currentRange.start !== sectionFrameRanges[currentTextSection]?.start) {
+          // Exit current section if it exists
+          if (currentTextSection >= 0) {
+            textSections[currentTextSection].classList.remove('active');
+            textSections[currentTextSection].classList.add('exit');
+          }
+
+          // Wait for exit animation to complete
           setTimeout(() => {
-            // Remove exit class from old section
-            textSections[currentTextSection].classList.remove('exit');
-
             // Update current section index
-            currentTextSection = newSectionIndex;
+            currentTextSection = currentIndex;
 
-            // Show new section after a brief pause
-            setTimeout(() => {
-              textSections[currentTextSection].classList.add('active');
-            }, 100); // Reduced pause between exit and enter
-
-          }, 800); // Reduced wait for exit animation to complete
+            // Enter new section
+            textSections[currentTextSection].classList.remove('exit');
+            textSections[currentTextSection].classList.add('active');
+          }, 400);
         }
+
+        // Handle edge cases when scrolling back up
+        if (currentFrame < lastFrame) {
+          // If we're moving back into a previous section
+          if (prevRange && currentFrame >= prevRange.start && currentFrame <= prevRange.end) {
+            // Exit current section
+            textSections[currentTextSection].classList.remove('active');
+            textSections[currentTextSection].classList.add('exit');
+
+            // Wait for exit animation
+            setTimeout(() => {
+              // Update to previous section
+              currentTextSection = currentIndex - 1;
+              textSections[currentTextSection].classList.remove('exit');
+              textSections[currentTextSection].classList.add('active');
+            }, 400);
+          }
+        }
+
+        // Update last frame for direction detection
+        lastFrame = currentFrame;
       }
 
       function updateProgressBar() {
