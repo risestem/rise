@@ -142,29 +142,38 @@
       function updateTextSections() { const section = textSections.find(s => currentFrame >= s.startFrame && currentFrame <= s.endFrame); if (section && (!activeTextSection || activeTextSection.id !== section.id)) { if (activeTextSection) hideTextSection(activeTextSection); showTextSection(section); activeTextSection = section; } else if (!section && activeTextSection) { hideTextSection(activeTextSection); activeTextSection = null; } }
       function updateProgressBar() { document.getElementById('progressBar').style.width = `${scrollProgress * 100}%`; }
       const scrollSpeed = 0.0008;
-      function handleScroll(deltaY) { 
+      function handleScroll(deltaY) {
         if (!animationComplete) {
           const newProgress = targetProgress + deltaY * scrollSpeed;
-          
+
           // Check if user is trying to scroll past the end
           if (newProgress >= 1 && targetProgress >= 1) {
             // User is at the end and trying to scroll further down
             completeAnimation();
             return;
           }
-          
-          targetProgress = Math.max(0, Math.min(1, newProgress)); 
+
+          targetProgress = Math.max(0, Math.min(1, newProgress));
         } else {
           // Animation is complete, check for scroll up to re-enter animation
           if (deltaY < 0) {
-            // User is scrolling up, re-enter animation mode
-            reenterAnimation();
-            // Start from near the end of the animation
-            targetProgress = 0.95;
-            scrollProgress = 0.95;
-            updateVideoFrame();
-            updateProgressBar();
-            updateTextSections();
+            // Check if we're at the top of the post-animation content
+            const postContent = document.querySelector('.post-animation-content');
+            const postContentRect = postContent.getBoundingClientRect();
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+            // Only re-enter animation if we're scrolling up from the very top of post-content
+            // or if the post-content top is at or above the viewport top
+            if (postContentRect.top >= 0 || scrollTop <= postContent.offsetTop) {
+              // User is scrolling up from the top of post-content, re-enter animation mode
+              reenterAnimation();
+              // Start from near the end of the animation
+              targetProgress = 0.95;
+              scrollProgress = 0.95;
+              updateVideoFrame();
+              updateProgressBar();
+              updateTextSections();
+            }
           }
         }
       }
@@ -222,24 +231,14 @@
         preloadInitialFrames(); 
         requestAnimationFrame(animate);
         
-        const onWheel = e => { 
+        const onWheel = e => {
           if (!animationComplete) {
-            // Animation is running, prevent default and handle animation scrolling
-            e.preventDefault(); 
-            handleScroll(e.deltaY); 
+            // Only prevent default during animation
+            e.preventDefault();
+            handleScroll(e.deltaY);
           } else {
-            // Animation is complete, check if we need to re-enter animation
-            if (e.deltaY < 0) {
-              // User is scrolling up, check if we're at the top of post-content
-              const postContent = document.querySelector('.post-animation-content');
-              if (postContent.scrollTop === 0 || window.scrollY <= postContent.offsetTop) {
-                // We're at the top of post-content, re-enter animation
-                e.preventDefault();
-                handleScroll(e.deltaY);
-              }
-              // Otherwise, let normal scrolling happen
-            }
-            // For scrolling down in post-content, let normal scrolling happen
+            // Animation is complete, allow normal scrolling but check for re-entry
+            handleScroll(e.deltaY);
           }
         };
         window.addEventListener('wheel', onWheel, { passive: false });
@@ -257,15 +256,19 @@
             } 
           } else {
             // Animation is complete, handle keyboard for re-entering animation
-            if (e.key === 'ArrowUp' || e.key === 'PageUp') { 
-              // Check if we're at the top of the page before re-entering animation
-              if (window.scrollY <= 100) {
-                e.preventDefault(); 
-                handleScroll(-100); 
+            if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+              // Check if we're at the top of the post-animation content before re-entering
+              const postContent = document.querySelector('.post-animation-content');
+              const postContentRect = postContent.getBoundingClientRect();
+              const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+
+              if (postContentRect.top >= 0 || scrollTop <= postContent.offsetTop) {
+                e.preventDefault();
+                handleScroll(-100);
               }
               // Otherwise, let normal scrolling happen
             }
-            if (e.key === 'ArrowDown' || e.key === 'PageDown') { 
+            if (e.key === 'ArrowDown' || e.key === 'PageDown') {
               // Let normal scrolling happen in post-content
               return;
             }
