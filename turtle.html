@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <script src="https://unpkg.com/alpinejs" defer></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Scroll Video - RISE STEM</title>
@@ -56,6 +57,10 @@
     </style>
   </head>
   <body>
+    <!-- Header -->
+    <div id="header-container"></div>
+    <script type="module" src="/scripts/loadHeader.js"></script>
+    
     <div class="progress-bar" id="progressBar"></div>
 
     <div class="animation-container" id="animationContainer">
@@ -96,15 +101,18 @@
       <!-- Add your post-animation content here -->
     </div>
 
+    <!-- Footer -->
+    <div id="footer-container"></div>
+    <script type="module" src="/scripts/loadFooter.js"></script>
+
     <script>
       const totalFrames = 150;
       const frameBasePath = 'public/v4_frames_web/turtleExplodev4';
       const textSections = [
-        { id: 'textSection1', startFrame:   1, endFrame:  30 },
-        { id: 'textSection2', startFrame:  35, endFrame:  55 },
-        { id: 'textSection3', startFrame:  65, endFrame:  85 },
-        { id: 'textSection4', startFrame:  95, endFrame: 115 },
-        { id: 'textSection5', startFrame: 125, endFrame: 150 }
+        { id: 'textSection1', startFrame:   1, endFrame:  43 },
+        { id: 'textSection2', startFrame:  45, endFrame:  88 },
+        { id: 'textSection3', startFrame:  90, endFrame:  135 },
+        { id: 'textSection4', startFrame:  127, endFrame: 150 },
       ];
 
       let currentFrame = 1;
