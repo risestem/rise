@@ -106,7 +106,7 @@
           </div>
         </div>
 
-        <!-- Post-Animation Content -->
+        <!-- Post-Animation Content (within same white box) -->
         <div class="post-animation-content">
           <h1 class="text-4xl font-bold text-purple-950 mb-6 text-center">Discover More About RISE STEM</h1>
 
@@ -147,25 +147,84 @@
       function updateTextSections() { const section = textSections.find(s => currentFrame >= s.startFrame && currentFrame <= s.endFrame); if (section && (!activeTextSection || activeTextSection.id !== section.id)) { if (activeTextSection) hideTextSection(activeTextSection); showTextSection(section); activeTextSection = section; } else if (!section && activeTextSection) { hideTextSection(activeTextSection); activeTextSection = null; } }
       function updateProgressBar() { document.getElementById('progressBar').style.width = `${scrollProgress * 100}%`; }
       const scrollSpeed = 0.0008;
-      function handleScroll(deltaY) { targetProgress = Math.max(0, Math.min(1, targetProgress + deltaY * scrollSpeed)); }
-      function animate() { scrollProgress += (targetProgress - scrollProgress) * 0.1; updateVideoFrame(); updateProgressBar(); updateTextSections(); if (!animationComplete && scrollProgress >= 1) completeAnimation(); requestAnimationFrame(animate); }
+      function handleScroll(deltaY) { 
+        if (!animationComplete) {
+          const newProgress = targetProgress + deltaY * scrollSpeed;
+          
+          // Check if user is trying to scroll past the end
+          if (newProgress >= 1 && targetProgress >= 1) {
+            // User is at the end and trying to scroll further down
+            completeAnimation();
+            return;
+          }
+          
+          targetProgress = Math.max(0, Math.min(1, newProgress)); 
+        }
+      }
+      function animate() { 
+        scrollProgress += (targetProgress - scrollProgress) * 0.1; 
+        updateVideoFrame(); 
+        updateProgressBar(); 
+        updateTextSections(); 
+        
+        // Check if we've reached the end naturally
+        if (!animationComplete && scrollProgress >= 0.99) {
+          completeAnimation();
+        }
+        
+        requestAnimationFrame(animate); 
+      }
       function completeAnimation() {
+        if (animationComplete) return; // Prevent multiple calls
+        
         animationComplete = true;
-        document.body.style.overflow = 'auto';
-
+        scrollProgress = 1; // Ensure we're at the final frame
+        targetProgress = 1;
+        updateVideoFrame();
+        updateProgressBar();
+        updateTextSections();
+        
         // Show post-animation content
         const postContent = document.querySelector('.post-animation-content');
         postContent.classList.add('visible');
+        
+        // Re-enable body scrolling
+        document.body.style.overflow = 'auto';
 
         // Auto-scroll to post-animation content after a brief delay
         setTimeout(() => {
           postContent.scrollIntoView({ behavior: 'smooth' });
-        }, 500);
+        }, 800);
       }
-      function init() { document.body.style.overflow = 'hidden'; preloadInitialFrames(); requestAnimationFrame(animate);
-        const onWheel = e => { if (animationComplete) { window.removeEventListener('wheel', onWheel); return; } e.preventDefault(); handleScroll(e.deltaY); };
+      function init() { 
+        document.body.style.overflow = 'hidden'; 
+        preloadInitialFrames(); 
+        requestAnimationFrame(animate);
+        
+        const onWheel = e => { 
+          if (!animationComplete) {
+            // Animation is still running, handle scroll for animation
+            e.preventDefault(); 
+            handleScroll(e.deltaY); 
+          }
+          // Once animation is complete, let browser handle normal scrolling
+        };
         window.addEventListener('wheel', onWheel, { passive: false });
-        const onKeydown = e => { if (animationComplete) { window.removeEventListener('keydown', onKeydown); return; } if (e.key === 'ArrowDown' || e.key === 'PageDown') { e.preventDefault(); handleScroll(100); } if (e.key === 'ArrowUp' || e.key === 'PageUp') { e.preventDefault(); handleScroll(-100); } };
+        
+        const onKeydown = e => { 
+          if (!animationComplete) {
+            // Animation is still running, handle keyboard for animation
+            if (e.key === 'ArrowDown' || e.key === 'PageDown') { 
+              e.preventDefault(); 
+              handleScroll(100); 
+            } 
+            if (e.key === 'ArrowUp' || e.key === 'PageUp') { 
+              e.preventDefault(); 
+              handleScroll(-100); 
+            } 
+          }
+          // If animation is complete, let browser handle normal keyboard scrolling
+        };
         window.addEventListener('keydown', onKeydown);
       }
       window.addEventListener('load', init);
