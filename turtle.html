@@ -396,6 +396,8 @@
         // Calculate frame number based on scroll progress
         const frameNumber = Math.max(1, Math.min(totalFrames, Math.floor(scrollProgress * totalFrames) + 1));
         
+        console.log('Scroll progress:', scrollProgress, 'Frame number:', frameNumber, 'Current frame:', currentFrame);
+        
         if (frameNumber !== currentFrame) {
           currentFrame = frameNumber;
           const paddedNumber = frameNumber.toString().padStart(4, '0');
@@ -428,6 +430,8 @@
         const targetSectionIndex = sectionFrameRanges.findIndex(range => 
           currentFrame >= range.start && currentFrame <= range.end
         );
+
+        console.log('Current frame:', currentFrame, 'Target section:', targetSectionIndex, 'Current section:', currentTextSection);
 
         // If we're in a valid section and it's different from current section
         if (targetSectionIndex !== -1 && targetSectionIndex !== currentTextSection && !isTransitioning) {
@@ -462,6 +466,9 @@
             // Enter new section
             const newSection = textSections[currentTextSection];
             
+            // Remove any existing classes
+            newSection.classList.remove('active', 'exit-right', 'exit-left');
+            
             // Set initial position based on scroll direction (or default for first load)
             if (scrollDirection === 1 || scrollDirection === 0) {
               // Scrolling down or initial load - fly in from the left
@@ -478,6 +485,8 @@
             
             // Activate the section
             newSection.classList.add('active');
+            
+            console.log('Activated section:', targetSectionIndex, newSection);
             
             isTransitioning = false;
           }, currentTextSection >= 0 ? 300 : 0); // No delay for initial load
