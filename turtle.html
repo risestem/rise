@@ -20,9 +20,9 @@
 
       /* Container & Layout */
       .animation-container { height: 100vh; overflow: hidden; position: relative; background: white; display: flex; align-items: center; justify-content: center; }
-      .scroll-video-container { position: absolute; right: 5%; top: 50%; transform: translateY(-50%); width: 65%; height: 90vh; max-width: 900px; z-index: 10; display: flex; align-items: center; justify-content: center; }
+      .scroll-video-container { position: absolute; right: 0%; top: 50%; transform: translateY(-50%); width: 50%; height: 100vh; max-width: none; z-index: 10; display: flex; align-items: center; justify-content: center; }
       .scroll-video-frame { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
-      .scroll-text-container { position: absolute; left: 5%; top: 50%; transform: translateY(-50%); width: 30%; max-width: 400px; z-index: 20; height: 200px; }
+      .scroll-text-container { position: absolute; left: 5%; top: 50%; transform: translateY(-50%); width: 40%; max-width: 500px; z-index: 20; height: 200px; }
 
       /* Text sections */
       .scroll-text-section { position: absolute; width: 100%; top: 0; left: 0; opacity: 0; transform: translateX(-100px); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none; }
@@ -44,14 +44,14 @@
 
       /* Responsive */
       @media (max-width: 768px) {
-        .scroll-video-container { width: 90%; height: 65vh; right: 5%; top: 20%; }
+        .scroll-video-container { width: 90%; height: 70vh; right: 5%; top: 15%; }
         .scroll-text-container  { width: 90%; left: 5%; top: 85%; }
         .scroll-text-section h2  { font-size: 1.5rem; }
         .scroll-text-section p   { font-size: 1rem; }
       }
       @media (max-width: 640px) {
         .animation-container  { flex-direction: column; padding: 2rem 1rem; }
-        .scroll-video-container { position: relative; width: 100%; height: 50vh; right: auto; top: auto; transform: none; margin-bottom: 2rem; }
+        .scroll-video-container { position: relative; width: 100%; height: 60vh; right: auto; top: auto; transform: none; margin-bottom: 2rem; }
         .scroll-text-container   { position: relative; width: 100%; left: auto; top: auto; transform: none; }
       }
     </style>
@@ -68,7 +68,7 @@
         <img
           id="videoFrame"
           class="scroll-video-frame"
-          src="public/v4_frames_web/turtleExplodev40001.png"
+          src="public/v5_webp/turtleExplodev40001.webp"
           alt="Video Frame"
         />
       </div>
@@ -107,7 +107,7 @@
 
     <script>
       const totalFrames = 150;
-      const frameBasePath = 'public/v4_frames_web/turtleExplodev4';
+      const frameBasePath = 'public/v5_webp/turtleExplodev4';
       const textSections = [
         { id: 'textSection1', startFrame:   1, endFrame:  43 },
         { id: 'textSection2', startFrame:  45, endFrame:  88 },
@@ -126,7 +126,7 @@
         if (n < 1 || n > totalFrames) return;
         if (!preloadedFrames.has(n)) {
           const img = new Image();
-          img.src = `${frameBasePath}${String(n).padStart(4,'0')}.png`;
+          img.src = `${frameBasePath}${String(n).padStart(4,'0')}.webp`;
           preloadedFrames.set(n, img);
         }
       }
@@ -139,7 +139,7 @@
         if (frameNum !== currentFrame) {
           currentFrame = frameNum;
           document.getElementById('videoFrame').src =
-            `${frameBasePath}${String(frameNum).padStart(4,'0')}.png`;
+            `${frameBasePath}${String(frameNum).padStart(4,'0')}.webp`;
           for (let i = 1; i <= 5; i++) preloadFrame(frameNum + i);
         }
       }
