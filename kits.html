@@ -8,22 +8,34 @@
   <link rel="icon" type="image/png" href="/public/favicon-32x32.png">
   <link rel="shortcut icon" href="/public/favicon.ico">
   <link rel="apple-touch-icon" href="/public/apple-touch-icon.png">
+
+  <!-- Tailwind + font -->
   <script defer src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- Your custom CSS -->
   <link href="/src/style.css" rel="stylesheet">
   <link href="/src/animations.css" rel="stylesheet">
+
   <style>
     html { scroll-behavior: smooth; }
   </style>
 </head>
-<body class="font-poppins bg-gray-50">
+
+<body class="flex flex-col min-h-screen font-poppins bg-gray-50">
 
   <!-- Header -->
   <div id="header-container"></div>
   <script type="module" src="/scripts/loadHeader.js"></script>
 
   <!-- Banner -->
-  <section id="banner" class="w-full h-[80vh] flex items-center px-6 bg-gray-50">
+  <section
+    id="banner"
+    class="w-full h-[80vh] flex items-center px-6 bg-gray-50"
+  >
     <h1 class="flex-1 text-gray-900 font-extrabold text-6xl md:text-7xl leading-tight">
       RISE<br/>Kits
     </h1>
@@ -32,36 +44,51 @@
     </p>
   </section>
 
-  <!-- Main Kits Content -->
-  <section id="kits-overview" class="bg-gray-50 w-full min-h-screen">
+  <!-- Main content -->
+  <main id="kits-overview" class="flex-grow w-full">
     <div class="container mx-auto px-6 py-12">
       <!-- your kit cards/content go here -->
     </div>
 
     <!-- Contact Modal -->
-    <div id="contact-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 z-50 flex items-start justify-center pt-20">
+    <div
+      id="contact-modal"
+      class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 z-50 flex items-start justify-center pt-20"
+    >
       <div class="relative bg-white p-5 border w-96 shadow-lg rounded-md">
         <div class="flex items-center justify-between mb-4">
           <h3 class="text-lg font-bold text-gray-900">Contact Us</h3>
-          <button id="close-contact-modal" class="text-gray-400 hover:text-gray-600">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+          <button
+            id="close-contact-modal"
+            class="text-gray-400 hover:text-gray-600"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         </div>
         <div class="text-sm text-gray-500">
           <p><strong>Email:</strong> rise.stem.atlanta@gmail.com</p>
-          <p><strong>Phone:</strong> (470) 719‑5683</p>
+          <p><strong>Phone:</strong> (470) 719‑5683</p>
         </div>
       </div>
     </div>
 
-    <!-- Modal Script -->
+    <!-- Modal script -->
     <script>
       function setupContactModal() {
         const modal = document.getElementById('contact-modal');
         const closer = document.getElementById('close-contact-modal');
-        // open on any "Contact Us" link/button
         document.querySelectorAll('button, a').forEach(el => {
           if (el.textContent.trim().toLowerCase() === 'contact us') {
             el.addEventListener('click', e => {
@@ -70,7 +97,6 @@
             });
           }
         });
-        // close on X or outside click
         closer.addEventListener('click', () => modal.classList.add('hidden'));
         modal.addEventListener('click', e => {
           if (e.target === modal) modal.classList.add('hidden');
@@ -79,12 +105,10 @@
       document.addEventListener('DOMContentLoaded', setupContactModal);
       document.addEventListener('header:loaded', setupContactModal);
     </script>
-
-  </section>
+  </main>
 
   <!-- Footer -->
   <div id="footer-container"></div>
   <script type="module" src="/scripts/loadFooter.js"></script>
-
 </body>
 </html>
