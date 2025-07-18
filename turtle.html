@@ -185,7 +185,7 @@
         }
       }
       function preloadInitialFrames() {
-        for (let i = 1; i <= Math.min(50, totalFrames); i++) preloadFrame(i);
+        for (let i = 1; i <= Math.min(100, totalFrames); i++) preloadFrame(i);
       }
       function updateVideoFrame() {
         const frameNum = Math.floor(scrollProgress * (totalFrames - 1)) + 1;
@@ -193,7 +193,7 @@
           currentFrame = frameNum;
           document.getElementById('videoFrame').src =
             `${frameBasePath}${String(frameNum).padStart(5,'0')}.webp`;
-          for (let i = 1; i <= 10; i++) preloadFrame(frameNum + i);
+          for (let i = 1; i <= 30; i++) preloadFrame(frameNum + i);
         }
       }
       function showTextSection(s) {
