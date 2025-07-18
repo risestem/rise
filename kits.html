@@ -1,6 +1,27 @@
 <!doctype html>
-<html lang="en">
-<head>
+<htm  <!-- Header -->
+  <div id="header-container"></div>
+  <script type="module" src="/scripts/loadHeader.js"></script>
+
+  <!-- Main Content Section -->
+  <section id="kits-overview" class="min-h-screen w-full relative">
+    
+    <!-- Banner Section -->
+    <div class="w-full h-[80vh] flex items-center px-6 bg-gray-900">
+      <h1 class="flex-1 text-gray-200 font-extrabold text-6xl md:text-7xl leading-tight">
+        RISE <br> Kits
+      </h1>
+      <p class="max-w-md text-gray-400 text-lg md:text-xl ml-auto">
+        Empowering tomorrow's engineers, <br> one build at a time.
+      </p>
+    </div>
+
+    <!-- Kits Content Section -->
+    <div class="bg-gray-50 w-full">
+      <div class="container mx-auto px-6 py-12">
+        <!-- your kit cards/content go here -->
+      </div>
+    </div>>
   <script src="https://unpkg.com/alpinejs" defer></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -79,11 +100,12 @@
       document.addEventListener('DOMContentLoaded', setupContactModal);
       document.addEventListener('header:loaded', setupContactModal);
     </script>
-  </section>
 
-  <!-- Footer -->
-  <div id="footer-container"></div>
-  <script type="module" src="/scripts/loadFooter.js"></script>
+    <!-- Footer -->
+    <div id="footer-container"></div>
+    <script type="module" src="/scripts/loadFooter.js"></script>
+
+  </section>
 
 </body>
 </html>
