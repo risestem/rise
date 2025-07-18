@@ -1,36 +1,14 @@
 <!doctype html>
-<htm  <!-- Header -->
-  <div id="header-container"></div>
-  <script type="module" src="/scripts/loadHeader.js"></script>
-
-  <!-- Main Content Section -->
-  <section id="kits-overview" class="min-h-screen w-full relative">
-    
-    <!-- Banner Section -->
-    <div class="w-full h-[80vh] flex items-center px-6 bg-gray-900">
-      <h1 class="flex-1 text-gray-200 font-extrabold text-6xl md:text-7xl leading-tight">
-        RISE <br> Kits
-      </h1>
-      <p class="max-w-md text-gray-400 text-lg md:text-xl ml-auto">
-        Empowering tomorrow's engineers, <br> one build at a time.
-      </p>
-    </div>
-
-    <!-- Kits Content Section -->
-    <div class="bg-gray-50 w-full">
-      <div class="container mx-auto px-6 py-12">
-        <!-- your kit cards/content go here -->
-      </div>
-    </div>>
-  <script src="https://unpkg.com/alpinejs" defer></script>
+<html lang="en">
+<head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kits Overview – RISE STEM</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kits Overview – RISE STEM</title>
   <link rel="icon" href="/public/favicon.ico"/>
   <link rel="icon" type="image/png" href="/public/favicon-32x32.png">
   <link rel="shortcut icon" href="/public/favicon.ico">
   <link rel="apple-touch-icon" href="/public/apple-touch-icon.png">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script defer src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link href="/src/style.css" rel="stylesheet">
   <link href="/src/animations.css" rel="stylesheet">
@@ -40,50 +18,59 @@
 </head>
 <body class="font-poppins">
 
-  <!-- Header -->
-  <div id="header-container"></div>
-  <script type="module" src="/scripts/loadHeader.js"></script>
+  <!-- Grey background wrapper for header, banner, and footer -->
+  <div class="bg-gray-900">
 
-  <!-- make banner 80% of viewport height -->
-  <div class="w-full h-[80vh] flex items-center px-6">
-    <!-- shrink headline by two steps -->
-    <h1 class="flex-1 text-gray-200 font-extrabold text-6xl md:text-7xl leading-tight">
-      RISE <br> Kits
-    </h1>
-    <p class="max-w-md text-gray-400 text-lg md:text-xl ml-auto">
-      Empowering tomorrow’s engineers, <br> one build at a time.
-    </p>
+    <!-- Header -->
+    <div id="header-container"></div>
+    <script type="module" src="/scripts/loadHeader.js"></script>
+
+    <!-- Banner -->
+    <section id="banner" class="w-full h-[80vh] flex items-center px-6 bg-gray-900">
+      <h1 class="flex-1 text-gray-200 font-extrabold text-6xl md:text-7xl leading-tight">
+        RISE<br/>Kits
+      </h1>
+      <p class="max-w-md text-gray-400 text-lg md:text-xl ml-auto">
+        Empowering tomorrow’s engineers,<br/>one build at a time.
+      </p>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+    <script type="module" src="/scripts/loadFooter.js"></script>
+
   </div>
 
-
-  <!-- Main Content Section (kits go here) -->
-  <section id="kits-overview" class="min-h-screen bg-gray-50 w-full relative">
-    <div class="container mx-auto px-6 py-12 pt-32">
+  <!-- Main Kits Content -->
+  <section id="kits-overview" class="bg-gray-50 w-full min-h-screen">
+    <div class="container mx-auto px-6 py-12">
       <!-- your kit cards/content go here -->
     </div>
 
     <!-- Contact Modal -->
-    <div id="contact-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full z-50">
-      <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+    <div id="contact-modal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 z-50 flex items-start justify-center pt-20">
+      <div class="relative bg-white p-5 border w-96 shadow-lg rounded-md">
         <div class="flex items-center justify-between mb-4">
           <h3 class="text-lg font-bold text-gray-900">Contact Us</h3>
           <button id="close-contact-modal" class="text-gray-400 hover:text-gray-600">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>
           </button>
         </div>
         <div class="text-sm text-gray-500">
           <p><strong>Email:</strong> rise.stem.atlanta@gmail.com</p>
-          <p><strong>Phone:</strong> (470) 719-5683</p>
+          <p><strong>Phone:</strong> (470) 719‑5683</p>
         </div>
       </div>
     </div>
 
+    <!-- Modal Script -->
     <script>
       function setupContactModal() {
         const modal = document.getElementById('contact-modal');
         const closer = document.getElementById('close-contact-modal');
+        // open on any “Contact Us” link/button
         document.querySelectorAll('button, a').forEach(el => {
           if (el.textContent.trim().toLowerCase() === 'contact us') {
             el.addEventListener('click', e => {
@@ -92,6 +79,7 @@
             });
           }
         });
+        // close on X or outside click
         closer.addEventListener('click', () => modal.classList.add('hidden'));
         modal.addEventListener('click', e => {
           if (e.target === modal) modal.classList.add('hidden');
