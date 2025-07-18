@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kits Overview – RISE STEM</title>
+  <title>Kits Overview – RISE STEM</title>
   <link rel="icon" href="/public/favicon.ico"/>
   <link rel="icon" type="image/png" href="/public/favicon-32x32.png">
   <link rel="shortcut icon" href="/public/favicon.ico">
@@ -16,30 +16,21 @@
     html { scroll-behavior: smooth; }
   </style>
 </head>
-<body class="font-poppins">
+<body class="font-poppins bg-gray-50">
 
-  <!-- Grey background wrapper for header, banner, and footer -->
-  <div class="bg-gray-900">
+  <!-- Header -->
+  <div id="header-container"></div>
+  <script type="module" src="/scripts/loadHeader.js"></script>
 
-    <!-- Header -->
-    <div id="header-container"></div>
-    <script type="module" src="/scripts/loadHeader.js"></script>
-
-    <!-- Banner -->
-    <section id="banner" class="w-full h-[80vh] flex items-center px-6 bg-gray-900">
-      <h1 class="flex-1 text-gray-200 font-extrabold text-6xl md:text-7xl leading-tight">
-        RISE<br/>Kits
-      </h1>
-      <p class="max-w-md text-gray-400 text-lg md:text-xl ml-auto">
-        Empowering tomorrow’s engineers,<br/>one build at a time.
-      </p>
-    </section>
-
-    <!-- Footer -->
-    <div id="footer-container"></div>
-    <script type="module" src="/scripts/loadFooter.js"></script>
-
-  </div>
+  <!-- Banner -->
+  <section id="banner" class="w-full h-[80vh] flex items-center px-6 bg-gray-50">
+    <h1 class="flex-1 text-gray-900 font-extrabold text-6xl md:text-7xl leading-tight">
+      RISE<br/>Kits
+    </h1>
+    <p class="max-w-md text-gray-600 text-lg md:text-xl ml-auto">
+      Empowering tomorrow's engineers,<br/>one build at a time.
+    </p>
+  </section>
 
   <!-- Main Kits Content -->
   <section id="kits-overview" class="bg-gray-50 w-full min-h-screen">
@@ -60,7 +51,7 @@
         </div>
         <div class="text-sm text-gray-500">
           <p><strong>Email:</strong> rise.stem.atlanta@gmail.com</p>
-          <p><strong>Phone:</strong> (470) 719‑5683</p>
+          <p><strong>Phone:</strong> (470) 719‑5683</p>
         </div>
       </div>
     </div>
@@ -70,7 +61,7 @@
       function setupContactModal() {
         const modal = document.getElementById('contact-modal');
         const closer = document.getElementById('close-contact-modal');
-        // open on any “Contact Us” link/button
+        // open on any "Contact Us" link/button
         document.querySelectorAll('button, a').forEach(el => {
           if (el.textContent.trim().toLowerCase() === 'contact us') {
             el.addEventListener('click', e => {
