@@ -40,6 +40,7 @@
         opacity: 0;
         visibility: hidden;
         transition: opacity 0.5s ease, visibility 0.5s ease;
+        scroll-margin-top: 80px; /* ensure header offset */
       }
       .post-animation-content.visible {
         opacity: 1;
@@ -103,7 +104,6 @@
         </div>
 
         <!-- Post-Animation Content (within same white box) -->
-        <!-- Post-Animation Content (within same white box) -->
         <div class="post-animation-content">
           <!-- New header -->
           <h1 class="text-4xl font-bold text-purple-950 mb-6">Code Comes to Life</h1>
@@ -153,9 +153,6 @@
           </div>
         </div>
 
-
-
-
       </div>
     </div>
 
@@ -166,7 +163,11 @@
     <script>
       const totalFrames = 150;
       const frameBasePath = '/public/v5_webp/turtleExplodev5';
-      const textSections = [ { id: 'textSection1', startFrame: 1, endFrame: 50 }, { id: 'textSection2', startFrame: 52, endFrame: 102 }, { id: 'textSection3', startFrame: 104, endFrame: 150 } ];
+      const textSections = [
+        { id: 'textSection1', startFrame: 1,   endFrame: 50  },
+        { id: 'textSection2', startFrame: 52,  endFrame: 102 },
+        { id: 'textSection3', startFrame: 104, endFrame: 150 }
+      ];
 
       let currentFrame = 1;
       let scrollProgress = 0;
@@ -175,163 +176,165 @@
       let activeTextSection = null;
       const preloadedFrames = new Map();
 
-      function preloadFrame(n) { if (n < 1 || n > totalFrames) return; if (!preloadedFrames.has(n)) { const img = new Image(); img.src = `${frameBasePath}${String(n).padStart(5,'0')}.webp`; preloadedFrames.set(n, img); } }
-      function preloadInitialFrames() { for (let i = 1; i <= Math.min(50, totalFrames); i++) preloadFrame(i); }
-      function updateVideoFrame() { const frameNum = Math.floor(scrollProgress * (totalFrames - 1)) + 1; if (frameNum !== currentFrame) { currentFrame = frameNum; document.getElementById('videoFrame').src = `${frameBasePath}${String(frameNum).padStart(5,'0')}.webp`; for (let i = 1; i <= 10; i++) preloadFrame(frameNum + i); } }
-      function showTextSection(s) { const el = document.getElementById(s.id); el.classList.remove('exit-left','exit-right'); el.classList.add('active'); }
-      function hideTextSection(s) { const el = document.getElementById(s.id); el.classList.remove('active'); el.classList.add(currentFrame > s.endFrame ? 'exit-right' : 'exit-left'); }
-      function updateTextSections() { const section = textSections.find(s => currentFrame >= s.startFrame && currentFrame <= s.endFrame); if (section && (!activeTextSection || activeTextSection.id !== section.id)) { if (activeTextSection) hideTextSection(activeTextSection); showTextSection(section); activeTextSection = section; } else if (!section && activeTextSection) { hideTextSection(activeTextSection); activeTextSection = null; } }
-      function updateProgressBar() { document.getElementById('progressBar').style.width = `${scrollProgress * 100}%`; }
-      const scrollSpeed = 0.0008;
-      function handleScroll(deltaY) {
-        if (!animationComplete) {
-          const newProgress = targetProgress + deltaY * scrollSpeed;
-
-          // Check if user is trying to scroll past the end
-          if (newProgress >= 1 && targetProgress >= 1) {
-            // User is at the end and trying to scroll further down
-            completeAnimation();
-            return;
-          }
-
-          targetProgress = Math.max(0, Math.min(1, newProgress));
-        } else {
-          // Animation is complete, check for scroll up to re-enter animation
-          if (deltaY < 0) {
-            // Check if we're at the top of the post-animation content
-            const postContent = document.querySelector('.post-animation-content');
-            const postContentRect = postContent.getBoundingClientRect();
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-
-            // Only re-enter animation if we're scrolling up from the very top of post-content
-            // or if the post-content top is at or above the viewport top
-            if (postContentRect.top >= 0 || scrollTop <= postContent.offsetTop) {
-              // User is scrolling up from the top of post-content, re-enter animation mode
-              reenterAnimation();
-              // Start from near the end of the animation
-              targetProgress = 0.95;
-              scrollProgress = 0.95;
-              updateVideoFrame();
-              updateProgressBar();
-              updateTextSections();
-            }
-          }
+      function preloadFrame(n) {
+        if (n < 1 || n > totalFrames) return;
+        if (!preloadedFrames.has(n)) {
+          const img = new Image();
+          img.src = `${frameBasePath}${String(n).padStart(5,'0')}.webp`;
+          preloadedFrames.set(n, img);
         }
       }
-      function animate() { 
-        scrollProgress += (targetProgress - scrollProgress) * 0.1; 
-        updateVideoFrame(); 
-        updateProgressBar(); 
-        updateTextSections(); 
-        
-        // Check if we've reached the end naturally
-        if (!animationComplete && scrollProgress >= 0.99) {
-          completeAnimation();
-        }
-        
-        requestAnimationFrame(animate); 
+      function preloadInitialFrames() {
+        for (let i = 1; i <= Math.min(50, totalFrames); i++) preloadFrame(i);
       }
+      function updateVideoFrame() {
+        const frameNum = Math.floor(scrollProgress * (totalFrames - 1)) + 1;
+        if (frameNum !== currentFrame) {
+          currentFrame = frameNum;
+          document.getElementById('videoFrame').src =
+            `${frameBasePath}${String(frameNum).padStart(5,'0')}.webp`;
+          for (let i = 1; i <= 10; i++) preloadFrame(frameNum + i);
+        }
+      }
+      function showTextSection(s) {
+        const el = document.getElementById(s.id);
+        el.classList.remove('exit-left','exit-right');
+        el.classList.add('active');
+      }
+      function hideTextSection(s) {
+        const el = document.getElementById(s.id);
+        el.classList.remove('active');
+        el.classList.add(currentFrame > s.endFrame ? 'exit-right' : 'exit-left');
+      }
+      function updateTextSections() {
+        const section = textSections.find(s =>
+          currentFrame >= s.startFrame && currentFrame <= s.endFrame
+        );
+        if (section && (!activeTextSection || activeTextSection.id !== section.id)) {
+          if (activeTextSection) hideTextSection(activeTextSection);
+          showTextSection(section);
+          activeTextSection = section;
+        } else if (!section && activeTextSection) {
+          hideTextSection(activeTextSection);
+          activeTextSection = null;
+        }
+      }
+      function updateProgressBar() {
+        document.getElementById('progressBar').style.width =
+          `${scrollProgress * 100}%`;
+      }
+
       function completeAnimation() {
-        if (animationComplete) return; // Prevent multiple calls
-        
+        if (animationComplete) return;
         animationComplete = true;
-        scrollProgress = 1; // Ensure we're at the final frame
-        targetProgress = 1;
+
+        // snap to final frame
+        scrollProgress = targetProgress = 1;
         updateVideoFrame();
         updateProgressBar();
         updateTextSections();
-        
-        // Show post-animation content
+
+        // show the post-animation content
         const postContent = document.querySelector('.post-animation-content');
         postContent.classList.add('visible');
-        
-        // Re-enable body scrolling
-        document.body.style.overflow = 'auto';
 
-        // Auto-scroll to post-animation content after a brief delay
+        // scroll it into view, respecting scroll-margin-top
+        postContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // re-enable page scrolling after the fade
         setTimeout(() => {
-          // Account for fixed header height when scrolling
-          const headerHeight = 80; // Approximate header height in pixels
-          const postContentTop = postContent.offsetTop - headerHeight;
-
-          window.scrollTo({
-            top: postContentTop,
-            behavior: 'smooth'
-          });
-        }, 800);
+          document.body.style.overflow = 'auto';
+        }, 600);
       }
+
       function reenterAnimation() {
         animationComplete = false;
-        
-        // Hide post-animation content
         const postContent = document.querySelector('.post-animation-content');
         postContent.classList.remove('visible');
-        
-        // Disable body scrolling to re-enter animation mode
         document.body.style.overflow = 'hidden';
-        
-        // Scroll back to animation container, accounting for header
         const animationContainer = document.getElementById('animationContainer');
-        const headerHeight = 80; // Approximate header height in pixels
+        const headerHeight = 80;
         const animationTop = animationContainer.offsetTop - headerHeight;
-
-        window.scrollTo({
-          top: animationTop,
-          behavior: 'smooth'
-        });
+        window.scrollTo({ top: animationTop, behavior: 'smooth' });
       }
-      function init() { 
-        document.body.style.overflow = 'hidden'; 
-        preloadInitialFrames(); 
+
+      const scrollSpeed = 0.0008;
+      function handleScroll(deltaY) {
+        if (!animationComplete) {
+          let newProgress = targetProgress + deltaY * scrollSpeed;
+          if (newProgress >= 1 && targetProgress >= 1) {
+            completeAnimation();
+            return;
+          }
+          targetProgress = Math.max(0, Math.min(1, newProgress));
+        } else if (deltaY < 0) {
+          const postContent = document.querySelector('.post-animation-content');
+          const rect = postContent.getBoundingClientRect();
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          if (rect.top >= 0 || scrollTop <= postContent.offsetTop) {
+            reenterAnimation();
+            targetProgress = scrollProgress = 0.95;
+            updateVideoFrame();
+            updateProgressBar();
+            updateTextSections();
+          }
+        }
+      }
+
+      function animate() {
+        scrollProgress += (targetProgress - scrollProgress) * 0.1;
+        updateVideoFrame();
+        updateProgressBar();
+        updateTextSections();
+        if (!animationComplete && scrollProgress >= 0.99) completeAnimation();
         requestAnimationFrame(animate);
-        
+      }
+
+      function init() {
+        document.body.style.overflow = 'hidden';
+        preloadInitialFrames();
+        requestAnimationFrame(animate);
+
         const onWheel = e => {
           if (!animationComplete) {
-            // Only prevent default during animation
             e.preventDefault();
             handleScroll(e.deltaY);
           } else {
-            // Animation is complete, allow normal scrolling but check for re-entry
             handleScroll(e.deltaY);
           }
         };
         window.addEventListener('wheel', onWheel, { passive: false });
-        
-        const onKeydown = e => { 
-          if (!animationComplete) {
-            // Animation is still running, handle keyboard for animation
-            if (e.key === 'ArrowDown' || e.key === 'PageDown') { 
-              e.preventDefault(); 
-              handleScroll(100); 
-            } 
-            if (e.key === 'ArrowUp' || e.key === 'PageUp') { 
-              e.preventDefault(); 
-              handleScroll(-100); 
-            } 
-          } else {
-            // Animation is complete, handle keyboard for re-entering animation
-            if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-              // Check if we're at the top of the post-animation content before re-entering
-              const postContent = document.querySelector('.post-animation-content');
-              const postContentRect = postContent.getBoundingClientRect();
-              const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-              if (postContentRect.top >= 0 || scrollTop <= postContent.offsetTop) {
-                e.preventDefault();
-                handleScroll(-100);
-              }
-              // Otherwise, let normal scrolling happen
-            }
+        const onKeydown = e => {
+          if (!animationComplete) {
             if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-              // Let normal scrolling happen in post-content
-              return;
+              e.preventDefault(); handleScroll(100);
+            }
+            if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+              e.preventDefault(); handleScroll(-100);
+            }
+          } else {
+            if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+              const postContent = document.querySelector('.post-animation-content');
+              const rect = postContent.getBoundingClientRect();
+              const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+              if (rect.top >= 0 || scrollTop <= postContent.offsetTop) {
+                e.preventDefault(); handleScroll(-100);
+              }
             }
           }
         };
         window.addEventListener('keydown', onKeydown);
+
+        window.addEventListener('resize', () => {
+          if (!animationComplete) {
+            updateVideoFrame();
+            updateProgressBar();
+            updateTextSections();
+          }
+        });
       }
       window.addEventListener('load', init);
-      window.addEventListener('resize', () => { if (!animationComplete) { updateVideoFrame(); updateProgressBar(); updateTextSections(); }});
     </script>
   </body>
 </html>
