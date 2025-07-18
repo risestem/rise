@@ -50,6 +50,15 @@
       .post-animation-content h2 { font-size: 2rem; font-weight: bold; color: #581c87; margin: 3rem 0 1.5rem; }
       .post-animation-content p  { font-size: 1.1rem; color: #374151; line-height: 1.7; margin-bottom: 1.5rem; }
 
+      /* Gradient text effect */
+      .gradient-text {
+        background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
+      }
+
       /* Responsive */
       @media (max-width: 768px) {
         .scroll-video-container { width: 90%; height: 70vh; right: 5%; top: 15%; }
@@ -106,7 +115,7 @@
         <!-- Post-Animation Content (within same white box) -->
         <div class="post-animation-content">
           <!-- New header -->
-          <h1 class="text-4xl font-bold text-purple-950 mb-6">Code Comes to Life</h1>
+          <h1 class="text-4xl font-bold text-purple-950 mb-6">Code Comes to <span class="gradient-text">Life</span></h1>
 
           <!-- Mock IDE window: bigger text, tighter lines, no scroll -->
           <div class="bg-gray-900 rounded-lg overflow-hidden font-mono text-xl leading-snug shadow-lg w-full md:w-[48%] h-[480px]">
