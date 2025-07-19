@@ -166,8 +166,8 @@
             <!-- Video Container -->
             <div class="w-full md:w-[48%] h-[480px] rounded-lg overflow-hidden bg-white flex items-center justify-center">
               <video
+                id="turtleDrawVideo"
                 class="w-full h-full object-contain"
-                autoplay
                 muted
                 loop
                 playsinline
@@ -264,6 +264,12 @@
         const postContent = document.querySelector('.post-animation-content');
         postContent.classList.add('visible');
 
+        // start the turtle drawing video
+        const turtleVideo = document.getElementById('turtleDrawVideo');
+        if (turtleVideo) {
+          turtleVideo.play().catch(e => console.log('Video autoplay prevented:', e));
+        }
+
         // scroll it into view, respecting scroll-margin-top
         postContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
@@ -277,6 +283,14 @@
         animationComplete = false;
         const postContent = document.querySelector('.post-animation-content');
         postContent.classList.remove('visible');
+
+        // pause the turtle drawing video when re-entering animation
+        const turtleVideo = document.getElementById('turtleDrawVideo');
+        if (turtleVideo) {
+          turtleVideo.pause();
+          turtleVideo.currentTime = 0; // reset to beginning
+        }
+
         document.body.style.overflow = 'hidden';
         const animationContainer = document.getElementById('animationContainer');
         const headerHeight = 80;
