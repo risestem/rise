@@ -180,6 +180,7 @@
                 muted
                 loop
                 playsinline
+                preload="none"
               >
                 <source src="/public/turtleDrawv1.webm" type="video/webm">
                 Your browser does not support the video tag.
@@ -278,10 +279,16 @@
         const postContent = document.querySelector('.post-animation-content');
         postContent.classList.add('visible');
 
-        // start the turtle drawing video
+        // start the turtle drawing video from the beginning
         const turtleVideo = document.getElementById('turtleDrawVideo');
         if (turtleVideo) {
+          // Reset video to beginning and load it
+          turtleVideo.currentTime = 0;
+          turtleVideo.load(); // Reload the video to ensure it starts fresh
+
+          // Start playing from the beginning
           turtleVideo.play().catch(e => console.log('Video autoplay prevented:', e));
+
           // Start code line animation
           startCodeLineAnimation();
         }
@@ -384,8 +391,8 @@
         // Define timestamps (in seconds) when each code line should be highlighted
         codeTimestamps = [
           { time: 0,  lineId: 'code-line-pendown',  duration: 1.0 },  // penDown() - pen touches paper
-          { time: 1.5,  lineId: 'code-line-forward',  duration: 2.5 },  // forward() - drawing happens
-          { time: 4.0,  lineId: 'code-line-penup',    duration: 1.0 },  // penUp() - pen lifts
+          { time: 1.0,  lineId: 'code-line-forward',  duration: 2.0 },  // forward() - drawing happens
+          { time: 3.5,  lineId: 'code-line-penup',    duration: 1.0 },  // penUp() - pen lifts
         ];
 
         // Enable video sync
