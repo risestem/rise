@@ -59,6 +59,15 @@
         color: transparent;
       }
 
+      /* Code line highlighting animation */
+      .code-line {
+        transition: background-color 0.5s ease;
+      }
+      .code-line.highlighted {
+        background-color: #374151 !important;
+        border-left: 3px solid #3b82f6;
+      }
+
       /* Responsive */
       @media (max-width: 768px) {
         .scroll-video-container { width: 90%; height: 70vh; right: 5%; top: 15%; }
@@ -96,7 +105,7 @@
           </div>
           <div class="scroll-text-container">
             <div class="scroll-text-section" id="textSection1">
-              <h2>Introducing the Turtle Kit</h2>
+              <h2>The Turtle Kit</h2>
               <p>The Turtle Kit is our flagship RISE Kit: a drawing robot that is assembled using 3D-printed and off-the-shelf parts. Once built, it can be programmed to draw shapes, patterns, or anything one can imagine—combining hands-on building with creative coding.</p>
             </div>
 
@@ -153,11 +162,11 @@
                 <!-- blank line -->
                 <div class="px-2 py-1">&nbsp;</div>
                 <!-- highlighted main signature -->
-                <div class="px-2 py-1 bg-gray-800"><span class="text-blue-300">int</span> <span class="text-white">main</span>() {</div>
-                <div class="px-2 py-1 pl-6"><span class="text-teal-400">Turtle</span> <span class="text-white">myTurtle</span>;</div>
-                <div class="px-2 py-1 pl-6"><span class="text-white">myTurtle</span>.<span class="text-purple-400">penDown</span>();</div>
-                <div class="px-2 py-1 pl-6"><span class="text-white">myTurtle</span>.<span class="text-purple-400">forward</span>(<span class="text-yellow-400">10</span>);</div>
-                <div class="px-2 py-1 pl-6"><span class="text-white">myTurtle</span>.<span class="text-purple-400">penUp</span>();</div>
+                <div id="code-line-main" class="px-2 py-1 code-line"><span class="text-blue-300">int</span> <span class="text-white">main</span>() {</div>
+                <div id="code-line-turtle" class="px-2 py-1 pl-6 code-line"><span class="text-teal-400">Turtle</span> <span class="text-white">myTurtle</span>;</div>
+                <div id="code-line-pendown" class="px-2 py-1 pl-6 code-line"><span class="text-white">myTurtle</span>.<span class="text-purple-400">penDown</span>();</div>
+                <div id="code-line-forward" class="px-2 py-1 pl-6 code-line"><span class="text-white">myTurtle</span>.<span class="text-purple-400">forward</span>(<span class="text-yellow-400">10</span>);</div>
+                <div id="code-line-penup" class="px-2 py-1 pl-6 code-line"><span class="text-white">myTurtle</span>.<span class="text-purple-400">penUp</span>();</div>
                 <div class="px-2 py-1"><span class="text-white">}</span></div>
               </div>
             </div>
@@ -273,6 +282,8 @@
         const turtleVideo = document.getElementById('turtleDrawVideo');
         if (turtleVideo) {
           turtleVideo.play().catch(e => console.log('Video autoplay prevented:', e));
+          // Start code line animation
+          startCodeLineAnimation();
         }
 
         // scroll it into view, respecting scroll-margin-top
@@ -295,6 +306,9 @@
           turtleVideo.pause();
           turtleVideo.currentTime = 0; // reset to beginning
         }
+
+        // stop code line animation
+        stopCodeLineAnimation();
 
         document.body.style.overflow = 'hidden';
         const animationContainer = document.getElementById('animationContainer');
@@ -333,6 +347,62 @@
         updateTextSections();
         if (!animationComplete && scrollProgress >= 0.99) completeAnimation();
         requestAnimationFrame(animate);
+      }
+
+      // Code line animation variables
+      let codeAnimationInterval = null;
+      let currentHighlightedLine = 0;
+
+      function startCodeLineAnimation() {
+        // Clear any existing animation
+        stopCodeLineAnimation();
+
+        // Define the sequence of code lines to highlight
+        const codeSequence = [
+          'code-line-main',     // int main() {
+          'code-line-turtle',   // Turtle myTurtle;
+          'code-line-pendown',  // myTurtle.penDown();
+          'code-line-forward',  // myTurtle.forward(10);
+          'code-line-penup'     // myTurtle.penUp();
+        ];
+
+        // Start with the first line highlighted
+        highlightCodeLine(codeSequence[0]);
+        currentHighlightedLine = 0;
+
+        // Set up interval to cycle through lines
+        codeAnimationInterval = setInterval(() => {
+          // Remove current highlight
+          clearAllHighlights();
+
+          // Move to next line
+          currentHighlightedLine = (currentHighlightedLine + 1) % codeSequence.length;
+
+          // Highlight new line
+          highlightCodeLine(codeSequence[currentHighlightedLine]);
+        }, 2000); // Change line every 2 seconds
+      }
+
+      function stopCodeLineAnimation() {
+        if (codeAnimationInterval) {
+          clearInterval(codeAnimationInterval);
+          codeAnimationInterval = null;
+        }
+        clearAllHighlights();
+      }
+
+      function highlightCodeLine(lineId) {
+        const line = document.getElementById(lineId);
+        if (line) {
+          line.classList.add('highlighted');
+        }
+      }
+
+      function clearAllHighlights() {
+        const allCodeLines = document.querySelectorAll('.code-line');
+        allCodeLines.forEach(line => {
+          line.classList.remove('highlighted');
+        });
       }
 
       function init() {
