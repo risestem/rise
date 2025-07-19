@@ -350,43 +350,61 @@
       }
 
       // Code line animation variables
-      let codeAnimationInterval = null;
-      let currentHighlightedLine = 0;
+      let videoSyncEnabled = false;
+      let codeTimestamps = [];
+
+      function handleVideoTimeUpdate() {
+        if (!videoSyncEnabled) return;
+
+        const turtleVideo = document.getElementById('turtleDrawVideo');
+        if (!turtleVideo) return;
+
+        const currentTime = turtleVideo.currentTime;
+
+        // Find which code line should be highlighted at current time
+        const activeTimestamp = codeTimestamps.find(ts =>
+          currentTime >= ts.time && currentTime < (ts.time + ts.duration)
+        );
+
+        if (activeTimestamp) {
+          // Clear all highlights first
+          clearAllHighlights();
+          // Highlight the active line
+          highlightCodeLine(activeTimestamp.lineId);
+        }
+      }
 
       function startCodeLineAnimation() {
         // Clear any existing animation
         stopCodeLineAnimation();
 
-        // Define the sequence of code lines to highlight
-        const codeSequence = [
-          'code-line-main',     // int main() {
-          'code-line-turtle',   // Turtle myTurtle;
-          'code-line-pendown',  // myTurtle.penDown();
-          'code-line-forward',  // myTurtle.forward(10);
-          'code-line-penup'     // myTurtle.penUp();
+        const turtleVideo = document.getElementById('turtleDrawVideo');
+        if (!turtleVideo) return;
+
+        // Define timestamps (in seconds) when each code line should be highlighted
+        codeTimestamps = [
+          { time: 0,    lineId: 'code-line-main',     duration: 0.2 },  // int main() - start
+          { time: 0.2,  lineId: 'code-line-turtle',   duration: 0.3 },  // Turtle myTurtle; - setup
+          { time: 0.5,  lineId: 'code-line-pendown',  duration: 0.5 },  // penDown() - pen touches paper
+          { time: 1.0,  lineId: 'code-line-forward',  duration: 3.5 },  // forward() - drawing happens
+          { time: 4.5,  lineId: 'code-line-penup',    duration: 0.5 },  // penUp() - pen lifts
         ];
 
-        // Start with the first line highlighted
-        highlightCodeLine(codeSequence[0]);
-        currentHighlightedLine = 0;
+        // Enable video sync
+        videoSyncEnabled = true;
 
-        // Set up interval to cycle through lines
-        codeAnimationInterval = setInterval(() => {
-          // Remove current highlight
-          clearAllHighlights();
+        // Add event listener for video time updates
+        turtleVideo.addEventListener('timeupdate', handleVideoTimeUpdate);
 
-          // Move to next line
-          currentHighlightedLine = (currentHighlightedLine + 1) % codeSequence.length;
-
-          // Highlight new line
-          highlightCodeLine(codeSequence[currentHighlightedLine]);
-        }, 2000); // Change line every 2 seconds
+        // Start with first line highlighted
+        highlightCodeLine(codeTimestamps[0].lineId);
       }
 
       function stopCodeLineAnimation() {
-        if (codeAnimationInterval) {
-          clearInterval(codeAnimationInterval);
-          codeAnimationInterval = null;
+        videoSyncEnabled = false;
+        const turtleVideo = document.getElementById('turtleDrawVideo');
+        if (turtleVideo) {
+          turtleVideo.removeEventListener('timeupdate', handleVideoTimeUpdate);
         }
         clearAllHighlights();
       }
