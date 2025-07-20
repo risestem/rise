@@ -326,26 +326,35 @@
       }
 
       const scrollSpeed = 0.0008;
+      let lastScrollTime = 0;
+      const scrollThrottleMs = 16; // ~60fps
+      
       function handleScroll(deltaY) {
-        if (!animationComplete) {
-          let newProgress = targetProgress + deltaY * scrollSpeed;
-          if (newProgress >= 1 && targetProgress >= 1) {
-            completeAnimation();
-            return;
+        const now = Date.now();
+        if (now - lastScrollTime < scrollThrottleMs) return;
+        lastScrollTime = now;
+        
+        requestAnimationFrame(() => {
+          if (!animationComplete) {
+            let newProgress = targetProgress + deltaY * scrollSpeed;
+            if (newProgress >= 1 && targetProgress >= 1) {
+              completeAnimation();
+              return;
+            }
+            targetProgress = Math.max(0, Math.min(1, newProgress));
+          } else if (deltaY < 0) {
+            const postContent = document.querySelector('.post-animation-content');
+            const rect = postContent.getBoundingClientRect();
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (rect.top >= 0 || scrollTop <= postContent.offsetTop) {
+              reenterAnimation();
+              targetProgress = scrollProgress = 0.95;
+              updateVideoFrame();
+              updateProgressBar();
+              updateTextSections();
+            }
           }
-          targetProgress = Math.max(0, Math.min(1, newProgress));
-        } else if (deltaY < 0) {
-          const postContent = document.querySelector('.post-animation-content');
-          const rect = postContent.getBoundingClientRect();
-          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-          if (rect.top >= 0 || scrollTop <= postContent.offsetTop) {
-            reenterAnimation();
-            targetProgress = scrollProgress = 0.95;
-            updateVideoFrame();
-            updateProgressBar();
-            updateTextSections();
-          }
-        }
+        });
       }
 
       function animate() {
