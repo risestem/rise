@@ -297,10 +297,9 @@
         // scroll it into view, respecting scroll-margin-top
         postContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-        // re-enable page scrolling after the fade
-        setTimeout(() => {
-          document.body.style.overflow = 'auto';
-        }, 600);
+        // Enable page scrolling immediately
+        document.body.style.overflow = 'auto';
+        document.documentElement.style.overflow = 'auto';
       }
 
       function reenterAnimation() {
@@ -318,11 +317,24 @@
         // stop code line animation
         stopCodeLineAnimation();
 
+        // Only hide overflow during the scroll animation
         document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+        
         const animationContainer = document.getElementById('animationContainer');
         const headerHeight = 80;
         const animationTop = animationContainer.offsetTop - headerHeight;
-        window.scrollTo({ top: animationTop, behavior: 'smooth' });
+        
+        window.scrollTo({ 
+          top: animationTop, 
+          behavior: 'smooth',
+        });
+        
+        // Re-enable scrolling after the scroll animation completes
+        setTimeout(() => {
+          document.body.style.overflow = 'auto';
+          document.documentElement.style.overflow = 'auto';
+        }, 1000); // Slightly longer than the scroll animation duration
       }
 
       const scrollSpeed = 0.0008;
