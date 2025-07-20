@@ -30,8 +30,7 @@
       .scroll-text-section h2 { font-size: 2rem; font-weight: bold; color: #581c87; margin-bottom: 1.5rem; line-height: 1.2; }
       .scroll-text-section p  { font-size: 1.1rem; color: #374151; line-height: 1.6; margin-bottom: 1rem; }
 
-      /* Progress Bar */
-      .progress-bar { position: fixed; top: 0; left: 0; height: 4px; background: linear-gradient(90deg, #3b82f6, #8b5cf6); z-index: 100; transition: width 0.2s ease; }
+      /* Progress bar styles removed */
 
       /* Post-animation */
       .post-animation-content {
@@ -86,7 +85,7 @@
     <div id="header-container"></div>
     <script type="module" src="/scripts/loadHeader.js"></script>
     
-    <div class="progress-bar" id="progressBar"></div>
+    <!-- Progress bar removed -->
 
     <!-- Single White Content Box containing everything -->
     <div class="w-full px-6 sm:px-6 md:px-16 lg:px-24 py-8 bg-gray-50">
@@ -334,10 +333,6 @@
           activeTextSection = null;
         }
       }
-      function updateProgressBar() {
-        document.getElementById('progressBar').style.width =
-          `${scrollProgress * 100}%`;
-      }
 
       function completeAnimation() {
         if (animationComplete) return;
@@ -346,7 +341,7 @@
         // snap to final frame
         scrollProgress = targetProgress = 1;
         updateVideoFrame();
-        updateProgressBar();
+        // Progress bar update removed
         updateTextSections();
 
         // show the post-animation content
@@ -423,7 +418,7 @@
               reenterAnimation();
               targetProgress = scrollProgress = 0.95;
               updateVideoFrame();
-              updateProgressBar();
+              // Progress bar update removed
               updateTextSections();
             }
           }
@@ -433,7 +428,7 @@
       function animate() {
         scrollProgress += (targetProgress - scrollProgress) * 0.1;
         updateVideoFrame();
-        updateProgressBar();
+        // Progress bar update removed
         updateTextSections();
         if (!animationComplete && scrollProgress >= 0.99) completeAnimation();
         requestAnimationFrame(animate);
@@ -550,7 +545,7 @@
         window.addEventListener('resize', () => {
           if (!animationComplete) {
             updateVideoFrame();
-            updateProgressBar();
+            // Progress bar update removed
             updateTextSections();
           }
         });
