@@ -429,19 +429,47 @@
         });
       }
 
+      // Throttle function to limit how often a function can be called
+      function throttle(func, limit) {
+        let lastFunc;
+        let lastRan;
+        return function() {
+          const context = this;
+          const args = arguments;
+          if (!lastRan) {
+            func.apply(context, args);
+            lastRan = Date.now();
+          } else {
+            clearTimeout(lastFunc);
+            lastFunc = setTimeout(function() {
+              if ((Date.now() - lastRan) >= limit) {
+                func.apply(context, args);
+                lastRan = Date.now();
+              }
+            }, limit - (Date.now() - lastRan));
+          }
+        };
+      }
+
       function init() {
         document.body.style.overflow = 'hidden';
         preloadInitialFrames();
         requestAnimationFrame(animate);
 
-        const onWheel = e => {
+        // Throttle the wheel event to ~60fps (16.67ms)
+        const throttledHandleScroll = throttle((deltaY) => {
           if (!animationComplete) {
-            e.preventDefault();
-            handleScroll(e.deltaY);
+            handleScroll(deltaY);
           } else {
-            handleScroll(e.deltaY);
+            handleScroll(deltaY);
           }
+        }, 16.67);
+
+        const onWheel = e => {
+          e.preventDefault();
+          throttledHandleScroll(e.deltaY);
         };
+        
         window.addEventListener('wheel', onWheel, { passive: false });
 
         const onKeydown = e => {
