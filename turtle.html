@@ -491,34 +491,33 @@
 
       function setupIntersectionObserver() {
         const postContent = document.querySelector('.post-animation-content');
+        if (!postContent) return;
         
         intersectionObserver = new IntersectionObserver((entries) => {
           entries.forEach(entry => {
-            // When post content is not intersecting (scrolled out of view)
+            // Only trigger when the post content is completely out of view
             if (!entry.isIntersecting && animationComplete) {
-              // Re-lock scrolling and reattach wheel handler
-              document.body.style.overflow = 'hidden';
-              isScrollLocked = true;
-              setupScrollHandlers();
-              
-              // Reset animation state
-              animationComplete = false;
-              const postContent = document.querySelector('.post-animation-content');
-              postContent.classList.remove('visible');
-              
-              // Reset to near the end of the animation
-              targetProgress = 0.98;
-              updateVideoFrame();
-              updateProgressBar();
-              updateTextSections();
-              
-              // Re-enable animation loop
-              requestAnimationFrame(animate);
+              // Use a small timeout to ensure the scroll position has stabilized
+              setTimeout(() => {
+                const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+                const animationContainer = document.getElementById('animationContainer');
+                
+                if (!animationContainer) return;
+                
+                const containerTop = animationContainer.offsetTop;
+                const containerBottom = containerTop + animationContainer.offsetHeight;
+                
+                // Only re-enter if we've scrolled up past the post content
+                if (scrollPosition < containerBottom) {
+                  reenterAnimation();
+                }
+              }, 50);
             }
           });
         }, {
           root: null,
-          threshold: 0.1 // Trigger when 10% of the element is out of view
+          threshold: 0, // Only trigger when completely out of view
+          rootMargin: '0px 0px -10% 0px' // Small margin to trigger slightly before completely out of view
         });
 
         if (postContent) {
@@ -531,6 +530,13 @@
         const throttledHandleScroll = throttle((deltaY) => {
           if (!animationComplete) {
             handleScroll(deltaY);
+          } else if (deltaY < 0) {
+            // Check if we're at the top and trying to scroll up
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            if (scrollTop <= 10) {
+              reenterAnimation();
+              return;
+            }
           }
         }, 16.67);
 
@@ -538,6 +544,13 @@
           if (isScrollLocked) {
             e.preventDefault();
             throttledHandleScroll(e.deltaY);
+          } else if (e.deltaY < 0) {
+            // If not locked but scrolling up, check if we need to re-enter
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            if (scrollTop <= 10) {
+              e.preventDefault();
+              reenterAnimation();
+            }
           }
         };
         
