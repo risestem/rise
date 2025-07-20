@@ -266,18 +266,6 @@
           `${scrollProgress * 100}%`;
       }
 
-      function cleanupScrollHandlers() {
-        // Remove wheel and keydown event listeners
-        if (window._onWheelHandler) {
-          window.removeEventListener('wheel', window._onWheelHandler, { passive: false });
-          delete window._onWheelHandler;
-        }
-        if (window._onKeydownHandler) {
-          window.removeEventListener('keydown', window._onKeydownHandler);
-          delete window._onKeydownHandler;
-        }
-      }
-
       function completeAnimation() {
         if (animationComplete) return;
         animationComplete = true;
@@ -309,55 +297,32 @@
         // scroll it into view, respecting scroll-margin-top
         postContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-        // Clean up scroll handlers and enable native scrolling
-        cleanupScrollHandlers();
-        document.body.style.overflow = 'auto';
+        // re-enable page scrolling after the fade
+        setTimeout(() => {
+          document.body.style.overflow = 'auto';
+        }, 600);
       }
 
       function reenterAnimation() {
-        // Reset animation state
         animationComplete = false;
-        isScrollLocked = true;
-        
-        // Hide post-animation content
         const postContent = document.querySelector('.post-animation-content');
-        if (postContent) {
-          postContent.classList.remove('visible');
-        }
+        postContent.classList.remove('visible');
 
-        // Pause and reset turtle video
+        // pause the turtle drawing video when re-entering animation
         const turtleVideo = document.getElementById('turtleDrawVideo');
         if (turtleVideo) {
           turtleVideo.pause();
-          turtleVideo.currentTime = 0;
+          turtleVideo.currentTime = 0; // reset to beginning
         }
 
-        // Stop code line animation
+        // stop code line animation
         stopCodeLineAnimation();
 
-        // Re-enable scroll locking
         document.body.style.overflow = 'hidden';
-        
-        // Re-attach scroll handlers
-        setupScrollHandlers();
-        
-        // Reset animation to near the end
-        targetProgress = 0.98;
-        scrollProgress = 0.98;
-        updateVideoFrame();
-        updateProgressBar();
-        updateTextSections();
-        
-        // Re-enable animation loop
-        requestAnimationFrame(animate);
-        
-        // Scroll to top of animation section
         const animationContainer = document.getElementById('animationContainer');
-        if (animationContainer) {
-          const headerHeight = 80;
-          const animationTop = animationContainer.offsetTop - headerHeight;
-          window.scrollTo({ top: animationTop, behavior: 'smooth' });
-        }
+        const headerHeight = 80;
+        const animationTop = animationContainer.offsetTop - headerHeight;
+        window.scrollTo({ top: animationTop, behavior: 'smooth' });
       }
 
       const scrollSpeed = 0.0008;
@@ -486,114 +451,48 @@
         };
       }
 
-      let intersectionObserver;
-      let isScrollLocked = true;
-
-      function setupIntersectionObserver() {
-        const postContent = document.querySelector('.post-animation-content');
-        if (!postContent) return;
-        
-        intersectionObserver = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            // Only trigger when the post content is completely out of view
-            if (!entry.isIntersecting && animationComplete) {
-              // Use a small timeout to ensure the scroll position has stabilized
-              setTimeout(() => {
-                const scrollPosition = window.scrollY || document.documentElement.scrollTop;
-                const animationContainer = document.getElementById('animationContainer');
-                
-                if (!animationContainer) return;
-                
-                const containerTop = animationContainer.offsetTop;
-                const containerBottom = containerTop + animationContainer.offsetHeight;
-                
-                // Only re-enter if we've scrolled up past the post content
-                if (scrollPosition < containerBottom) {
-                  reenterAnimation();
-                }
-              }, 50);
-            }
-          });
-        }, {
-          root: null,
-          threshold: 0, // Only trigger when completely out of view
-          rootMargin: '0px 0px -10% 0px' // Small margin to trigger slightly before completely out of view
-        });
-
-        if (postContent) {
-          intersectionObserver.observe(postContent);
-        }
-      }
-
-      function setupScrollHandlers() {
-        // Throttle the wheel event to ~60fps (16.67ms)
-        const throttledHandleScroll = throttle((deltaY) => {
-          if (!animationComplete) {
-            handleScroll(deltaY);
-          } else if (deltaY < 0) {
-            // Check if we're at the top and trying to scroll up
-            const scrollTop = window.scrollY || document.documentElement.scrollTop;
-            if (scrollTop <= 10) {
-              reenterAnimation();
-              return;
-            }
-          }
-        }, 16.67);
-
-        const onWheel = e => {
-          if (isScrollLocked) {
-            e.preventDefault();
-            throttledHandleScroll(e.deltaY);
-          } else if (e.deltaY < 0) {
-            // If not locked but scrolling up, check if we need to re-enter
-            const scrollTop = window.scrollY || document.documentElement.scrollTop;
-            if (scrollTop <= 10) {
-              e.preventDefault();
-              reenterAnimation();
-            }
-          }
-        };
-        
-        const onKeydown = e => {
-          if (!animationComplete) {
-            if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-              e.preventDefault();
-              handleScroll(100);
-            }
-            if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-              e.preventDefault();
-              handleScroll(-100);
-            }
-          } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-            const postContent = document.querySelector('.post-animation-content');
-            const rect = postContent.getBoundingClientRect();
-            const scrollTop = window.scrollY || document.documentElement.scrollTop;
-            if (rect.top >= 0 || scrollTop <= postContent.offsetTop) {
-              e.preventDefault();
-              handleScroll(-100);
-            }
-          }
-        };
-
-        // Store handlers for cleanup
-        window._onWheelHandler = onWheel;
-        window._onKeydownHandler = onKeydown;
-        
-        window.addEventListener('wheel', onWheel, { passive: false });
-        window.addEventListener('keydown', onKeydown);
-      }
-
       function init() {
         document.body.style.overflow = 'hidden';
         preloadInitialFrames();
         requestAnimationFrame(animate);
-        
-        // Set up initial scroll handlers
-        setupScrollHandlers();
-        // Set up intersection observer for post-animation content
-        setupIntersectionObserver();
 
-        // Handle window resize
+        // Throttle the wheel event to ~60fps (16.67ms)
+        const throttledHandleScroll = throttle((deltaY) => {
+          if (!animationComplete) {
+            handleScroll(deltaY);
+          } else {
+            handleScroll(deltaY);
+          }
+        }, 16.67);
+
+        const onWheel = e => {
+          e.preventDefault();
+          throttledHandleScroll(e.deltaY);
+        };
+        
+        window.addEventListener('wheel', onWheel, { passive: false });
+
+        const onKeydown = e => {
+          if (!animationComplete) {
+            if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+              e.preventDefault(); handleScroll(100);
+            }
+            if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+              e.preventDefault(); handleScroll(-100);
+            }
+          } else {
+            if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+              const postContent = document.querySelector('.post-animation-content');
+              const rect = postContent.getBoundingClientRect();
+              const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+              if (rect.top >= 0 || scrollTop <= postContent.offsetTop) {
+                e.preventDefault(); handleScroll(-100);
+              }
+            }
+          }
+        };
+        window.addEventListener('keydown', onKeydown);
+
         window.addEventListener('resize', () => {
           if (!animationComplete) {
             updateVideoFrame();
