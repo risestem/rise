@@ -430,50 +430,10 @@
       }
 
       function init() {
-        const animationContainer = document.getElementById('animationContainer');
-        const postContent = document.querySelector('.post-animation-content');
-        const headerHeight = 80;
-
-        // Get scroll position
-        const scrollY = window.scrollY || window.pageYOffset;
-        const animationTop = animationContainer.offsetTop - headerHeight;
-        const animationBottom = animationTop + animationContainer.offsetHeight;
-
+        document.body.style.overflow = 'hidden';
         preloadInitialFrames();
+        requestAnimationFrame(animate);
 
-        // If we're already scrolled past the animation section
-        if (scrollY >= animationBottom) {
-          scrollProgress = targetProgress = 1;
-          animationComplete = true;
-
-          updateVideoFrame();
-          updateProgressBar();
-          updateTextSections();
-
-          postContent.classList.add('visible');
-          document.body.style.overflow = 'auto';
-
-          // Autoplay turtle video and start code animation
-          const turtleVideo = document.getElementById('turtleDrawVideo');
-          if (turtleVideo) {
-            turtleVideo.currentTime = 0;
-            turtleVideo.play().catch(() => {});
-          }
-          startCodeLineAnimation();
-        } else {
-          // Start from beginning
-          scrollProgress = targetProgress = 0;
-          animationComplete = false;
-
-          updateVideoFrame();
-          updateProgressBar();
-          updateTextSections();
-
-          document.body.style.overflow = 'hidden';
-          requestAnimationFrame(animate);
-        }
-
-        // Scroll input
         const onWheel = e => {
           if (!animationComplete) {
             e.preventDefault();
@@ -484,7 +444,6 @@
         };
         window.addEventListener('wheel', onWheel, { passive: false });
 
-        // Keyboard input
         const onKeydown = e => {
           if (!animationComplete) {
             if (e.key === 'ArrowDown' || e.key === 'PageDown') {
@@ -495,6 +454,7 @@
             }
           } else {
             if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+              const postContent = document.querySelector('.post-animation-content');
               const rect = postContent.getBoundingClientRect();
               const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
               if (rect.top >= 0 || scrollTop <= postContent.offsetTop) {
@@ -502,29 +462,9 @@
               }
             }
           }
-
         };
-        // Allow reentry into animation section after refresh
-        window.addEventListener('scroll', () => {
-          if (animationComplete) {
-            const animationContainer = document.getElementById('animationContainer');
-            const headerHeight = 80;
-            const rect = animationContainer.getBoundingClientRect();
-
-            // If animation container is mostly visible in viewport, reenter
-            if (rect.top >= 0 && rect.bottom <= window.innerHeight + headerHeight) {
-              reenterAnimation();
-              targetProgress = scrollProgress = 0.95;
-              updateVideoFrame();
-              updateProgressBar();
-              updateTextSections();
-            }
-          }
-        });
-
         window.addEventListener('keydown', onKeydown);
 
-        // Resize handling
         window.addEventListener('resize', () => {
           if (!animationComplete) {
             updateVideoFrame();
@@ -533,7 +473,6 @@
           }
         });
       }
-
       window.addEventListener('load', init);
     </script>
   </body>
