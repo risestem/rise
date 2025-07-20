@@ -294,14 +294,13 @@
           startCodeLineAnimation();
         }
 
-        // Enable scrolling before scrolling into view
-        document.body.style.overflow = 'auto';
-        document.documentElement.style.overflow = 'auto';
-        
-        // Scroll to the post content
+        // scroll it into view, respecting scroll-margin-top
+        postContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        // re-enable page scrolling after the fade
         setTimeout(() => {
-          postContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 50);
+          document.body.style.overflow = 'auto';
+        }, 600);
       }
 
       function reenterAnimation() {
@@ -319,19 +318,11 @@
         // stop code line animation
         stopCodeLineAnimation();
 
-        // Enable scrolling before scrolling
-        document.body.style.overflow = 'auto';
-        document.documentElement.style.overflow = 'auto';
-        
+        document.body.style.overflow = 'hidden';
         const animationContainer = document.getElementById('animationContainer');
         const headerHeight = 80;
         const animationTop = animationContainer.offsetTop - headerHeight;
-        
-        // Scroll to animation section
-        window.scrollTo({ 
-          top: animationTop, 
-          behavior: 'smooth'
-        });
+        window.scrollTo({ top: animationTop, behavior: 'smooth' });
       }
 
       const scrollSpeed = 0.0008;
@@ -438,51 +429,19 @@
         });
       }
 
-      // Throttle function to limit how often a function can be called
-      function throttle(func, limit) {
-        let lastFunc;
-        let lastRan;
-        return function() {
-          const context = this;
-          const args = arguments;
-          if (!lastRan) {
-            func.apply(context, args);
-            lastRan = Date.now();
-          } else {
-            clearTimeout(lastFunc);
-            lastFunc = setTimeout(function() {
-              if ((Date.now() - lastRan) >= limit) {
-                func.apply(context, args);
-                lastRan = Date.now();
-              }
-            }, limit - (Date.now() - lastRan));
-          }
-        };
-      }
-
       function init() {
         document.body.style.overflow = 'hidden';
         preloadInitialFrames();
         requestAnimationFrame(animate);
 
-        // Throttle the wheel event to ~60fps (16.67ms)
-        const throttledHandleScroll = throttle((deltaY) => {
-          if (!animationComplete) {
-            handleScroll(deltaY);
-          } else {
-            // Don't prevent default scrolling in post-animation section
-            return;
-          }
-        }, 16.67);
-
         const onWheel = e => {
           if (!animationComplete) {
             e.preventDefault();
-            throttledHandleScroll(e.deltaY);
+            handleScroll(e.deltaY);
+          } else {
+            handleScroll(e.deltaY);
           }
-          // Allow default scrolling behavior in post-animation section
         };
-        
         window.addEventListener('wheel', onWheel, { passive: false });
 
         const onKeydown = e => {
