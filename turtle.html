@@ -266,6 +266,18 @@
           `${scrollProgress * 100}%`;
       }
 
+      function cleanupScrollHandlers() {
+        // Remove wheel and keydown event listeners
+        if (window._onWheelHandler) {
+          window.removeEventListener('wheel', window._onWheelHandler, { passive: false });
+          delete window._onWheelHandler;
+        }
+        if (window._onKeydownHandler) {
+          window.removeEventListener('keydown', window._onKeydownHandler);
+          delete window._onKeydownHandler;
+        }
+      }
+
       function completeAnimation() {
         if (animationComplete) return;
         animationComplete = true;
@@ -297,10 +309,9 @@
         // scroll it into view, respecting scroll-margin-top
         postContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-        // re-enable page scrolling after the fade
-        setTimeout(() => {
-          document.body.style.overflow = 'auto';
-        }, 600);
+        // Clean up scroll handlers and enable native scrolling
+        cleanupScrollHandlers();
+        document.body.style.overflow = 'auto';
       }
 
       function reenterAnimation() {
@@ -451,48 +462,101 @@
         };
       }
 
-      function init() {
-        document.body.style.overflow = 'hidden';
-        preloadInitialFrames();
-        requestAnimationFrame(animate);
+      let intersectionObserver;
+      let isScrollLocked = true;
 
+      function setupIntersectionObserver() {
+        const postContent = document.querySelector('.post-animation-content');
+        
+        intersectionObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            // When post content is not intersecting (scrolled out of view)
+            if (!entry.isIntersecting && animationComplete) {
+              // Re-lock scrolling and reattach wheel handler
+              document.body.style.overflow = 'hidden';
+              isScrollLocked = true;
+              setupScrollHandlers();
+              
+              // Reset animation state
+              animationComplete = false;
+              const postContent = document.querySelector('.post-animation-content');
+              postContent.classList.remove('visible');
+              
+              // Reset to near the end of the animation
+              targetProgress = 0.98;
+              updateVideoFrame();
+              updateProgressBar();
+              updateTextSections();
+              
+              // Re-enable animation loop
+              requestAnimationFrame(animate);
+            }
+          });
+        }, {
+          root: null,
+          threshold: 0.1 // Trigger when 10% of the element is out of view
+        });
+
+        if (postContent) {
+          intersectionObserver.observe(postContent);
+        }
+      }
+
+      function setupScrollHandlers() {
         // Throttle the wheel event to ~60fps (16.67ms)
         const throttledHandleScroll = throttle((deltaY) => {
           if (!animationComplete) {
-            handleScroll(deltaY);
-          } else {
             handleScroll(deltaY);
           }
         }, 16.67);
 
         const onWheel = e => {
-          e.preventDefault();
-          throttledHandleScroll(e.deltaY);
+          if (isScrollLocked) {
+            e.preventDefault();
+            throttledHandleScroll(e.deltaY);
+          }
         };
         
-        window.addEventListener('wheel', onWheel, { passive: false });
-
         const onKeydown = e => {
           if (!animationComplete) {
             if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-              e.preventDefault(); handleScroll(100);
+              e.preventDefault();
+              handleScroll(100);
             }
             if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-              e.preventDefault(); handleScroll(-100);
+              e.preventDefault();
+              handleScroll(-100);
             }
-          } else {
-            if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-              const postContent = document.querySelector('.post-animation-content');
-              const rect = postContent.getBoundingClientRect();
-              const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-              if (rect.top >= 0 || scrollTop <= postContent.offsetTop) {
-                e.preventDefault(); handleScroll(-100);
-              }
+          } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+            const postContent = document.querySelector('.post-animation-content');
+            const rect = postContent.getBoundingClientRect();
+            const scrollTop = window.scrollY || document.documentElement.scrollTop;
+            if (rect.top >= 0 || scrollTop <= postContent.offsetTop) {
+              e.preventDefault();
+              handleScroll(-100);
             }
           }
         };
-        window.addEventListener('keydown', onKeydown);
 
+        // Store handlers for cleanup
+        window._onWheelHandler = onWheel;
+        window._onKeydownHandler = onKeydown;
+        
+        window.addEventListener('wheel', onWheel, { passive: false });
+        window.addEventListener('keydown', onKeydown);
+      }
+
+      function init() {
+        document.body.style.overflow = 'hidden';
+        preloadInitialFrames();
+        requestAnimationFrame(animate);
+        
+        // Set up initial scroll handlers
+        setupScrollHandlers();
+        // Set up intersection observer for post-animation content
+        setupIntersectionObserver();
+
+        // Handle window resize
         window.addEventListener('resize', () => {
           if (!animationComplete) {
             updateVideoFrame();
