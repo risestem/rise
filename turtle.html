@@ -104,7 +104,7 @@
           <div class="scroll-text-container">
             <div class="scroll-text-section" id="textSection1">
               <h2>The Turtle Kit</h2>
-              <p>The Turtle Kit is our flagship RISE Kit: a drawing robot that is assembled using 3D-printed and off-the-shelf parts. Once built, it can be programmed to draw shapes, patterns, or anything one can imagine—combining hands-on building with creative coding.</p>
+              <p>The Turtle Kit is our signature RISE Kit: a drawing robot that is assembled using 3D-printed and off-the-shelf parts. Once built, it can be programmed to draw shapes, patterns, or anything one can imagine—combining hands-on building with creative coding.</p>
             </div>
 
             <div class="scroll-text-section" id="textSection2">
@@ -393,9 +393,9 @@
         window.scrollTo({ top: animationTop, behavior: 'smooth' });
       }
 
-      const scrollSpeed = 0.0008;
+      const scrollSpeed = 0.0002;
       let lastScrollTime = 0;
-      const scrollThrottleMs = 16; // ~60fps
+      const scrollThrottleMs = 16; // ~30fps - slower response
       
       function handleScroll(deltaY) {
         const now = Date.now();
