@@ -2,181 +2,98 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>RISE Kits – Hands-on STEM for Middle Schoolers</title>
+  <title>RISE Kits – Free Turtle Robot STEM Kit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="/src/style.css" rel="stylesheet">
   <link rel="icon" href="/public/favicon.ico"/>
   <link rel="apple-touch-icon" href="/public/apple-touch-icon.png">
-  <script defer src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet" />
-  <link href="/src/style.css" rel="stylesheet">
-  <link href="/src/animations.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/animations.css">
   <style>
     html { scroll-behavior: smooth; }
-    .carousel { scroll-snap-type: x mandatory; }
-    .carousel-item { scroll-snap-align: center; }
   </style>
 </head>
-<body class="flex flex-col min-h-screen font-poppins bg-gray-50">
-
+<body class="min-h-screen font-poppins bg-gray-50 flex flex-col">
   <!-- Header -->
   <div id="header-container"></div>
   <script type="module" src="/scripts/loadHeader.js"></script>
-
-  <!-- Hero Carousel -->
-  <section class="w-full bg-gray-900 pt-8 pb-2">
-    <div class="max-w-5xl mx-auto px-4">
-      <div class="relative">
-        <div class="overflow-x-auto flex space-x-6 carousel pb-2" id="carousel">
-          <!-- Carousel Images: Replace src with real kit/action images -->
-          <div class="min-w-full carousel-item flex flex-col items-center">
-            <img src="/public/turtleRobot-action.jpg" alt="Student using Turtle Robot" class="rounded-2xl shadow-xl w-full max-h-[340px] object-cover mb-4">
-            <span class="text-white text-lg font-semibold">Build, code, and draw with the Turtle Robot!</span>
-          </div>
-          <div class="min-w-full carousel-item flex flex-col items-center">
-            <img src="/public/group-kids-robot.jpg" alt="Workshop group with kits" class="rounded-2xl shadow-xl w-full max-h-[340px] object-cover mb-4">
-            <span class="text-white text-lg font-semibold">Hands-on STEM in every box.</span>
-          </div>
-          <div class="min-w-full carousel-item flex flex-col items-center">
-            <img src="/public/closeup-materials.jpg" alt="Kit materials closeup" class="rounded-2xl shadow-xl w-full max-h-[340px] object-cover mb-4">
-            <span class="text-white text-lg font-semibold">Everything you need—no experience required.</span>
-          </div>
-        </div>
-        <!-- Add optional carousel controls here if desired -->
+  
+  <!-- HERO: Real photo and warm intro -->
+  <section class="w-full bg-purple-950 pt-24 pb-10">
+    <div class="max-w-4xl mx-auto px-6 md:px-8 flex flex-col items-center text-center">
+      <img src="/public/real_turtle_hero.jpg" alt="Kids with their Turtle Robots" class="rounded-2xl shadow-xl w-full max-w-xl object-cover border-4 border-white mb-6" />
+      <h1 class="text-4xl md:text-5xl font-extrabold text-white mb-4 drop-shadow-lg">RISE Turtle Robot Kit</h1>
+      <p class="text-lg md:text-xl text-purple-100 mb-2 font-medium">
+        Our signature hands-on STEM kit, given out <span class="font-bold text-yellow-200">free</span> at RISE workshops for middle schoolers.
+      </p>
+      <p class="text-md text-purple-200 max-w-2xl mb-4">
+        Designed by students, for students—no experience needed. Build, code, and create your own drawing robot!
+      </p>
+    </div>
+  </section>
+  
+  <!-- How does it work? -->
+  <section class="max-w-3xl mx-auto px-6 md:px-8 py-8">
+    <div class="bg-white rounded-2xl shadow-md border border-gray-200 p-6 md:p-10">
+      <h2 class="text-2xl font-bold mb-3 text-purple-900 text-center">How does it work?</h2>
+      <ol class="list-decimal text-left text-gray-700 text-lg px-4 mb-4">
+        <li class="mb-2"><span class="font-bold text-purple-900">Come to a RISE workshop.</span> We host free hands-on events for Atlanta-area middle schoolers (see our homepage for upcoming dates).</li>
+        <li class="mb-2"><span class="font-bold text-purple-900">Get your kit for free!</span> Every attendee receives a Turtle Robot Kit packed with everything you need. No sign-up fees, no catch.</li>
+        <li class="mb-2"><span class="font-bold text-purple-900">Build and code together.</span> Our student mentors help you assemble your robot and walk you through the basics of robotics and coding, step by step.</li>
+        <li><span class="font-bold text-purple-900">Take it home.</span> Your robot is yours to keep—keep creating, experimenting, and showing off your skills!</li>
+      </ol>
+      <div class="text-center text-sm text-purple-700 mt-2">
+        <b>Teachers:</b> Want Turtle Kits for your classroom? <a href="mailto:contact@risestem.org" class="underline text-purple-800 hover:text-purple-600">Email us</a>—we’ll do our best to help!
       </div>
     </div>
   </section>
 
-  <!-- Inspiring Intro -->
-  <section class="max-w-3xl mx-auto px-4 pt-10 pb-6 text-center">
-    <h1 class="text-4xl md:text-5xl font-extrabold text-gray-900 mb-4">RISE Kits</h1>
-    <p class="text-xl text-gray-700 font-medium">
-      RISE Kits are hands-on STEM experiences for middle schoolers. Each kit lets you build, code, and experiment like a real engineer—at home, at school, or at a RISE Workshop.
-    </p>
-    <div class="mt-4 text-purple-700 font-bold text-lg">Inspired by CrunchLabs. Built for future engineers.</div>
-  </section>
-
-  <!-- Featured Kit: Turtle Robot -->
-  <section class="bg-white py-12">
-    <div class="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-10 px-4">
-      <!-- Big kit image -->
-      <div class="flex-1 flex justify-center">
-        <img src="/public/turtleRobot.png" alt="Turtle Kit" class="w-[350px] h-[350px] object-contain rounded-2xl shadow-lg border border-gray-200" />
+  <!-- Featured: More Real Photos -->
+  <section class="max-w-5xl mx-auto px-6 md:px-8 pt-10 pb-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="bg-white rounded-2xl border border-purple-100 shadow-lg p-6 flex flex-col items-center">
+        <img src="/public/turtleRobot_build.jpg" alt="Building the Turtle Robot" class="rounded-xl shadow-md w-full max-w-xs mb-4 object-cover border border-gray-200" />
+        <div class="text-center">
+          <span class="block text-purple-900 font-bold text-lg mb-1">Hands-on Building</span>
+          <span class="text-gray-700 text-md">Assemble the chassis, attach motors, and learn how robots move.</span>
+        </div>
       </div>
-      <!-- Description and materials -->
+      <div class="bg-white rounded-2xl border border-purple-100 shadow-lg p-6 flex flex-col items-center">
+        <img src="/public/turtleRobot_code.jpg" alt="Coding the Turtle Robot" class="rounded-xl shadow-md w-full max-w-xs mb-4 object-cover border border-gray-200" />
+        <div class="text-center">
+          <span class="block text-purple-900 font-bold text-lg mb-1">Creative Coding</span>
+          <span class="text-gray-700 text-md">Use simple drag-and-drop coding to make your Turtle draw cool shapes and patterns.</span>
+        </div>
+      </div>
+    </div>
+    <!-- (You can add more photo blocks above as you get more real images) -->
+  </section>
+  
+  <!-- All About the Turtle Kit: Materials and what's inside -->
+  <section class="max-w-4xl mx-auto px-6 md:px-8 py-8">
+    <div class="bg-white rounded-2xl border border-purple-200 shadow p-6 md:p-10 flex flex-col md:flex-row items-center gap-10">
+      <img src="/public/turtleRobot.png" alt="Turtle Robot Example" class="w-64 h-64 object-contain rounded-xl shadow-md border border-gray-200 mb-4 md:mb-0">
       <div class="flex-1">
-        <h2 class="text-3xl font-bold mb-2 text-gray-900">Turtle Robot Kit</h2>
-        <p class="text-lg text-gray-700 mb-4">
-          Build a robot that draws as it moves! Learn the basics of robotics, coding, and art by assembling your own turtle robot and programming it to create amazing designs.
-        </p>
-        <!-- 3 Material Cards -->
-        <div class="flex gap-4 mb-4">
-          <div class="flex-1 p-4 bg-purple-50 rounded-xl border border-purple-200 flex flex-col items-center">
-            <img src="/public/microcontroller.png" alt="Microcontroller" class="w-16 h-16 mb-2">
-            <span class="font-semibold text-purple-800">Microcontroller</span>
-            <span class="text-xs text-gray-500 text-center">The robot's brain. Program with drag-and-drop code!</span>
-          </div>
-          <div class="flex-1 p-4 bg-green-50 rounded-xl border border-green-200 flex flex-col items-center">
-            <img src="/public/robot-motor.png" alt="Motors" class="w-16 h-16 mb-2">
-            <span class="font-semibold text-green-800">Precision Motors</span>
-            <span class="text-xs text-gray-500 text-center">Drive your robot and control its movement.</span>
-          </div>
-          <div class="flex-1 p-4 bg-blue-50 rounded-xl border border-blue-200 flex flex-col items-center">
-            <img src="/public/markers.png" alt="Drawing Markers" class="w-16 h-16 mb-2">
-            <span class="font-semibold text-blue-800">Drawing Markers</span>
-            <span class="text-xs text-gray-500 text-center">Create colorful patterns—art + engineering!</span>
-          </div>
+        <h3 class="text-xl font-bold text-purple-900 mb-2">What's in the Turtle Kit?</h3>
+        <ul class="list-disc pl-6 text-gray-700 mb-3 text-md">
+          <li><span class="font-bold text-purple-900">Microcontroller:</span> The robot's brain, easily programmed with our lessons</li>
+          <li><span class="font-bold text-purple-900">Motors & Wheels:</span> Make your robot move and turn</li>
+          <li><span class="font-bold text-purple-900">Drawing Markers:</span> Clip on and watch your robot draw</li>
+          <li><span class="font-bold text-purple-900">Chassis & Hardware:</span> All the parts to put it together</li>
+          <li><span class="font-bold text-purple-900">Batteries Included</span></li>
+          <li><span class="font-bold text-purple-900">Step-by-step Guide</span> (paper & video)</li>
+          <li><span class="font-bold text-purple-900">Access to Coding Lessons</span></li>
+        </ul>
+        <div class="text-xs text-purple-700">
+          Everything is included—just bring your curiosity!
         </div>
-        <!-- Collapsible "What's in the Kit" -->
-        <details class="bg-gray-100 rounded-lg p-4 cursor-pointer">
-          <summary class="font-semibold text-gray-800 mb-2 cursor-pointer">See all kit contents</summary>
-          <ul class="list-disc pl-6 mt-2 text-gray-700 text-sm">
-            <li>Microcontroller board (Arduino compatible)</li>
-            <li>2 precision motors + wheels</li>
-            <li>Robot chassis & hardware</li>
-            <li>Battery pack</li>
-            <li>Colored markers</li>
-            <li>USB cable</li>
-            <li>Step-by-step instructions</li>
-            <li>Access to online coding lessons & challenges</li>
-            <li>Stickers & more surprises!</li>
-          </ul>
-        </details>
       </div>
     </div>
   </section>
-
-  <!-- How It Works -->
-  <section class="max-w-5xl mx-auto px-4 py-12">
-    <h3 class="text-2xl font-bold text-gray-900 text-center mb-8">How RISE Kits Work</h3>
-    <div class="flex flex-col md:flex-row md:justify-center gap-8">
-      <div class="flex-1 flex flex-col items-center">
-        <div class="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-3">
-          <span class="text-3xl font-bold text-purple-600">1</span>
-        </div>
-        <div class="font-semibold mb-2">Get your kit</div>
-        <div class="text-gray-600 text-center text-sm">Pick up at your workshop or receive by mail—everything you need is inside.</div>
-      </div>
-      <div class="flex-1 flex flex-col items-center">
-        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-3">
-          <span class="text-3xl font-bold text-green-600">2</span>
-        </div>
-        <div class="font-semibold mb-2">Build & code</div>
-        <div class="text-gray-600 text-center text-sm">Follow step-by-step guides and learn with fun, interactive lessons.</div>
-      </div>
-      <div class="flex-1 flex flex-col items-center">
-        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mb-3">
-          <span class="text-3xl font-bold text-blue-600">3</span>
-        </div>
-        <div class="font-semibold mb-2">Show off & keep learning</div>
-        <div class="text-gray-600 text-center text-sm">Share your creations and tackle new challenges—engineer your future!</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Testimonial/Impact Section -->
-  <section class="w-full bg-purple-50 py-12">
-    <div class="max-w-3xl mx-auto px-4 text-center">
-      <svg class="mx-auto mb-4" width="48" height="48" fill="none" viewBox="0 0 48 48"><circle cx="24" cy="24" r="24" fill="#A78BFA"/><text x="50%" y="60%" text-anchor="middle" fill="white" font-size="32" font-family="Arial" dy=".3em">“</text></svg>
-      <blockquote class="text-xl text-purple-900 italic font-semibold mb-4">
-        “The Turtle Kit made me feel like a real inventor. I loved seeing my robot draw shapes I coded myself!”
-      </blockquote>
-      <div class="text-purple-700 font-bold">– Jordan, 7th Grade Student</div>
-    </div>
-  </section>
-
-  <!-- More Kits Coming Soon / Minimal Grid -->
-  <section class="max-w-4xl mx-auto px-4 py-16 text-center">
-    <h3 class="text-2xl font-bold text-gray-900 mb-4">More RISE Kits Coming Soon!</h3>
-    <p class="text-lg text-gray-700 mb-8">Stay tuned for new robots and hands-on STEM adventures.</p>
-    <div class="flex flex-wrap justify-center gap-8">
-      <div class="bg-white shadow-lg rounded-2xl p-8 flex flex-col items-center border-2 border-dashed border-gray-300 w-64">
-        <span class="text-5xl mb-2">🔧</span>
-        <div class="font-bold text-gray-900 mb-1">New Kit Coming Soon</div>
-        <span class="text-gray-500 text-sm">We’re working on something exciting!</span>
-      </div>
-      <div class="bg-white shadow-lg rounded-2xl p-8 flex flex-col items-center border-2 border-dashed border-gray-300 w-64">
-        <span class="text-5xl mb-2">🚀</span>
-        <div class="font-bold text-gray-900 mb-1">New Kit Coming Soon</div>
-        <span class="text-gray-500 text-sm">Stay tuned for updates!</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Call to Action -->
-  <section class="text-center py-8">
-    <p class="text-gray-600 mb-4">Questions or want to bring RISE Kits to your school?</p>
-    <a href="mailto:contact@risestem.org" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-8 rounded-full transition-colors duration-300 shadow-md hover:shadow-lg">
-      Contact Us Today!
-    </a>
-  </section>
-
+  
   <!-- Footer -->
   <div id="footer-container"></div>
   <script type="module" src="/scripts/loadFooter.js"></script>
-
-  <!-- Optional: Simple Carousel Scroll Snap Script (optional, for arrows) -->
-  <script>
-    // Optional: Add left/right arrow controls for the carousel here if desired
-  </script>
 </body>
 </html>
