@@ -231,8 +231,10 @@
         const frameNum = Math.floor(scrollProgress * (totalFrames - 1)) + 1;
         if (frameNum !== currentFrame) {
           currentFrame = frameNum;
-          document.getElementById('videoFrame').src =
-            `${frameBasePath}${String(frameNum).padStart(5,'0')}.webp`;
+          const frameEl = document.getElementById('videoFrame');
+          if (frameEl) {
+            frameEl.src = `${frameBasePath}${String(frameNum).padStart(5,'0')}.webp`;
+          }
           for (let i = 1; i <= 30; i++) preloadFrame(frameNum + i);
         }
       }
