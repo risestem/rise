@@ -294,12 +294,14 @@
           startCodeLineAnimation();
         }
 
-        // scroll it into view, respecting scroll-margin-top
-        postContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-        // Enable page scrolling immediately
+        // Enable scrolling before scrolling into view
         document.body.style.overflow = 'auto';
         document.documentElement.style.overflow = 'auto';
+        
+        // Scroll to the post content
+        setTimeout(() => {
+          postContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
       }
 
       function reenterAnimation() {
@@ -317,24 +319,19 @@
         // stop code line animation
         stopCodeLineAnimation();
 
-        // Only hide overflow during the scroll animation
-        document.body.style.overflow = 'hidden';
-        document.documentElement.style.overflow = 'hidden';
+        // Enable scrolling before scrolling
+        document.body.style.overflow = 'auto';
+        document.documentElement.style.overflow = 'auto';
         
         const animationContainer = document.getElementById('animationContainer');
         const headerHeight = 80;
         const animationTop = animationContainer.offsetTop - headerHeight;
         
+        // Scroll to animation section
         window.scrollTo({ 
           top: animationTop, 
-          behavior: 'smooth',
+          behavior: 'smooth'
         });
-        
-        // Re-enable scrolling after the scroll animation completes
-        setTimeout(() => {
-          document.body.style.overflow = 'auto';
-          document.documentElement.style.overflow = 'auto';
-        }, 1000); // Slightly longer than the scroll animation duration
       }
 
       const scrollSpeed = 0.0008;
@@ -473,13 +470,17 @@
           if (!animationComplete) {
             handleScroll(deltaY);
           } else {
-            handleScroll(deltaY);
+            // Don't prevent default scrolling in post-animation section
+            return;
           }
         }, 16.67);
 
         const onWheel = e => {
-          e.preventDefault();
-          throttledHandleScroll(e.deltaY);
+          if (!animationComplete) {
+            e.preventDefault();
+            throttledHandleScroll(e.deltaY);
+          }
+          // Allow default scrolling behavior in post-animation section
         };
         
         window.addEventListener('wheel', onWheel, { passive: false });
