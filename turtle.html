@@ -504,24 +504,7 @@
           }
 
         };
-        // Allow reentry into animation section after refresh
-        window.addEventListener('scroll', () => {
-          if (animationComplete) {
-            const animationContainer = document.getElementById('animationContainer');
-            const headerHeight = 80;
-            const rect = animationContainer.getBoundingClientRect();
-
-            // If animation container is mostly visible in viewport, reenter
-            if (rect.top >= 0 && rect.bottom <= window.innerHeight + headerHeight) {
-              reenterAnimation();
-              targetProgress = scrollProgress = 0.95;
-              updateVideoFrame();
-              updateProgressBar();
-              updateTextSections();
-            }
-          }
-        });
-
+        
         window.addEventListener('keydown', onKeydown);
 
         // Resize handling
