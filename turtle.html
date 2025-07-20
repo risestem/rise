@@ -306,6 +306,7 @@
 
       function reenterAnimation() {
         animationComplete = false;
+        hasReentered = true; // Set this when re-entering the animation
         const postContent = document.querySelector('.post-animation-content');
         postContent.classList.remove('visible');
 
@@ -507,21 +508,29 @@
 
         };
         window.addEventListener('scroll', () => {
-        if (animationComplete && !hasReentered) {
-          const animationContainer = document.getElementById('animationContainer');
-          const rect = animationContainer.getBoundingClientRect();
+          if (animationComplete) {
+            const animationContainer = document.getElementById('animationContainer');
+            const rect = animationContainer.getBoundingClientRect();
+            const isAnimationVisible = rect.top < window.innerHeight * 0.75 && rect.bottom > 0;
 
-          // If animation container is visible, reenter once
-          if (rect.top < window.innerHeight * 0.75 && rect.bottom > 0) {
-            hasReentered = true; // prevent repeated reentry
-            reenterAnimation();
-            targetProgress = scrollProgress = 0.95;
-            updateVideoFrame();
-            updateProgressBar();
-            updateTextSections();
+            // If animation container is visible and we're at the top of the page
+            if (isAnimationVisible && window.scrollY <= animationContainer.offsetTop) {
+              if (hasReentered) {
+                // Reset the reentry state if we're back at the top
+                hasReentered = false;
+              }
+              // Re-enter the animation
+              reenterAnimation();
+              targetProgress = scrollProgress = 0.95;
+              updateVideoFrame();
+              updateProgressBar();
+              updateTextSections();
+            } else if (!isAnimationVisible) {
+              // Reset hasReentered when scrolling away from the animation
+              hasReentered = false;
+            }
           }
-        }
-      });
+        });
 
         window.addEventListener('keydown', onKeydown);
 
