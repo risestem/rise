@@ -512,7 +512,7 @@
             const rect = animationContainer.getBoundingClientRect();
 
             // If animation container is mostly visible in viewport, reenter
-            if (rect.top < window.innerHeight * 0.75 && rect.bottom > 0) {
+            if (rect.top >= 0 && rect.bottom <= window.innerHeight + headerHeight) {
               reenterAnimation();
               targetProgress = scrollProgress = 0.95;
               updateVideoFrame();
