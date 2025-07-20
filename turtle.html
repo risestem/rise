@@ -215,6 +215,7 @@
       let animationComplete = false;
       let activeTextSection = null;
       let hasReentered = false;
+      let lastScrollY = 0; // Track last scroll position for direction detection
       const preloadedFrames = new Map();
 
       function preloadFrame(n) {
@@ -337,12 +338,13 @@
           }
           targetProgress = Math.max(0, Math.min(1, newProgress));
         } else if (deltaY < 0) {
+          // Only re-enter animation if we're at the very top of the post-animation section
           const postContent = document.querySelector('.post-animation-content');
           const rect = postContent.getBoundingClientRect();
           const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-          if (rect.top >= 0 || scrollTop <= postContent.offsetTop) {
+          if (scrollTop <= postContent.offsetTop + 5) { // Small threshold
             reenterAnimation();
-            targetProgress = scrollProgress = 0.95;
+            targetProgress = 0.98; // Slightly less than 1 to allow smooth scrolling out
             updateVideoFrame();
             updateProgressBar();
             updateTextSections();
@@ -507,24 +509,34 @@
           }
 
         };
+        let lastScrollTime = 0;
+        let scrollDirection = 0;
+        
         window.addEventListener('scroll', () => {
+          const now = Date.now();
+          if (now - lastScrollTime < 100) return; // Throttle scroll events
+          lastScrollTime = now;
+          
+          const currentScroll = window.scrollY;
+          const newDirection = Math.sign(currentScroll - (lastScrollY || currentScroll));
+          lastScrollY = currentScroll;
+          
+          if (newDirection !== 0) {
+            scrollDirection = newDirection;
+          }
+          
           if (animationComplete) {
             const animationContainer = document.getElementById('animationContainer');
             const rect = animationContainer.getBoundingClientRect();
             const isAnimationVisible = rect.top < window.innerHeight * 0.75 && rect.bottom > 0;
-
-            // If animation container is visible and we're at the top of the page
-            if (isAnimationVisible && window.scrollY <= animationContainer.offsetTop) {
+            const isNearTop = window.scrollY <= animationContainer.offsetTop + 50;
+            
+            // Only re-enter if we're scrolling up and near the top of the animation
+            if (isAnimationVisible && isNearTop && scrollDirection < 0) {
               if (hasReentered) {
-                // Reset the reentry state if we're back at the top
                 hasReentered = false;
               }
-              // Re-enter the animation
               reenterAnimation();
-              targetProgress = scrollProgress = 0.95;
-              updateVideoFrame();
-              updateProgressBar();
-              updateTextSections();
             } else if (!isAnimationVisible) {
               // Reset hasReentered when scrolling away from the animation
               hasReentered = false;
