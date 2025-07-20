@@ -433,7 +433,10 @@
         document.body.style.overflow = 'hidden';
         preloadInitialFrames();
         requestAnimationFrame(animate);
-
+        updateVideoFrame();
+        updateProgressBar();
+        updateTextSections();
+        
         const onWheel = e => {
           if (!animationComplete) {
             e.preventDefault();
