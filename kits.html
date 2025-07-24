@@ -55,7 +55,7 @@
         RISE Kits
       </h1>
       <p class="mt-4 text-lg md:text-xl text-white font-medium">
-        Our signature hands-on STEM kits, given out <span class="font-bold text-yellow-200">free</span> at RISE workshops for middle schoolers.
+        Our signature hands-on STEM kits, given out <span class="font-bold">free</span> at RISE workshops for middle schoolers.
       </p>
       <p class="mt-2 text-md text-white max-w-2xl">
         Designed by students, for students—no experience needed. Empowering tomorrow's engineers, one kit at a time.
@@ -108,23 +108,33 @@
 </section>
 
   <section class="max-w-5xl mx-auto px-6 md:px-8 pt-10 pb-8">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      <div class="bg-white rounded-2xl border border-purple-100 shadow-lg p-6 flex flex-col items-center">
-        <img src="/public/eneng_sister_2.png" alt="Building a RISE Kit" class="rounded-xl shadow-md w-full max-w-xs mb-4 object-cover border border-gray-200" />
-        <div class="text-center">
-          <span class="block text-purple-900 font-bold text-lg mb-1">Hands-on Building</span>
-          <span class="text-gray-700 text-md">Put together components, and explore how it all works.</span>
-        </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    
+    <!-- Hands-on Building -->
+    <div class="bg-white rounded-2xl border border-purple-100 shadow-lg p-6 flex flex-col items-center">
+      <div class="h-[240px] w-full max-w-xs mb-4 overflow-hidden rounded-xl shadow-md border border-gray-200">
+        <img src="/public/eneng_sister_2.png" alt="Building a RISE Kit" class="w-full h-full object-cover" />
       </div>
-      <div class="bg-white rounded-2xl border border-purple-100 shadow-lg p-6 flex flex-col items-center">
-        <img src="/public/arduino.png" alt="Creative Coding" class="rounded-xl shadow-md w-full max-w-xs mb-4 object-cover border border-gray-200" />
-        <div class="text-center">
-          <span class="block text-purple-900 font-bold text-lg mb-1">Creative Coding</span>
-          <span class="text-gray-700 text-md">Learn programming to bring your kit to life.</span>
-        </div>
+      <div class="text-center">
+        <span class="block text-purple-900 font-bold text-lg mb-1">Hands-on Building</span>
+        <span class="text-gray-700 text-md">Put together components, and explore how it all works.</span>
       </div>
     </div>
-  </section>
+
+    <!-- Creative Coding -->
+    <div class="bg-white rounded-2xl border border-purple-100 shadow-lg p-6 flex flex-col items-center">
+      <div class="h-[240px] w-full max-w-xs mb-4 overflow-hidden rounded-xl shadow-md border border-gray-200">
+        <img src="/public/arduino.png" alt="Creative Coding" class="w-full h-full object-cover" />
+      </div>
+      <div class="text-center">
+        <span class="block text-purple-900 font-bold text-lg mb-1">Creative Coding</span>
+        <span class="text-gray-700 text-md">Learn programming to bring your kit to life.</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
 
   <!-- Main content -->
   <main id="kits-overview" class="flex-grow w-full bg-gray-50 py-16">
@@ -229,7 +239,7 @@
                   <img src="${kit.image}" alt="${kit.alt}" class="max-h-full max-w-full object-contain">
                 </div>
                 <div class="p-6">
-                  <h3 class="text-xl font-bold text-gray-900 mb-2">${kit.name}</h3>
+                  <h3 class="text-xl font-bold text-purple-950 mb-2">${kit.name}</h3>
                   <div class="flex flex-wrap gap-2 mb-4">
                     ${tagsHTML}
                   </div>
