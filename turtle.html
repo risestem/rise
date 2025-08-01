@@ -66,21 +66,22 @@
         background-color: #374151 !important;
       }
 
-      
+      @keyframes bounce {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(10px); }
+      }
+      .animate-bounce { animation: bounce 1s infinite; }
       .scroll-hint {
-        position: absolute;
-        top: 50%;
         left: 50%;
-        transform: translate(-50%, -50%);
-        background: rgba(128, 128, 128, 0.5);
-        color: white;
-        padding: 10px 20px;
-        border-radius: 8px;
-        font-size: 1.2rem;
-        pointer-events: none;
-        transition: opacity 0.3s ease;
-        opacity: 1;
-        z-index: 10;
+        bottom: 40px;
+        top: unset;
+        transform: translateX(-50%);
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0% { opacity: 1; }
+        50% { opacity: 0.8; }
+        100% { opacity: 1; }
       }
 
       .animation-container {
@@ -123,7 +124,12 @@
             />
           </div>
 
-          <div class="scroll-hint" id="scrollHint">Scroll to interact</div>
+          <div class="scroll-hint" id="scrollHint">
+            <svg class="mx-auto mb-1 animate-bounce" width="32" height="32" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
+              <path d="M12 5v14M19 12l-7 7-7-7"/>
+            </svg>
+            <span style="display:block;">Scroll to interact</span>
+          </div>
 
           <div class="scroll-text-container">
             <div class="scroll-text-section" id="textSection1">
