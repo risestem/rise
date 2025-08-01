@@ -1,3 +1,4 @@
+```html name=curriculum.html
 <!doctype html>
 <html lang="en">
 <head>
@@ -34,6 +35,9 @@
   <section class="bg-gray-50">
     <div class="container mx-auto px-6 flex flex-col lg:flex-row">
 
+      <!-- Left Side Navigation (REMOVED) -->
+      <!-- <div id="curriculum-nav" class="-mt-6 w-full lg:w-1/3 hidden lg:block px-12"></div> -->
+
       <!-- Main Content -->
       <div class="w-full lg:w-3/5 py-6">
         <!-- Breadcrumb Navigation -->
@@ -45,8 +49,8 @@
           <span id="current-section" class="font-bold hidden"></span>
         </div>
 
-        <!-- Section Tabs (Mobile & Tablet) -->
-        <div id="curriculum-tabs" class="flex mb-6 lg:hidden"></div>
+        <!-- Section Tabs (Mobile & Tablet) (REMOVED) -->
+        <!-- <div id="curriculum-tabs" class="flex mb-6 lg:hidden"></div> -->
 
         <!-- Welcome -->
         <div id="welcome-content" class="section-content active">
@@ -80,50 +84,7 @@ async function loadCurriculum() {
   }
 }
 
-function createNav(sections) {
-  const nav = document.createElement('div');
-  nav.className = "bg-purple-950 pt-12 min-h-full text-white px-8 p-6 rounded-lg sticky top-20";
-  nav.innerHTML = '<h2 class="text-2xl font-bold mb-6">In This Section</h2>';
-  const navList = document.createElement('nav');
-  navList.className = "space-y-4";
-  sections.forEach(section => {
-    const btnId = nav-${section.id}-btn;
-    const subnavId = ${section.id}-subnav;
-    const iconId = ${section.id}-icon;
-    const btn = document.createElement('button');
-    btn.id = btnId;
-    btn.className = "block font-semibold text-lg w-full text-left transition-colors duration-300 hover:text-gray-300 flex justify-between items-center";
-    btn.innerHTML = ${section.name} <span id="${iconId}">+</span>;
-
-    const subnav = document.createElement('nav');
-    subnav.id = subnavId;
-    subnav.className = "space-y-2 pl-4 hidden";
-    section.days.forEach(day => {
-      const a = document.createElement('a');
-      a.href = #${section.id}-day${day.id.replace('day', '')};
-      a.className = "block text-md text-white hover:text-gray-300 transition-colors duration-300";
-      a.textContent = day.title;
-      subnav.appendChild(a);
-    });
-    navList.appendChild(btn);
-    navList.appendChild(subnav);
-  });
-  nav.appendChild(navList);
-  return nav;
-}
-
-function createTabs(sections) {
-  const tabs = document.createElement('div');
-  tabs.className = "flex mb-6 lg:hidden";
-  sections.forEach((section) => {
-    const tab = document.createElement('button');
-    tab.id = ${section.id}-tab;
-    tab.className = tab-button flex-1 py-3 px-4 font-bold text-center rounded border border-purple-950;
-    tab.textContent = section.name;
-    tabs.appendChild(tab);
-  });
-  return tabs;
-}
+// Removed createNav and createTabs functions
 
 function createWelcomeGrid(sections) {
   const grid = document.createElement('div');
@@ -131,7 +92,7 @@ function createWelcomeGrid(sections) {
   sections.forEach(section => {
     const card = document.createElement('div');
     card.className = "border p-6 rounded-lg shadow-md bg-gray-50 flex flex-col z-30 h-full";
-    card.innerHTML = 
+    card.innerHTML = `
       <h2 class="text-2xl font-bold text-purple-950 mb-4">${section.name}</h2>
       <p class="text-gray-500 mb-4">
         ${
@@ -148,7 +109,7 @@ function createWelcomeGrid(sections) {
       <button id="view-${section.id}-btn" class="mt-4 px-6 py-2 bg-purple-950 text-white rounded-md transform transition-all duration-300 hover:scale-110">
         View Curriculum
       </button>
-    ;
+    `;
     grid.appendChild(card);
   });
   return grid;
@@ -158,9 +119,9 @@ function createSectionContent(sections) {
   const container = document.createElement('div');
   sections.forEach((section) => {
     const secDiv = document.createElement('div');
-    secDiv.id = ${section.id}-content;
-    secDiv.className = section-content;
-    secDiv.innerHTML = 
+    secDiv.id = `${section.id}-content`;
+    secDiv.className = `section-content`;
+    secDiv.innerHTML = `
       <h1 class="text-3xl md:text-5xl font-extrabold bg-gray-50 text-purple-950 mb-8">${section.name} Curriculum</h1>
       <p class="text-lg mb-12 text-gray-500">
         ${section.description || (
@@ -170,33 +131,33 @@ function createSectionContent(sections) {
         )}
       </p>
       <div class="space-y-4">
-        ${section.days.map(day => 
+        ${section.days.map(day => `
           <div id="${section.id}-day${day.id.replace('day', '')}" class="border bg-gray-200 rounded">
             <button class="accordion-btn flex justify-between items-center w-full p-4 text-left text-purple-950 font-bold text-xl focus:outline-none">
               ${day.title}
               <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
             </button>
             <div class="accordion-content hidden p-4 bg-white">
-              ${day.pdf ? <iframe src="${day.pdf}" class="w-full h-screen" frameborder="0"></iframe> : <p>Coming Soon...</p>}
-              ${(day.pdf || day.ppt) ? 
+              ${day.pdf ? `<iframe src="${day.pdf}" class="w-full h-screen" frameborder="0"></iframe>` : `<p>Coming Soon...</p>`}
+              ${(day.pdf || day.ppt) ? `
               <div class="mt-6 border border-gray-300 rounded-lg">
-                ${day.pdf ? 
+                ${day.pdf ? `
                 <div class="flex items-center justify-between p-4 border-b border-gray-300">
                   <span class="text-lg text-gray-500">${day.title} Curriculum.pdf</span>
                   <a href="${day.pdf}" target="_blank"><button class="px-6 py-2 bg-white border border-gray-300 text-gray-500 rounded-lg hover:bg-gray-100 transition">Download</button></a>
-                </div> : ''}
-                ${day.ppt ? 
+                </div>` : ''}
+                ${day.ppt ? `
                 <div class="flex items-center justify-between p-4">
                   <span class="text-lg text-gray-500">${day.title} Slideshow.pptx</span>
                   <a href="${day.ppt}" download><button class="px-6 py-2 bg-white border border-gray-300 text-gray-500 rounded-lg hover:bg-gray-100 transition">Download</button></a>
-                </div> : ''}
+                </div>` : ''}
               </div>
-               : ''}
+              ` : ''}
             </div>
           </div>
-        ).join('')}
+        `).join('')}
       </div>
-    ;
+    `;
     container.appendChild(secDiv);
   });
   return container;
@@ -205,12 +166,15 @@ function createSectionContent(sections) {
 // Main loader
 loadCurriculum().then(curriculum => {
   if (!curriculum || !curriculum.sections || !Array.isArray(curriculum.sections)) {
-    document.getElementById('welcome-content').innerHTML += <div class="mt-12 text-center text-red-600">Failed to load curriculum. Please check curriculum.json.</div>;
+    document.getElementById('welcome-content').innerHTML += `<div class="mt-12 text-center text-red-600">Failed to load curriculum. Please check curriculum.json.</div>`;
     return;
   }
 
-  // Navigation (sidebar)
-  document.getElementById('curriculum-nav').appendChild(createNav(curriculum.sections));
+  // Navigation (sidebar) REMOVED
+  // document.getElementById('curriculum-nav').appendChild(createNav(curriculum.sections));
+
+  // Tabs (mobile/tablet) REMOVED
+  // document.getElementById('curriculum-tabs').appendChild(createTabs(curriculum.sections));
 
   // Welcome grid
   const welcomeGrid = createWelcomeGrid(curriculum.sections);
@@ -234,41 +198,48 @@ loadCurriculum().then(curriculum => {
     });
   });
 
-  // Tab and nav logic
+  // Tab and nav logic REMOVED
   curriculum.sections.forEach((section) => {
-    // Tabs
-    const tab = document.getElementById(${section.id}-tab);
-    if (tab) {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.tab-button').forEach(t => t.classList.remove('active'));
-        tab.classList.add('active');
+    // Tabs REMOVED
+    // const tab = document.getElementById(`${section.id}-tab`);
+    // if (tab) {
+    //   tab.addEventListener('click', () => {
+    //     document.querySelectorAll('.tab-button').forEach(t => t.classList.remove('active'));
+    //     tab.classList.add('active');
+    //     document.querySelectorAll('.section-content').forEach(sec => sec.classList.remove('active'));
+    //     document.getElementById('welcome-content').classList.remove('active');
+    //     document.getElementById(`${section.id}-content`).classList.add('active');
+    //     document.getElementById('breadcrumb-separator').classList.remove('hidden');
+    //     document.getElementById('current-section').classList.remove('hidden');
+    //     document.getElementById('current-section').textContent = section.name;
+    //   });
+    // }
+    // Welcome buttons
+    const viewBtn = document.getElementById(`view-${section.id}-btn`);
+    if (viewBtn) {
+      viewBtn.addEventListener('click', () => {
+        // Hide all section contents
         document.querySelectorAll('.section-content').forEach(sec => sec.classList.remove('active'));
         document.getElementById('welcome-content').classList.remove('active');
-        document.getElementById(${section.id}-content).classList.add('active');
+        document.getElementById(`${section.id}-content`).classList.add('active');
         document.getElementById('breadcrumb-separator').classList.remove('hidden');
         document.getElementById('current-section').classList.remove('hidden');
         document.getElementById('current-section').textContent = section.name;
       });
     }
-    // Welcome buttons
-    const viewBtn = document.getElementById(view-${section.id}-btn);
-    if (viewBtn) {
-      viewBtn.addEventListener('click', () => {
-        if (tab) tab.click();
-      });
-    }
-    // Sidebar nav
-    const navBtn = document.getElementById(nav-${section.id}-btn);
-    const subnav = document.getElementById(${section.id}-subnav);
-    const icon = document.getElementById(${section.id}-icon);
-    if (navBtn && subnav && icon) {
-      navBtn.addEventListener('click', () => {
-        subnav.classList.toggle('hidden');
-        icon.textContent = icon.textContent === '+' ? '-' : '+';
-      });
-    }
+    // Sidebar nav REMOVED
+    // const navBtn = document.getElementById(`nav-${section.id}-btn`);
+    // const subnav = document.getElementById(`${section.id}-subnav`);
+    // const icon = document.getElementById(`${section.id}-icon`);
+    // if (navBtn && subnav && icon) {
+    //   navBtn.addEventListener('click', () => {
+    //     subnav.classList.toggle('hidden');
+    //     icon.textContent = icon.textContent === '+' ? '-' : '+';
+    //   });
+    // }
   });
 });
 </script>
 </body>
 </html>
+```
