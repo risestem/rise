@@ -215,9 +215,6 @@ loadCurriculum().then(curriculum => {
   // Navigation (sidebar)
   document.getElementById('curriculum-nav').appendChild(createNav(curriculum.sections));
 
-  // Tabs (mobile/tablet)
-  document.getElementById('curriculum-tabs').appendChild(createTabs(curriculum.sections));
-
   // Welcome grid
   const welcomeGrid = createWelcomeGrid(curriculum.sections);
   const oldGrid = document.getElementById('welcome-grid');
