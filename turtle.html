@@ -66,6 +66,27 @@
         background-color: #374151 !important;
       }
 
+      
+      .scroll-hint {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: rgba(128, 128, 128, 0.5);
+        color: white;
+        padding: 10px 20px;
+        border-radius: 8px;
+        font-size: 1.2rem;
+        pointer-events: none;
+        transition: opacity 0.3s ease;
+        opacity: 1;
+        z-index: 10;
+      }
+
+      .animation-container {
+        position: relative;
+      }
+
       /* Responsive */
       @media (max-width: 768px) {
         .scroll-video-container { width: 90%; height: 70vh; right: 5%; top: 15%; }
@@ -101,6 +122,9 @@
               alt="Video Frame"
             />
           </div>
+
+          <div class="scroll-hint" id="scrollHint">Scroll to interact</div>
+
           <div class="scroll-text-container">
             <div class="scroll-text-section" id="textSection1">
               <h2>The Gogh Kart</h2>
@@ -253,9 +277,11 @@
           preloadedFrames.set(n, img);
         }
       }
+
       function preloadInitialFrames() {
         for (let i = 1; i <= Math.min(100, totalFrames); i++) preloadFrame(i);
       }
+
       function updateVideoFrame() {
         const frameNum = Math.floor(scrollProgress * (totalFrames - 1)) + 1;
         if (frameNum !== currentFrame) {
@@ -267,16 +293,19 @@
           for (let i = 1; i <= 30; i++) preloadFrame(frameNum + i);
         }
       }
+
       function showTextSection(s) {
         const el = document.getElementById(s.id);
         el.classList.remove('exit-left','exit-right');
         el.classList.add('active');
       }
+
       function hideTextSection(s) {
         const el = document.getElementById(s.id);
         el.classList.remove('active');
         el.classList.add(currentFrame > s.endFrame ? 'exit-right' : 'exit-left');
       }
+
       function updateTextSections() {
         const section = textSections.find(s =>
           currentFrame >= s.startFrame && currentFrame <= s.endFrame
@@ -294,35 +323,23 @@
       function completeAnimation() {
         if (animationComplete) return;
         animationComplete = true;
-
-        // snap to final frame
         scrollProgress = targetProgress = 1;
         updateVideoFrame();
-        // Progress bar update removed
         updateTextSections();
 
-        // show the post-animation content
         const postContent = document.querySelector('.post-animation-content');
         postContent.classList.add('visible');
 
-        // start the turtle drawing video from the beginning
         const turtleVideo = document.getElementById('turtleDrawVideo');
         if (turtleVideo) {
-          // Reset video to beginning and load it
           turtleVideo.currentTime = 0;
-          turtleVideo.load(); // Reload the video to ensure it starts fresh
-
-          // Start playing from the beginning
+          turtleVideo.load();
           turtleVideo.play().catch(e => console.log('Video autoplay prevented:', e));
-
-          // Start code line animation
           startCodeLineAnimation();
         }
 
-        // scroll it into view, respecting scroll-margin-top
         postContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-        // re-enable page scrolling after the fade
         setTimeout(() => {
           document.body.style.overflow = 'auto';
         }, 600);
@@ -333,14 +350,12 @@
         const postContent = document.querySelector('.post-animation-content');
         postContent.classList.remove('visible');
 
-        // pause the turtle drawing video when re-entering animation
         const turtleVideo = document.getElementById('turtleDrawVideo');
         if (turtleVideo) {
           turtleVideo.pause();
-          turtleVideo.currentTime = 0; // reset to beginning
+          turtleVideo.currentTime = 0;
         }
 
-        // stop code line animation
         stopCodeLineAnimation();
 
         document.body.style.overflow = 'hidden';
@@ -352,13 +367,36 @@
 
       const scrollSpeed = 0.0002;
       let lastScrollTime = 0;
-      const scrollThrottleMs = 16; // ~30fps - slower response
-      
+      const scrollThrottleMs = 16;
+
+      const scrollHint = document.getElementById("scrollHint");
+      let lastScrollHintTime = Date.now();
+      let hintVisible = true;
+      let scrollHintTimeout;
+
+      function hideHint() {
+        scrollHint.style.opacity = 0;
+        hintVisible = false;
+      }
+
+      function showHint() {
+        scrollHint.style.opacity = 1;
+        hintVisible = true;
+      }
+
       function handleScroll(deltaY) {
         const now = Date.now();
         if (now - lastScrollTime < scrollThrottleMs) return;
         lastScrollTime = now;
-        
+
+        // Hide scroll hint on any scroll
+        if (hintVisible) hideHint();
+        lastScrollHintTime = now;
+        clearTimeout(scrollHintTimeout);
+        scrollHintTimeout = setTimeout(() => {
+          if (Date.now() - lastScrollHintTime > 3000) showHint();
+        }, 3000);
+
         requestAnimationFrame(() => {
           if (!animationComplete) {
             let newProgress = targetProgress + deltaY * scrollSpeed;
@@ -375,7 +413,6 @@
               reenterAnimation();
               targetProgress = scrollProgress = 0.95;
               updateVideoFrame();
-              // Progress bar update removed
               updateTextSections();
             }
           }
@@ -385,58 +422,43 @@
       function animate() {
         scrollProgress += (targetProgress - scrollProgress) * 0.1;
         updateVideoFrame();
-        // Progress bar update removed
         updateTextSections();
         if (!animationComplete && scrollProgress >= 0.99) completeAnimation();
         requestAnimationFrame(animate);
       }
 
-      // Code line animation variables
       let videoSyncEnabled = false;
       let codeTimestamps = [];
 
       function handleVideoTimeUpdate() {
         if (!videoSyncEnabled) return;
-
         const turtleVideo = document.getElementById('turtleDrawVideo');
         if (!turtleVideo) return;
-
         const currentTime = turtleVideo.currentTime;
 
-        // Find which code line should be highlighted at current time
         const activeTimestamp = codeTimestamps.find(ts =>
           currentTime >= ts.time && currentTime < (ts.time + ts.duration)
         );
 
         if (activeTimestamp) {
-          // Clear all highlights first
           clearAllHighlights();
-          // Highlight the active line
           highlightCodeLine(activeTimestamp.lineId);
         }
       }
 
       function startCodeLineAnimation() {
-        // Clear any existing animation
         stopCodeLineAnimation();
-
         const turtleVideo = document.getElementById('turtleDrawVideo');
         if (!turtleVideo) return;
 
-        // Define timestamps (in seconds) when each code line should be highlighted
         codeTimestamps = [
-          { time: 0,  lineId: 'code-line-pendown',  duration: 1.0 },  // penDown() - pen touches paper
-          { time: 1.0,  lineId: 'code-line-forward',  duration: 2.0 },  // forward() - drawing happens
-          { time: 3.5,  lineId: 'code-line-penup',    duration: 1.0 },  // penUp() - pen lifts
+          { time: 0,    lineId: 'code-line-pendown', duration: 1.0 },
+          { time: 1.0,  lineId: 'code-line-forward', duration: 2.0 },
+          { time: 3.5,  lineId: 'code-line-penup',   duration: 1.0 },
         ];
 
-        // Enable video sync
         videoSyncEnabled = true;
-
-        // Add event listener for video time updates
         turtleVideo.addEventListener('timeupdate', handleVideoTimeUpdate);
-
-        // Start with first line highlighted
         highlightCodeLine(codeTimestamps[0].lineId);
       }
 
@@ -502,11 +524,18 @@
         window.addEventListener('resize', () => {
           if (!animationComplete) {
             updateVideoFrame();
-            // Progress bar update removed
             updateTextSections();
           }
         });
+
+        // Hint recovery timer (if user never scrolls)
+        setInterval(() => {
+          if (!hintVisible && Date.now() - lastScrollHintTime > 5000) {
+            showHint();
+          }
+        }, 1000);
       }
+
       window.addEventListener('load', init);
     </script>
   </body>
