@@ -32,7 +32,7 @@
     },
     {
       "id": "engineering",
-      "name": "Engineering",
+      "name": "Introduction to Engineering",
       "days": [
         {
           "id": "day1",
@@ -63,6 +63,62 @@
           "title": "Day 5 - Chemical Engineering",
           "pdf": "https://docs.google.com/document/d/1YPgboiWMLOaYQVKC-DLHOvFJIoDDvbyTKDUh0LsZr78/preview",
           "ppt": "https://docs.google.com/presentation/d/1ToIvs1hwWYi81sRUmIrROCD6LMepWft9BvXW_DGTyls/edit?slide=id.g155242cd9ab_0_28622#slide=id.g155242cd9ab_0_28622"
+        },
+        {
+          "id": "dayqt5t7d",
+          "title": "Day 6 - Material Engineering",
+          "pdf": "https://docs.google.com/document/d/1_7_PZSpfwLKtKVKaNuJfC-jC3chO80P59jQ7A4lFYDY/preview",
+          "ppt": "https://docs.google.com/presentation/d/1a8JvO9zpaa2AUv-c00LfR4gqne7_uT-vKtBd_K199Ls/edit?usp=drive_link"
+        },
+        {
+          "id": "day8t6iwa",
+          "title": "Day 7 - Environmental Engineering",
+          "pdf": "https://docs.google.com/document/d/1bflRMpyV6TLl0BvNU4jh-fYVprES4MIHMui4cvW86hQ/preview",
+          "ppt": "https://docs.google.com/presentation/d/1lovBBKNAJ8tCnpyE-aYQJgqUn-Md2YYvBvYwFgk-kvM/edit?usp=drive_link"
+        },
+        {
+          "id": "dayki8ran",
+          "title": "Day 8 - Structural Engineering",
+          "pdf": "https://docs.google.com/document/d/1AvxMWi0p8kzUSVPJhMkq7hzgmGbrmst9IdovVY4Fzp8/preview",
+          "ppt": "https://docs.google.com/presentation/d/1fUHBVhrNLyhcg5G5VF-tvQdxH-wghDQyCuyMOEMnlnI/preview"
+        }
+      ]
+    },
+    {
+      "id": "sectionfi8x2s",
+      "name": "Career Exploration",
+      "welcome_description": "Our Career Exploration curriculum introduces students to a wide range of STEM careers through interactive sessions, guest speakers, hands-on activities, and reflective goal-setting.",
+      "description": "This multi-day curriculum is designed to help students discover and connect with real-world STEM pathways in an engaging, student-centered environment. The program begins with a foundational session focused on self-reflection and myth-busting to help students identify their own interests and values. In the following days, students will hear from STEM professionals and explore different fields, such as engineering, coding, and science, through creative projects, group activities, and games. Each session builds toward a deeper understanding of what STEM careers look like, the skills they require, and how students can shape their own unique paths. Led by a mix of high school volunteers and guest speakers, this curriculum encourages curiosity, personal growth, and the idea that STEM is for everyone.",
+      "days": [
+        {
+          "id": "dayz2wb42",
+          "title": "Day 1 - Career Exploration: Introduction",
+          "pdf": "https://docs.google.com/document/d/1RcNkI67RDmXr7BljVSQxVsREjKDlBkQJ/preview",
+          "ppt": "https://docs.google.com/presentation/d/1YQR9vNXf5xF33SnapKur2cBawaybtrNW/edit?slide=id.p1#slide=id.p1"
+        },
+        {
+          "id": "daynbcoy1",
+          "title": "Day 2 - Mechanical Engineer",
+          "pdf": "https://docs.google.com/document/d/1S0URw6R_bOZ-ikphWCkdxZAuHB4E87zY/preview",
+          "ppt": ""
+        },
+        {
+          "id": "dayuhm4pu",
+          "title": "Day 3 - Computer Scientist",
+          "pdf": "https://docs.google.com/document/d/1HAgEjVVN-K-eC5ICHD7qoQMqyzwitIDG/preview",
+          "ppt": ""
+        },
+        {
+          "id": "dayzz3qjy",
+          "title": "Day 4 - Medical Researcher",
+          "pdf": "https://docs.google.com/document/d/1KRw3NX6gYQ3IIUs15AnAEsQEjpBbvh74/preview",
+          "ppt": ""
+        },
+        {
+          "id": "dayieup76",
+          "title": "Day 5 - Career Exploration: Wrap Up",
+          "pdf": "https://docs.google.com/document/d/1tib6v65Ov0j2wXt4SC5q5iUDHkj9IpTv/preview",
+          "ppt": ""
         }
       ]
     }

@@ -1,2 +1,3 @@
 # Profile Owen Lahiji
 
+Owen “Hij” Lahiji is a senior at The Westminster Schools who is interested in chemistry, physics, and linguistics.  He enjoys listening to music; some of his favorite bands as of now are Stone Temple Pilots, The Strokes, and The Smashing Pumpkins. In his free time, Owen enjoys watching professional darts and LeBron highlights (he does this instead of studying). In his freetime, Owen enjoys playing basketball and yelling “Is this the dagger?!” for every shot he takes.

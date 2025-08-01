@@ -43,114 +43,105 @@
   <div id="header-container"></div>
   <script type="module" src="/scripts/loadHeader.js"></script>
 
-  <!-- Banner -->
-  <section class="w-full flex items-start justify-center px-6 pt-32 bg-gray-50">
-    <div class="flex justify-between items-center w-full max-w-screen-xl">
-      <!-- Left Title -->
-      <h1 class="text-[72px] font-extrabold text-gray-900 leading-none">
+  <section class="bg-gray-50 w-full relative">
+  <!-- Background Image Hero -->
+  <div class="w-full h-[60vh] bg-[url('/public/eneng_sister_1.png')] bg-cover bg-center bg-no-repeat flex items-center justify-center relative z-0">
+    <!-- Gradient Overlay -->
+    <div class="absolute inset-0 h-full bg-black/50 z-0"></div>
+
+    <!-- Content -->
+    <div class="flex flex-col text-center items-center justify-center px-6 sm:px-16 md:px-32 relative z-10">
+      <h1 class="mt-16 text-3xl font-extrabold text-white md:text-5xl xl:text-6xl drop-shadow-lg">
         RISE Kits
       </h1>
+      <p class="mt-4 text-lg md:text-xl text-white font-medium">
+        Empowering tomorrow’s engineers, one kit at a time.
+      </p>
+      <p class="mt-2 text-md text-white max-w-2xl">
+        Designed by students, for students.
+      </p>
+    </div>
+  </div>
+</section>
 
-      <!-- Right Slogan -->
-      <div class="flex flex-col justify-between text-[24px] leading-[1.2] text-gray-700 text-right h-[72px]">
-        <span>Empowering tomorrow's engineers,</span>
-        <span>one kit at a time.</span>
+  
+  <!-- Get to Know RISE Kits Section (Redesigned to match "How does it work?" style) -->
+<section class="max-w-5xl mx-auto px-6 md:px-8 py-8">
+  <div class="bg-white rounded-2xl shadow-md border border-gray-200 p-6 md:p-10">
+    <h2 class="text-2xl font-bold mb-3 text-purple-900 text-center">Get to Know RISE Kits</h2>
+    <p class="text-lg text-gray-600 mb-6 text-center max-w-2xl mx-auto">
+      Discover how our hands-on STEM kits help students learn real-world building, coding, and engineering skills. 
+    </p>
+    <ol class="list-decimal text-left text-gray-700 text-lg px-4 mb-4">
+      <li class="mb-3">
+        <span class="font-bold text-purple-900">What is a RISE Kit?</span>
+        <br>
+        Each RISE Kit comes with 3D-printed parts, electronics, and clear instructions to spark curiosity and teach engineering and coding skills through creative, project-based activities.
+      </li>
+      <li class="mb-3">
+        <span class="font-bold text-purple-900">What makes them special?</span>
+        <ul class="list-disc ml-8 mt-1 text-base text-gray-600 space-y-1">
+          <li>Hands-on building and assembly</li>
+          <li>Programming and coding integration</li>
+          <li>Real-world engineering concepts</li>
+          <li>Step-by-step learning materials</li>
+        </ul>
+      </li>
+      <li class="mb-3">
+        <span class="font-bold text-purple-900">How can you get a RISE Kit?</span>
+        <ol class="list-decimal ml-8 mt-1 text-base text-gray-600 space-y-1">
+          <li>
+            <span class="font-semibold text-purple-900">Attend a Workshop:</span>
+            Join our <b>free</b> hands-on events, where you'll build and code your own kit with help from student mentors. Every participant gets to take home their kit. <a href="/workshops" class="text-purple-950 underline hover:text-purple-700">See upcoming workshops</a>.
+          </li>
+          <li>
+            <span class="font-semibold text-purple-900">Through Your School:</span>
+            We partner with teachers and educational organizations to bring RISE Kits to classrooms, clubs, and enrichment programs. <a href="mailto:contact@risestem.org?subject=RISE Kits Inquiry - Teacher/Administrator" class="text-purple-950 underline hover:text-purple-700">Contact us</a> if you'd like to introduce RISE Kits at your school.
+          </li>
+        </ol>
+      </li>
+    </ol>
+    <div class="text-center text-sm text-purple-700 mt-2">
+      <b>Questions?</b> Reach out to our team at <a href="mailto:contact@risestem.org" class="underline text-purple-800 hover:text-purple-600">contact@risestem.org</a>.
+    </div>
+  </div>
+</section>
+
+  <section class="max-w-5xl mx-auto px-6 md:px-8 pt-10 pb-8">
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+    
+    <!-- Hands-on Building -->
+    <div class="bg-white rounded-2xl border border-purple-100 shadow-lg p-6 flex flex-col items-center">
+      <div class="h-[240px] w-full max-w-xs mb-4 overflow-hidden rounded-xl shadow-md border border-gray-200">
+        <img src="/public/eneng_sister_2.png" alt="Building a RISE Kit" class="w-full h-full object-cover" />
+      </div>
+      <div class="text-center">
+        <span class="block text-purple-900 font-bold text-lg mb-1">Hands-on Building</span>
+        <span class="text-gray-700 text-md">Put together components, and explore how it all works.</span>
       </div>
     </div>
-  </section>
 
-  <!-- Get to Know RISE Kits Section -->
-  <section class="w-full bg-white py-16">
-    <div class="container mx-auto px-6">
-      <!-- Section Header -->
-      <div class="text-center mb-12">
-        <h2 class="text-4xl font-bold text-purple-950 mb-4">Get to Know RISE Kits</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">Everything you need to know about our educational STEM kits and how to get started.</p>
+    <!-- Creative Coding -->
+    <div class="bg-white rounded-2xl border border-purple-100 shadow-lg p-6 flex flex-col items-center">
+      <div class="h-[240px] w-full max-w-xs mb-4 overflow-hidden rounded-xl shadow-md border border-gray-200">
+        <img src="/public/arduino.png" alt="Creative Coding" class="w-full h-full object-cover" />
       </div>
-
-      <!-- Subsections Grid -->
-      <div class="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-
-        <!-- What are RISE Kits -->
-        <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200 shadow-sm">
-          <div class="flex items-center mb-6">
-            <div class="w-12 h-12 bg-purple-950 rounded-lg flex items-center justify-center mr-4 icon-container">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-            </div>
-            <h3 class="text-2xl font-bold text-purple-950">What are RISE Kits?</h3>
-          </div>
-          <p class="text-gray-600 leading-relaxed mb-4">
-            RISE Kits are hands-on educational STEM kits designed to bridge the gap between digital learning and real-world application. Each kit combines 3D-printed components, off-the-shelf parts, and comprehensive programming guides to create engaging learning experiences.
-          </p>
-          <p class="text-gray-600 leading-relaxed mb-6">
-            From drawing robots to electronic circuits, our kits teach fundamental engineering and programming concepts through practical, project-based learning that students can see, touch, and interact with.
-          </p>
-          <ul class="space-y-2 text-gray-600">
-            <li class="flex items-center">
-              <span class="w-2 h-2 bg-purple-950 rounded-full mr-3"></span>
-              Hands-on building and assembly
-            </li>
-            <li class="flex items-center">
-              <span class="w-2 h-2 bg-purple-950 rounded-full mr-3"></span>
-              Programming and coding integration
-            </li>
-            <li class="flex items-center">
-              <span class="w-2 h-2 bg-purple-950 rounded-full mr-3"></span>
-              Real-world engineering concepts
-            </li>
-            <li class="flex items-center">
-              <span class="w-2 h-2 bg-purple-950 rounded-full mr-3"></span>
-              Comprehensive learning materials
-            </li>
-          </ul>
-        </div>
-
-        <!-- Where can I get RISE Kits -->
-        <div class="bg-gray-50 rounded-2xl p-8 border border-gray-200 shadow-sm">
-          <div class="flex items-center mb-6">
-            <div class="w-12 h-12 bg-purple-950 rounded-lg flex items-center justify-center mr-4 icon-container">
-              <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 616 0z"></path>
-              </svg>
-            </div>
-            <h3 class="text-2xl font-bold text-purple-950">Where can I get RISE Kits?</h3>
-          </div>
-          <p class="text-gray-600 leading-relaxed mb-6">
-            RISE Kits are available through multiple channels to ensure accessibility for educators, students, and families. We offer flexible options to meet everyone's needs.
-          </p>
-
-          <div class="space-y-4 mb-6">
-            <div class="border-l-4 border-purple-950 pl-4">
-              <h4 class="font-semibold text-gray-800 mb-1">Workshop Programs</h4>
-              <p class="text-gray-600 text-sm">
-                We host <span class="font-bold text-purple-950">free</span> workshops where participants receive RISE Kits and mentors guide participants through building and coding their own kits. Each attendee gets to take their kit home to keep exploring and creating. Learn more about workshops <a href="/workshops" class="text-purple-950 underline hover:text-purple-700">here</a>.
-              </p>
-            </div>
-            <div class="border-l-4 border-purple-950 pl-4">
-              <h4 class="font-semibold text-gray-800 mb-1">Educational Institutions</h4>
-              <p class="text-gray-600 text-sm">We partner with schools and educational organizations to provide RISE Kits for use in classrooms, clubs, and enrichment programs. If you're a teacher or administrator interested in bringing engaging, hands-on learning to your students, contact us <a href="mailto:contact@risestem.org?subject=RISE Kits Inquiry - Teacher/Administrator" class="text-purple-950 underline hover:text-purple-700">here</a>.</p>
-            </div>
-            <div class="border-l-4 border-purple-950 pl-4">
-              <h4 class="font-semibold text-gray-800 mb-1">Distribution Partners</h4>
-              <p class="text-gray-600 text-sm">In the future, we plan to set up local distribution centers where students can pick up their own RISE Kits. Stay tuned for updates.</p>
-            </div>
-          </div>
-
-        </div>
-
+      <div class="text-center">
+        <span class="block text-purple-900 font-bold text-lg mb-1">Creative Coding</span>
+        <span class="text-gray-700 text-md">Learn programming to bring your kit to life.</span>
       </div>
     </div>
-  </section>
+
+  </div>
+</section>
+
 
   <!-- Main content -->
   <main id="kits-overview" class="flex-grow w-full bg-gray-50 py-16">
     <div class="container mx-auto px-6">
       <!-- Collection Header -->
       <div class="text-center mb-12">
-        <h2 class="text-4xl font-bold text-gray-900 mb-4">Browse the collection.</h2>
+        <h2 class="text-4xl font-bold text-purple-950 mb-4">Browse the collection.</h2>
         <p class="text-xl text-gray-600 max-w-3xl mx-auto">Explore our range of STEM kits designed to inspire and educate the next generation of engineers and creators.</p>
       </div>
 
@@ -171,7 +162,7 @@
 
       <!-- Call to Action -->
       <div class="text-center mt-12">
-        <p class="text-gray-600 mb-6">Want to know more?</p>
+        <p class="text-gray-600 mb-6">Want to learn more?</p>
         <a href="mailto:contact@risestem.org" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-8 rounded-full transition-colors duration-300 shadow-md hover:shadow-lg">
           Contact Us Today!
         </a>
@@ -184,7 +175,7 @@
       const kits = [
         {
           id: 'turtle',
-          name: 'Turtle Kit',
+          name: 'Gogh Kart',
           description: 'A drawing robot that brings code to life through art. Learn programming fundamentals while creating beautiful designs.',
           image: '/public/turtleRobot.png',
           alt: 'Turtle Kit',
@@ -221,7 +212,7 @@
             kitElement.innerHTML = `
               <div class="h-64 bg-gray-50 flex flex-col items-center justify-center p-8 text-center">
                 <span class="text-6xl mb-4">${kit.emoji}</span>
-                <h3 class="text-xl font-bold text-gray-900 mb-2">${kit.name}</h3>
+                <h3 class="text-xl font-bold text-purple-950 mb-2">${kit.name}</h3>
                 <p class="text-gray-500">${kit.description}</p>
               </div>
             `;
@@ -248,7 +239,7 @@
                   <img src="${kit.image}" alt="${kit.alt}" class="max-h-full max-w-full object-contain">
                 </div>
                 <div class="p-6">
-                  <h3 class="text-xl font-bold text-gray-900 mb-2">${kit.name}</h3>
+                  <h3 class="text-xl font-bold text-purple-950 mb-2">${kit.name}</h3>
                   <div class="flex flex-wrap gap-2 mb-4">
                     ${tagsHTML}
                   </div>
