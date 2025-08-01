@@ -26,7 +26,7 @@
         <div class="bg-white  p-4 rounded-2xl border border-gray-300 shadow-md mb-8">
           <div class="flex justify-center text-center">
             <h2 class=" text-3xl font-poppins font-semibold text-purple-950 md:text-4xl">
-              Upcoming <span class="font-extrabold">Workshops</span>
+              RISE <span class="font-extrabold">Workshops</span>
             </h2>
           </div>
           <div class="flex justify-center items-center pt-4 flex-col">
@@ -34,6 +34,14 @@
               Explore, build, compete, and discover! RISE STEM workshops are hands-on, collaborative, and open to all students.<br>
               See the calendar below for upcoming events and details about each workshop.
             </p>
+            <div class="flex justify-center mt-4">
+              <a href="#calendar" class="flex items-center gap-2 px-5 py-2 text-sm font-medium text-gray-700 border border-gray-400 bg-gray-50 rounded hover:bg-gray-100 transition duration-300">
+                Upcoming Workshops
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 transform group-hover:translate-y-1 transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 13l-5 5m0 0l-5-5m5 5V6" />
+                </svg>
+              </a>
+            </div>
           </div>
         </div>
 
@@ -190,18 +198,7 @@
             </div>
           </div>
         </div>
-        
-        <!-- Calendar Embed (Google Calendar or similar) -->
-        <div class="bg-white  p-4 rounded-2xl border border-gray-300 shadow-md mb-12">
-          <h3 class="text-xl font-bold text-purple-950 mb-4">Workshop Calendar</h3>
-          <!-- Replace the src below with your actual Google Calendar embed link -->
-          <iframe class="calendar-iframe"
-            src="https://calendar.google.com/calendar/embed?src=7fa8155344dd048c1c29dca0d39505bf99de994523f7f6e6ea75f2b4410ff809%40group.calendar.google.com&ctz=America%2FNew_York"
-            style="border: 0"
-            frameborder="0"
-            scrolling="no">
-          </iframe>
-        </div>
+
         <!-- Signup -->
         <div class="mt-8 mb-8 w-full flex justify-center">
           <div class="bg-white border border-gray-300 rounded-2xl shadow-md p-8 w-full max-w-xl text-center">
@@ -211,6 +208,18 @@
               Sign Up Now
             </a>
           </div>
+        </div>
+        
+        <!-- Calendar Embed (Google Calendar or similar) -->
+        <div id="calendar" class="bg-white  p-4 rounded-2xl border border-gray-300 shadow-md mb-12">
+          <h3 class="text-xl font-bold text-purple-950 mb-4">Workshop Calendar</h3>
+          <!-- Replace the src below with your actual Google Calendar embed link -->
+          <iframe class="calendar-iframe"
+            src="https://calendar.google.com/calendar/embed?src=7fa8155344dd048c1c29dca0d39505bf99de994523f7f6e6ea75f2b4410ff809%40group.calendar.google.com&ctz=America%2FNew_York"
+            style="border: 0"
+            frameborder="0"
+            scrolling="no">
+          </iframe>
         </div>
       
         <div id="contact-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
