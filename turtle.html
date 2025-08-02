@@ -77,19 +77,15 @@
         justify-content: center;
         color: #6b46c1;
         font-family: 'Poppins', sans-serif;
-        font-size: 1.1rem;
-        font-weight: 500;
+        font-size: 1.3rem;
+        font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.05em;
         opacity: 0;
-        transition: opacity 0.5s ease-in-out, transform 0.3s ease;
+        transition: opacity 0.5s ease-in-out;
         z-index: 50;
         pointer-events: none;
-        text-shadow: 0 1px 2px rgba(0,0,0,0.1);
-        background: rgba(255, 255, 255, 0.9);
-        padding: 0.75rem 1.5rem;
-        border-radius: 2rem;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
       }
 
       .scroll-hint.visible {
@@ -97,12 +93,12 @@
       }
 
       .scroll-hint .arrow {
-        width: 24px;
-        height: 40px;
-        margin-top: 8px;
+        width: 30px;
+        height: 50px;
+        margin-top: 12px;
         position: relative;
         animation: bounce 2s infinite;
-        filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
+        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
       }
 
       .scroll-hint .arrow::before,
