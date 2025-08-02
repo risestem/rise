@@ -68,7 +68,7 @@
 
       .scroll-hint {
         position: fixed;
-        bottom: 2rem;
+        bottom: 3rem;
         left: 50%;
         transform: translateX(-50%);
         display: flex;
@@ -76,12 +76,20 @@
         align-items: center;
         justify-content: center;
         color: #6b46c1;
-        font-size: 0.9rem;
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.1rem;
         font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
         opacity: 0;
-        transition: opacity 0.5s ease-in-out;
+        transition: opacity 0.5s ease-in-out, transform 0.3s ease;
         z-index: 50;
         pointer-events: none;
+        text-shadow: 0 1px 2px rgba(0,0,0,0.1);
+        background: rgba(255, 255, 255, 0.9);
+        padding: 0.75rem 1.5rem;
+        border-radius: 2rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       }
 
       .scroll-hint.visible {
@@ -94,6 +102,7 @@
         margin-top: 8px;
         position: relative;
         animation: bounce 2s infinite;
+        filter: drop-shadow(0 1px 2px rgba(0,0,0,0.1));
       }
 
       .scroll-hint .arrow::before,
