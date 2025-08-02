@@ -66,10 +66,11 @@
         background-color: #374151 !important;
       }
 
+      /* Improved Scroll Hint styles */
       .scroll-hint {
-        position: fixed;
-        bottom: 3rem;
+        position: absolute;
         left: 50%;
+        bottom: 32px;
         transform: translateX(-50%);
         display: flex;
         flex-direction: column;
@@ -77,61 +78,43 @@
         justify-content: center;
         color: #6b46c1;
         font-family: 'Poppins', sans-serif;
-        font-size: 1.3rem;
+        font-size: 1.25rem;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.05em;
         opacity: 0;
-        transition: opacity 0.5s ease-in-out;
+        transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1);
         z-index: 50;
         pointer-events: none;
-        text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        text-shadow: 0 2px 4px rgba(0,0,0,0.07);
+        user-select: none;
       }
-
       .scroll-hint.visible {
         opacity: 1;
+        pointer-events: all;
       }
 
+      /* Nicer arrow design */
       .scroll-hint .arrow {
-        width: 30px;
-        height: 50px;
-        margin-top: 12px;
-        position: relative;
-        animation: bounce 2s infinite;
-        filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 8px;
       }
-
-      .scroll-hint .arrow::before,
-      .scroll-hint .arrow::after {
-        content: '';
-        position: absolute;
-        width: 2px;
-        height: 15px;
-        background: currentColor;
-        bottom: 0;
-        left: 50%;
+      .scroll-hint .arrow svg {
+        display: block;
+        width: 32px;
+        height: 48px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 3;
+        filter: drop-shadow(0 4px 8px rgba(107,70,193,0.11));
+        animation: arrowBounce 1.8s infinite;
       }
-
-      .scroll-hint .arrow::before {
-        transform: translateX(-4px) rotate(45deg);
-        transform-origin: bottom left;
-      }
-
-      .scroll-hint .arrow::after {
-        transform: translateX(2px) rotate(-45deg);
-        transform-origin: bottom right;
-      }
-
-      @keyframes bounce {
-        0%, 20%, 50%, 80%, 100% {
-          transform: translateY(0);
-        }
-        40% {
-          transform: translateY(-10px);
-        }
-        60% {
-          transform: translateY(-5px);
-        }
+      @keyframes arrowBounce {
+        0%, 20%, 50%, 80%, 100% { transform: translateY(0);}
+        40% { transform: translateY(-14px);}
+        60% { transform: translateY(-7px);}
       }
 
       .animation-container {
@@ -144,11 +127,13 @@
         .scroll-text-container  { width: 90%; left: 5%; top: 85%; }
         .scroll-text-section h2  { font-size: 1.5rem; }
         .scroll-text-section p   { font-size: 1rem; }
+        .scroll-hint { font-size: 1rem; }
       }
       @media (max-width: 640px) {
         .animation-container  { flex-direction: column; padding: 2rem 1rem; }
         .scroll-video-container { position: relative; width: 100%; height: 60vh; right: auto; top: auto; transform: none; margin-bottom: 2rem; }
         .scroll-text-container   { position: relative; width: 100%; left: auto; top: auto; transform: none; }
+        .scroll-hint { font-size: 0.95rem; }
       }
     </style>
   </head>
@@ -176,7 +161,13 @@
 
           <div class="scroll-hint" id="scrollHint">
             <span>Scroll to interact</span>
-            <div class="arrow"></div>
+            <div class="arrow">
+              <!-- SVG for nice down arrow -->
+              <svg viewBox="0 0 32 48">
+                <path d="M16 8 v28" stroke-linecap="round"/>
+                <path d="M7 33 l9 9 l9-9" stroke-linecap="round"/>
+              </svg>
+            </div>
           </div>
 
           <div class="scroll-text-container">
@@ -423,39 +414,50 @@
       let lastScrollTime = 0;
       const scrollThrottleMs = 16;
 
+      // Bouncing arrow hint logic (improved)
       const scrollHint = document.getElementById("scrollHint");
-      let hintTimeout;
-      let lastScrollPosition = window.scrollY;
-      let scrollDirection = 0;
+      let hintVisible = false;
+      let userHasScrolled = false;
 
       function showScrollHint() {
-        clearTimeout(hintTimeout);
         scrollHint.classList.add('visible');
-        
-        // Hide after 4 seconds if user doesn't scroll
-        hintTimeout = setTimeout(() => {
-          if (window.scrollY === 0) {
-            scrollHint.classList.remove('visible');
-          }
-        }, 4000);
+        hintVisible = true;
+      }
+      function hideScrollHint() {
+        scrollHint.classList.remove('visible');
+        hintVisible = false;
       }
 
-      // Initial show with delay
-      setTimeout(showScrollHint, 1000);
+      // Show on load
+      window.addEventListener('DOMContentLoaded', showScrollHint);
 
-      // Track scroll direction
+      // Hide when user scrolls (any direction)
       window.addEventListener('scroll', () => {
-        const currentScroll = window.scrollY;
-        scrollDirection = currentScroll > lastScrollPosition ? 1 : -1;
-        lastScrollPosition = currentScroll;
-
-        // Hide hint when scrolling down, show when at top
-        if (scrollDirection > 0 && currentScroll > 10) {
-          scrollHint.classList.remove('visible');
-        } else if (currentScroll === 0) {
-          showScrollHint();
+        if (!userHasScrolled && window.scrollY > 0) {
+          hideScrollHint();
+          userHasScrolled = true;
         }
       });
+
+      // Also hide on wheel interaction (for mouse users)
+      window.addEventListener('wheel', () => {
+        if (!userHasScrolled) {
+          hideScrollHint();
+          userHasScrolled = true;
+        }
+      }, { passive: true });
+
+      // Hide hint if user presses any key to scroll (for keyboard users)
+      window.addEventListener('keydown', e => {
+        if (!userHasScrolled &&
+          ['ArrowDown','ArrowUp','PageDown','PageUp',' '].includes(e.key)) {
+          hideScrollHint();
+          userHasScrolled = true;
+        }
+      });
+
+      let lastScrollPosition = window.scrollY;
+      let scrollDirection = 0;
 
       function handleScroll(deltaY) {
         const now = Date.now();
@@ -592,13 +594,6 @@
             updateTextSections();
           }
         });
-
-        // Hint recovery timer (if user never scrolls)
-        setInterval(() => {
-          if (!hintVisible && Date.now() - lastScrollHintTime > 5000) {
-            showHint();
-          }
-        }, 1000);
       }
 
       window.addEventListener('load', init);
