@@ -66,22 +66,67 @@
         background-color: #374151 !important;
       }
 
-      @keyframes bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(10px); }
-      }
-      .animate-bounce { animation: bounce 1s infinite; }
       .scroll-hint {
+        position: fixed;
+        bottom: 2rem;
         left: 50%;
-        bottom: 40px;
-        top: unset;
         transform: translateX(-50%);
-        animation: pulse 2s infinite;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #6b46c1;
+        font-size: 0.9rem;
+        font-weight: 500;
+        opacity: 0;
+        transition: opacity 0.5s ease-in-out;
+        z-index: 50;
+        pointer-events: none;
       }
-      @keyframes pulse {
-        0% { opacity: 1; }
-        50% { opacity: 0.8; }
-        100% { opacity: 1; }
+
+      .scroll-hint.visible {
+        opacity: 1;
+      }
+
+      .scroll-hint .arrow {
+        width: 24px;
+        height: 40px;
+        margin-top: 8px;
+        position: relative;
+        animation: bounce 2s infinite;
+      }
+
+      .scroll-hint .arrow::before,
+      .scroll-hint .arrow::after {
+        content: '';
+        position: absolute;
+        width: 2px;
+        height: 15px;
+        background: currentColor;
+        bottom: 0;
+        left: 50%;
+      }
+
+      .scroll-hint .arrow::before {
+        transform: translateX(-4px) rotate(45deg);
+        transform-origin: bottom left;
+      }
+
+      .scroll-hint .arrow::after {
+        transform: translateX(2px) rotate(-45deg);
+        transform-origin: bottom right;
+      }
+
+      @keyframes bounce {
+        0%, 20%, 50%, 80%, 100% {
+          transform: translateY(0);
+        }
+        40% {
+          transform: translateY(-10px);
+        }
+        60% {
+          transform: translateY(-5px);
+        }
       }
 
       .animation-container {
@@ -125,10 +170,8 @@
           </div>
 
           <div class="scroll-hint" id="scrollHint">
-            <svg class="mx-auto mb-1 animate-bounce" width="32" height="32" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24">
-              <path d="M12 5v14M19 12l-7 7-7-7"/>
-            </svg>
-            <span style="display:block;">Scroll to interact</span>
+            <span>Scroll to interact</span>
+            <div class="arrow"></div>
           </div>
 
           <div class="scroll-text-container">
@@ -376,32 +419,43 @@
       const scrollThrottleMs = 16;
 
       const scrollHint = document.getElementById("scrollHint");
-      let lastScrollHintTime = Date.now();
-      let hintVisible = true;
-      let scrollHintTimeout;
+      let hintTimeout;
+      let lastScrollPosition = window.scrollY;
+      let scrollDirection = 0;
 
-      function hideHint() {
-        scrollHint.style.opacity = 0;
-        hintVisible = false;
+      function showScrollHint() {
+        clearTimeout(hintTimeout);
+        scrollHint.classList.add('visible');
+        
+        // Hide after 4 seconds if user doesn't scroll
+        hintTimeout = setTimeout(() => {
+          if (window.scrollY === 0) {
+            scrollHint.classList.remove('visible');
+          }
+        }, 4000);
       }
 
-      function showHint() {
-        scrollHint.style.opacity = 1;
-        hintVisible = true;
-      }
+      // Initial show with delay
+      setTimeout(showScrollHint, 1000);
+
+      // Track scroll direction
+      window.addEventListener('scroll', () => {
+        const currentScroll = window.scrollY;
+        scrollDirection = currentScroll > lastScrollPosition ? 1 : -1;
+        lastScrollPosition = currentScroll;
+
+        // Hide hint when scrolling down, show when at top
+        if (scrollDirection > 0 && currentScroll > 10) {
+          scrollHint.classList.remove('visible');
+        } else if (currentScroll === 0) {
+          showScrollHint();
+        }
+      });
 
       function handleScroll(deltaY) {
         const now = Date.now();
         if (now - lastScrollTime < scrollThrottleMs) return;
         lastScrollTime = now;
-
-        // Hide scroll hint on any scroll
-        if (hintVisible) hideHint();
-        lastScrollHintTime = now;
-        clearTimeout(scrollHintTimeout);
-        scrollHintTimeout = setTimeout(() => {
-          if (Date.now() - lastScrollHintTime > 3000) showHint();
-        }, 3000);
 
         requestAnimationFrame(() => {
           if (!animationComplete) {
