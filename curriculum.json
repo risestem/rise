@@ -34,7 +34,9 @@
           "pdf": "https://docs.google.com/document/d/1l8r46WHHl_IUNjIKqhgsQuuQLMWDWjAguY386HyzSc8/preview",
           "ppt": "https://docs.google.com/presentation/d/1JqCXAqS1c7ryMOJzmHAG9Fe6AVJBwUyQ/edit?usp=drive_link&ouid=115055290853291592336&rtpof=true&sd=true"
         }
-      ]
+      ],
+      "welcome_description": "Our Python coding curriculum introduces students to programming concepts through interactive lessons and fun hands-on projects.",
+      "description": "Our curriculum is intended to introduce students to the Python coding language through instructor led classes and hands-on investigation. Students will first learn essential coding concepts in python and then have time to apply their learning in fun projects. Our goal is to inspire a passion for computer science through fun and engaging lessons."
     },
     {
       "id": "engineering",
