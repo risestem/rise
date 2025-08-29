@@ -106,6 +106,16 @@
 </section>
 
 <script>
+async function loadCurriculum() {
+  try {
+    const res = await fetch('/curriculum.json');
+    if (!res.ok) throw new Error('Could not load curriculum.json');
+    return await res.json();
+  } catch (e) {
+    console.error('Error loading curriculum.json:', e);
+    return null;
+  }
+}
 async function renderCurriculum() {
   const data = await loadCurriculum();
   if (!data) return;
@@ -225,55 +235,57 @@ renderCurriculum();
     </section>
 
     <!-- Pyodide Loader & App Logic -->
-    <script type="module">
-      import { loadPyodide } from "https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js";
+    <!-- Place this in the <head> or before your script below -->
+<script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
 
-      const statusDot = document.getElementById('status-dot');
-      const statusText = document.getElementById('status-text');
-      const runBtn = document.getElementById('run-btn');
-      const stopBtn = document.getElementById('stop-btn');
-      const clearBtn = document.getElementById('clear-btn');
-      const sampleBtn = document.getElementById('sample-btn');
-      const output = document.getElementById('output');
-      const timing = document.getElementById('timing');
-      const codeEl = document.getElementById('code');
-      const pkgInput = document.getElementById('pkg-input');
-      const installBtn = document.getElementById('install-btn');
-      const pkgStatus = document.getElementById('pkg-status');
+<!-- Main app logic: -->
+<script>
+const statusDot = document.getElementById('status-dot');
+const statusText = document.getElementById('status-text');
+const runBtn = document.getElementById('run-btn');
+const stopBtn = document.getElementById('stop-btn');
+const clearBtn = document.getElementById('clear-btn');
+const sampleBtn = document.getElementById('sample-btn');
+const output = document.getElementById('output');
+const timing = document.getElementById('timing');
+const codeEl = document.getElementById('code');
+const pkgInput = document.getElementById('pkg-input');
+const installBtn = document.getElementById('install-btn');
+const pkgStatus = document.getElementById('pkg-status');
 
-      let pyodide, running = false, interruptBuffer;
+let pyodide, running = false, interruptBuffer;
 
-      async function boot(){
-        try {
-          pyodide = await loadPyodide({
-            stdin: () => null,
-            stdout: (s) => appendOut(s),
-            stderr: (s) => appendOut(s)
-          });
-          // Support Ctrl+C interrupt
-          interruptBuffer = new Uint8Array(pyodide._module.HEAPU8.buffer, pyodide._module._pyodide_interrupt_buffer(), 1);
+async function boot(){
+  try {
+    pyodide = await loadPyodide({
+      stdin: () => null,
+      stdout: (s) => appendOut(s),
+      stderr: (s) => appendOut(s)
+    });
+    // Support Ctrl+C interrupt
+    interruptBuffer = new Uint8Array(pyodide._module.HEAPU8.buffer, pyodide._module._pyodide_interrupt_buffer(), 1);
 
-          statusDot.classList.remove('bg-red-400');
-          statusDot.classList.add('bg-green-500');
-          statusText.textContent = 'Ready';
-          runBtn.disabled = false;
-          appendOut('Pyodide loaded. Python ' + pyodide.runPython('import sys; sys.version.split()[0]') + '\n');
-        } catch (e) {
-          statusText.textContent = 'Failed to load Pyodide';
-          appendOut(String(e) + '\n');
-        }
-      }
+    statusDot.classList.remove('bg-red-400');
+    statusDot.classList.add('bg-green-500');
+    statusText.textContent = 'Ready';
+    runBtn.disabled = false;
+    appendOut('Pyodide loaded. Python ' + pyodide.runPython('import sys; sys.version.split()[0]') + '\n');
+  } catch (e) {
+    statusText.textContent = 'Failed to load Pyodide';
+    appendOut(String(e) + '\n');
+  }
+}
 
-      function appendOut(text){ output.textContent += text; output.parentElement.scrollTop = output.parentElement.scrollHeight; }
-      function clearOut(){ output.textContent = ''; timing.textContent = ''; }
+function appendOut(text){ output.textContent += text; output.parentElement.scrollTop = output.parentElement.scrollHeight; }
+function clearOut(){ output.textContent = ''; timing.textContent = ''; }
 
-      async function runCode(){
-        if (!pyodide || running) return;
-        running = true;
-        runBtn.disabled = true;
-        timing.textContent = '';
-        const userCode = codeEl.value;
-        const wrapped = `
+async function runCode(){
+  if (!pyodide || running) return;
+  running = true;
+  runBtn.disabled = true;
+  timing.textContent = '';
+  const userCode = codeEl.value;
+  const wrapped = `
 import sys, io, traceback, contextlib, time
 _sio = io.StringIO()
 start = time.time()
@@ -290,61 +302,61 @@ except Exception:
     _elapsed = time.time() - start
     {'stdout': _sio.getvalue(), 'error': _err, 'elapsed': _elapsed}
 `;
-        try {
-          const t0 = performance.now();
-          const res = await pyodide.runPythonAsync(wrapped);
-          const t1 = performance.now();
-          if (res.stdout) appendOut(res.stdout);
-          if (res.error) appendOut(res.error);
-          timing.textContent = `Elapsed: ${res.elapsed?.toFixed(3) ?? ((t1-t0)/1000).toFixed(3)} s`;
-        } catch (e) {
-          appendOut(String(e) + '\n');
-        } finally {
-          running = false;
-          runBtn.disabled = false;
-        }
-      }
+  try {
+    const t0 = performance.now();
+    const res = await pyodide.runPythonAsync(wrapped);
+    const t1 = performance.now();
+    if (res.stdout) appendOut(res.stdout);
+    if (res.error) appendOut(res.error);
+    timing.textContent = `Elapsed: ${res.elapsed?.toFixed(3) ?? ((t1-t0)/1000).toFixed(3)} s`;
+  } catch (e) {
+    appendOut(String(e) + '\n');
+  } finally {
+    running = false;
+    runBtn.disabled = false;
+  }
+}
 
-      async function installPkg(){
-        if (!pyodide) return;
-        const pkg = (pkgInput.value || '').trim();
-        if (!pkg) return;
-        pkgStatus.textContent = `Installing ${pkg}…`;
-        try {
-          await pyodide.loadPackage('micropip');
-          await pyodide.runPythonAsync(`import micropip; await micropip.install('${pkg}')`);
-          pkgStatus.textContent = `Installed ${pkg}`;
-          appendOut(`✓ Installed ${pkg}\n`);
-        } catch (e) {
-          pkgStatus.textContent = `Failed to install ${pkg}`;
-          appendOut(String(e) + '\n');
-        }
-      }
+async function installPkg(){
+  if (!pyodide) return;
+  const pkg = (pkgInput.value || '').trim();
+  if (!pkg) return;
+  pkgStatus.textContent = `Installing ${pkg}…`;
+  try {
+    await pyodide.loadPackage('micropip');
+    await pyodide.runPythonAsync(`import micropip; await micropip.install('${pkg}')`);
+    pkgStatus.textContent = `Installed ${pkg}`;
+    appendOut(`✓ Installed ${pkg}\n`);
+  } catch (e) {
+    pkgStatus.textContent = `Failed to install ${pkg}`;
+    appendOut(String(e) + '\n');
+  }
+}
 
-      function insertSample(){
-        codeEl.value = `import math\nprint('Hello from RISE STEM!')\nprint('sqrt(144)=', math.sqrt(144))\n\n# Tiny demo: Fibonacci\ndef fib(n):\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return a\n\nfor i in range(10):\n    print(i, fib(i))\n`;
-      }
+function insertSample(){
+  codeEl.value = `import math\nprint('Hello from RISE STEM!')\nprint('sqrt(144)=', math.sqrt(144))\n\n# Tiny demo: Fibonacci\ndef fib(n):\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return a\n\nfor i in range(10):\n    print(i, fib(i))\n`;
+}
 
-      // Interrupt support
-      function stopExec(){
-        if (interruptBuffer) {
-          interruptBuffer[0] = 2; // signal interrupt
-          appendOut("\n[Interrupted]\n");
-        }
-      }
+// Interrupt support
+function stopExec(){
+  if (interruptBuffer) {
+    interruptBuffer[0] = 2; // signal interrupt
+    appendOut("\n[Interrupted]\n");
+  }
+}
 
-      // Wire up
-      runBtn.addEventListener('click', runCode);
-      clearBtn.addEventListener('click', clearOut);
-      stopBtn.addEventListener('click', stopExec);
-      installBtn.addEventListener('click', installPkg);
-      sampleBtn.addEventListener('click', insertSample);
-      codeEl.addEventListener('keydown', (e)=>{
-        if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') { e.preventDefault(); runCode(); }
-      });
+// Wire up
+runBtn.addEventListener('click', runCode);
+clearBtn.addEventListener('click', clearOut);
+stopBtn.addEventListener('click', stopExec);
+installBtn.addEventListener('click', installPkg);
+sampleBtn.addEventListener('click', insertSample);
+codeEl.addEventListener('keydown', (e)=>{
+  if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') { e.preventDefault(); runCode(); }
+});
 
-      // Boot
-      boot();
-    </script>
+// Boot
+boot();
+</script>
   </body>
 </html>
