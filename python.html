@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script src="https://unpkg.com/alpinejs" defer></script>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/public/favicon.ico"/>
+    <link rel="icon" type="image/png" href="/public/favicon-32x32.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+    <link rel="apple-touch-icon" href="/public/apple-touch-icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RISE STEM – Python Playground</title>
+    <link href="/src/style.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/animations.css">
+    <style>
+      html { scroll-behavior: smooth; }
+      .editor-textarea { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+      .btn { @apply px-4 py-2 rounded-full font-semibold transition-transform duration-200 active:scale-95; }
+      .btn-primary { @apply bg-purple-950 text-white hover:bg-purple-800; }
+      .btn-secondary { @apply bg-white text-purple-950 border border-purple-200 hover:bg-purple-50; }
+      .status-dot { width: 10px; height: 10px; }
+      .kbd { @apply px-2 py-0.5 rounded-md border border-gray-300 text-xs bg-white; }
+      /* Simple resizable panes */
+      .pane { overflow: auto; }
+      .resizer { cursor: col-resize; width: 8px; background: #f3e8ff; }
+      .resizer:hover { background: #e9d5ff; }
+    </style>
+  </head>
+  <body class="bg-gray-50 min-h-screen font-[Poppins]">
+    <!-- Header -->
+    <div id="header-container"></div>
+    <script type="module" src="/scripts/loadHeader.js"></script>
+
+    <!-- Main Content -->
+    <section id="home" class="min-h-screen w-full relative overflow-hidden">
+
+      <!-- App Card -->
+      <div class="w-full h-full px-6 sm:px-6 md:px-16 lg:px-24 mt-12 z-30 relative pb-16">
+        <div class="bg-white fadeInUp-animation p-4 md:p-6 rounded-2xl border border-gray-300 shadow-md">
+          <!-- Toolbar -->
+          <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <span class="text-2xl font-semibold text-purple-950">Editor</span>
+              <div class="flex items-center gap-2 text-sm">
+                <span class="status-dot rounded-full bg-red-400" id="status-dot"></span>
+                <span id="status-text" class="text-gray-500">Loading Pyodide…</span>
+              </div>
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <button id="run-btn" class="btn btn-primary disabled:opacity-60" disabled>Run ▶</button>
+              <button id="stop-btn" class="btn btn-secondary" title="Interrupt (Ctrl+C)">Stop ⏹</button>
+              <button id="clear-btn" class="btn btn-secondary">Clear Output</button>
+              <button id="sample-btn" class="btn btn-secondary">Insert Sample</button>
+            </div>
+          </div>
+
+          <!-- Panes: Editor | Console -->
+          <div class="mt-4 md:mt-6 rounded-xl border border-purple-100 bg-purple-50/40">
+            <div class="grid grid-cols-1 md:grid-cols-[1fr_8px_1fr] h-[70vh] md:h-[70vh]">
+              <!-- Editor Pane -->
+              <div class="pane p-3 md:p-4">
+                <textarea id="code" class="editor-textarea w-full h-full p-3 bg-white border border-purple-100 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-300" spellcheck="false">print("Hello from Pyodide! 👋")
+
+# Try some Python:
+# import math; print(math.sqrt(144))
+# for i in range(5): print("Number", i)
+# import numpy as np; print(np.arange(5))  # use Install below first
+</textarea>
+                <div class="mt-3 flex flex-wrap gap-2 items-center text-sm text-gray-600">
+                  <span>Shortcuts:</span>
+                  <span class="kbd">Ctrl/⌘ + Enter</span>
+                  <span>Run</span>
+                </div>
+              </div>
+              <!-- Resizer -->
+              <div class="hidden md:block resizer" id="resizer"></div>
+              <!-- Console Pane -->
+              <div class="pane p-3 md:p-4 bg-white border-l border-purple-100">
+                <!-- Packages -->
+                <div class="mb-3 flex flex-wrap items-center gap-2">
+                  <input id="pkg-input" type="text" class="px-3 py-2 rounded-lg border border-purple-200 focus:outline-none focus:ring-2 focus:ring-purple-300" placeholder="Package to install (e.g. numpy, pandas)" />
+                  <button id="install-btn" class="btn btn-secondary">Install</button>
+                  <span id="pkg-status" class="text-sm text-gray-500"></span>
+                </div>
+                <!-- Output -->
+                <div class="rounded-lg border border-gray-200 bg-gray-50 h-[55vh] md:h-[64vh] p-3 overflow-auto">
+                  <pre id="output" class="whitespace-pre-wrap text-sm text-gray-800"></pre>
+                </div>
+                <div class="mt-2 text-xs text-gray-500" id="timing"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Curriculum Card -->
+<section id="curriculum" class="max-w-5xl mx-auto p-6">
+  <div class="bg-white mt-8 fadeInUp-animation p-4 md:p-6 rounded-2xl border border-gray-300 shadow-md">
+    <div class="flex justify-center text-center">
+      <h2 class="text-2xl md:text-3xl font-poppins font-semibold text-purple-950">Curriculum</h2>
+    </div>
+    <div id="curriculum-content" class="space-y-6 mt-6 text-gray-600">
+      <!-- Days will load here -->
+    </div>
+  </div>
+</section>
+
+<script>
+async function renderCurriculum() {
+  const data = await loadCurriculum();
+  if (!data) return;
+
+  const container = document.getElementById("curriculum-content");
+
+  data.sections.forEach(section => {
+    // Section intro
+    const introEl = document.createElement("div");
+    introEl.innerHTML = `
+      <div class="text-center space-y-2 mb-6">
+        <h3 class="text-xl md:text-2xl font-semibold text-purple-950">${section.name}</h3>
+        <p class="text-gray-600">${section.welcome_description || ""}</p>
+      </div>
+    `;
+    container.appendChild(introEl);
+
+    // Days
+    const grid = document.createElement("div");
+    grid.className = "grid md:grid-cols-2 gap-6";
+
+    section.days.forEach(day => {
+      const dayEl = document.createElement("div");
+      dayEl.className = "p-4 rounded-xl border border-purple-100 bg-purple-50/40";
+
+      let pdfEmbed = day.pdf
+        ? `<iframe src="${day.pdf}" class="w-full h-64 rounded-lg border mt-3" loading="lazy"></iframe>`
+        : `<div class="text-gray-400 italic mt-3">No PDF available</div>`;
+
+      let pptEmbed = day.ppt
+        ? `<iframe src="${day.ppt.replace("edit", "preview")}" class="w-full h-64 rounded-lg border mt-3" loading="lazy"></iframe>`
+        : `<div class="text-gray-400 italic mt-3">No slides available</div>`;
+
+      dayEl.innerHTML = `
+        <div class="text-lg font-semibold text-purple-950">${day.title}</div>
+        <div class="mt-3 space-y-4">
+          ${pdfEmbed}
+          ${pptEmbed}
+        </div>
+      `;
+
+      grid.appendChild(dayEl);
+    });
+
+    container.appendChild(grid);
+  });
+}
+
+renderCurriculum();
+</script>
+
+
+        <!-- Info Card -->
+        <div class="bg-white mt-8 fadeInUp-animation p-4 md:p-6 rounded-2xl border border-gray-300 shadow-md">
+          <div class="flex justify-center text-center">
+            <h2 class="text-2xl md:text-3xl font-poppins font-semibold text-purple-950">How it works</h2>
+          </div>
+          <div class="grid md:grid-cols-3 gap-6 mt-6 text-gray-600">
+            <div class="p-4 rounded-xl border border-purple-100 bg-purple-50/40">
+              <div class="text-lg font-semibold text-purple-950">In-browser Python</div>
+              <p class="mt-2">Powered by <span class="font-semibold">Pyodide</span> (Python compiled to WebAssembly). Your code runs entirely in your browser.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-purple-100 bg-purple-50/40">
+              <div class="text-lg font-semibold text-purple-950">No server required</div>
+              <p class="mt-2">Safe by default: there’s no server-side execution. Great for demos, classes, and quick experiments.</p>
+            </div>
+            <div class="p-4 rounded-xl border border-purple-100 bg-purple-50/40">
+              <div class="text-lg font-semibold text-purple-950">Optional packages</div>
+              <p class="mt-2">Use <code>micropip</code> to install compatible packages (e.g., <code>numpy</code>, <code>pandas</code>) that work in Pyodide.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <script>
+        document.addEventListener('header:loaded', function() { setupContactModal(); });
+        document.addEventListener('DOMContentLoaded', function() { setupContactModal(); initResizer(); });
+        function setupContactModal() {
+          const contactModal = document.getElementById('contact-modal');
+          const closeContactBtn = document.getElementById('close-contact-modal');
+          const openContactBtns = Array.from(document.querySelectorAll('button, a')).filter(
+            el => el.textContent && el.textContent.trim().toLowerCase() === "contact us"
+          );
+          openContactBtns.forEach(btn => {
+            btn.addEventListener('click', function(e) { e.preventDefault(); if (contactModal) contactModal.classList.remove('hidden'); });
+          });
+          if (closeContactBtn) closeContactBtn.addEventListener('click', () => contactModal.classList.add('hidden'));
+          if (contactModal) contactModal.addEventListener('click', (e) => { if (e.target === contactModal) contactModal.classList.add('hidden'); });
+        }
+        function initResizer(){
+          const resizer = document.getElementById('resizer');
+          if(!resizer) return;
+          const grid = resizer.parentElement;
+          let startX, startLeftWidth;
+          resizer.addEventListener('mousedown', (e)=>{
+            startX = e.clientX;
+            const left = grid.children[0];
+            startLeftWidth = left.getBoundingClientRect().width;
+            document.addEventListener('mousemove', onMove);
+            document.addEventListener('mouseup', onUp);
+          });
+          function onMove(e){
+            const dx = e.clientX - startX;
+            const leftWidth = Math.max(200, startLeftWidth + dx);
+            grid.style.gridTemplateColumns = leftWidth + 'px 8px 1fr';
+          }
+          function onUp(){
+            document.removeEventListener('mousemove', onMove);
+            document.removeEventListener('mouseup', onUp);
+          }
+        }
+      </script>
+
+      <!-- Footer -->
+      <div id="footer-container"></div>
+      <script type="module" src="/scripts/loadFooter.js"></script>
+    </section>
+
+    <!-- Pyodide Loader & App Logic -->
+    <script type="module">
+      import { loadPyodide } from "https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js";
+
+      const statusDot = document.getElementById('status-dot');
+      const statusText = document.getElementById('status-text');
+      const runBtn = document.getElementById('run-btn');
+      const stopBtn = document.getElementById('stop-btn');
+      const clearBtn = document.getElementById('clear-btn');
+      const sampleBtn = document.getElementById('sample-btn');
+      const output = document.getElementById('output');
+      const timing = document.getElementById('timing');
+      const codeEl = document.getElementById('code');
+      const pkgInput = document.getElementById('pkg-input');
+      const installBtn = document.getElementById('install-btn');
+      const pkgStatus = document.getElementById('pkg-status');
+
+      let pyodide, running = false, interruptBuffer;
+
+      async function boot(){
+        try {
+          pyodide = await loadPyodide({
+            stdin: () => null,
+            stdout: (s) => appendOut(s),
+            stderr: (s) => appendOut(s)
+          });
+          // Support Ctrl+C interrupt
+          interruptBuffer = new Uint8Array(pyodide._module.HEAPU8.buffer, pyodide._module._pyodide_interrupt_buffer(), 1);
+
+          statusDot.classList.remove('bg-red-400');
+          statusDot.classList.add('bg-green-500');
+          statusText.textContent = 'Ready';
+          runBtn.disabled = false;
+          appendOut('Pyodide loaded. Python ' + pyodide.runPython('import sys; sys.version.split()[0]') + '\n');
+        } catch (e) {
+          statusText.textContent = 'Failed to load Pyodide';
+          appendOut(String(e) + '\n');
+        }
+      }
+
+      function appendOut(text){ output.textContent += text; output.parentElement.scrollTop = output.parentElement.scrollHeight; }
+      function clearOut(){ output.textContent = ''; timing.textContent = ''; }
+
+      async function runCode(){
+        if (!pyodide || running) return;
+        running = true;
+        runBtn.disabled = true;
+        timing.textContent = '';
+        const userCode = codeEl.value;
+        const wrapped = `
+import sys, io, traceback, contextlib, time
+_sio = io.StringIO()
+start = time.time()
+try:
+    with contextlib.redirect_stdout(_sio):
+        exec(compile(${JSON.stringify(userCode)}, '<cell>', 'exec'))
+    _result = _sio.getvalue()
+    _elapsed = time.time() - start
+    {'stdout': _result, 'elapsed': _elapsed}
+except SystemExit:
+    raise
+except Exception:
+    _err = traceback.format_exc()
+    _elapsed = time.time() - start
+    {'stdout': _sio.getvalue(), 'error': _err, 'elapsed': _elapsed}
+`;
+        try {
+          const t0 = performance.now();
+          const res = await pyodide.runPythonAsync(wrapped);
+          const t1 = performance.now();
+          if (res.stdout) appendOut(res.stdout);
+          if (res.error) appendOut(res.error);
+          timing.textContent = `Elapsed: ${res.elapsed?.toFixed(3) ?? ((t1-t0)/1000).toFixed(3)} s`;
+        } catch (e) {
+          appendOut(String(e) + '\n');
+        } finally {
+          running = false;
+          runBtn.disabled = false;
+        }
+      }
+
+      async function installPkg(){
+        if (!pyodide) return;
+        const pkg = (pkgInput.value || '').trim();
+        if (!pkg) return;
+        pkgStatus.textContent = `Installing ${pkg}…`;
+        try {
+          await pyodide.loadPackage('micropip');
+          await pyodide.runPythonAsync(`import micropip; await micropip.install('${pkg}')`);
+          pkgStatus.textContent = `Installed ${pkg}`;
+          appendOut(`✓ Installed ${pkg}\n`);
+        } catch (e) {
+          pkgStatus.textContent = `Failed to install ${pkg}`;
+          appendOut(String(e) + '\n');
+        }
+      }
+
+      function insertSample(){
+        codeEl.value = `import math\nprint('Hello from RISE STEM!')\nprint('sqrt(144)=', math.sqrt(144))\n\n# Tiny demo: Fibonacci\ndef fib(n):\n    a, b = 0, 1\n    for _ in range(n):\n        a, b = b, a + b\n    return a\n\nfor i in range(10):\n    print(i, fib(i))\n`;
+      }
+
+      // Interrupt support
+      function stopExec(){
+        if (interruptBuffer) {
+          interruptBuffer[0] = 2; // signal interrupt
+          appendOut("\n[Interrupted]\n");
+        }
+      }
+
+      // Wire up
+      runBtn.addEventListener('click', runCode);
+      clearBtn.addEventListener('click', clearOut);
+      stopBtn.addEventListener('click', stopExec);
+      installBtn.addEventListener('click', installPkg);
+      sampleBtn.addEventListener('click', insertSample);
+      codeEl.addEventListener('keydown', (e)=>{
+        if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') { e.preventDefault(); runCode(); }
+      });
+
+      // Boot
+      boot();
+    </script>
+  </body>
+</html>
