@@ -31,18 +31,20 @@
       }
     </style>
   </head>
-  <div class="min-h-screen flex flex-col">
+  <body class="bg-gray-50">
     <!-- Header -->
     <div id="header-container"></div>
     <script type="module" src="/scripts/loadHeader.js"></script>
 
-    <div class="min-h-screen bg-gray-50 w-full relative overflow-hidden">
+    <section class="min-h-screen bg-gray-50 w-full relative overflow-hidden pt-32">
       <!-- IDE Card -->
-      <div class="bg-white fadeInUp-animation w-full px-6 sm:px-6 md:px-16 lg:px-24 -mt-8 z-30 relative pb-8 rounded-2xl border border-gray-300 shadow-md">
-        <div class="flex justify-center text-center mb-6">
-          <h2 class="text-3xl font-poppins font-semibold text-purple-950 md:text-4xl">
-            Python <span class="font-extrabold">IDE</span>
-          </h2>
+      <div class="w-full px-6 sm:px-6 md:px-16 lg:px-24 z-30 relative pb-8">
+        <div class="bg-white p-4 rounded-2xl border border-gray-300 shadow-md justify-center">
+          <div class="flex justify-center text-center mb-6">
+            <h2 class="text-3xl font-poppins font-semibold text-purple-950 md:text-4xl">
+              Python <span class="font-extrabold">IDE</span>
+            </h2>
+          </div>
         </div>
 
         <!-- IDE Container -->
@@ -82,7 +84,8 @@
     <!-- Footer -->
     <div id="footer-container"></div>
     <script type="module" src="/scripts/loadFooter.js"></script>
-
+    </section>
+  </body>
     <script>
       // Initialize CodeMirror
       let editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
@@ -142,5 +145,4 @@
         }
       });
     </script>
-    </div>
 </html>
