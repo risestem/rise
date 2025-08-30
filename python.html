@@ -138,10 +138,10 @@
         const code = editor.getValue();
 
         try {
-          let result = await pyodide.runPythonAsync(code);
-          addToOutput(result !== undefined ? result.toString() : "✅ Code executed successfully (no output)", code);
+          let result = await pyodide.runPython(code);
+          addToOutput(result);
         } catch (err) {
-          addToOutput("❌ Error: " + err, code);
+          addToOutput(err, code);
         }
       });
     </script>
