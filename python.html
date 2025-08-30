@@ -53,7 +53,7 @@
             <!-- Controls -->
             <div class="flex flex-wrap gap-4 justify-between items-center">
               <div class="flex gap-4">
-                <button id="run-btn" class="px-6 py-2 bg-purple-950 text-white font-bold rounded-full transform transition-all duration-300 hover:scale-110">
+                <button id="run-btn" onclick="evaluatePython()" class="px-6 py-2 bg-purple-950 text-white font-bold rounded-full transform transition-all duration-300 hover:scale-110">
                   Run Code
                 </button>
                 <select id="package-select" class="px-4 py-2 border bg-white border-gray-300 rounded-full text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500">
@@ -116,33 +116,49 @@
     <script src="https://cdn.jsdelivr.net/pyodide/v0.28.2/full/pyodide.js"></script>
 
     <script>
-      const output = document.getElementById("output");
+  const output = document.getElementById("output");
 
-      function addToOutput(s, code) {
-        output.value += ">>>" + code + "\n" + s + "\n";
-      }
+  function addToOutput(s) {
+    if (s !== undefined && s !== null && s !== "") {
+      output.value += s + "\n";
+    }
+    output.scrollTop = output.scrollHeight;
+  }
 
-      output.value = "Initializing...\n";
+  output.value = "Initializing...\n";
 
-      // init Pyodide
-      async function main() {
-        let pyodide = await loadPyodide();
-        output.value += "Ready!\n";
-        return pyodide;
-      }
-      let pyodideReadyPromise = main();
+  // init Pyodide
+  async function main() {
+    let pyodide = await loadPyodide();
 
-      // Run Button Click Handler
-      document.getElementById("run-btn").addEventListener("click", async () => {
-        let pyodide = await pyodideReadyPromise;
-        const code = editor.getValue();
+    // Redirect stdout/stderr
+    pyodide.setStdout({ batched: (s) => addToOutput(s) });
+    pyodide.setStderr({ batched: (s) => addToOutput(s) });
 
-        try {
-          let result = await pyodide.runPython(code);
-          addToOutput(result);
-        } catch (err) {
-          addToOutput(err, code);
-        }
-      });
-    </script>
-</html>
+    // Input support
+    pyodide.globals.set("input", (promptText) => {
+      let userInput = window.prompt(promptText); // simple browser prompt
+      addToOutput(promptText + userInput);
+      return userInput;
+    });
+
+    output.value += "Ready!\n";
+    return pyodide;
+  }
+  let pyodideReadyPromise = main();
+
+  async function evaluatePython() {
+    let pyodide = await pyodideReadyPromise;
+    output.value = ""; // clear output for fresh run
+    try {
+      const codeText = editor.getValue();
+      pyodide.runPython(codeText);
+      addToOutput("\n** Process exited - Return Code: 0 **");
+    } catch (err) {
+      addToOutput(err);
+      addToOutput("\n** Process exited - Return Code: 1 **");
+    }
+  }
+</script>
+
+</html> 
