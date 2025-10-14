@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script src="https://unpkg.com/alpinejs" defer></script>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="/public/favicon.ico"/>
+    <link rel="icon" type="image/png" href="/public/favicon-32x32.png">
+    <link rel="shortcut icon" href="/public/favicon.ico">
+    <link rel="apple-touch-icon" href="/public/apple-touch-icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Python Playground - RISE STEM</title>
+    <link href="/src/style.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/src/animations.css">
+    <!-- CodeMirror CSS and JS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/theme/monokai.min.css">
+    <!-- CodeMirror Addons for Autocomplete -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/hint/show-hint.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/hint/show-hint.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.2/addon/hint/python-hint.min.js"></script>
+    <!-- xterm.js for terminal output -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm/css/xterm.css" />
+    <script src="https://cdn.jsdelivr.net/npm/xterm/lib/xterm.js"></script>
+    <style>
+      .CodeMirror {
+        height: 500px;
+        font-size: 14px;
+        border-radius: 0.5rem;
+      }
+      @media (max-width: 768px) {
+        .CodeMirror {
+          height: 300px;
+        }
+      }
+      /* xterm styling */
+      #terminal {
+        height: 500px;
+        background: #1e1e1e;
+        border-radius: 0.5rem;
+        font-size: 14px;
+        margin-bottom: 8px;
+        overflow: hidden;
+      }
+      @media (max-width: 768px) {
+        #terminal {
+          height: 300px;
+        }
+      }
+      /* Walkthrough Styles */
+      /* ...unchanged walkthrough CSS from your original file... */
+      .walkthrough-overlay {position: fixed;top: 0;left: 0;width: 100%;height: 100%;background: rgba(0, 0, 0, 0.8);z-index: 9999;opacity: 0;visibility: hidden;transition: all 0.3s ease;pointer-events: none;}
+      .walkthrough-overlay.active {opacity: 1;visibility: visible;pointer-events: auto;}
+      .spotlight {position: absolute;border-radius: 50%;box-shadow: 0 0 0 9999px rgba(0, 0, 0, 0.8);transition: all 0.5s ease;pointer-events: none;}
+      .walkthrough-tooltip {position: absolute;background: white;padding: 20px;border-radius: 12px;box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);max-width: 365px;z-index: 10001;transition: all 0.3s ease;}
+      .walkthrough-tooltip h3 {margin: 0 0 10px 0;font-size: 18px;font-weight: 600;color: #4c1d95;}
+      .walkthrough-tooltip p {margin: 0 0 15px 0;color: #6b7280;line-height: 1.5;}
+      .walkthrough-controls {display: flex;justify-content: space-between;align-items: center;gap: 10px;}
+      .walkthrough-btn {padding: 8px 16px;border: none;border-radius: 6px;cursor: pointer;font-weight: 500;transition: all 0.2s ease;}
+      .walkthrough-btn.primary {background: #4c1d95;color: white;}
+      .walkthrough-btn.primary:hover {background: #3730a3;transform: translateY(-1px);}
+      .walkthrough-btn.secondary {background: #e5e7eb;color: #374151;}
+      .walkthrough-btn.secondary:hover {background: #d1d5db;}
+      .walkthrough-progress {display: flex;gap: 4px;align-items: center;}
+      .progress-dot {width: 8px;height: 8px;border-radius: 50%;background: #d1d5db;transition: background 0.2s ease;}
+      .progress-dot.active {background: #4c1d95;}
+      .walkthrough-start-btn {position: fixed;bottom: 20px;right: 20px;background: #4c1d95;color: white;border: none;padding: 15px 20px;border-radius: 50px;font-weight: 600;cursor: pointer;box-shadow: 0 4px 15px rgba(76, 29, 149, 0.3);transition: all 0.3s ease;z-index: 1000;}
+      .walkthrough-start-btn:hover {transform: translateY(-2px);box-shadow: 0 8px 25px rgba(76, 29, 149, 0.4);}
+      .highlighted-element {position: relative;z-index: 10000;}
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Header -->
+    <div id="header-container"></div>
+    <script type="module" src="/scripts/loadHeader.js"></script>
+    
+    <!-- Walkthrough Start Button -->
+    <button id="start-walkthrough" class="walkthrough-start-btn">
+      Take a Tour
+    </button>
+
+    <!-- Walkthrough Overlay -->
+    <div id="walkthrough-overlay" class="walkthrough-overlay">
+      <div id="spotlight" class="spotlight"></div>
+      <div id="walkthrough-tooltip" class="walkthrough-tooltip">
+        <h3 id="tooltip-title">Welcome!</h3>
+        <p id="tooltip-content">Let's take a tour of the Python IDE.</p>
+        <div class="walkthrough-controls">
+          <button id="skip-btn" class="walkthrough-btn secondary">Skip Tour</button>
+          <div class="walkthrough-progress" id="progress-dots"></div>
+          <div style="display: flex; gap: 8px;">
+            <button id="prev-btn" class="walkthrough-btn secondary" style="display: none;">Previous</button>
+            <button id="next-btn" class="walkthrough-btn primary">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="min-h-screen bg-gray-50 w-full relative overflow-hidden pt-32">
+      <!-- IDE Card -->
+      <div class="w-full px-6 sm:px-6 md:px-16 lg:px-24 z-30 relative pb-8">
+        <div class="bg-white p-4 rounded-2xl border border-gray-300 shadow-md justify-center">
+          <div class="flex justify-center text-center mb-6">
+            <h2 class="text-3xl font-poppins font-semibold text-purple-950 md:text-4xl">
+              Python <span class="font-extrabold">IDE</span>
+            </h2>
+        </div>
+
+        <!-- IDE Container -->
+        <div class="md:flex md:gap-6">
+          <!-- Left Column - Editor -->
+          <div id="editor-menu" class="md:w-1/2 space-y-4">
+            <!-- Controls -->
+            <div class="flex flex-wrap gap-4 justify-between items-center">
+              <div class="flex gap-4">
+                <button id="run-btn" class="px-6 py-2 bg-purple-950 text-white font-bold rounded-full transform transition-all duration-300 hover:scale-110">
+                  Run Code
+                </button>
+                <select id="package-select" class="px-4 py-2 border bg-white border-gray-300 rounded-full text-gray-700 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                  <option value="">Select Package</option>
+                  <option value="math">math</option>
+                  <option value="random">random</option>
+                  <option value="datetime">datetime</option>
+                  <option value="json">json</option>
+                </select>
+              </div>
+              <button id="clear-btn" class="px-6 py-2 bg-gray-200 text-gray-700 font-bold rounded-full transform transition-all duration-300 hover:scale-110">
+                Clear
+              </button>
+            </div>
+            <textarea id="code-editor" class="w-full border-gray-300 border-1 rounded-sm px-2 h-[470px]">print("Hello, World!")</textarea>
+          </div>
+
+          <!-- Right Column - Output -->
+          <div class="md:w-1/2 mt-4 md:mt-0">
+            <div class="text-sm font-semibold text-gray-700 mb-2">Output:</div>
+            <div id="terminal"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Footer -->
+    <div id="footer-container"></div>
+    <script type="module" src="/scripts/loadFooter.js"></script>
+    </section>
+    <!-- Add Pyodide -->
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.28.2/full/pyodide.js"></script>
+    <script>
+      // Initialize CodeMirror with auto-complete
+      let editor = CodeMirror.fromTextArea(document.getElementById("code-editor"), {
+        mode: "python",
+        theme: "monokai",
+        lineNumbers: true,
+        indentUnit: 4,
+        lineWrapping: true,
+        autofocus: true,
+        extraKeys: {
+          "Ctrl-Space": "autocomplete"
+        }
+      });
+
+      // xterm.js terminal setup
+      const term = new Terminal({
+        cursorBlink: true,
+        fontFamily: 'monospace',
+        theme: {
+          background: "#1e1e1e",
+          foreground: "#e5e5e5"
+        }
+      });
+      term.open(document.getElementById('terminal'));
+      term.write("Initializing...\r\n");
+
+      // Utility to print to terminal
+      function addToTerminal(s) {
+        if (s !== undefined && s !== null && s !== "") {
+          term.write(s.replace(/\n/g, '\r\n'));
+        }
+      }
+
+      // Clear Button Click Handler
+      document.getElementById("clear-btn").addEventListener("click", () => {
+        editor.setValue("");
+        term.clear();
+      });
+
+      // Package Select Handler
+      document.getElementById("package-select").addEventListener("change", (e) => {
+        if (e.target.value) {
+          const importStatement = `import ${e.target.value}\n`;
+          editor.setValue(importStatement + editor.getValue());
+        }
+      });
+
+      // Walkthrough System (unchanged)
+      class WalkthroughManager {
+        constructor() {
+          this.currentStep = 0;
+          this.steps = [
+            {
+              element: '#editor-menu',
+              title: 'Code Editor',
+              content: 'This is where you write your Python code. It features syntax highlighting and line numbers to make coding easier.',
+              position: 'right'
+            },
+            {
+              element: '#run-btn',
+              title: 'Run Button',
+              content: 'Click this button to execute your Python code. The results will appear in the output panel.',
+              position: 'bottom'
+            },
+            {
+              element: '#package-select',
+              title: 'Package Selector',
+              content: 'Select common Python packages to automatically add import statements to your code.',
+              position: 'bottom'
+            },
+            {
+              element: '#clear-btn',
+              title: 'Clear Button',
+              content: 'Use this button to clear both your code editor and the output panel for a fresh start.',
+              position: 'left'
+            },
+            {
+              element: '#terminal',
+              title: 'Output Panel',
+              content: 'This panel displays the results of your code execution, including print statements and error messages. You can interact by selecting or moving the cursor.',
+              position: 'left'
+            }
+          ];
+          
+          this.overlay = document.getElementById('walkthrough-overlay');
+          this.spotlight = document.getElementById('spotlight');
+          this.tooltip = document.getElementById('walkthrough-tooltip');
+          this.tooltipTitle = document.getElementById('tooltip-title');
+          this.tooltipContent = document.getElementById('tooltip-content');
+          
+          this.initializeControls();
+          this.createProgressDots();
+        }
+        // ...rest of WalkthroughManager unchanged...
+        initializeControls() {
+          document.getElementById('start-walkthrough').addEventListener('click', () => {
+            this.startWalkthrough();
+          });
+
+          document.getElementById('next-btn').addEventListener('click', () => {
+            this.nextStep();
+          });
+
+          document.getElementById('prev-btn').addEventListener('click', () => {
+            this.previousStep();
+          });
+
+          document.getElementById('skip-btn').addEventListener('click', () => {
+            this.endWalkthrough();
+          });
+
+          // Close walkthrough on overlay click
+          this.overlay.addEventListener('click', (e) => {
+            if (e.target === this.overlay) {
+              this.endWalkthrough();
+            }
+          });
+        }
+        createProgressDots() {
+          const progressContainer = document.getElementById('progress-dots');
+          progressContainer.innerHTML = '';
+          this.steps.forEach((_, index) => {
+            const dot = document.createElement('div');
+            dot.className = 'progress-dot';
+            if (index === 0) dot.classList.add('active');
+            progressContainer.appendChild(dot);
+          });
+        }
+        updateProgressDots() {
+          const dots = document.querySelectorAll('.progress-dot');
+          dots.forEach((dot, index) => {
+            dot.classList.toggle('active', index <= this.currentStep);
+          });
+        }
+        startWalkthrough() {
+          this.currentStep = 0;
+          this.overlay.classList.add('active');
+          this.showStep();
+        }
+        showStep() {
+          const step = this.steps[this.currentStep];
+          const element = document.querySelector(step.element);
+          if (!element) return;
+          const rect = element.getBoundingClientRect();
+          const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+          const scrollLeft = window.pageXOffset || document.documentElement.scrollLeft;
+          const spotlightX = rect.left + scrollLeft + rect.width / 2;
+          const spotlightY = rect.top + scrollTop + rect.height / 2;
+          const spotlightSize = Math.max(rect.width, rect.height) + 40;
+          this.spotlight.style.left = `${spotlightX - spotlightSize / 2}px`;
+          this.spotlight.style.top = `${spotlightY - spotlightSize / 2}px`;
+          this.spotlight.style.width = `${spotlightSize}px`;
+          this.spotlight.style.height = `${spotlightSize}px`;
+          this.positionTooltip(rect, scrollTop, scrollLeft, step.position);
+          this.tooltipTitle.textContent = step.title;
+          this.tooltipContent.textContent = step.content;
+          this.updateControls();
+          this.updateProgressDots();
+          element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        positionTooltip(elementRect, scrollTop, scrollLeft, preferredPosition) {
+          const tooltip = this.tooltip;
+          const tooltipRect = tooltip.getBoundingClientRect();
+          const margin = 20;
+          let x, y;
+          switch (preferredPosition) {
+            case 'right':
+              x = elementRect.right + scrollLeft + margin;
+              y = elementRect.top + scrollTop + (elementRect.height - tooltipRect.height) / 2;
+              break;
+            case 'left':
+              x = elementRect.left + scrollLeft - tooltipRect.width - margin;
+              y = elementRect.top + scrollTop + (elementRect.height - tooltipRect.height) / 2;
+              break;
+            case 'bottom':
+              x = elementRect.left + scrollLeft + (elementRect.width - tooltipRect.width) / 2;
+              y = elementRect.bottom + scrollTop + margin;
+              break;
+            case 'top':
+            default:
+              x = elementRect.left + scrollLeft + (elementRect.width - tooltipRect.width) / 2;
+              y = elementRect.top + scrollTop - tooltipRect.height - margin;
+              break;
+          }
+          x = Math.max(10, Math.min(x, window.innerWidth - tooltipRect.width - 10));
+          y = Math.max(10, Math.min(y, window.innerHeight + scrollTop - tooltipRect.height - 10));
+          tooltip.style.left = `${x}px`;
+          tooltip.style.top = `${y}px`;
+        }
+        updateControls() {
+          const prevBtn = document.getElementById('prev-btn');
+          const nextBtn = document.getElementById('next-btn');
+          prevBtn.style.display = this.currentStep > 0 ? 'block' : 'none';
+          nextBtn.textContent = this.currentStep < this.steps.length - 1 ? 'Next' : 'Finish';
+        }
+        nextStep() {
+          if (this.currentStep < this.steps.length - 1) {
+            this.currentStep++;
+            this.showStep();
+          } else {
+            this.endWalkthrough();
+          }
+        }
+        previousStep() {
+          if (this.currentStep > 0) {
+            this.currentStep--;
+            this.showStep();
+          }
+        }
+        endWalkthrough() {
+          this.overlay.classList.remove('active');
+          this.currentStep = 0;
+        }
+      }
+
+      // Initialize walkthrough when page loads
+      document.addEventListener('DOMContentLoaded', () => {
+        new WalkthroughManager();
+      });
+
+      // Pyodide init and run
+      let pyodideReadyPromise = null;
+      async function main() {
+        let pyodide = await loadPyodide();
+        // Redirect stdout/stderr to terminal
+        pyodide.setStdout({ batched: (s) => addToTerminal(s) });
+        pyodide.setStderr({ batched: (s) => addToTerminal(s) });
+        // Input support: only prompt, do NOT print to terminal
+        pyodide.globals.set("input", (promptText) => {
+          return window.prompt(promptText);
+        });
+        addToTerminal("Ready!\n");
+        return pyodide;
+      }
+      pyodideReadyPromise = main();
+
+      // Run code handler
+      document.getElementById("run-btn").addEventListener("click", async () => {
+        let pyodide = await pyodideReadyPromise;
+        term.clear();
+        try {
+          const codeText = editor.getValue();
+          await pyodide.runPythonAsync(codeText);
+          addToTerminal("\n** Process exited - Return Code: 0 **\n");
+        } catch (err) {
+          addToTerminal(String(err));
+          addToTerminal("\n** Process exited - Return Code: 1 **\n");
+        }
+      });
+    </script>
+  </body>
+</html>
