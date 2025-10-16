@@ -160,7 +160,7 @@
           </div>
 
           <div class="scroll-hint" id="scrollHint">
-            <span></span>
+            <span>Scroll to explore</span>
             <div class="arrow">
               <svg viewBox="0 0 32 48">
                 <path d="M16 20 v20" stroke-linecap="round"/>
@@ -418,6 +418,7 @@
       const scrollHint = document.getElementById("scrollHint");
       let hintVisible = false;
       let userHasScrolled = false;
+      const HIDE_HINT_THRESHOLD = 100; // Pixels to scroll before hiding hint
 
       function showScrollHint() {
         scrollHint.classList.add('visible');
@@ -431,17 +432,17 @@
       // Show on load
       window.addEventListener('DOMContentLoaded', showScrollHint);
 
-      // Hide when user scrolls (any direction)
+      // Hide when user scrolls past the threshold
       window.addEventListener('scroll', () => {
-        if (!userHasScrolled && window.scrollY > 0) {
+        if (!userHasScrolled && window.scrollY > HIDE_HINT_THRESHOLD) {
           hideScrollHint();
           userHasScrolled = true;
         }
       });
 
-      // Also hide on wheel interaction (for mouse users)
+      // Also hide on wheel interaction if it causes enough scroll
       window.addEventListener('wheel', () => {
-        if (!userHasScrolled) {
+        if (!userHasScrolled && window.scrollY > HIDE_HINT_THRESHOLD) {
           hideScrollHint();
           userHasScrolled = true;
         }
@@ -451,8 +452,13 @@
       window.addEventListener('keydown', e => {
         if (!userHasScrolled &&
           ['ArrowDown','ArrowUp','PageDown','PageUp',' '].includes(e.key)) {
-          hideScrollHint();
-          userHasScrolled = true;
+            // Wait a moment to see if scroll position crosses the threshold
+            setTimeout(() => {
+              if (window.scrollY > HIDE_HINT_THRESHOLD) {
+                hideScrollHint();
+                userHasScrolled = true;
+              }
+            }, 100);
         }
       });
 
