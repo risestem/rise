@@ -80,12 +80,12 @@
         color: transparent;
       }
 
-      /* Code line highlighting animation (Arduino Style) */
+      /* Code line highlighting animation (Arduino Dark Style) */
       .code-line {
         transition: background-color 0.5s ease;
       }
       .code-line.highlighted {
-        background-color: #fff2a8 !important; /* Arduino's yellow highlight */
+        background-color: #31414a !important; /* Arduino's dark highlight */
       }
 
       /* Improved Scroll Hint styles */
@@ -220,16 +220,16 @@
 
           <!-- Code and Video Container -->
           <div class="flex flex-col md:flex-row gap-6 mb-8">
-            <!-- Mock IDE window: Arduino Theme -->
-            <div class="bg-white rounded-lg overflow-hidden font-mono text-xl leading-snug shadow-lg w-full md:w-[48%] h-[480px] border border-gray-300">
+            <!-- Mock IDE window: Arduino Dark Theme -->
+            <div class="bg-[#263238] rounded-lg overflow-hidden font-mono text-xl leading-snug shadow-lg w-full md:w-[48%] h-[480px]">
             <!-- Window header bar -->
-            <div class="bg-[#00979D] flex items-center space-x-2 px-3 py-2">
-              <span class="ml-2 text-white font-bold">draw_bot.ino</span>
+            <div class="bg-[#37474F] flex items-center space-x-2 px-3 py-2">
+              <span class="ml-2 text-gray-300">draw_bot.ino</span>
             </div>
             <!-- Code area -->
             <div class="flex h-full">
               <!-- Line numbers -->
-              <div class="text-gray-400 select-none pr-6 bg-white text-right">
+              <div class="text-gray-500 select-none pr-6 bg-[#263238] text-right">
                 <div class="px-2 py-1">1</div>
                 <div class="px-2 py-1">2</div>
                 <div class="px-2 py-1">3</div>
@@ -244,18 +244,18 @@
                 <div class="px-2 py-1">12</div>
               </div>
               <!-- Code lines -->
-              <div class="text-black flex-1">
-                <div class="px-2 py-1"><span style="color: #d35400;">#include</span> <span style="color: #00979d;">&lt;kit.h&gt;</span></div>
+              <div class="text-[#CFD8DC] flex-1">
+                <div class="px-2 py-1"><span style="color: #CC7832;">#include</span> <span style="color: #A9B7C6;">&lt;kit.h&gt;</span></div>
                 <div class="px-2 py-1">&nbsp;</div>
-                <div class="px-2 py-1"><span style="color: #d35400;">Turtle</span> myTurtle;</div>
+                <div class="px-2 py-1"><span style="color: #9876AA;">Turtle</span> myTurtle;</div>
                 <div class="px-2 py-1">&nbsp;</div>
-                <div id="code-line-setup" class="px-2 py-1 code-line"><span style="color: #d35400;">void</span> <span style="color: #00979d;">setup</span>() {</div>
-                <div id="code-line-pendown" class="px-2 py-1 pl-6 code-line">myTurtle.<span style="color: #00979d;">penDown</span>();</div>
-                <div id="code-line-forward" class="px-2 py-1 pl-6 code-line">myTurtle.<span style="color: #00979d;">forward</span>(<span style="color: #d35400;">10</span>);</div>
-                <div id="code-line-penup" class="px-2 py-1 pl-6 code-line">myTurtle.<span style="color: #00979d;">penUp</span>();</div>
+                <div id="code-line-setup" class="px-2 py-1 code-line"><span style="color: #CC7832;">void</span> <span style="color: #FFC66D;">setup</span>() {</div>
+                <div id="code-line-pendown" class="px-2 py-1 pl-6 code-line">myTurtle.<span style="color: #9876AA;">penDown</span>();</div>
+                <div id="code-line-forward" class="px-2 py-1 pl-6 code-line">myTurtle.<span style="color: #9876AA;">forward</span>(<span style="color: #6897BB;">10</span>);</div>
+                <div id="code-line-penup" class="px-2 py-1 pl-6 code-line">myTurtle.<span style="color: #9876AA;">penUp</span>();</div>
                 <div class="px-2 py-1">}</div>
                 <div class="px-2 py-1">&nbsp;</div>
-                <div id="code-line-loop" class="px-2 py-1 code-line"><span style="color: #d35400;">void</span> <span style="color: #00979d;">loop</span>() {</div>
+                <div id="code-line-loop" class="px-2 py-1 code-line"><span style="color: #CC7832;">void</span> <span style="color: #FFC66D;">loop</span>() {</div>
                 <div class="px-2 py-1">}</div>
               </div>
             </div>
@@ -433,9 +433,10 @@
       const scrollSpeed = 0.0002;
       let lastScrollTime = 0;
       const scrollThrottleMs = 16;
-
+      
+      // Scroll Hint Logic
       const scrollHint = document.getElementById("scrollHint");
-      let userHasInteracted = false;
+      let scrollHintTimer = null;
 
       function showScrollHint() {
         if (scrollHint) scrollHint.classList.add('visible');
@@ -444,31 +445,19 @@
       function hideScrollHint() {
         if (scrollHint) scrollHint.classList.remove('visible');
       }
-      
-      window.addEventListener('DOMContentLoaded', showScrollHint);
 
-      function handleFirstInteraction() {
-        if (!userHasInteracted) {
-          hideScrollHint();
-          userHasInteracted = true;
-          window.removeEventListener('wheel', handleFirstInteraction);
-          window.removeEventListener('keydown', handleFirstInteractionKey);
-        }
+      function resetScrollHintTimer() {
+        hideScrollHint();
+        clearTimeout(scrollHintTimer);
+        scrollHintTimer = setTimeout(showScrollHint, 5000);
       }
-      
-      function handleFirstInteractionKey(e) {
-        if (['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', ' '].includes(e.key)) {
-          handleFirstInteraction();
-        }
-      }
-
-      window.addEventListener('wheel', handleFirstInteraction, { once: true, passive: true });
-      window.addEventListener('keydown', handleFirstInteractionKey, { once: true });
 
       function handleScroll(deltaY) {
         const now = Date.now();
         if (now - lastScrollTime < scrollThrottleMs) return;
         lastScrollTime = now;
+
+        resetScrollHintTimer();
 
         requestAnimationFrame(() => {
           if (!animationComplete) {
@@ -546,10 +535,10 @@
 
       function highlightCodeLine(lineId) {
         const line = document.getElementById(lineId);
-if (line) {
-line.classList.add('highlighted');
-}
-}
+        if (line) {
+            line.classList.add('highlighted');
+        }
+      }
 
       function clearAllHighlights() {
         document.querySelectorAll('.code-line.highlighted').forEach(line => {
@@ -562,6 +551,8 @@ line.classList.add('highlighted');
         preloadInitialFrames();
         requestAnimationFrame(animate);
 
+        showScrollHint(); // Show hint initially
+
         document.getElementById('snappedScrollbar').addEventListener('click', e => {
             const segment = e.target.closest('.scrollbar-segment');
             if (!segment) return;
@@ -569,6 +560,7 @@ line.classList.add('highlighted');
             const section = textSections.find(s => s.id === sectionId);
             if (section) {
                 targetProgress = (section.startFrame + 2) / totalFrames;
+                resetScrollHintTimer();
             }
         });
 
