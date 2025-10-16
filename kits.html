@@ -141,23 +141,22 @@
     <div class="container mx-auto px-6">
       <!-- Collection Header -->
       <div class="text-center mb-12">
-        <h2 class="text-4xl font-bold text-purple-950 mb-4">Browse the collection.</h2>
-        <p class="text-xl text-gray-600 max-w-3xl mx-auto">Explore our range of STEM kits designed to inspire and educate the next generation of engineers and creators.</p>
-      </div>
-
-      <!-- Filter Pills -->
-      <div class="flex flex-wrap justify-center gap-3 mb-16 px-4">
-        <button class="px-6 py-2 rounded-full bg-gray-100 text-gray-800 hover:bg-gray-200 transition-colors font-medium" data-filter="all">All Kits</button>
-        <button class="px-6 py-2 rounded-full bg-gray-100 text-gray-800 hover:bg-gray-200 transition-colors font-medium" data-filter="coding">Coding</button>
-        <button class="px-6 py-2 rounded-full bg-gray-100 text-gray-800 hover:bg-gray-200 transition-colors font-medium" data-filter="robotics">Robotics</button>
-        <button class="px-6 py-2 rounded-full bg-gray-100 text-gray-800 hover:bg-gray-200 transition-colors font-medium" data-filter="electronics">Electronics</button>
-        <button class="px-6 py-2 rounded-full bg-gray-100 text-gray-800 hover:bg-gray-200 transition-colors font-medium" data-filter="beginner">Beginner</button>
-        <button class="px-6 py-2 rounded-full bg-gray-100 text-gray-800 hover:bg-gray-200 transition-colors font-medium" data-filter="intermediate">Intermediate</button>
+        <h2 class="text-4xl font-bold text-purple-950 mb-4">Our First Kit</h2>
+        <p class="text-xl text-gray-600 max-w-3xl mx-auto">Explore our first STEM kit, designed to inspire and educate the next generation of engineers and creators.</p>
       </div>
 
       <!-- Product Grid -->
       <div id="kits-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
         <!-- Kits will be dynamically inserted here by JavaScript -->
+      </div>
+      
+      <!-- Coming Soon Section -->
+      <div class="text-center mt-16 pt-12 border-t border-gray-200">
+        <h2 class="text-3xl font-bold text-purple-950 mb-4">More Kits Coming Soon...</h2>
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-8">We're hard at work developing new kits to expand our collection. Follow our progress and contribute to the development on GitHub.</p>
+        <a href="https://github.com/risestem/stem-kits" target="_blank" rel="noopener noreferrer" class="inline-block bg-gray-800 hover:bg-black text-white font-semibold py-3 px-8 rounded-full transition-colors duration-300 shadow-md hover:shadow-lg">
+          See the Process on GitHub
+        </a>
       </div>
 
       <!-- Call to Action -->
@@ -185,150 +184,51 @@
             { text: 'Ages 11+', type: 'age' },
             { text: 'Intermediate', type: 'difficulty' }
           ]
-        },
-        {
-          id: 'cnc',
-          name: 'Pen Plotter',
-          description: '2 axis CNC plotter that uses a marker to draw on paper. Powered by steppers and servos and designed to be a "2 in 1" alternative to the Drawing Bot while teaching G-Code basics and extending learning.',
-          image: '/public/cncPlotter.png',
-          alt: 'Pen Plotter Kit',
-          link: '/pen',
-          tags: [
-            { text: 'Robotics', type: 'subject' },
-            { text: 'Ages 11+', type: 'age' },
-            { text: 'Hard', type: 'difficulty' }
-          ]
-        },
-        {
-          id: 'arm',
-          name: 'Servo',
-          description: '6 DOF robotic arm powered by 6 SG90 servo motors. The next generation of RISE kits planned for use in RISE engineering curriculum to supplement mechanical and electrical engineering lessons.',
-          image: '/public/roboticArm.png',
-          alt: 'Robot Arm Kit',
-          link: '/arm',
-          tags: [
-            { text: 'Robotics', type: 'subject' },
-            { text: 'Ages 12+', type: 'age' },
-            { text: 'Hard', type: 'difficulty' }
-          ]
-        },
-        {
-          id: 'console',
-          name: 'Rise Console ',
-          description: 'Custom handheld gaming console based on the Raspberry Pi Pico, designed to teach soldering, electronics, and coding.',
-          image: '/public/riseConsole.png',
-          alt: 'Rise Console Kit',
-          link: '/console',
-          tags: [
-            { text: 'Robotics', type: 'subject' },
-            { text: 'Ages 12+', type: 'age' },
-            { text: 'Intermediate', type: 'difficulty' }
-          ]
         }
       ];
 
       // Render kits to the DOM
-      function renderKits(filter = 'all') {
+      function renderKits() {
         const grid = document.getElementById('kits-grid');
         if (!grid) return;
 
         grid.innerHTML = ''; // Clear existing content
 
         kits.forEach(kit => {
-          // Skip if filter doesn't match (unless it's 'all' or a coming soon kit)
-          if (filter !== 'all' && kit.id.startsWith('coming-soon') === false) {
-            const matchesFilter = kit.tags.some(tag => 
-              tag.type === filter || tag.text.toLowerCase() === filter
-            );
-            if (!matchesFilter) return;
-          }
-
-          const kitElement = document.createElement('div');
+          // Map tag types to colors
+          const tagColors = {
+            subject: 'bg-blue-100 text-blue-800',
+            age: 'bg-green-100 text-green-800',
+            difficulty: 'bg-yellow-100 text-yellow-800',
+            default: 'bg-gray-100 text-gray-800'
+          };
           
-          if (kit.id.startsWith('coming-soon')) {
-            // Coming soon template
-            kitElement.className = 'bg-white rounded-xl overflow-hidden shadow-md border-2 border-dashed border-gray-300';
-            kitElement.innerHTML = `
-              <div class="h-64 bg-gray-50 flex flex-col items-center justify-center p-8 text-center">
-                <span class="text-6xl mb-4">${kit.emoji}</span>
-                <h3 class="text-xl font-bold text-purple-950 mb-2">${kit.name}</h3>
-                <p class="text-gray-500">${kit.description}</p>
-              </div>
-            `;
-          } else {
-            // Map tag types to colors
-            const tagColors = {
-              subject: 'bg-blue-100 text-blue-800',
-              age: 'bg-green-100 text-green-800',
-              difficulty: 'bg-yellow-100 text-yellow-800',
-              default: 'bg-gray-100 text-gray-800'
-            };
-            
-            // Generate tags HTML
-            const tagsHTML = kit.tags.map(tag => {
-              const colorClass = tagColors[tag.type] || tagColors.default;
-              return `<span class="px-3 py-1 ${colorClass} text-sm rounded-full">${tag.text}</span>`;
-            }).join('');
+          // Generate tags HTML
+          const tagsHTML = kit.tags.map(tag => {
+            const colorClass = tagColors[tag.type] || tagColors.default;
+            return `<span class="px-3 py-1 ${colorClass} text-sm rounded-full">${tag.text}</span>`;
+          }).join('');
 
-            // Make the entire card clickable
-            kitElement.className = 'bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer';
-            kitElement.innerHTML = `
-              <a href="${kit.link}" class="block h-full">
-                <div class="h-64 bg-gray-100 flex items-center justify-center p-8">
-                  <img src="${kit.image}" alt="${kit.alt}" class="max-h-full max-w-full object-contain">
+          // Make the entire card clickable
+          const kitElement = document.createElement('div');
+          kitElement.className = 'bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 cursor-pointer md:col-start-2 lg:col-start-2';
+          kitElement.innerHTML = `
+            <a href="${kit.link}" class="block h-full">
+              <div class="h-64 bg-gray-100 flex items-center justify-center p-8">
+                <img src="${kit.image}" alt="${kit.alt}" class="max-h-full max-w-full object-contain">
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-bold text-purple-950 mb-2">${kit.name}</h3>
+                <div class="flex flex-wrap gap-2 mb-4">
+                  ${tagsHTML}
                 </div>
-                <div class="p-6">
-                  <h3 class="text-xl font-bold text-purple-950 mb-2">${kit.name}</h3>
-                  <div class="flex flex-wrap gap-2 mb-4">
-                    ${tagsHTML}
-                  </div>
-                  <p class="text-gray-600 mb-4">${kit.description}</p>
-                  <div class="text-purple-600 font-medium">Learn more →</div>
-                </div>
-              </a>
-            `;
-          }
+                <p class="text-gray-600 mb-4">${kit.description}</p>
+                <div class="text-purple-600 font-medium">Learn more →</div>
+              </div>
+            </a>
+          `;
           
           grid.appendChild(kitElement);
-        });
-      }
-
-      // Handle filter clicks and states
-      function setupFilters() {
-        const filterButtons = document.querySelectorAll('[data-filter]');
-        let activeFilter = 'all'; // Track the active filter
-        
-        // Set initial active state
-        const updateActiveFilter = (newFilter) => {
-          activeFilter = newFilter;
-          filterButtons.forEach(btn => {
-            const isActive = btn.getAttribute('data-filter') === activeFilter;
-            btn.classList.toggle('bg-purple-600', isActive);
-            btn.classList.toggle('text-white', isActive);
-            
-            // Remove hover styles for active filter
-            if (isActive) {
-              btn.classList.remove('hover:bg-gray-200');
-              btn.classList.add('cursor-default');
-            } else {
-              btn.classList.add('hover:bg-gray-200');
-              btn.classList.remove('cursor-default');
-            }
-          });
-        };
-        
-        // Set initial state
-        updateActiveFilter('all');
-        
-        // Add click handlers
-        filterButtons.forEach(button => {
-          button.addEventListener('click', () => {
-            const filter = button.getAttribute('data-filter');
-            if (filter !== activeFilter) {
-              updateActiveFilter(filter);
-              renderKits(filter);
-            }
-          });
         });
       }
 
@@ -347,16 +247,19 @@
           }
         });
         
-        closer.addEventListener('click', () => modal.classList.add('hidden'));
-        modal.addEventListener('click', e => {
-          if (e.target === modal) modal.classList.add('hidden');
-        });
+        if (closer) {
+          closer.addEventListener('click', () => modal.classList.add('hidden'));
+        }
+        if (modal) {
+          modal.addEventListener('click', e => {
+            if (e.target === modal) modal.classList.add('hidden');
+          });
+        }
       }
 
       // Initialize everything when the DOM is loaded
       document.addEventListener('DOMContentLoaded', () => {
         renderKits();
-        setupFilters();
         setupContactModal();
       });
       
