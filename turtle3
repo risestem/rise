@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script src="https://unpkg.com/alpinejs" defer></script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Draw Bot - RISE STEM</title>
+    <link rel="icon" type="image/svg+xml" href="/public/logo1.svg" />
+    <link rel="icon" type="image/png" href="/public/favicon-32x32.png" />
+    <link rel="shortcut icon" href="/public/favicon.ico" />
+    <link rel="apple-touch-icon" href="/public/apple-touch-icon.png" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+      html { scroll-behavior: smooth; }
+      body { margin: 0; padding: 0; font-family: 'Poppins', sans-serif; background-color: #f9fafb; }
+
+      /* Container & Layout */
+      .animation-container { height: 80vh; overflow: hidden; position: relative; display: flex; align-items: center; justify-content: center; margin-bottom: 2rem; }
+      .scroll-video-container { position: absolute; right: 5%; top: 50%; transform: translateY(-50%); width: 60%; height: 80%; max-width: none; z-index: 10; display: flex; align-items: center; justify-content: center; }
+      .scroll-video-frame { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; }
+      .scroll-text-container { position: absolute; left: 5%; top: 50%; transform: translateY(-50%); width: 30%; max-width: 400px; z-index: 20; height: 200px; }
+
+      /* Text sections */
+      .scroll-text-section { position: absolute; width: 100%; top: 0; left: 0; opacity: 0; transform: translateX(-100px); transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1); pointer-events: none; }
+      .scroll-text-section.active { opacity: 1; transform: translateX(0); pointer-events: auto; }
+      .scroll-text-section.exit-right { opacity: 0; transform: translateX(100px); }
+      .scroll-text-section.exit-left  { opacity: 0; transform: translateX(-100px); }
+
+      .scroll-text-section h2 { font-size: 2rem; font-weight: bold; color: #581c87; margin-bottom: 1.5rem; line-height: 1.2; }
+      .scroll-text-section p  { font-size: 1.1rem; color: #374151; line-height: 1.6; margin-bottom: 1rem; }
+      
+      /* Snapped Scrollbar */
+      .snapped-scrollbar {
+        position: absolute;
+        left: 2.5%;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem; /* Increased gap */
+        z-index: 25;
+      }
+      .scrollbar-segment {
+        width: 12px;
+        height: 40px; /* Taller segments */
+        background-color: #e5e7eb; /* Light gray */
+        border-radius: 6px;
+        transition: background-color 0.4s ease, transform 0.4s ease;
+        cursor: pointer;
+      }
+      .scrollbar-segment.active {
+        background-color: #8b5cf6; /* Purple */
+        transform: scaleX(1.25);
+      }
+
+      /* Post-animation */
+      .post-animation-content {
+        min-height: 100vh;
+        padding: 4rem 2rem;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
+        scroll-margin-top: 80px; /* ensure header offset */
+      }
+      .post-animation-content.visible {
+        opacity: 1;
+        visibility: visible;
+      }
+      .post-animation-content h1 { font-size: 3rem; font-weight: bold; color: #581c87; margin-bottom: 2rem; text-align: center; }
+      .post-animation-content h2 { font-size: 2rem; font-weight: bold; color: #581c87; margin: 3rem 0 1.5rem; }
+      .post-animation-content p  { font-size: 1.1rem; color: #374151; line-height: 1.7; margin-bottom: 1.5rem; }
+
+      /* Gradient text effect */
+      .gradient-text {
+        background: linear-gradient(135deg, #8b5cf6, #ec4899);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        color: transparent;
+      }
+
+      /* Code line highlighting animation (Arduino Dark Style) */
+      .code-line {
+        transition: background-color 0.5s ease;
+      }
+      .code-line.highlighted {
+        background-color: #31414a !important; /* Arduino's dark highlight */
+      }
+
+      /* Improved Scroll Hint styles */
+      .scroll-hint {
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        color: #9ca3af; /* Darker gray color */
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.25rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        opacity: 0;
+        transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1);
+        z-index: 50;
+        pointer-events: none;
+        text-shadow: 0 2px 4px rgba(0,0,0,0.07);
+        user-select: none;
+      }
+      .scroll-hint.visible {
+        opacity: 1;
+        pointer-events: all;
+      }
+
+      .scroll-hint .arrow {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 8px;
+      }
+      .scroll-hint .arrow svg {
+        display: block;
+        width: 32px;
+        height: 48px;
+        stroke: currentColor;
+        fill: none;
+        stroke-width: 3;
+        animation: arrowBounce 1.8s infinite;
+      }
+      @keyframes arrowBounce {
+        0%, 20%, 50%, 80%, 100% { transform: translateY(0);}
+        40% { transform: translateY(-14px);}
+        60% { transform: translateY(-7px);}
+      }
+
+      .animation-container {
+        position: relative;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .scroll-video-container { width: 90%; height: 70vh; right: 5%; top: 15%; }
+        .scroll-text-container  { width: 90%; left: 5%; top: 85%; }
+        .scroll-text-section h2  { font-size: 1.5rem; }
+        .scroll-text-section p   { font-size: 1rem; }
+        .scroll-hint { font-size: 1rem; }
+        .snapped-scrollbar { display: none; } /* Hide scrollbar on mobile */
+      }
+      @media (max-width: 640px) {
+        .animation-container  { flex-direction: column; padding: 2rem 1rem; }
+        .scroll-video-container { position: relative; width: 100%; height: 60vh; right: auto; top: auto; transform: none; margin-bottom: 2rem; }
+        .scroll-text-container   { position: relative; width: 100%; left: auto; top: auto; transform: none; }
+        .scroll-hint { font-size: 0.95rem; }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Header -->
+    <div id="header-container"></div>
+    <script type="module" src="/scripts/loadHeader.js"></script>
+
+    <!-- Single White Content Box containing everything -->
+    <div class="w-full px-6 sm:px-6 md:px-16 lg:px-24 py-8 bg-gray-50">
+      <div class="bg-white rounded-2xl border border-gray-300 shadow-md p-8">
+
+        <!-- Animation Container (top section of the white box) -->
+        <div class="animation-container" id="animationContainer">
+          <div class="scroll-video-container">
+            <img
+              id="videoFrame"
+              class="scroll-video-frame"
+              src="/public/v5_webp/turtleExplodev500001.webp"
+              alt="Video Frame"
+            />
+          </div>
+
+          <div class="scroll-hint" id="scrollHint">
+            <span>Scroll to explore</span>
+            <div class="arrow">
+              <svg viewBox="0 0 32 48">
+                <path d="M16 20 v20" stroke-linecap="round"/>
+                <path d="M7 33 l9 9 l9-9" stroke-linecap="round"/>
+              </svg>
+            </div>
+          </div>
+          
+          <!-- Snapped Scrollbar -->
+          <div class="snapped-scrollbar" id="snappedScrollbar">
+            <div class="scrollbar-segment" data-section="textSection1"></div>
+            <div class="scrollbar-segment" data-section="textSection2"></div>
+            <div class="scrollbar-segment" data-section="textSection3"></div>
+          </div>
+
+          <div class="scroll-text-container">
+            <div class="scroll-text-section" id="textSection1">
+              <h2>The Draw Bot</h2>
+              <p>The Draw Bot is our signature RISE Kit: a drawing robot that is assembled using 3D-printed and off-the-shelf parts. Once built, it can be programmed to draw shapes, patterns, or anything one can imagine—combining hands-on building with creative coding.</p>
+            </div>
+
+            <div class="scroll-text-section" id="textSection2">
+              <h2>Fun Meets Function</h2>
+              <p>Learning feels less like work and more like discovery. The Draw Bot blends creativity and critical thinking, making STEM concepts approachable and enjoyable while still building real-world understanding.</p>
+            </div>
+
+            <div class="scroll-text-section" id="textSection3">
+              <h2>Innovation in Learning</h2>
+              <p>The Draw Bot offers an innovative approach to STEM education, encouraging students to explore new ideas through hands-on, interactive experiences. It’s a playful introduction to complex concepts, fostering curiosity and confidence in young learners.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Post-Animation Content (within same white box) -->
+        <div class="post-animation-content">
+          <!-- New header -->
+          <h1 class="text-4xl font-bold text-purple-950 mb-6">Code Comes to <span class="gradient-text">Life</span></h1>
+
+          <!-- Code and Video Container -->
+          <div class="flex flex-col md:flex-row gap-6 mb-8">
+            <!-- Mock IDE window: Arduino Dark Theme -->
+            <div class="bg-[#263238] rounded-lg overflow-hidden font-mono text-xl leading-snug shadow-lg w-full md:w-[48%] h-[480px]">
+            <!-- Window header bar -->
+            <div class="bg-[#37474F] flex items-center space-x-2 px-3 py-2">
+              <span class="ml-2 text-gray-300">draw_bot.ino</span>
+            </div>
+            <!-- Code area -->
+            <div class="flex h-full">
+              <!-- Line numbers -->
+              <div class="text-gray-500 select-none pr-6 bg-[#263238] text-right">
+                <div class="px-2 py-1">1</div>
+                <div class="px-2 py-1">2</div>
+                <div class="px-2 py-1">3</div>
+                <div class="px-2 py-1">4</div>
+                <div class="px-2 py-1">5</div>
+                <div class="px-2 py-1">6</div>
+                <div class="px-2 py-1">7</div>
+                <div class="px-2 py-1">8</div>
+                <div class="px-2 py-1">9</div>
+                <div class="px-2 py-1">10</div>
+                <div class="px-2 py-1">11</div>
+                <div class="px-2 py-1">12</div>
+              </div>
+              <!-- Code lines -->
+              <div class="text-[#CFD8DC] flex-1">
+                <div class="px-2 py-1"><span style="color: #CC7832;">#include</span> <span style="color: #A9B7C6;">&lt;kit.h&gt;</span></div>
+                <div class="px-2 py-1">&nbsp;</div>
+                <div class="px-2 py-1"><span style="color: #9876AA;">Turtle</span> myTurtle;</div>
+                <div class="px-2 py-1">&nbsp;</div>
+                <div id="code-line-setup" class="px-2 py-1 code-line"><span style="color: #CC7832;">void</span> <span style="color: #FFC66D;">setup</span>() {</div>
+                <div id="code-line-pendown" class="px-2 py-1 pl-6 code-line">myTurtle.<span style="color: #9876AA;">penDown</span>();</div>
+                <div id="code-line-forward" class="px-2 py-1 pl-6 code-line">myTurtle.<span style="color: #9876AA;">forward</span>(<span style="color: #6897BB;">10</span>);</div>
+                <div id="code-line-penup" class="px-2 py-1 pl-6 code-line">myTurtle.<span style="color: #9876AA;">penUp</span>();</div>
+                <div class="px-2 py-1">}</div>
+                <div class="px-2 py-1">&nbsp;</div>
+                <div id="code-line-loop" class="px-2 py-1 code-line"><span style="color: #CC7832;">void</span> <span style="color: #FFC66D;">loop</span>() {</div>
+                <div class="px-2 py-1">}</div>
+              </div>
+            </div>
+            </div>
+
+            <!-- Video Container -->
+            <div class="w-full md:w-[48%] h-[480px] rounded-lg overflow-hidden bg-white flex items-center justify-center">
+              <video
+                id="turtleDrawVideo"
+                class="w-full h-full object-contain"
+                muted
+                loop
+                playsinline
+                preload="none"
+              >
+                <source src="/public/turtleDrawv1.webm" type="video/webm">
+                Your browser does not support the video tag.
+              </video>
+            </div>
+          </div>
+
+          <!-- Placeholder text section -->
+          <p class="text-xl text-gray-600 text-center max-w-3xl mx-auto mt-6 mb-4 px-4">
+            With the Draw Bot, coding becomes a hands-on, real-world experience. Rather than staying confined to a screen, code translates directly into motion, guiding the robot as it draws in real time. This tangible feedback bridges the gap between digital commands and physical results, turning abstract logic into visible, interactive outcomes. It's a creative and engaging way to explore programming through direct, real-world impact.
+          </p>
+
+          <!-- What's In the Box? Section -->
+          <section class="max-w-4xl mx-auto px-6 md:px-8 py-8">
+            <div class="bg-white rounded-2xl border border-purple-200 shadow p-6 md:p-10 flex flex-col md:flex-row items-center gap-10">
+              <img src="/public/turtleRobot.png" alt="Turtle Robot Example" class="w-64 h-64 object-contain rounded-xl shadow-md border border-gray-200 mb-4 md:mb-0">
+              <div class="flex-1">
+                <h3 class="text-xl font-bold text-purple-900 mb-2">What's in the Turtle Kit?</h3>
+                <ul class="list-disc pl-6 text-gray-700 mb-3 text-md">
+                  <li><span class="font-bold text-purple-900">Microcontroller:</span> The robot's brain, easily programmed with our lessons</li>
+                  <li><span class="font-bold text-purple-900">Motors & Wheels:</span> Make your robot move and turn</li>
+                  <li><span class="font-bold text-purple-900">Drawing Markers:</span> Clip on and watch your robot draw</li>
+                  <li><span class="font-bold text-purple-900">Chassis & Hardware:</span> All the parts to put it together</li>
+                  <li><span class="font-bold text-purple-900">Batteries Included</span></li>
+                  <li><span class="font-bold text-purple-900">Step-by-step Guide</span> (paper & video)</li>
+                  <li><span class="font-bold text-purple-900">Access to Coding Lessons</span></li>
+                </ul>
+                <div class="text-xs text-purple-700">
+                  Everything is included—all you need is your curiosity!
+                </div>
+              </div>
+            </div>
+          </section>
+            
+            <div class="text-center mt-12">
+              <p class="text-gray-600 mb-6">Interested in getting your own Draw Bot?</p>
+              <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="mailto:contact@risestem.org" class="inline-block bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 px-8 rounded-full transition-colors duration-300 shadow-md hover:shadow-lg">
+                  Contact Us Today!
+                </a>
+                <a href="/kits" class="inline-block bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold py-3 px-8 rounded-full transition-colors duration-300 shadow-md hover:shadow-lg">
+                  Return to Kits
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer-container"></div>
+    <script type="module" src="/scripts/loadFooter.js"></script>
+
+    <script>
+      const totalFrames = 150;
+      const frameBasePath = '/public/v5_webp/turtleExplodev5';
+      const textSections = [
+        { id: 'textSection1', startFrame: 1,   endFrame: 50  },
+        { id: 'textSection2', startFrame: 52,  endFrame: 102 },
+        { id: 'textSection3', startFrame: 104, endFrame: 150 }
+      ];
+
+      let currentFrame = 1;
+      let scrollProgress = 0;
+      let targetProgress = 0;
+      let animationComplete = false;
+      let activeTextSection = null;
+      const preloadedFrames = new Map();
+
+      function preloadFrame(n) {
+        if (n < 1 || n > totalFrames) return;
+        if (!preloadedFrames.has(n)) {
+          const img = new Image();
+          img.src = `${frameBasePath}${String(n).padStart(5,'0')}.webp`;
+          preloadedFrames.set(n, img);
+        }
+      }
+
+      function preloadInitialFrames() {
+        for (let i = 1; i <= Math.min(100, totalFrames); i++) preloadFrame(i);
+      }
+
+      function updateVideoFrame() {
+        const frameNum = Math.floor(scrollProgress * (totalFrames - 1)) + 1;
+        if (frameNum !== currentFrame) {
+          currentFrame = frameNum;
+          const frameEl = document.getElementById('videoFrame');
+          if (frameEl) {
+            frameEl.src = `${frameBasePath}${String(frameNum).padStart(5,'0')}.webp`;
+          }
+          for (let i = 1; i <= 30; i++) preloadFrame(frameNum + i);
+        }
+      }
+
+      function showTextSection(s) {
+        document.getElementById(s.id).classList.add('active');
+        document.querySelector(`.scrollbar-segment[data-section="${s.id}"]`)?.classList.add('active');
+      }
+
+      function hideTextSection(s) {
+        document.getElementById(s.id).classList.remove('active');
+        document.querySelector(`.scrollbar-segment[data-section="${s.id}"]`)?.classList.remove('active');
+      }
+
+      function updateTextSections() {
+        const section = textSections.find(s =>
+          currentFrame >= s.startFrame && currentFrame <= s.endFrame
+        );
+        if (section && (!activeTextSection || activeTextSection.id !== section.id)) {
+          if (activeTextSection) hideTextSection(activeTextSection);
+          showTextSection(section);
+          activeTextSection = section;
+        } else if (!section && activeTextSection) {
+          hideTextSection(activeTextSection);
+          activeTextSection = null;
+        }
+      }
+
+      function completeAnimation() {
+        if (animationComplete) return;
+        animationComplete = true;
+        scrollProgress = targetProgress = 1;
+        updateVideoFrame();
+        updateTextSections();
+
+        const postContent = document.querySelector('.post-animation-content');
+        postContent.classList.add('visible');
+
+        const turtleVideo = document.getElementById('turtleDrawVideo');
+        if (turtleVideo) {
+          turtleVideo.currentTime = 0;
+          turtleVideo.load();
+          turtleVideo.play().catch(e => console.log('Video autoplay prevented:', e));
+          startCodeLineAnimation();
+        }
+
+        postContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        setTimeout(() => {
+          document.body.style.overflow = 'auto';
+        }, 600);
+      }
+
+      function reenterAnimation() {
+        animationComplete = false;
+        const postContent = document.querySelector('.post-animation-content');
+        postContent.classList.remove('visible');
+
+        const turtleVideo = document.getElementById('turtleDrawVideo');
+        if (turtleVideo) {
+          turtleVideo.pause();
+          turtleVideo.currentTime = 0;
+        }
+
+        stopCodeLineAnimation();
+
+        document.body.style.overflow = 'hidden';
+        const animationContainer = document.getElementById('animationContainer');
+        const headerHeight = 80;
+        const animationTop = animationContainer.offsetTop - headerHeight;
+        window.scrollTo({ top: animationTop, behavior: 'smooth' });
+      }
+
+      const scrollSpeed = 0.0002;
+      let lastScrollTime = 0;
+      const scrollThrottleMs = 16;
+      
+      // Scroll Hint Logic
+      const scrollHint = document.getElementById("scrollHint");
+      let scrollHintTimer = null;
+
+      function showScrollHint() {
+        if (scrollHint) scrollHint.classList.add('visible');
+      }
+
+      function hideScrollHint() {
+        if (scrollHint) scrollHint.classList.remove('visible');
+      }
+
+      function resetScrollHintTimer() {
+        hideScrollHint();
+        clearTimeout(scrollHintTimer);
+        scrollHintTimer = setTimeout(showScrollHint, 3000);
+      }
+
+      function handleScroll(deltaY) {
+        const now = Date.now();
+        if (now - lastScrollTime < scrollThrottleMs) return;
+        lastScrollTime = now;
+
+        resetScrollHintTimer();
+
+        requestAnimationFrame(() => {
+          if (!animationComplete) {
+            let newProgress = targetProgress + deltaY * scrollSpeed;
+            if (newProgress >= 1 && targetProgress >= 1) {
+              completeAnimation();
+              return;
+            }
+            targetProgress = Math.max(0, Math.min(1, newProgress));
+          } else if (deltaY < 0) {
+            const postContent = document.querySelector('.post-animation-content');
+            const rect = postContent.getBoundingClientRect();
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (rect.top >= 0 || scrollTop <= postContent.offsetTop) {
+              reenterAnimation();
+              targetProgress = scrollProgress = 0.95;
+              updateVideoFrame();
+              updateTextSections();
+            }
+          }
+        });
+      }
+
+      function animate() {
+        scrollProgress += (targetProgress - scrollProgress) * 0.1;
+        updateVideoFrame();
+        updateTextSections();
+        if (!animationComplete && scrollProgress >= 0.99) completeAnimation();
+        requestAnimationFrame(animate);
+      }
+
+      let videoSyncEnabled = false;
+      let codeTimestamps = [];
+
+      function handleVideoTimeUpdate() {
+        if (!videoSyncEnabled) return;
+        const turtleVideo = document.getElementById('turtleDrawVideo');
+        if (!turtleVideo) return;
+        const currentTime = turtleVideo.currentTime;
+
+        const activeTimestamp = codeTimestamps.find(ts =>
+          currentTime >= ts.time && currentTime < (ts.time + ts.duration)
+        );
+
+        if (activeTimestamp) {
+          clearAllHighlights();
+          highlightCodeLine(activeTimestamp.lineId);
+        }
+      }
+
+      function startCodeLineAnimation() {
+        stopCodeLineAnimation();
+        const turtleVideo = document.getElementById('turtleDrawVideo');
+        if (!turtleVideo) return;
+
+        codeTimestamps = [
+          { time: 0,    lineId: 'code-line-pendown', duration: 1.0 },
+          { time: 1.0,  lineId: 'code-line-forward', duration: 2.0 },
+          { time: 3.5,  lineId: 'code-line-penup',   duration: 1.0 },
+        ];
+
+        videoSyncEnabled = true;
+        turtleVideo.addEventListener('timeupdate', handleVideoTimeUpdate);
+        highlightCodeLine(codeTimestamps[0].lineId);
+      }
+
+      function stopCodeLineAnimation() {
+        videoSyncEnabled = false;
+        const turtleVideo = document.getElementById('turtleDrawVideo');
+        if (turtleVideo) {
+          turtleVideo.removeEventListener('timeupdate', handleVideoTimeUpdate);
+        }
+        clearAllHighlights();
+      }
+
+      function highlightCodeLine(lineId) {
+        const line = document.getElementById(lineId);
+        if (line) {
+            line.classList.add('highlighted');
+        }
+      }
+
+      function clearAllHighlights() {
+        document.querySelectorAll('.code-line.highlighted').forEach(line => {
+          line.classList.remove('highlighted');
+        });
+      }
+
+      function init() {
+        document.body.style.overflow = 'hidden';
+        preloadInitialFrames();
+        requestAnimationFrame(animate);
+
+        showScrollHint(); // Show hint initially
+
+        document.getElementById('snappedScrollbar').addEventListener('click', e => {
+            const segment = e.target.closest('.scrollbar-segment');
+            if (!segment) return;
+            const sectionId = segment.dataset.section;
+            const section = textSections.find(s => s.id === sectionId);
+            if (section) {
+                targetProgress = (section.startFrame + 2) / totalFrames;
+                resetScrollHintTimer();
+            }
+        });
+
+        const onWheel = e => {
+          if (!animationComplete) {
+            e.preventDefault();
+            handleScroll(e.deltaY);
+          } else {
+            handleScroll(e.deltaY);
+          }
+        };
+        window.addEventListener('wheel', onWheel, { passive: false });
+
+        let lastTouchY = 0;
+        const onTouchStart = e => {
+          lastTouchY = e.touches[0].clientY;
+        };
+
+        const onTouchMove = e => {
+          if (!animationComplete) {
+            e.preventDefault();
+          }
+          const touchY = e.touches[0].clientY;
+          const deltaY = lastTouchY - touchY;
+          lastTouchY = touchY;
+          handleScroll(deltaY);
+        };
+
+        window.addEventListener('touchstart', onTouchStart, { passive: true });
+        window.addEventListener('touchmove', onTouchMove, { passive: false });
+
+        const onKeydown = e => {
+          if (!animationComplete) {
+            if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+              e.preventDefault(); handleScroll(100);
+            }
+            if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+              e.preventDefault(); handleScroll(-100);
+            }
+          } else {
+            if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+              const postContent = document.querySelector('.post-animation-content');
+              const rect = postContent.getBoundingClientRect();
+              const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+              if (rect.top >= 0 || scrollTop <= postContent.offsetTop) {
+                e.preventDefault(); handleScroll(-100);
+              }
+            }
+          }
+        };
+        window.addEventListener('keydown', onKeydown);
+
+        window.addEventListener('resize', () => {
+          if (!animationComplete) {
+            updateVideoFrame();
+            updateTextSections();
+          }
+        });
+      }
+
+      window.addEventListener('load', init);
+    </script>
+  </body>
+</html>
