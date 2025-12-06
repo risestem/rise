@@ -21,26 +21,34 @@
         height: 700px;
         overflow-y: auto;
         background: #525659;
-        border-radius: 0.5rem;
+        border-radius: 0 0 0.5rem 0.5rem;
       }
       .pdf-page {
         margin: 20px auto;
         background: white;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        max-width: 100%;
       }
       .pdf-controls {
         display: flex;
+        flex-wrap: wrap;
         align-items: center;
         justify-content: center;
-        gap: 1rem;
+        gap: 0.5rem;
         padding: 1rem;
         background: #f3f4f6;
         border-radius: 0.5rem 0.5rem 0 0;
         border: 1px solid #d1d5db;
         border-bottom: none;
       }
+      .pdf-controls-row {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+      }
       .pdf-controls button {
-        padding: 0.5rem 1rem;
+        padding: 0.5rem 0.75rem;
         background: #581c87;
         color: white;
         border: none;
@@ -48,6 +56,8 @@
         cursor: pointer;
         font-weight: 500;
         transition: background 0.2s;
+        font-size: 0.875rem;
+        white-space: nowrap;
       }
       .pdf-controls button:hover {
         background: #6b21a8;
@@ -59,6 +69,8 @@
       .pdf-controls span {
         font-weight: 500;
         color: #374151;
+        font-size: 0.875rem;
+        white-space: nowrap;
       }
       .pdf-loading {
         display: flex;
@@ -66,6 +78,31 @@
         justify-content: center;
         height: 200px;
         color: #6b7280;
+      }
+
+      /* Mobile styles */
+      @media (max-width: 640px) {
+        .pdf-container {
+          height: 500px;
+        }
+        .pdf-controls {
+          padding: 0.75rem;
+          gap: 0.5rem;
+        }
+        .pdf-controls-row {
+          width: 100%;
+          justify-content: center;
+        }
+        .pdf-controls button {
+          padding: 0.5rem 0.6rem;
+          font-size: 0.8rem;
+        }
+        .pdf-controls span {
+          font-size: 0.8rem;
+        }
+        .btn-text-mobile {
+          display: none;
+        }
       }
     </style>
   </head>
@@ -94,15 +131,24 @@
 
             <!-- PDF Controls -->
             <div class="pdf-controls">
-              <button id="prev-page" disabled>← Previous</button>
-              <span id="page-info">Page 1 of 1</span>
-              <button id="next-page" disabled>Next →</button>
-              <button id="zoom-out">−</button>
-              <span id="zoom-level">100%</span>
-              <button id="zoom-in">+</button>
-              <a href="/public/Instructions.pdf" download class="ml-4">
-                <button type="button">⬇ Download PDF</button>
-              </a>
+              <!-- Navigation row -->
+              <div class="pdf-controls-row">
+                <button id="prev-page" disabled>←<span class="btn-text-mobile"> Prev</span></button>
+                <span id="page-info">Page 1 of 1</span>
+                <button id="next-page" disabled><span class="btn-text-mobile">Next </span>→</button>
+              </div>
+              <!-- Zoom row -->
+              <div class="pdf-controls-row">
+                <button id="zoom-out">−</button>
+                <span id="zoom-level">100%</span>
+                <button id="zoom-in">+</button>
+              </div>
+              <!-- Download -->
+              <div class="pdf-controls-row">
+                <a href="/public/Instructions.pdf" download>
+                  <button type="button">⬇<span class="btn-text-mobile"> Download</span></button>
+                </a>
+              </div>
             </div>
 
             <!-- PDF Container -->
