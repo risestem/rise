@@ -1,16 +1,16 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <script src="https://unpkg.com/alpinejs" defer></script>
+    <script src="/vendor/alpine-3.17.4.min.js" defer></script>
     <meta charset="UTF-8" />
-    <link rel="icon" href="/public/favicon.ico"/>
-    <link rel="icon" type="image/png" href="/public/favicon-32x32.png">
-    <link rel="shortcut icon" href="/public/favicon.ico">
-    <link rel="apple-touch-icon" href="/public/apple-touch-icon.png">
+    <link rel="icon" href="/favicon.ico"/>
+    <link rel="icon" type="image/png" href="/favicon-32x32.png">
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>RISE STEM – Atlanta’s Youth STEM Nonprofit</title>
     <link href="/src/style.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/src/animations.css">
     <style>
@@ -27,9 +27,9 @@
   <div 
     x-data="{
       images: [
-        { url: '/public/enpeng_happy.jpeg', position: 'bg-top' },
-        { url: '/public/group_waiting_to_test.jpeg', position: 'bg-[center_40%]' },
-        { url: '/public/lab.jpeg', position: 'bg-top' }
+        { url: '/optimized/enpeng_happy.jpeg.webp', position: 'bg-top' },
+        { url: '/optimized/group_waiting_to_test.jpeg.webp', position: 'bg-[center_40%]' },
+        { url: '/optimized/lab.jpeg.webp', position: 'bg-top' }
       ],
       currentIndex: 0,
       previousIndex: 0,
@@ -157,7 +157,7 @@
         
         <div class="video-wrapper">
           <div class="video-container fadeInUp-animation">
-            <iframe src="https://www.youtube.com/embed/mXId29EnPbg" frameborder="0" 
+            <iframe loading="lazy" title="RISE STEM introduction" src="https://www.youtube.com/embed/mXId29EnPbg" frameborder="0"
                     allow="autoplay" allowfullscreen>
             </iframe>
           </div>
@@ -169,7 +169,7 @@
           <!-- Box 1 -->
           <div  class="fadeInUp-animation overflow-hidden rounded-lg border border-gray-300 bg-white z-30  shadow-lg">
             <!-- Background image -->
-            <div class="fadeInUp-animation w-full bg-cover bg-center" style="background-image: url('/public/2_girls_gluing_bridge.jpeg'); height: 200px;"></div>
+            <div class="fadeInUp-animation w-full bg-cover bg-center" style="background-image: url('/optimized/2_girls_gluing_bridge.jpeg.webp'); height: 200px;"></div>
             <div class="fadeInUp-animation flex flex-col justify-center items-center p-4 space-y-4">
               <span class="text-xl font-bold text-purple-950 sm:text-2xl">The Need</span>
               <div class="text-center text-sm px-4 text-gray-500 sm:text-md">
@@ -179,13 +179,13 @@
                 Learn More
               </a>
             </div>
-            <script src="src/script.js"></script>
+            <script type="module" src="/src/script.js"></script>
           </div>
 
           <!-- Box 2 -->
           <div data-delay="0.2" class="fadeInUp-animation overflow-hidden rounded-lg border border-gray-300 z-30  bg-white shadow-lg">
             <!-- Background image -->
-            <div class="fadeInUp-animation w-full bg-cover bg-center" style="background-image: url('/public/owen_teaching.jpeg'); height: 200px;"></div>
+            <div class="fadeInUp-animation w-full bg-cover bg-center" style="background-image: url('/optimized/owen_teaching.jpeg.webp'); height: 200px;"></div>
             <div class="fadeInUp-animation flex flex-col justify-center items-center p-4 space-y-4">
               <span class="text-xl font-bold text-purple-950 sm:text-2xl">What We Do</span>
               <div class="text-center text-sm px-4 text-gray-500 sm:text-md">
@@ -200,7 +200,7 @@
           <!-- Box 3 -->
           <div data-delay="0.4" class="fadeInUp-animation overflow-hidden rounded-lg border border-gray-300 z-30 bg-white shadow-lg">
             <!-- Background image -->
-            <div class="fadeInUp-animation w-full bg-cover bg-center" style="background-image: url('/public/brayden_helping.jpeg'); height: 200px;"></div>
+            <div class="fadeInUp-animation w-full bg-cover bg-center" style="background-image: url('/optimized/brayden_helping.jpeg.webp'); height: 200px;"></div>
             <div class="fadeInUp-animation flex flex-col justify-center items-center p-4 space-y-4">
               <span class="text-xl font-bold text-purple-950 sm:text-2xl">Who We Are</span>
               <div class="text-center text-sm px-4 text-gray-500 sm:text-md">
@@ -284,17 +284,6 @@
             // Show newest to oldest, left to right
             const sorted = updates; // No .reverse(), updates.json is already newest first
             const container = document.getElementById('news-cards-container');
-            // Fetch titles from markdown files
-            const titles = await Promise.all(sorted.map(async (u) => {
-              try {
-                const res = await fetch(u.file);
-                const text = await res.text();
-                const match = text.match(/^# (.+)$/m);
-                return match ? match[1].trim() : u.file.split('/').pop().replace('.md','');
-              } catch {
-                return u.file.split('/').pop().replace('.md','');
-              }
-            }));
             // Fetch titles and images from markdown files
     const articlesData = await Promise.all(sorted.map(async (u) => {
       try {
@@ -327,7 +316,7 @@
             <div class="text-gray-500 text-sm text-center">${formatNewsDate(u.datetime)}</div>
             ${articlesData[i].image ? `
               <div class="w-full flex items-center justify-center mt-2 mb-2">
-                <img src="${articlesData[i].image}" alt="${articlesData[i].title}" class="w-full max-w-md h-32 md:h-40 object-cover rounded-lg group-hover:opacity-90 transition-opacity duration-300 mx-auto" />
+                <img loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/logo1.svg'" src="${articlesData[i].image}" alt="${articlesData[i].title}" class="w-full max-w-md h-32 md:h-40 object-cover rounded-lg group-hover:opacity-90 transition-opacity duration-300 mx-auto" />
               </div>
             ` : ''}
           </div>
@@ -397,7 +386,7 @@
       </div>
     </div>
     <!-- Contact Modal (hidden by default) -->
-    <div id="contact-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+    <div id="contact-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 hidden">
     <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-8 relative">
       <button id="close-contact-modal" class="absolute top-2 right-2 text-gray-400 hover:text-purple-700 text-2xl font-bold">&times;</button>
       <h3 class="text-3xl font-extrabold text-purple-950 mb-4 text-center">Contact Us</h3>

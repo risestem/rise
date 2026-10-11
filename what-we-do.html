@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/public/logo1.svg" />
+  <link rel="icon" type="image/svg+xml" href="/logo1.svg" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>What We Do - Rise Engineering & Coding</title>
   <link href="src/style.css" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
+
 </head>
 <body>
 
@@ -19,7 +19,7 @@
 
   <!-- Hero Section -->
   <section class="w-full">
-    <div class="w-full h-[60vh] bg-[url('/public/mousetrap_car.jpeg')] bg-cover bg-[center_40%] bg-no-repeat flex items-center justify-center relative">
+    <div class="w-full h-[60vh] bg-[url('/optimized/mousetrap_car.jpeg.webp')] bg-cover bg-[center_40%] bg-no-repeat flex items-center justify-center relative">
       <!-- Gradient Overlay -->
       <div class="h-[60vh] absolute inset-0 bg-black opacity-50"></div>
       <div class="flex flex-col text-center items-center justify-center px-6 sm:px-16 md:px-32 z-10">
@@ -50,19 +50,19 @@
         <div class="relative w-full md:w-1/2 flex justify-center items-center min-h-[400px] mb-12 md:mb-0" id="image-container">
           <!-- Container for each image and caption -->
           <div class="absolute w-64 sm:w-80 md:w-[28rem] rounded-xl shadow-lg transform rotate-3 z-10 overflow-hidden bg-[#fcfbfd]">
-            <img src="/public/kid_holding_car.jpeg" alt="Placeholder" class="w-full block">
+            <img decoding="async" src="/optimized/kid_holding_car.jpeg.webp" alt="Placeholder" class="w-full block">
             <div class="p-3 text-center text-gray-700 font-semibold">Completed mechanical engineering project</div>
           </div>
 
           <!-- Second container -->
           <div class="absolute w-64 sm:w-80 md:w-[28rem] rounded-xl shadow-lg transform -rotate-3 ml-4 mt-4 z-20 overflow-hidden bg-[#fcfbfd]">
-            <img src="/public/enpeng_testing.jpeg" alt="Placeholder" class="w-full block">
+            <img decoding="async" loading="lazy" src="/optimized/enpeng_testing.jpeg.webp" alt="Placeholder" class="w-full block">
             <div class="p-3 text-center text-gray-700 font-semibold">Bridge building competition</div>
           </div>
 
           <!-- Third container -->
           <div class="absolute w-64 sm:w-80 md:w-[28rem] rounded-xl shadow-lg transform rotate-6 ml-8 mt-8 z-30 overflow-hidden bg-[#fcfbfd]">
-            <img src="/public/IMG_0154 2.JPG" alt="RISE Mentor Teaching a Class" class="w-full block">
+            <img decoding="async" loading="lazy" src="/optimized/IMG_0154 2.JPG.webp" alt="RISE Mentor Teaching a Class" class="w-full block">
             <div class="p-3 text-center text-gray-700 font-semibold">Mentor hosting a RISE class</div>
           </div>
         </div>
@@ -175,7 +175,7 @@
 
 
 <!-- Contact Modal (hidden by default) -->
-<div id="contact-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+<div id="contact-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 hidden">
   <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-8 relative">
     <button id="close-contact-modal" class="absolute top-2 right-2 text-gray-400 hover:text-purple-700 text-2xl font-bold">&times;</button>
     <h3 class="text-3xl font-extrabold text-purple-950 mb-4 text-center">Contact Us</h3>

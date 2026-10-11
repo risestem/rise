@@ -1,13 +1,13 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <script src="https://unpkg.com/alpinejs" defer></script>
+    <script src="/vendor/alpine-3.17.4.min.js" defer></script>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/public/logo1.svg" />
+    <link rel="icon" type="image/svg+xml" href="/logo1.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Workshops - RISE STEM</title>
     <link href="/src/style.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
+
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/src/animations.css">
     <style>
@@ -50,7 +50,7 @@
           <div class="grid grid-cols-1 md:grid-cols-3 gap-8 w-full">
             <!-- Sci-Bowl -->
             <div class=" overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg flex flex-col">
-              <div class="w-full bg-cover bg-center" style="background-image: url('/public/SnapInsta.to_491430871_17914295631098412_8543252574032755629_n (1).jpg'); height: 160px;"></div>
+              <div class="w-full bg-cover bg-center" style="background-image: url('/optimized/SnapInsta.to_491430871_17914295631098412_8543252574032755629_n (1).jpg.webp'); height: 160px;"></div>
               <div class="flex flex-col flex-1 justify-between p-4 space-y-4">
                 <span class="text-xl font-bold text-purple-950">Sci-Bowl</span>
                 <div class="text-sm text-gray-500">
@@ -68,7 +68,7 @@
             </div>
             <!-- Kit Workshop -->
             <div class=" overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg flex flex-col">
-              <div class="w-full bg-cover bg-center" style="background-image: url('/public/IMG_4902.jpg'); height: 160px;"></div>
+              <div class="w-full bg-cover bg-center" style="background-image: url('/optimized/IMG_4902.jpg.webp'); height: 160px;"></div>
               <div class="flex flex-col flex-1 justify-between p-4 space-y-4">
                 <span class="text-xl font-bold text-purple-950">Kit Workshop: Drawing Robot</span>
                 <div class="text-sm text-gray-500">
@@ -82,7 +82,7 @@
             </div>
             <!-- Bridges -->
             <div class=" overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg flex flex-col">
-              <div class="w-full bg-cover bg-center" style="background-image: url('/public/group_waiting_to_test.jpeg'); height: 160px;"></div>
+              <div class="w-full bg-cover bg-center" style="background-image: url('/optimized/group_waiting_to_test.jpeg.webp'); height: 160px;"></div>
               <div class="flex flex-col flex-1 justify-between p-4 space-y-4">
                 <span class="text-xl font-bold text-purple-950">Bridges</span>
                 <div class="text-sm text-gray-500">
@@ -95,7 +95,7 @@
             </div>
             <!-- Tower -->
             <div class=" overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg flex flex-col">
-             <div class="w-full bg-cover bg-top" style="background-image: url('/public/tower_up.JPG'); height: 160px;"></div>
+             <div class="w-full bg-cover bg-top" style="background-image: url('/optimized/tower_up.JPG.webp'); height: 160px;"></div>
               <div class="flex flex-col flex-1 justify-between p-4 space-y-4">
                 <span class="text-xl font-bold text-purple-950">Tower</span>
                 <div class="text-sm text-gray-500">
@@ -108,7 +108,7 @@
             </div>
             <!-- Ice Cream Lab -->
             <div class=" overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg flex flex-col">
-              <div class="w-full bg-cover bg-center" style="background-image: url('/public/ice_cream_blueprint.png'); height: 160px;"></div>
+              <div class="w-full bg-cover bg-center" style="background-image: url('/optimized/ice_cream_blueprint.png.webp'); height: 160px;"></div>
               <div class="flex flex-col flex-1 justify-between p-4 space-y-4">
                 <span class="text-xl font-bold text-purple-950">Ice Cream Lab</span>
                 <div class="text-sm text-gray-500">
@@ -121,7 +121,7 @@
             </div>
             <!-- Coding a Game Workshop -->
             <div class=" overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg flex flex-col">
-              <div class="w-full bg-cover bg-center" style="background-image: url('/public/pygame.jpg'); height: 160px;"></div>
+              <div class="w-full bg-cover bg-center" style="background-image: url('/optimized/pygame.jpg.webp'); height: 160px;"></div>
               <div class="flex flex-col flex-1 justify-between p-4 space-y-4">
                 <span class="text-xl font-bold text-purple-950">Coding a Game</span>
                 <div class="text-sm text-gray-500">
@@ -134,7 +134,7 @@
             </div>
             <!-- Air Cannon & Kinematics -->
             <div class=" overflow-hidden rounded-lg border border-gray-300 bg-white shadow-lg flex flex-col">
-              <div class="w-full bg-cover bg-center" style="background-image: url('/public/maxresdefault.jpg'); height: 160px;"></div>
+              <div class="w-full bg-cover bg-center" style="background-image: url('/optimized/maxresdefault.jpg.webp'); height: 160px;"></div>
               <div class="flex flex-col flex-1 justify-between p-4 space-y-4">
                 <span class="text-xl font-bold text-purple-950">Rockets</span>
                 <div class="text-sm text-gray-500">
@@ -211,7 +211,7 @@
           </iframe>
         </div>
       
-        <div id="contact-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+        <div id="contact-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 hidden">
     <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-8 relative">
       <button id="close-contact-modal" class="absolute top-2 right-2 text-gray-400 hover:text-purple-700 text-2xl font-bold">&times;</button>
       <h3 class="text-3xl font-extrabold text-purple-950 mb-4 text-center">Contact Us</h3>
