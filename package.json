@@ -6,9 +6,11 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:browser": "node tests/site-smoke.cjs"
   },
   "devDependencies": {
+    "playwright": "^1.64.0",
     "vite": "^6.1.0"
   },
   "dependencies": {

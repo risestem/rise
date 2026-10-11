@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Kits Overview – RISE STEM</title>
-  <link rel="icon" href="/public/favicon.ico"/>
-  <link rel="icon" type="image/png" href="/public/favicon-32x32.png">
-  <link rel="shortcut icon" href="/public/favicon.ico">
-  <link rel="apple-touch-icon" href="/public/apple-touch-icon.png">
+  <link rel="icon" href="/favicon.ico"/>
+  <link rel="icon" type="image/png" href="/favicon-32x32.png">
+  <link rel="shortcut icon" href="/favicon.ico">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 
   <!-- Tailwind + font -->
-  <script defer src="https://cdn.tailwindcss.com"></script>
+
   <link
     href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
     rel="stylesheet"
@@ -45,7 +45,7 @@
 
   <section class="bg-gray-50 w-full relative">
   <!-- Background Image Hero -->
-  <div class="w-full h-[60vh] bg-[url('/public/eneng_sister_1.png')] bg-cover bg-center bg-no-repeat flex items-center justify-center relative z-0">
+  <div class="w-full h-[60vh] bg-[url('/optimized/eneng_sister_1.png.webp')] bg-cover bg-center bg-no-repeat flex items-center justify-center relative z-0">
     <!-- Gradient Overlay -->
     <div class="absolute inset-0 h-full bg-black/50 z-0"></div>
 
@@ -113,7 +113,7 @@
     <!-- Hands-on Building -->
     <div class="bg-white rounded-2xl border border-purple-100 shadow-lg p-6 flex flex-col items-center">
       <div class="h-[240px] w-full max-w-xs mb-4 overflow-hidden rounded-xl shadow-md border border-gray-200">
-        <img src="/public/eneng_sister_2.png" alt="Building a RISE Kit" class="w-full h-full object-cover" />
+        <img decoding="async" src="/optimized/eneng_sister_2.png.webp" alt="Building a RISE Kit" class="w-full h-full object-cover" />
       </div>
       <div class="text-center">
         <span class="block text-purple-900 font-bold text-lg mb-1">Hands-on Building</span>
@@ -124,7 +124,7 @@
     <!-- Creative Coding -->
     <div class="bg-white rounded-2xl border border-purple-100 shadow-lg p-6 flex flex-col items-center">
       <div class="h-[240px] w-full max-w-xs mb-4 overflow-hidden rounded-xl shadow-md border border-gray-200">
-        <img src="/public/arduino.png" alt="Creative Coding" class="w-full h-full object-cover" />
+        <img decoding="async" loading="lazy" src="/optimized/arduino.png.webp" alt="Creative Coding" class="w-full h-full object-cover" />
       </div>
       <div class="text-center">
         <span class="block text-purple-900 font-bold text-lg mb-1">Creative Coding</span>
@@ -176,7 +176,7 @@
           id: 'turtle',
           name: 'TurtlBot',
           description: 'A drawing robot that brings code to life through art. Learn programming fundamentals while creating beautiful designs.',
-          image: '/public/turtleRobot.png',
+          image: '/optimized/turtleRobot.png.webp',
           alt: 'Drawing Robot Kit',
           link: '/turtle',
           tags: [
@@ -236,6 +236,7 @@
       function setupContactModal() {
         const modal = document.getElementById('contact-modal');
         const closer = document.getElementById('close-contact-modal');
+        if (!modal) return;
         
         // Handle all contact buttons
         document.addEventListener('click', (e) => {

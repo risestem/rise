@@ -2,14 +2,12 @@
   <nav class="bg-white fixed w-full z-20 top-0 start-0 border-b border-gray-200 shadow-md">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 min-h-[80px] transition-all duration-300">
       <a href="/home" class="flex items-center px-0">
-        <img src="/public/logo1.svg" alt="Rise Engineering & Coding" class="h-16 mr-3" />
+        <img src="/logo1.svg" alt="Rise Engineering & Coding" class="h-16 mr-3" />
       </a>
 
       <div class="flex justify-center items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-        <a href="">
-          <button id="open-contact-modal" type="button" class="text-white bg-purple-950 font-semibold rounded-md text-md px-6 py-3.5 sm:mr-2 lg:mr-0 transform transition-all duration-300 hover:scale-110">
+        <a id="open-contact-modal" href="mailto:contact@risestem.org" class="text-white bg-purple-950 font-semibold rounded-md text-md px-6 py-3.5 sm:mr-2 lg:mr-0 transform transition-all duration-300 hover:scale-110">
             Contact Us
-          </button>
         </a>
         <button id="hamburger-btn" data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-sticky" aria-expanded="false">
           <span class="sr-only">Open main menu</span>
@@ -128,42 +126,3 @@
   background: transparent !important;
 }
 </style>
-<script>
-  // Hamburger toggle
-  document.getElementById("hamburger-btn").addEventListener("click", function () {
-    const navbar = document.getElementById("navbar-sticky");
-    const isExpanded = this.getAttribute("aria-expanded") === "true";
-    navbar.classList.toggle("hidden", isExpanded);
-    this.setAttribute("aria-expanded", !isExpanded);
-  });
-
-  // Highlight current page link
-  document.addEventListener("DOMContentLoaded", () => {
-    const currentURL = window.location.href;
-    const navLinks = document.querySelectorAll('nav a');
-
-    console.log("Current page URL:", currentURL);
-    console.log("Checking navigation links...");
-
-    navLinks.forEach(link => {
-      console.log(`Checking link: ${link.href}`);
-      
-      if (link.href === currentURL) {
-        console.log(`Match found! Highlighting link: ${link.href}`);
-        link.classList.add('text-purple-950');
-        link.classList.remove('text-gray-500');
-
-        if (link.closest('li.group')) {
-          console.log("Link is inside a dropdown. Highlighting parent link.");
-          const aboutParent = document.querySelector('li.group > a');
-          if (aboutParent) {
-            aboutParent.classList.add('text-purple-950');
-            aboutParent.classList.remove('text-gray-500');
-          } else {
-            console.warn("Could not find the dropdown parent anchor.");
-          }
-        }
-      }
-    });
-  });
-</script>

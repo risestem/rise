@@ -1,15 +1,15 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <script src="https://unpkg.com/alpinejs" defer></script>
+    <script src="/vendor/alpine-3.17.4.min.js" defer></script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Draw Bot - RISE STEM</title>
-    <link rel="icon" type="image/svg+xml" href="/public/logo1.svg" />
-    <link rel="icon" type="image/png" href="/public/favicon-32x32.png" />
-    <link rel="shortcut icon" href="/public/favicon.ico" />
-    <link rel="apple-touch-icon" href="/public/apple-touch-icon.png" />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="icon" type="image/svg+xml" href="/logo1.svg" />
+    <link rel="icon" type="image/png" href="/favicon-32x32.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link href="/src/style.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
     <style>
       html { scroll-behavior: smooth; }
@@ -157,6 +157,7 @@
         .scroll-hint { font-size: 0.95rem; }
       }
     </style>
+    <link rel="stylesheet" href="/scripts/turtle-animation.css" />
   </head>
   <body>
     <!-- Header -->
@@ -164,21 +165,22 @@
     <script type="module" src="/scripts/loadHeader.js"></script>
 
     <!-- Single White Content Box containing everything -->
-    <div class="w-full px-6 sm:px-6 md:px-16 lg:px-24 py-8 bg-gray-50">
-      <div class="bg-white rounded-2xl border border-gray-300 shadow-md p-8">
+    <div class="w-full px-3 sm:px-6 md:px-16 lg:px-24 py-8 bg-gray-50">
+      <div class="bg-white rounded-2xl border border-gray-300 shadow-md p-4 sm:p-8">
 
         <!-- Animation Container (top section of the white box) -->
         <div class="animation-container" id="animationContainer">
+          <div class="animation-stage">
           <div class="scroll-video-container">
             <img
               id="videoFrame"
               class="scroll-video-frame"
-              src="/public/v5_webp/turtleExplodev500001.webp"
-              alt="Video Frame"
+              src="/v5_webp/turtleExplodev500001.webp"
+              alt="TurtlBot assembly" width="800" height="450"
             />
           </div>
 
-          <div class="scroll-hint" id="scrollHint">
+          <div class="scroll-hint visible" id="scrollHint">
             <span>Scroll to explore</span>
             <div class="arrow">
               <svg viewBox="0 0 32 48">
@@ -190,9 +192,9 @@
           
           <!-- Snapped Scrollbar -->
           <div class="snapped-scrollbar" id="snappedScrollbar">
-            <div class="scrollbar-segment" data-section="textSection1"></div>
-            <div class="scrollbar-segment" data-section="textSection2"></div>
-            <div class="scrollbar-segment" data-section="textSection3"></div>
+            <button type="button" class="scrollbar-segment" data-section="textSection1" aria-label="Explore section 1" aria-pressed="false"></button>
+            <button type="button" class="scrollbar-segment" data-section="textSection2" aria-label="Explore section 2" aria-pressed="false"></button>
+            <button type="button" class="scrollbar-segment" data-section="textSection3" aria-label="Explore section 3" aria-pressed="false"></button>
           </div>
 
           <div class="scroll-text-container">
@@ -211,6 +213,8 @@
               <p>The Draw Bot offers an innovative approach to STEM education, encouraging students to explore new ideas through hands-on, interactive experiences. It’s a playful introduction to complex concepts, fostering curiosity and confidence in young learners.</p>
             </div>
           </div>
+        </div>
+
         </div>
 
         <!-- Post-Animation Content (within same white box) -->
@@ -266,12 +270,13 @@
               <video
                 id="turtleDrawVideo"
                 class="w-full h-full object-contain"
+                controls
                 muted
                 loop
                 playsinline
                 preload="none"
               >
-                <source src="/public/turtleDrawv1.webm" type="video/webm">
+                <source src="/turtleDrawv1.webm" type="video/webm">
                 Your browser does not support the video tag.
               </video>
             </div>
@@ -285,7 +290,7 @@
           <!-- What's In the Box? Section -->
           <section class="max-w-4xl mx-auto px-6 md:px-8 py-8">
             <div class="bg-white rounded-2xl border border-purple-200 shadow p-6 md:p-10 flex flex-col md:flex-row items-center gap-10">
-              <img src="/public/turtleRobot.png" alt="Turtle Robot Example" class="w-64 h-64 object-contain rounded-xl shadow-md border border-gray-200 mb-4 md:mb-0">
+              <img decoding="async" src="/optimized/turtleRobot.png.webp" alt="Turtle Robot Example" class="w-64 h-64 object-contain rounded-xl shadow-md border border-gray-200 mb-4 md:mb-0">
               <div class="flex-1">
                 <h3 class="text-xl font-bold text-purple-900 mb-2">What's in the Turtle Kit?</h3>
                 <ul class="list-disc pl-6 text-gray-700 mb-3 text-md">
@@ -325,308 +330,6 @@
     <div id="footer-container"></div>
     <script type="module" src="/scripts/loadFooter.js"></script>
 
-    <script>
-      const totalFrames = 150;
-      const frameBasePath = '/public/v5_webp/turtleExplodev5';
-      const textSections = [
-        { id: 'textSection1', startFrame: 1,   endFrame: 50  },
-        { id: 'textSection2', startFrame: 52,  endFrame: 102 },
-        { id: 'textSection3', startFrame: 104, endFrame: 150 }
-      ];
-
-      let currentFrame = 1;
-      let scrollProgress = 0;
-      let targetProgress = 0;
-      let animationComplete = false;
-      let activeTextSection = null;
-      const preloadedFrames = new Map();
-
-      function preloadFrame(n) {
-        if (n < 1 || n > totalFrames) return;
-        if (!preloadedFrames.has(n)) {
-          const img = new Image();
-          img.src = `${frameBasePath}${String(n).padStart(5,'0')}.webp`;
-          preloadedFrames.set(n, img);
-        }
-      }
-
-      function preloadInitialFrames() {
-        for (let i = 1; i <= Math.min(100, totalFrames); i++) preloadFrame(i);
-      }
-
-      function updateVideoFrame() {
-        const frameNum = Math.floor(scrollProgress * (totalFrames - 1)) + 1;
-        if (frameNum !== currentFrame) {
-          currentFrame = frameNum;
-          const frameEl = document.getElementById('videoFrame');
-          if (frameEl) {
-            frameEl.src = `${frameBasePath}${String(frameNum).padStart(5,'0')}.webp`;
-          }
-          for (let i = 1; i <= 30; i++) preloadFrame(frameNum + i);
-        }
-      }
-
-      function showTextSection(s) {
-        document.getElementById(s.id).classList.add('active');
-        document.querySelector(`.scrollbar-segment[data-section="${s.id}"]`)?.classList.add('active');
-      }
-
-      function hideTextSection(s) {
-        document.getElementById(s.id).classList.remove('active');
-        document.querySelector(`.scrollbar-segment[data-section="${s.id}"]`)?.classList.remove('active');
-      }
-
-      function updateTextSections() {
-        const section = textSections.find(s =>
-          currentFrame >= s.startFrame && currentFrame <= s.endFrame
-        );
-        if (section && (!activeTextSection || activeTextSection.id !== section.id)) {
-          if (activeTextSection) hideTextSection(activeTextSection);
-          showTextSection(section);
-          activeTextSection = section;
-        } else if (!section && activeTextSection) {
-          hideTextSection(activeTextSection);
-          activeTextSection = null;
-        }
-      }
-
-      function completeAnimation() {
-        if (animationComplete) return;
-        animationComplete = true;
-        scrollProgress = targetProgress = 1;
-        updateVideoFrame();
-        updateTextSections();
-
-        const postContent = document.querySelector('.post-animation-content');
-        postContent.classList.add('visible');
-
-        const turtleVideo = document.getElementById('turtleDrawVideo');
-        if (turtleVideo) {
-          turtleVideo.currentTime = 0;
-          turtleVideo.load();
-          turtleVideo.play().catch(e => console.log('Video autoplay prevented:', e));
-          startCodeLineAnimation();
-        }
-
-        postContent.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-        setTimeout(() => {
-          document.body.style.overflow = 'auto';
-        }, 600);
-      }
-
-      function reenterAnimation() {
-        animationComplete = false;
-        const postContent = document.querySelector('.post-animation-content');
-        postContent.classList.remove('visible');
-
-        const turtleVideo = document.getElementById('turtleDrawVideo');
-        if (turtleVideo) {
-          turtleVideo.pause();
-          turtleVideo.currentTime = 0;
-        }
-
-        stopCodeLineAnimation();
-
-        document.body.style.overflow = 'hidden';
-        const animationContainer = document.getElementById('animationContainer');
-        const headerHeight = 80;
-        const animationTop = animationContainer.offsetTop - headerHeight;
-        window.scrollTo({ top: animationTop, behavior: 'smooth' });
-      }
-
-      const scrollSpeed = 0.0002;
-      let lastScrollTime = 0;
-      const scrollThrottleMs = 16;
-      
-      // Scroll Hint Logic
-      const scrollHint = document.getElementById("scrollHint");
-      let scrollHintTimer = null;
-
-      function showScrollHint() {
-        if (scrollHint) scrollHint.classList.add('visible');
-      }
-
-      function hideScrollHint() {
-        if (scrollHint) scrollHint.classList.remove('visible');
-      }
-
-      function resetScrollHintTimer() {
-        hideScrollHint();
-        clearTimeout(scrollHintTimer);
-        scrollHintTimer = setTimeout(showScrollHint, 3000);
-      }
-
-      function handleScroll(deltaY) {
-        const now = Date.now();
-        if (now - lastScrollTime < scrollThrottleMs) return;
-        lastScrollTime = now;
-
-        resetScrollHintTimer();
-
-        requestAnimationFrame(() => {
-          if (!animationComplete) {
-            let newProgress = targetProgress + deltaY * scrollSpeed;
-            if (newProgress >= 1 && targetProgress >= 1) {
-              completeAnimation();
-              return;
-            }
-            targetProgress = Math.max(0, Math.min(1, newProgress));
-          } else if (deltaY < 0) {
-            const postContent = document.querySelector('.post-animation-content');
-            const rect = postContent.getBoundingClientRect();
-            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-            if (rect.top >= 0 || scrollTop <= postContent.offsetTop) {
-              reenterAnimation();
-              targetProgress = scrollProgress = 0.95;
-              updateVideoFrame();
-              updateTextSections();
-            }
-          }
-        });
-      }
-
-      function animate() {
-        scrollProgress += (targetProgress - scrollProgress) * 0.1;
-        updateVideoFrame();
-        updateTextSections();
-        if (!animationComplete && scrollProgress >= 0.99) completeAnimation();
-        requestAnimationFrame(animate);
-      }
-
-      let videoSyncEnabled = false;
-      let codeTimestamps = [];
-
-      function handleVideoTimeUpdate() {
-        if (!videoSyncEnabled) return;
-        const turtleVideo = document.getElementById('turtleDrawVideo');
-        if (!turtleVideo) return;
-        const currentTime = turtleVideo.currentTime;
-
-        const activeTimestamp = codeTimestamps.find(ts =>
-          currentTime >= ts.time && currentTime < (ts.time + ts.duration)
-        );
-
-        if (activeTimestamp) {
-          clearAllHighlights();
-          highlightCodeLine(activeTimestamp.lineId);
-        }
-      }
-
-      function startCodeLineAnimation() {
-        stopCodeLineAnimation();
-        const turtleVideo = document.getElementById('turtleDrawVideo');
-        if (!turtleVideo) return;
-
-        codeTimestamps = [
-          { time: 0,    lineId: 'code-line-pendown', duration: 1.0 },
-          { time: 1.0,  lineId: 'code-line-forward', duration: 2.0 },
-          { time: 3.5,  lineId: 'code-line-penup',   duration: 1.0 },
-        ];
-
-        videoSyncEnabled = true;
-        turtleVideo.addEventListener('timeupdate', handleVideoTimeUpdate);
-        highlightCodeLine(codeTimestamps[0].lineId);
-      }
-
-      function stopCodeLineAnimation() {
-        videoSyncEnabled = false;
-        const turtleVideo = document.getElementById('turtleDrawVideo');
-        if (turtleVideo) {
-          turtleVideo.removeEventListener('timeupdate', handleVideoTimeUpdate);
-        }
-        clearAllHighlights();
-      }
-
-      function highlightCodeLine(lineId) {
-        const line = document.getElementById(lineId);
-        if (line) {
-            line.classList.add('highlighted');
-        }
-      }
-
-      function clearAllHighlights() {
-        document.querySelectorAll('.code-line.highlighted').forEach(line => {
-          line.classList.remove('highlighted');
-        });
-      }
-
-      function init() {
-        document.body.style.overflow = 'hidden';
-        preloadInitialFrames();
-        requestAnimationFrame(animate);
-
-        showScrollHint(); // Show hint initially
-
-        document.getElementById('snappedScrollbar').addEventListener('click', e => {
-            const segment = e.target.closest('.scrollbar-segment');
-            if (!segment) return;
-            const sectionId = segment.dataset.section;
-            const section = textSections.find(s => s.id === sectionId);
-            if (section) {
-                targetProgress = (section.startFrame + 2) / totalFrames;
-                resetScrollHintTimer();
-            }
-        });
-
-        const onWheel = e => {
-          if (!animationComplete) {
-            e.preventDefault();
-            handleScroll(e.deltaY);
-          } else {
-            handleScroll(e.deltaY);
-          }
-        };
-        window.addEventListener('wheel', onWheel, { passive: false });
-
-        let lastTouchY = 0;
-        const onTouchStart = e => {
-          lastTouchY = e.touches[0].clientY;
-        };
-
-        const onTouchMove = e => {
-          if (!animationComplete) {
-            e.preventDefault();
-          }
-          const touchY = e.touches[0].clientY;
-          const deltaY = lastTouchY - touchY;
-          lastTouchY = touchY;
-          handleScroll(deltaY);
-        };
-
-        window.addEventListener('touchstart', onTouchStart, { passive: true });
-        window.addEventListener('touchmove', onTouchMove, { passive: false });
-
-        const onKeydown = e => {
-          if (!animationComplete) {
-            if (e.key === 'ArrowDown' || e.key === 'PageDown') {
-              e.preventDefault(); handleScroll(100);
-            }
-            if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-              e.preventDefault(); handleScroll(-100);
-            }
-          } else {
-            if (e.key === 'ArrowUp' || e.key === 'PageUp') {
-              const postContent = document.querySelector('.post-animation-content');
-              const rect = postContent.getBoundingClientRect();
-              const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-              if (rect.top >= 0 || scrollTop <= postContent.offsetTop) {
-                e.preventDefault(); handleScroll(-100);
-              }
-            }
-          }
-        };
-        window.addEventListener('keydown', onKeydown);
-
-        window.addEventListener('resize', () => {
-          if (!animationComplete) {
-            updateVideoFrame();
-            updateTextSections();
-          }
-        });
-      }
-
-      window.addEventListener('load', init);
-    </script>
+    <script type="module" src="/scripts/turtle-animation.js"></script>
   </body>
 </html>

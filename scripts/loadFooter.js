@@ -6,7 +6,7 @@ const footerHTML = `
     <div class="flex flex-wrap items-center justify-between gap-4">
       <div class="flex items-center gap-3">
         <a href="/home" class="flex items-center">
-          <img src="/public/logo1.svg" alt="RISE STEM Logo" class="h-12 sm:h-16 w-12 sm:w-16" />
+          <img src="/logo1.svg" alt="RISE STEM Logo" class="h-12 sm:h-16 w-12 sm:w-16" />
         </a>
         <div class="flex flex-col justify-center text-sm sm:text-base leading-tight">
           <div>
@@ -15,7 +15,7 @@ const footerHTML = `
           </div>
           <div>
             <a class="hover:text-gray-500 text-gray-500 font-semibold">Phone:</a>
-            <a href="tel:+17064241613" class="text-gray-500 hover:underline hover:text-blue-500 font-medium">+1 (678)-894-5916</a>
+            <a href="tel:+16788945916" class="text-gray-500 hover:underline hover:text-blue-500 font-medium">+1 (678)-894-5916</a>
           </div>
         </div>
       </div>
@@ -43,7 +43,7 @@ const footerHTML = `
           <a href="#" aria-label="Instagram" class="hover:text-purple-950" title="Instagram">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
           </a>
-          <a href="https://www.linkedin.com/company/107799026/admin/dashboard/" aria-label="LinkedIn" class="hover:text-purple-950" title="LinkedIn">
+          <a href="https://www.linkedin.com/company/107799026/" aria-label="LinkedIn" class="hover:text-purple-950" title="LinkedIn">
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-4 0v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
           </a>
         </div>

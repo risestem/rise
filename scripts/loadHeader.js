@@ -34,28 +34,31 @@ function initializeHeader() {
   // Highlight current page
   highlightCurrentPage();
 
-  setupContactModal();
+}
+
+// Compare normalized local routes, never an external link's pathname.
+function normalizePath(path) {
+  const normalized = path.replace(/\.html$/, '').replace(/\/$/, '') || '/';
+  return normalized === '/' ? '/home' : normalized;
 }
 
 function highlightCurrentPage() {
-  const currentPath = window.location.pathname;
-  const navLinks = document.querySelectorAll('nav a');
-
-  navLinks.forEach(link => {
-    // Compare only the pathname for robustness (ignores query/hash)
-    if (link.pathname === currentPath || currentPath.startsWith(link.pathname)) {
-      link.classList.add('text-purple-950');
+  const currentPath = normalizePath(window.location.pathname);
+  document.querySelectorAll('#header-container nav a[href]').forEach(link => {
+    const url = new URL(link.href, window.location.href);
+    const active = url.origin === window.location.origin &&
+      normalizePath(url.pathname) === currentPath;
+    link.classList.toggle('text-purple-950', active);
+    if (active) {
       link.classList.remove('text-gray-500');
-
-      // If inside dropdown, highlight parent link too
-      const parentLi = link.closest('li.group');
-      if (parentLi) {
-        const parentLink = parentLi.querySelector('a');
-        if (parentLink) {
-          parentLink.classList.add('text-purple-950');
-          parentLink.classList.remove('text-gray-500');
-        }
+      link.setAttribute('aria-current', 'page');
+      const parent = link.closest('li.group')?.querySelector(':scope > a');
+      if (parent) {
+        parent.classList.add('text-purple-950');
+        parent.classList.remove('text-gray-500');
       }
+    } else {
+      link.removeAttribute('aria-current');
     }
   });
 }

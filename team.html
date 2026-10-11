@@ -2,11 +2,11 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <link rel="icon" type="image/svg+xml" href="/public/logo1.svg" />
+  <link rel="icon" type="image/svg+xml" href="/logo1.svg" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Our Team - RISE STEM</title>
   <link href="/src/style.css" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
+
   <style>
     html {
       scroll-behavior: smooth;
@@ -20,7 +20,7 @@
 <!-- Main content - About Us section -->
 <section class="min-h-screen bg-gray-50 w-full ">
   <section class="bg-white w-full">
-    <div class="w-full h-[60vh] bg-[url('/public/RISEVolunteer.jpeg')] bg-cover bg-[position:50%_60%] bg-no-repeat flex items-center justify-center relative">
+    <div class="w-full h-[60vh] bg-[url('/optimized/RISEVolunteer.jpeg.webp')] bg-cover bg-[position:50%_60%] bg-no-repeat flex items-center justify-center relative">
       <!-- Gradient Overlay -->
       <div class="h-[60vh] absolute inset-0 bg-black opacity-50"></div>
       <div class="flex flex-col text-center items-center justify-center px-6 sm:px-16 md:px-32 z-10">
@@ -73,7 +73,7 @@
           </div>
           <!-- Image on the opposite side -->
           <div class="md:w-1/2 mt-4 md:mt-0 flex flex-col items-center md:justify-end" style="position:relative; left:98px;">
-            <img src="/public/frcRISE.jpeg" alt="2021 highlight" class="rounded-lg w-40 h-40 object-cover shadow-md border border-gray-200">
+            <img decoding="async" src="/optimized/frcRISE.jpeg.webp" alt="2021 highlight" class="rounded-lg w-40 h-40 object-cover shadow-md border border-gray-200">
             <span class="text-xs text-gray-500 mt-2">RISE Members in Robotics</span>
           </div>
         </div>
@@ -88,7 +88,7 @@
           </div>
           <!-- Image on the opposite side -->
           <div class="md:w-1/2 mt-4 md:mt-0 flex flex-col items-center md:justify-start" style="position:relative; right:98px;">
-            <img src="/public/RISEVolunteer.jpeg" alt="2022 highlight" class="rounded-lg w-40 h-40 object-cover shadow-md border border-gray-200">
+            <img decoding="async" loading="lazy" src="/optimized/RISEVolunteer.jpeg.webp" alt="2022 highlight" class="rounded-lg w-40 h-40 object-cover shadow-md border border-gray-200">
             <span class="text-xs text-gray-500 mt-2">RISE Members Volunteering</span>
           </div>
         </div>
@@ -103,7 +103,7 @@
           </div>
           <!-- Image on the opposite side -->
           <div class="md:w-1/2 mt-4 md:mt-0 flex flex-col items-center md:justify-end" style="position:relative; left:98px;">
-            <img src="/public/EnpengTemp3.jpeg" alt="2023 highlight" class="rounded-lg w-40 h-40 object-cover shadow-md border border-gray-200">
+            <img decoding="async" loading="lazy" src="/optimized/EnpengTemp3.jpeg.webp" alt="2023 highlight" class="rounded-lg w-40 h-40 object-cover shadow-md border border-gray-200">
             <span class="text-xs text-gray-500 mt-2">Founding RISE</span>
           </div>
         </div>
@@ -118,7 +118,7 @@
           </div>
           <!-- Image on the opposite side -->
           <div class="md:w-1/2 mt-4 md:mt-0 flex flex-col items-center md:justify-start" style="position:relative; right:98px;">
-            <img src="/public/EnpengTemp3.jpeg" alt="2024 highlight" class="rounded-lg w-40 h-40 object-cover shadow-md border border-gray-200">
+            <img decoding="async" loading="lazy" src="/optimized/EnpengTemp3.jpeg.webp" alt="2024 highlight" class="rounded-lg w-40 h-40 object-cover shadow-md border border-gray-200">
             <span class="text-xs text-gray-500 mt-2">Future Projects</span>
           </div>
         </div>
@@ -133,7 +133,7 @@
 </section>
 
 <!-- Contact Modal (hidden by default) -->
-<div id="contact-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 hidden">
+<div id="contact-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/50 hidden">
   <div class="bg-white rounded-lg shadow-lg w-full max-w-md p-8 relative">
     <button id="close-contact-modal" class="absolute top-2 right-2 text-gray-400 hover:text-purple-700 text-2xl font-bold">&times;</button>
     <h3 class="text-3xl font-extrabold text-purple-950 mb-4 text-center">Contact Us</h3>
@@ -189,7 +189,7 @@
   const teamMembers = [
     {
       name: 'Brayden Watt',
-      img: '/public/image.jpeg',
+      img: '/optimized/image.jpeg.webp',
       desc: 'Executive Director',
       left: 'ATL',
       right: 'founder',
@@ -197,7 +197,7 @@
     },
     {
       name: 'Joshua Luo',
-      img: '/public/josh.jpeg',
+      img: '/optimized/josh.jpeg.webp',
       desc: 'Operations Director',
       left: 'ATL',
       right: 'founder',
@@ -205,7 +205,7 @@
     },
     {
       name: 'Enpeng Jiang',
-      img: '/public/enpeng.png',
+      img: '/optimized/enpeng.png.webp',
       desc: 'Education Director',
       left: 'ATL',
       right: 'founder',
@@ -213,7 +213,7 @@
     },
     {
       name: 'Owen Lahiji',
-      img: '/public/owen.jpeg',
+      img: '/optimized/owen.jpeg.webp',
       desc: 'Software Lead',
       left: 'ATL',
       right: 'member',
@@ -221,7 +221,7 @@
     },
     {
       name: 'Leo Castro-Balbi',
-      img: '/public/image0.jpg',
+      img: '/optimized/image0.jpg.webp',
       desc: 'Outreach Lead',
       left: 'ATL',
       right: 'member',
@@ -229,7 +229,7 @@
     },
     {
       name: 'Max Lin',
-      img: '/public/MaxLin2.jpeg',
+      img: '/optimized/MaxLin2.jpeg.webp',
       desc: 'Curriculum Designer',
       left: 'ATL',
       right: 'member',
@@ -237,7 +237,7 @@
     },
     {
       name: 'Andrew Fang',
-      img: '/public/andy.jpg',
+      img: '/optimized/andy.jpg.webp',
       desc: 'Talent Acqusition',
       left: 'ATL',
       right: 'member',
@@ -285,7 +285,7 @@
     if (!modal) {
       modal = document.createElement('div');
       modal.id = 'profile-modal';
-      modal.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50';
+      modal.className = 'fixed inset-0 z-50 flex items-center justify-center bg-black/50';
       modal.innerHTML = `
       <div class="bg-[#fcfbfd] rounded-lg shadow-lg w-full max-w-2xl max-h-[80vh] p-8 relative overflow-y-auto">
         <button id="close-profile-modal" class="absolute top-2 right-2 text-gray-400 hover:text-purple-700 text-2xl font-bold">&times;</button>
@@ -298,22 +298,21 @@
     } else {
       modal.style.display = 'flex';
     }
-    // Fetch and render markdown
+    // Keep a reference to this modal so closing it during a fetch is safe.
+    const content = modal.querySelector('#profile-markdown');
     fetch(profilePath)
-            .then(res => res.text())
-            .then(md => {
-              if (window.marked) {
-                document.getElementById('profile-markdown').innerHTML = window.marked.parse(md);
-              } else {
-                document.getElementById('profile-markdown').textContent = md;
-              }
-            });
+      .then(res => {
+        if (!res.ok) throw new Error('Profile unavailable');
+        return res.text();
+      })
+      .then(md => { content.innerHTML = window.marked.parse(md); })
+      .catch(() => { content.textContent = 'This profile could not be loaded. Please try again.'; });
   }
 
   renderTeamCards();
 </script>
 <!-- Add Marked.js for markdown rendering -->
-<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="/vendor/marked-18.1.0.umd.js"></script>
 
 <!-- Footer -->
 <style>
