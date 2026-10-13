@@ -55,6 +55,17 @@
   }
   .scroll-text-section h2 { font-size: 1.35rem; margin-bottom: 0.5rem; }
   .scroll-text-section p { font-size: 0.9rem; line-height: 1.5; margin-bottom: 0; }
+  /* Fit the hint inside the 36px space reserved below the captions. */
+  .scroll-hint {
+    flex-direction: row;
+    gap: 6px;
+    max-width: 100%;
+    font-size: 0.75rem;
+    line-height: 1.2;
+    white-space: nowrap;
+  }
+  .scroll-hint .arrow { margin-top: 0; }
+  .scroll-hint .arrow svg { width: 16px; height: 20px; animation: none; }
   .snapped-scrollbar { display: none; }
   .post-animation-content { padding: 2rem 0; }
   .post-animation-content h1 { font-size: 2rem; }

@@ -115,6 +115,13 @@ async function main() {
         throw error;
       }
       check(await page.locator(`#textSection${section}`).getAttribute('aria-hidden') === 'false', 'Turtle captions follow forward and reverse progress');
+      if (progress === 0 && viewport.width < 800 && viewport.height > viewport.width) {
+        check(await page.evaluate(() => {
+          const hint = document.getElementById('scrollHint').getBoundingClientRect();
+          const caption = document.querySelector('.scroll-text-section.active').getBoundingClientRect();
+          return hint.top >= caption.bottom + 8 && hint.left >= 0 && hint.right <= innerWidth;
+        }), 'Mobile scroll hint sits below the caption without overlapping it');
+      }
       if (progress > 0) {
         check(await page.locator('#scrollHint').getAttribute('aria-hidden') === 'true', 'Scroll hint is dismissed after exploration');
         check(!(await page.locator('#scrollHint').getAttribute('class')).split(' ').includes('visible'), 'Scroll hint fades away');
