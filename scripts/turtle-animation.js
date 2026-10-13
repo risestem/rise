@@ -2,6 +2,7 @@
 const track = document.getElementById('animationContainer');
 const stage = track.querySelector('.animation-stage');
 const frame = document.getElementById('videoFrame');
+const scrollHint = document.getElementById('scrollHint');
 const sections = [...track.querySelectorAll('.scroll-text-section')];
 const segments = [...track.querySelectorAll('.scrollbar-segment')];
 const totalFrames = 150;
@@ -11,6 +12,7 @@ const cache = new Map();
 let desiredFrame = 1;
 let displayedFrame = 1;
 let scheduled = false;
+let hintDismissed = false;
 
 // Keep the previous decoded frame visible while the next one downloads.
 // Bound the cache and preload only nearby frames, rather than 100 on arrival.
@@ -47,6 +49,10 @@ function update() {
   const top = parseFloat(getComputedStyle(stage).top) || 0;
   const distance = Math.max(1, track.offsetHeight - stage.offsetHeight);
   const progress = Math.max(0, Math.min(1, (top - rect.top) / distance));
+  // Once exploration starts, keep the hint dismissed even when scrolling back.
+  if (progress > 0) hintDismissed = true;
+  scrollHint.classList.toggle('visible', !hintDismissed);
+  scrollHint.setAttribute('aria-hidden', String(hintDismissed));
   const number = reducedMotion.matches ? 1 : Math.round(progress * (totalFrames - 1)) + 1;
   updateFrame(number);
   const active = Math.min(sections.length - 1, Math.floor(progress * sections.length));

@@ -16,8 +16,8 @@ function cleanPageURLs(server) {
     })
 }
 
-export default defineConfig({
-    publicDir: false,
+export default defineConfig(({ command }) => ({
+    publicDir: command === 'build' ? false : 'public',
     plugins: [
         tailwindcss(),
         {
@@ -47,4 +47,4 @@ export default defineConfig({
             input: Object.fromEntries(pages.map(file => [file.replace('.html', ''), resolve(file)]))
         }
     }
-})
+}))

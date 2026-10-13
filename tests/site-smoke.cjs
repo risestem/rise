@@ -97,6 +97,7 @@ async function main() {
     const page = await browser.newPage({ viewport, isMobile: mobile, hasTouch: mobile });
     await page.goto(`${base}/turtle`, { waitUntil: 'networkidle' });
     check(await page.evaluate(() => getComputedStyle(document.body).overflowY !== 'hidden'), 'Turtle never locks page scrolling');
+    check(await page.locator('#scrollHint').getAttribute('aria-hidden') === 'false', 'Scroll hint is shown before exploration');
     for (const [progress, section, number] of [[0, 1, 1], [.5, 2, 76], [.95, 3, 143], [.25, 1, 38]]) {
       await scrollProgress(page, progress);
       try {
@@ -114,6 +115,12 @@ async function main() {
         throw error;
       }
       check(await page.locator(`#textSection${section}`).getAttribute('aria-hidden') === 'false', 'Turtle captions follow forward and reverse progress');
+      if (progress > 0) {
+        check(await page.locator('#scrollHint').getAttribute('aria-hidden') === 'true', 'Scroll hint is dismissed after exploration');
+        check(!(await page.locator('#scrollHint').getAttribute('class')).split(' ').includes('visible'), 'Scroll hint fades away');
+        await page.waitForFunction(() => getComputedStyle(document.getElementById('scrollHint')).opacity === '0');
+        check(true, 'Scroll hint is visually transparent after fading');
+      }
       check(await page.evaluate(() => {
         const text = document.querySelector('.scroll-text-section.active').getBoundingClientRect();
         const nav = document.querySelector('nav').getBoundingClientRect();
@@ -139,6 +146,9 @@ async function main() {
       await page.waitForFunction(() => document.getElementById('textSection3').classList.contains('active'));
       check(true, 'Turtle section control navigates the scene');
     }
+    await scrollProgress(page, 0);
+    await page.waitForFunction(() => document.getElementById('textSection1').classList.contains('active'));
+    check(await page.locator('#scrollHint').getAttribute('aria-hidden') === 'true', 'Scroll hint stays dismissed when returning to the beginning');
     await scrollProgress(page, 1.1);
     check(await page.locator('.post-animation-content').isVisible(), 'Content after animation remains accessible');
     await page.emulateMedia({ reducedMotion: 'reduce' });
