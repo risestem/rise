@@ -106,8 +106,6 @@ body {
 .impact-numbers > div { flex-direction: column; }
 .impact-numbers dd { order: 1; }
 .impact-numbers dt { order: 2; }
-.impact-icon { width: 44px; height: 44px; margin-bottom: 8px; color: #7e22ce; flex-shrink: 0; }
-.impact-icon .icon-detail { stroke: #a78bfa; transform-origin: 24px 24px; transition: transform 250ms ease; }
 .impact-numbers > div:hover .icon-detail { transform: translateY(-2px); }
 .impact-report-note { max-width: 560px; margin: 24px auto 0; font-size: .8rem; color: #6b7280; text-align: center; line-height: 1.8; }
 .impact-report-link { text-align: center; font-size: .8rem; color: #6b21a8; margin-top: 8px; }
@@ -120,5 +118,4 @@ body {
 }
 @media (prefers-reduced-motion: reduce) {
     .values-grid .parallax-container { transform: none !important; transition: none; }
-    .impact-icon .icon-detail { transition: none; transform: none !important; }
 }
