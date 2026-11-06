@@ -1,21 +1,25 @@
-@keyframes fadeInUp {
-    0% {
-        transform: translateY(50%);
-        opacity: 0;
-    }
-    100% {
-        transform: translateY(0%);
-        opacity: 1;
-    }
-}
-
+/* A small, one-time reveal keeps the existing pages feeling familiar. */
 .fadeInUp-animation {
-    opacity: 0;
-    transform: translateY(50%);
+    opacity: 1;
+    transform: none;
 }
 
-.fadeInUp-visible {
+.fadeInUp-animation.fadeInUp-pending {
+    opacity: 0;
+    transform: translateY(16px);
+}
+
+.fadeInUp-animation.fadeInUp-visible {
     opacity: 1;
-    transform: translateY(0%);
-    transition: opacity 1s ease-out, transform 0.75s ease-out;
+    transform: none;
+    transition: opacity 700ms ease-out, transform 700ms cubic-bezier(.2, .65, .3, 1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .fadeInUp-animation.fadeInUp-pending,
+    .fadeInUp-animation.fadeInUp-visible {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
 }

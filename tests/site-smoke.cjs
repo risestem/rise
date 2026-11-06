@@ -87,6 +87,18 @@ async function main() {
     check(await page.locator('#profile-markdown img').count() > 0, 'Team profile renders Markdown photos offline');
     await page.locator('#close-profile-modal').click();
     check(await page.locator('#profile-modal').count() === 0, 'Team profile closes');
+    check(await page.locator('#team-cards [data-profile]').count() === 6, 'Six current team members');
+    check(await page.locator('#past-team-cards [data-profile="profiles/maxL.md"]').count() === 1, 'Max is listed as a past member');
+    await page.locator('[data-profile="profiles/andy.md"]').click();
+    await page.waitForFunction(() => document.querySelector('#profile-markdown h1')?.textContent === 'Andrew Fang');
+    check(new URL(page.url()).pathname === '/team', 'Andy profile stays on the team page');
+    await page.locator('#close-profile-modal').click();
+    await page.route('**/profiles/andy.md', route => route.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><meta http-equiv="refresh" content="0;url=/home">' }));
+    await page.locator('[data-profile="profiles/andy.md"]').click();
+    await page.waitForFunction(() => document.querySelector('#profile-markdown')?.textContent.includes('could not be loaded'));
+    check(new URL(page.url()).pathname === '/team', 'Missing profile HTML cannot redirect home');
+    await page.locator('#close-profile-modal').click();
+
     check(errors.length === 0, errors.join(', '));
     await page.close();
   }
@@ -163,6 +175,19 @@ async function main() {
     await page.waitForFunction(() => document.getElementById('videoFrame').src.endsWith('00001.webp'));
     check(true, 'Reduced motion keeps a static turtle frame');
     await page.close();
+  }
+  if (!process.env.SMOKE_TURTLE_ONLY) {
+    for (const timezoneId of ['America/Los_Angeles', 'Pacific/Kiritimati']) {
+      const page = await browser.newPage({ timezoneId, viewport: { width: 390, height: 844 } });
+      await page.goto(`${base}/home`, { waitUntil: 'networkidle' });
+      check((await page.locator('#news-cards-container').innerText()).includes('Published Jul 5, 2025'), `${timezoneId}: home publication date`);
+      await page.goto(`${base}/news_overview`, { waitUntil: 'networkidle' });
+      check((await page.locator('#news-list-container').innerText()).includes('Published Jul 5, 2025'), `${timezoneId}: news list publication date`);
+      await page.goto(`${base}/news_updates?updates=news_updates/RISEcampjune2025.md`, { waitUntil: 'networkidle' });
+      check(await page.locator('#news-updated-date').innerText() === 'Published: July 5, 2025', `${timezoneId}: article publication date`);
+      check(await page.locator('#news-markdown a[href="/RISE%20STEM%20Camp%20Report.pdf"]').count() === 1, 'Camp report uses local download');
+      await page.close();
+    }
   }
   console.log(`${passed} browser checks passed (${new URL(base).host}).`);
 }

@@ -1,6 +1,6 @@
 # RISE STEM website
 
-Use Node.js 20+ and the existing checkout. Install with `npm ci` and start with
+Use Node.js 24+ and the existing checkout. Install with `npm ci` and start with
 `npm run dev`. Open `/home`, `/kits`, or `/turtle`; clean URLs and `.html` routes
 both work locally. `npm run build` builds all HTML pages and copies the data,
 Markdown profiles, and header needed by runtime requests. `npm run preview`
@@ -38,3 +38,16 @@ The workflow publishes `dist` only after the production browser checks pass.
 The custom domain is retained in `CNAME`. Unused legacy frame directories and
 original photos with optimized replacements stay in the source checkout and
 are omitted from the deployment artifact.
+
+## News publication dates
+
+Each file in `news_updates/` must include `<!-- published: YYYY-MM-DD -->`.
+Use the original publication date, not the day you edit the article. Run
+`python3 scripts/generate_updates.py` to refresh `updates.json`. Deployment
+regenerates this index before building and rejects missing or invalid dates.
+Dates display as calendar dates in every timezone, labeled **Published**.
+
+The camp article was first committed July 5, 2025 (`62b7857`); its June 2025
+camp is distinct from the article publication date. The first-class article
+originated June 4, 2025 (`f28c980`, originally `06-04-2025.md`). Later edits,
+including the October 2026 image optimization, do not change those dates.

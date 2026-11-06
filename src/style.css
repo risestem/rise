@@ -16,3 +16,113 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+
+/* Keep the familiar purple contact section, with more room to write. */
+#contact { padding: 16px clamp(24px, 7.5vw, 96px) 40px; background: #f9fafb; }
+.contact-inner { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); align-items: center; gap: 40px; max-width: 1200px; margin: 0 auto; padding: 40px clamp(24px, 4vw, 48px); border-radius: 16px; background: var(--color-purple-950, #3b0764); border: 1px solid var(--color-purple-950, #3b0764); box-shadow: 0 4px 6px #00000012; color: #fff; }
+.contact-intro { color: #e9d5ff; text-align: left; line-height: 1.75; margin: 14px 0 0; max-width: 360px; font-size: .95rem; }
+.contact-form { display: grid; gap: 20px; width: 100%; max-width: 536px; margin: 0 0 0 auto; padding: clamp(20px, 3vw, 28px); background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; color: #6b7280; }
+.contact-form label { display: block; color: #6b7280; font-size: .875rem; font-weight: 500; margin-bottom: 8px; }
+.contact-form input, .contact-form textarea { display: block; width: 100%; padding: 9px 12px; border: 1px solid #d1d5db; border-radius: 6px; background: #fff; color: #6b7280; font: inherit; font-size: .95rem; }
+.contact-form textarea { resize: vertical; min-height: 112px; }
+.contact-form input::placeholder, .contact-form textarea::placeholder { color: #8c8593; }
+.contact-form input:focus-visible, .contact-form textarea:focus-visible { outline: 3px solid #c4b5fd; outline-offset: 3px; }
+.contact-form-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+.contact-form-bottom a { color: #6b7280; font-size: .8rem; text-underline-offset: 4px; }
+.contact-form-bottom a:hover { text-decoration: underline; }
+.contact-form button { border: 1px solid #d1d5db; border-radius: 6px; background: #f9fafb; color: #4b5563; padding: 9px 18px; font-size: .875rem; font-weight: 600; transition: background-color 180ms ease; }
+.contact-form button:hover { background: #f3f4f6; }
+.contact-form button:focus-visible { outline: 3px solid #c4b5fd; outline-offset: 3px; }
+
+#home .home-welcome { padding: 28px 24px; }
+#home .home-welcome p { line-height: 1.85; }
+#home .news-card > a { display: block; width: 100%; }
+#home .news-card:focus-within { outline: 2px solid #a78bfa; outline-offset: 3px; }
+#home .news-card:hover { box-shadow: 0 4px 18px rgba(80, 0, 120, .18); }
+@media (max-width: 400px) {
+    #home .news-card { min-width: 0; flex-basis: 100%; }
+}
+
+.approach-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 48px; padding: 40px 16px 16px; }
+.approach-photos { min-width: 0; padding: 12px; }
+.approach-photo-stack { position: relative; width: 100%; max-width: 400px; aspect-ratio: 1.06; margin: 0 auto; cursor: pointer; }
+.approach-photo { position: absolute; inset: 0; margin: 0; padding: 8px; background: #fcfbfd; border: 1px solid #e5e7eb; border-radius: 10px; box-shadow: 0 3px 10px #00000012; transform: rotate(var(--angle)); display: flex; flex-direction: column; }
+.approach-photo img { width: 100%; min-height: 0; flex: 1; object-fit: cover; border-radius: 5px; }
+.approach-photo figcaption { padding: 14px 4px 8px; font-size: .8rem; color: #6b7280; text-align: center; }
+.approach-photo-controls { max-width: 400px; margin: 22px auto 0; display: flex; justify-content: space-between; align-items: center; font-size: .75rem; color: #9ca3af; }
+.approach-photo-controls button { color: #6b7280; padding: 6px 0 6px 12px; text-underline-offset: 4px; }
+.approach-photo-controls button:hover { text-decoration: underline; }
+.approach-photo-controls button:focus-visible { outline: 2px solid #a78bfa; outline-offset: 4px; }
+.approach-steps h3 { font-size: 1.3rem; line-height: 1.4; }
+.approach-steps p { font-size: .9rem; line-height: 1.8; }
+.impact-numbers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); max-width: 800px; margin: 40px auto 12px; }
+.impact-numbers > div { display: flex; flex-direction: column-reverse; align-items: center; gap: 8px; padding: 16px; text-align: center; }
+.impact-numbers > div + div { border-left: 1px solid #e5e7eb; }
+.impact-numbers dd { margin: 0; font-size: clamp(2.25rem, 4vw, 3rem); line-height: 1.2; font-weight: 700; color: var(--color-purple-950); }
+.impact-numbers dt { font-size: .875rem; color: #6b7280; }
+.issue-content { max-width: 1440px; margin-left: auto; margin-right: auto; }
+.issue-content > .bg-white { padding: 36px clamp(20px, 3vw, 40px); }
+.issue-content p, .issue-content li { line-height: 1.8; }
+.issue-content h3 { line-height: 1.35; max-width: 760px; }
+.issue-content .shadow-md { box-shadow: 0 3px 8px #00000009; }
+.enrichment-comparison { display: grid; gap: 18px; margin: 28px auto; max-width: 520px; text-align: left; }
+.enrichment-comparison > div { display: grid; grid-template-columns: 1fr auto; gap: 8px 16px; align-items: center; font-size: .8rem; }
+.enrichment-comparison > div > span { grid-column: 1 / -1; }
+.comparison-track { height: 12px; background: #f3f4f6; border-radius: 3px; overflow: hidden; }
+.comparison-track span { height: 100%; display: block; background: #a78bfa; border-radius: 3px; }
+.enrichment-comparison > div:last-child .comparison-track span { background: #6b21a8; }
+.enrichment-comparison strong { width: 40px; color: #581c87; }
+@media (max-width: 767px) {
+    .approach-layout { grid-template-columns: minmax(0, 1fr); gap: 32px; padding: 28px 0 8px; }
+    .impact-numbers > div { padding: 12px 6px; }
+    .impact-numbers dt { font-size: .75rem; }
+}
+
+.contact-icon { width: 40px; height: 40px; color: #fff; margin-bottom: 20px; }
+@media (max-width: 767px) {
+    .contact-inner { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+    .contact-form { margin: 0; max-width: none; }
+}
+
+/* Small page refinements, using the existing type and purple palette. */
+.about-introduction { max-width: 680px; margin: 24px auto 0; color: #6b7280; line-height: 1.8; text-align: center; }
+.mission-vision-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px; max-width: 800px; margin: 32px auto 0; }
+.mission-vision-grid > div + div { border-left: 1px solid #e5e7eb; padding-left: 40px; }
+.mission-vision-grid p { margin-top: 10px; line-height: 1.8; }
+.about-team-link { text-align: center; margin-top: 28px; font-size: .875rem; color: #6b21a8; }
+.about-team-link a, .community-partner a, .impact-report-link a { text-decoration: underline; text-underline-offset: 4px; }
+.values-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; max-width: 720px; margin: 28px auto 0; }
+.values-grid .parallax-wrap, .values-grid .parallax-container { width: 100%; height: 100%; }
+.values-grid .parallax-active { box-shadow: 0 4px 12px rgba(76,29,149,.08); }
+.community-partner { display: flex; align-items: center; gap: 32px; max-width: 800px; margin: 32px auto 12px; padding-top: 28px; border-top: 1px solid #e5e7eb; }
+.community-partner img { width: 150px; height: 120px; object-fit: contain; flex-shrink: 0; }
+.community-partner p, .past-partner-names p { color: #6b7280; line-height: 1.8; margin: 12px 0; font-size: .9rem; }
+.community-partner a { color: #6b21a8; font-size: .875rem; }
+.career-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; width: 100%; max-width: 720px; margin-top: 24px; }
+.career-card { gap: 24px; min-width: 0; }
+.career-demand-label { color: #9ca3af; font-size: .75rem; }
+.issue-content > .bg-white + .bg-white { margin-top: 32px; }
+.issue-long-copy > p { text-align: left; }
+.impact-numbers > div { flex-direction: column; }
+.impact-numbers dd { order: 1; }
+.impact-numbers dt { order: 2; }
+.impact-numbers > div:hover .icon-detail { transform: translateY(-2px); }
+.impact-report-note { max-width: 560px; margin: 24px auto 0; font-size: .8rem; color: #6b7280; text-align: center; line-height: 1.8; }
+.impact-report-link { text-align: center; font-size: .8rem; color: #6b21a8; margin-top: 8px; }
+@media (max-width: 639px) {
+    .mission-vision-grid { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+    .mission-vision-grid > div + div { border-left: 0; padding-left: 0; border-top: 1px solid #e5e7eb; padding-top: 24px; }
+    .values-grid, .career-grid { grid-template-columns: minmax(0, 1fr); }
+    .community-partner { flex-direction: column; align-items: flex-start; gap: 16px; }
+    .community-partner img { height: 90px; width: 130px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .values-grid .parallax-container { transform: none !important; transition: none; }
+}
+
+.past-partner-names { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; max-width: 800px; margin: 28px auto 12px; border-top: 1px solid #e5e7eb; padding-top: 28px; }
+@media (max-width: 639px) { .past-partner-names { grid-template-columns: minmax(0, 1fr); } }
+
+.partner-logo-link { display: flex; align-items: center; height: 112px; margin-bottom: 20px; width: fit-content; max-width: 100%; }
+.partner-logo-link img { display: block; width: auto; height: auto; max-width: min(260px, 100%); max-height: 100px; object-fit: contain; }
+.partner-logo-link:focus-visible { outline: 2px solid #a78bfa; outline-offset: 6px; }

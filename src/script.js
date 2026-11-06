@@ -1,16 +1,26 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const elements = document.querySelectorAll(".fadeInUp-animation");
+function revealOnScroll() {
+    const elements = document.querySelectorAll('.fadeInUp-animation');
+    if (!('IntersectionObserver' in window) || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const observer = new IntersectionObserver((entries, observer) => {
+    const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const delay = entry.target.getAttribute("data-delay") || "0"; // Default delay is 0s
-                entry.target.style.transitionDelay = `${delay}s`;
-                entry.target.classList.add("fadeInUp-visible");
-                observer.unobserve(entry.target); // Stop observing after animation plays
-            }
+            if (!entry.isIntersecting) return;
+            entry.target.classList.remove('fadeInUp-pending');
+            entry.target.classList.add('fadeInUp-visible');
+            observer.unobserve(entry.target);
         });
-    }, { threshold: 0.05 });
+    }, { threshold: 0, rootMargin: '0px 0px -24px 0px' });
 
-    elements.forEach(element => observer.observe(element));
-});
+    elements.forEach(element => {
+        // Nested reveals compound the motion and make text feel sluggish.
+        if (element.parentElement.closest('.fadeInUp-animation')) return;
+        element.classList.add('fadeInUp-pending');
+        observer.observe(element);
+    });
+}
+
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', revealOnScroll, { once: true });
+} else {
+    revealOnScroll();
+}

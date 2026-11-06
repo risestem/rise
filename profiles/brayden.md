@@ -2,7 +2,7 @@
 
 <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 10px; align-items: center;">
   <!-- Large square image on the left -->
-  <img src="/optimized/BraydenTemp3.jpeg.webp" alt="Large image" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover;">
+  <img src="/optimized/brayden-hiking.jpeg" alt="Brayden hiking in the woods" style="width: 100%; aspect-ratio: 1/1; border-radius: 8px; object-fit: cover; object-position: 60% 55%;">
 
   <!-- Two smaller square images stacked vertically on the right -->
   <div style="display: grid; grid-template-rows: 1fr 1fr; gap: 10px;">

@@ -13,78 +13,6 @@
     html {
       scroll-behavior: smooth;
     }
-    .flip-card .flip-card-inner {
-      perspective: 1000px;
-    }
-    .flip-card .flip-card-front,
-    .flip-card .flip-card-back {
-      backface-visibility: hidden;
-    }
-    .flip-card .flip-card-back {
-      transform: rotateY(180deg);
-    }
-    .flip-card {
-      transition: transform 0.3s ease;
-    }
-    .flip-card:hover {
-      transform: translateY(-10px);
-    }
-    .flip-card-front {
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-    }
-    .flip-card:hover .flip-card-front {
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    }
-    .flip-card-back {
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-    }
-    .flip-card:hover .flip-card-back {
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    }
-    .flip-card img {
-      transition: transform 0.3s ease;
-    }
-    .flip-card:hover img {
-      transform: scale(1.1);
-    }
-    @media (min-width: 768px) {
-      .flip-card {
-        min-width: 380px;
-        max-width: 460px;
-        width: 100%;
-      }
-      .flip-card-inner {
-        min-width: 380px;
-        max-width: 460px;
-        width: 100%;
-      }
-    }
-    @media (min-width: 1024px) {
-      .flip-card {
-        min-width: 420px;
-        max-width: 520px;
-        width: 100%;
-      }
-      .flip-card-inner {
-        min-width: 420px;
-        max-width: 520px;
-        width: 100%;
-      }
-    }
-    .flip-card,
-    .flip-card-inner,
-    .flip-card-front,
-    .flip-card-back {
-      min-width: 0;
-      box-sizing: border-box;
-    }
-    .flip-card-front, .flip-card-back {
-      word-break: break-word;
-      padding-left: 1.25rem;
-      padding-right: 1.25rem;
-    }
   </style>
 </head>
 <body>
@@ -110,260 +38,14 @@
 
   <!-- The Issue Section -->
 
-  <section id="Issue" class="w-full px-6 sm:px-6 md:px-16 lg:px-24 -mt-8 z-20 relative pb-12 scroll-mt-24">
-    <!--
-  <div class="bg-white p-4 rounded-2xl border border-gray-300 shadow-md justify-center">
-    <div class="flex justify-center text-center">
-      <h2 class="text-3xl md:text-4xl font-poppins font-bold text-purple-950">
-        The Issue in Brief
-      </h2>
-    </div>
+  <section id="Issue" class="issue-content w-full px-6 sm:px-6 md:px-16 lg:px-24 -mt-8 z-20 relative pb-12 scroll-mt-24">
 
-    <div class="flex justify-center items-center pt-8 sm:px-16 lg:px-32 flex-col">
-
-      <div class="bg-white w-full py-12">
-        <div class="max-w-6xl mx-auto px-6">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-            <div class="flip-card group bg-transparent rounded-xl flex flex-col items-center">
-              <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-                <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden">
-              <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">
-                code_blocks
-              </span>
-                  <h3 class="text-3xl font-bold text-purple-900 mb-2 text-center">STEM Access Gaps</h3>
-                </div>
-                <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden">
-                  <p class="text-gray-500 text-center">Many students, especially those from low-income or underrepresented backgrounds, lack access to quality STEM education. This gap limits their opportunities to explore, develop, and excel in critical fields like science, technology, engineering, and math, creating disparities in future careers and innovation potential.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="flip-card group bg-transparent rounded-xl flex flex-col items-center">
-              <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-                <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden">
-              <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">
-                group
-              </span>
-                  <h3 class="text-3xl font-bold text-purple-900 mb-2 text-center">Confidence</h3>
-                </div>
-                <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden">
-                  <p class="text-gray-500 text-center">Many students, particularly from marginalized communities, face confidence gaps in STEM subjects. Without encouragement and support, they may doubt their abilities, leading to disengagement and limiting their future opportunities in these critical fields.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="flip-card group bg-transparent rounded-xl flex flex-col items-center">
-              <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-                <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden">
-              <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">
-                engineering
-              </span>
-                  <h3 class="text-3xl font-bold text-purple-900 mb-2 text-center">Skills Gap</h3>
-                </div>
-                <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden">
-                  <p class="text-gray-500 text-center">As technology evolves, there's a growing demand for STEM skills. Unfortunately, many students, especially those in underserved schools, lack access to the resources and hands-on experiences needed to develop these crucial skills, widening the gap between academic learning and workforce readiness.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="pt-10 flex justify-center">
-          <button
-                  id="continueReadingBtn"
-                  type="button"
-                  class="flex items-center gap-2 px-6 py-3 border border-gray-300 rounded-xl bg-white shadow-sm text-gray-500 transition active:translate-y-0.5 hover:scale-110 hover:border-gray-300 focus:outline-none"
-          >
-            Continue reading to learn more
-
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-        </div>
-        <script>
-          document.getElementById('continueReadingBtn').addEventListener('click', function(event) {
-            const target = document.getElementById('stem-skills');
-            if (target) {
-              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-          });
-        </script>
-      </div>
-    </div>
-  </div>
-  -->
-
-    <div class="bg-white p-8 rounded-2xl border border-gray-300 -mt-8 z-30 shadow-md flex flex-col items-center justify-center">
-
-      <h3 id="stem-skills" class="text-3xl font-bold text-center text-purple-950 mb-2">STEM Skills Are in High Demand<sup id="fnref1"><a href="#fn1" class="text-purple-700">[1]</a></sup></h3>
-      <div class="flex flex-col items-center text-gray-500">
-        <p class="mb-8 text-center max-w-xl">
-          STEM careers are growing much faster than most fields. By 2033, the U.S. Bureau of Labor Statistics projects:
-        </p>
-        <div class="flex flex-col sm:flex-row gap-10 items-center justify-center w-full">
-          <div class="flex flex-col items-center">
-            <span class="text-5xl md:text-6xl font-bold text-purple-950">10%</span>
-            <span class="text-purple-700 font-semibold mt-2">GROWTH</span>
-            <p class="text-center mt-2 max-w-xs">Projected increase in STEM jobs</p>
-          </div>
-          <div class="flex flex-col items-center">
-            <span class="text-5xl md:text-6xl font-bold text-purple-950">$100K</span>
-            <span class="text-purple-700 font-semibold mt-2">MEDIAN SALARY</span>
-            <p class="text-center mt-2 max-w-xs">Median STEM wages, well above the national average</p>
-          </div>
-        </div>
-
-        <p class="mt-8 text-center max-w-xl">
-          In Georgia, some STEM careers are considered “hot jobs” because they offer strong growth, high salaries, and plenty of opportunities. Explore a few examples below:<sup id="fnref2"><a href="#fn2" class="text-purple-700">[2]</a></sup>
-        </p>
-
-        <!-- Hot Careers Cards Section (SVG Hot Badge) -->
-        <div class="flex flex-wrap gap-8 justify-center mt-6">
-          <!-- Mechanical Engineer Card -->
-          <div class="relative w-64 h-56 bg-white border border-gray-300 rounded-2xl shadow-md flex flex-col justify-between p-6">
-            <div>
-              <span class="text-xl font-semibold text-purple-950 mb-2 block">Mechanical Engineer</span>
-              <span class="text-gray-500 text-sm">Design and develop mechanical systems for a range of industries.</span>
-            </div>
-            <div class="hot-badge-group">
-            <span class="hot-badge-svg" tabindex="0" style="display:inline-block; width:40px; height:40px;">
-              <svg viewBox="0 0 80 80" width="40" height="40" xmlns="http://www.w3.org/2000/svg" aria-label="Hot Job Badge">
-                <g>
-                  <polygon
-                          points="40,5 49,14 62,11 65,23 77,27 72,39 78,50 67,54 67,67 54,65 48,77 40,69 32,77 26,65 13,67 13,54 2,50 8,39 3,27 15,23 18,11 31,14"
-                          fill="#F43F5E"
-                  />
-                  <text x="50%" y="54%" text-anchor="middle" fill="#FFF" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="bold" dy=".3em" letter-spacing="1">
-                    HOT
-                  </text>
-                </g>
-              </svg>
-            </span>
-              <span class="hot-tooltip">
-              “Hot Job” = Above-average growth, above-average pay, 100+ annual openings in Georgia
-            </span>
-            </div>
-          </div>
-          <!-- Software Developer Card -->
-          <div class="relative w-64 h-56 bg-white border border-gray-300 rounded-2xl shadow-md flex flex-col justify-between p-6">
-            <div>
-              <span class="text-xl font-semibold text-purple-950 mb-2 block">Software Developer</span>
-              <span class="text-gray-500 text-sm">Create applications and systems for computers and mobile devices.</span>
-            </div>
-            <div class="hot-badge-group">
-            <span class="hot-badge-svg" tabindex="0" style="display:inline-block; width:40px; height:40px;">
-              <svg viewBox="0 0 80 80" width="40" height="40" xmlns="http://www.w3.org/2000/svg" aria-label="Hot Job Badge">
-                <g>
-                  <polygon
-                          points="40,5 49,14 62,11 65,23 77,27 72,39 78,50 67,54 67,67 54,65 48,77 40,69 32,77 26,65 13,67 13,54 2,50 8,39 3,27 15,23 18,11 31,14"
-                          fill="#F43F5E"
-                  />
-                  <text x="50%" y="54%" text-anchor="middle" fill="#FFF" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="bold" dy=".3em" letter-spacing="1">
-                    HOT
-                  </text>
-                </g>
-              </svg>
-            </span>
-              <span class="hot-tooltip">
-              “Hot Job” = Above-average growth, above-average pay, 100+ annual openings in Georgia
-            </span>
-            </div>
-          </div>
-          <!-- Web Developer Card -->
-          <div class="relative w-64 h-56 bg-white border border-gray-300 rounded-2xl shadow-md flex flex-col justify-between p-6">
-            <div>
-              <span class="text-xl font-semibold text-purple-950 mb-2 block">Web Developer</span>
-              <span class="text-gray-500 text-sm">Build and maintain websites and web applications.</span>
-            </div>
-            <div class="hot-badge-group">
-            <span class="hot-badge-svg" tabindex="0" style="display:inline-block; width:40px; height:40px;">
-              <svg viewBox="0 0 80 80" width="40" height="40" xmlns="http://www.w3.org/2000/svg" aria-label="Hot Job Badge">
-                <g>
-                  <polygon
-                          points="40,5 49,14 62,11 65,23 77,27 72,39 78,50 67,54 67,67 54,65 48,77 40,69 32,77 26,65 13,67 13,54 2,50 8,39 3,27 15,23 18,11 31,14"
-                          fill="#F43F5E"
-                  />
-                  <text x="50%" y="54%" text-anchor="middle" fill="#FFF" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="bold" dy=".3em" letter-spacing="1">
-                    HOT
-                  </text>
-                </g>
-              </svg>
-            </span>
-              <span class="hot-tooltip">
-              “Hot Job” = Above-average growth, above-average pay, 100+ annual openings in Georgia
-            </span>
-            </div>
-          </div>
-          <!-- Electronics Engineering Technician Card -->
-          <div class="relative w-64 h-56 bg-white border border-gray-300 rounded-2xl shadow-md flex flex-col justify-between p-6">
-            <div>
-              <span class="text-xl font-semibold text-purple-950 mb-2 block">Electronics Eng. Technician</span>
-              <span class="text-gray-500 text-sm">Test, repair, and maintain electronic equipment and systems.</span>
-            </div>
-            <div class="hot-badge-group">
-            <span class="hot-badge-svg" tabindex="0" style="display:inline-block; width:40px; height:40px;">
-              <svg viewBox="0 0 80 80" width="40" height="40" xmlns="http://www.w3.org/2000/svg" aria-label="Hot Job Badge">
-                <g>
-                  <polygon
-                          points="40,5 49,14 62,11 65,23 77,27 72,39 78,50 67,54 67,67 54,65 48,77 40,69 32,77 26,65 13,67 13,54 2,50 8,39 3,27 15,23 18,11 31,14"
-                          fill="#F43F5E"
-                  />
-                  <text x="50%" y="54%" text-anchor="middle" fill="#FFF" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="bold" dy=".3em" letter-spacing="1">
-                    HOT
-                  </text>
-                </g>
-              </svg>
-            </span>
-              <span class="hot-tooltip">
-              “Hot Job” = Above-average growth, above-average pay, 100+ annual openings in Georgia
-            </span>
-            </div>
-          </div>
-        </div>
-        <p class="mt-8 text-center max-w-xl">
-          These careers are just a few examples of the many opportunities available in Georgia’s growing STEM economy.
-        </p>
-      </div>
-    </div>
-
-    <!-- Required CSS for hot badge tooltip -->
-    <style>
-      .hot-badge-group {
-        position: absolute; bottom: 1rem; right: 1rem;
-        display: flex; flex-direction: column; align-items: flex-end;
-      }
-      .hot-tooltip {
-        opacity: 0;
-        pointer-events: none;
-        position: absolute;
-        bottom: 2.5rem;
-        right: 0;
-        background: #fff;
-        color: #6a7282;
-        border: 1px solid #e5e7eb;
-        border-radius: 0.5rem;
-        box-shadow: 0 2px 8px #0001;
-        font-size: 0.95rem;
-        padding: 0.5rem 0.75rem;
-        z-index: 10;
-        transition: opacity 0.2s;
-        width: 210px;
-        text-align: left;
-      }
-      .hot-badge-group:hover .hot-tooltip,
-      .hot-badge-group:focus-within .hot-tooltip {
-        opacity: 1;
-        pointer-events: auto;
-      }
-    </style>
 
     <div class="bg-white p-8 rounded-2xl border mt-8 border-gray-300 z-30 shadow-md flex flex-col items-center justify-center">
       <h3 class="text-3xl font-bold text-center text-purple-950 mb-4">Too Many Georgia Students Are Still Falling Behind<sup id="fnref3"><a href="#fn3" class="text-purple-700">[3]</a></sup></h3>
       <div class="flex flex-col items-center text-gray-500">
         <p class="mb-6 text-center max-w-xl">
-          Despite the opportunities in STEM, far too many students aren’t being equipped to pursue them. In 2024, only:
+          Too many students miss out on the resources and hands-on experiences that help them build confidence in STEM. In 2024, only:
         </p>
         <!-- Change these variables for size -->
         <div class="flex flex-col items-center justify-center w-full mb-6">
@@ -459,11 +141,81 @@
         </p>
       </div>
 
-      <h3 class="text-3xl font-bold text-center text-purple-950 mt-10 mb-4">
+    </div>
+
+    <div class="bg-white p-8 rounded-2xl border border-gray-300 z-30 shadow-md flex flex-col items-center justify-center">
+
+      <h3 id="stem-skills" class="text-3xl font-bold text-center text-purple-950 mb-2">STEM Skills Are in High Demand<sup id="fnref1"><a href="#fn1" class="text-purple-700">[1]</a></sup></h3>
+      <div class="flex flex-col items-center text-gray-500">
+        <p class="mb-8 text-center max-w-xl">
+          STEM careers are growing much faster than most fields. By 2033, the U.S. Bureau of Labor Statistics projects:
+        </p>
+        <div class="flex flex-col sm:flex-row gap-10 items-center justify-center w-full">
+          <div class="flex flex-col items-center">
+            <span class="text-5xl md:text-6xl font-bold text-purple-950">10%</span>
+            <span class="text-purple-700 font-semibold mt-2">GROWTH</span>
+            <p class="text-center mt-2 max-w-xs">Projected increase in STEM jobs</p>
+          </div>
+          <div class="flex flex-col items-center">
+            <span class="text-5xl md:text-6xl font-bold text-purple-950">$100K</span>
+            <span class="text-purple-700 font-semibold mt-2">MEDIAN SALARY</span>
+            <p class="text-center mt-2 max-w-xs">Median STEM wages, well above the national average</p>
+          </div>
+        </div>
+
+        <p class="mt-8 text-center max-w-xl">
+          In Georgia, some STEM careers are considered “hot jobs” because they offer strong growth, high salaries, and plenty of opportunities. Explore a few examples below:<sup id="fnref2"><a href="#fn2" class="text-purple-700">[2]</a></sup>
+        </p>
+
+        <!-- Hot Careers Cards Section (SVG Hot Badge) -->
+        <div class="career-grid">
+          <!-- Mechanical Engineer Card -->
+          <div class="career-card bg-white border border-gray-300 rounded-xl flex flex-col justify-between p-6">
+            <div>
+              <span class="text-xl font-semibold text-purple-950 mb-2 block">Mechanical Engineer</span>
+              <span class="text-gray-500 text-sm">Design and develop mechanical systems for a range of industries.</span>
+            </div>
+            <span class="career-demand-label">High-demand career</span>
+          </div>
+          <!-- Software Developer Card -->
+          <div class="career-card bg-white border border-gray-300 rounded-xl flex flex-col justify-between p-6">
+            <div>
+              <span class="text-xl font-semibold text-purple-950 mb-2 block">Software Developer</span>
+              <span class="text-gray-500 text-sm">Create applications and systems for computers and mobile devices.</span>
+            </div>
+            <span class="career-demand-label">High-demand career</span>
+          </div>
+          <!-- Web Developer Card -->
+          <div class="career-card bg-white border border-gray-300 rounded-xl flex flex-col justify-between p-6">
+            <div>
+              <span class="text-xl font-semibold text-purple-950 mb-2 block">Web Developer</span>
+              <span class="text-gray-500 text-sm">Build and maintain websites and web applications.</span>
+            </div>
+            <span class="career-demand-label">High-demand career</span>
+          </div>
+          <!-- Electronics Engineering Technician Card -->
+          <div class="career-card bg-white border border-gray-300 rounded-xl flex flex-col justify-between p-6">
+            <div>
+              <span class="text-xl font-semibold text-purple-950 mb-2 block">Electronics Eng. Technician</span>
+              <span class="text-gray-500 text-sm">Test, repair, and maintain electronic equipment and systems.</span>
+            </div>
+            <span class="career-demand-label">High-demand career</span>
+          </div>
+        </div>
+        <p class="mt-8 text-center max-w-xl">
+          These careers are just a few examples of the many opportunities available in Georgia’s growing STEM economy.
+        </p>
+      </div>
+    </div>
+
+
+
+    <div class="issue-explanations bg-white p-8 rounded-2xl border mt-8 border-gray-300 shadow-md flex flex-col items-center justify-center">
+      <h3 class="text-3xl font-bold text-center text-purple-950 mb-4">
         Learning Happens Beyond the Classroom<sup id="fnref4"><a href="#fn4" class="text-purple-700">[4]</a></sup>
       </h3>
-      <div class="text-gray-500 space-y-4 max-w-7xl flex flex-col items-center justify-center text-center">
-        <p class="max-w-xl w-full text-center">
+      <div class="issue-long-copy text-gray-500 space-y-4 max-w-7xl flex flex-col items-center justify-center">
+        <p class="max-w-xl w-full text-left">
           Students spend the majority of their waking hours outside of school. Afterschool time is a powerful window for hands-on, curiosity-driven learning.
         </p>
 
@@ -475,7 +227,7 @@
           <div class="flex flex-col items-center justify-center flex-1 mb-4 sm:mb-6">
             <span class="text-5xl md:text-6xl font-bold text-purple-950">80%</span>
             <p class="text-center mt-2 max-w-xs">
-              of student's waking hours are spent outside of school
+              of students’ waking hours are spent outside of school
             </p>
           </div>
           <!-- Divider -->
@@ -509,7 +261,7 @@
         <!-- STEM Impact Cards with Tailwind CSS -->
         <div class="flex flex-col sm:flex-row justify-center gap-6 w-full my-8">
           <!-- Card 1 -->
-          <div class="bg-white rounded-xl border border-gray-300 shadow-sm flex flex-col items-center w-full sm:w-[270px] h-[300px] min-w-[0] max-w-full sm:min-w-[230px] sm:max-w-[320px] min-h-[200px] max-h-[280px] overflow-hidden mb-6 sm:mb-0">
+          <div class="bg-white rounded-xl border border-gray-300 shadow-sm flex flex-col items-center w-full sm:w-[270px] h-auto min-w-[0] max-w-full sm:min-w-[230px] sm:max-w-[320px] min-h-[200px] overflow-hidden mb-6 sm:mb-0">
             <img decoding="async" src="/optimized/kid_doing_reaction.jpeg.webp" alt="STEM Interest and Identity" class="w-full h-28 object-cover">
             <div class="px-4 py-3 flex-1 flex flex-col justify-start items-center text-center">
               <h3 class="text-lg font-semibold mb-1 text-purple-950">STEM Interest and Identity</h3>
@@ -519,7 +271,7 @@
             </div>
           </div>
           <!-- Card 2 -->
-          <div class="bg-white rounded-xl border border-gray-300 shadow-sm flex flex-col items-center w-full sm:w-[270px] h-[300px] min-w-[0] max-w-full sm:min-w-[230px] sm:max-w-[320px] min-h-[200px] max-h-[280px] overflow-hidden mb-6 sm:mb-0">
+          <div class="bg-white rounded-xl border border-gray-300 shadow-sm flex flex-col items-center w-full sm:w-[270px] h-auto min-w-[0] max-w-full sm:min-w-[230px] sm:max-w-[320px] min-h-[200px] overflow-hidden mb-6 sm:mb-0">
             <img decoding="async" loading="lazy" src="/optimized/enpeng_atoms_2.jpeg.webp" alt="Career Awareness and Readiness" class="w-full h-28 object-cover">
             <div class="px-4 py-3 flex-1 flex flex-col justify-start items-center text-center">
               <h3 class="text-lg font-semibold mb-1 text-purple-950">Career Awareness and Readiness</h3>
@@ -529,7 +281,7 @@
             </div>
           </div>
           <!-- Card 3 -->
-          <div class="bg-white rounded-xl border border-gray-300 shadow-sm flex flex-col items-center w-full sm:w-[270px] h-[300px] min-w-[0] max-w-full sm:min-w-[230px] sm:max-w-[320px] min-h-[200px] max-h-[280px] overflow-hidden">
+          <div class="bg-white rounded-xl border border-gray-300 shadow-sm flex flex-col items-center w-full sm:w-[270px] h-auto min-w-[0] max-w-full sm:min-w-[230px] sm:max-w-[320px] min-h-[200px] overflow-hidden">
             <img decoding="async" loading="lazy" src="/optimized/2_kids_holding_bridge.jpeg.webp" alt="Problem-Solving and Perseverance" class="w-full h-28 object-cover">
             <div class="px-4 py-3 flex-1 flex flex-col justify-start items-center text-center">
               <h3 class="text-lg font-semibold mb-1 text-purple-950">Problem-Solving and Perseverance</h3>
@@ -553,81 +305,13 @@
     </div>
     <div class="bg-white p-8 rounded-2xl border mt-8 border-gray-300 z-30 shadow-md transform flex flex-col items-center justify-center">
       <h3 class="text-3xl font-bold text-center text-purple-950 mb-4">We’re Working Towards Closing the Gap<sup id="fnref8"><a href="#fn8" class="text-purple-700">[8]</a></sup></h3>
-      <div class="text-gray-500 max-w-2xl text-center space-y-4">
+      <div class="issue-long-copy text-gray-500 max-w-2xl text-left space-y-4">
         <p>
           Wealthier families invest over <strong>3.5x more</strong> in out-of-school enrichment than lower-income families. This is how STEM access gaps widen.
         </p>
-        <div class="flex items-center justify-center gap-12 my-8">
-          <!-- 1× Icon Group -->
-          <div class="flex flex-col items-center justify-center space-y-2">
-            <div class="flex gap-1">
-              <!-- 1 Full Dollar Icon -->
-              <svg xmlns="http://www.w3.org/2000/svg" class="hover:scale-110 transform transition-all duration-300 w-12 h-12 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M2 4h20v16H2z" opacity="0.2"/>
-                <path d="M4 6h16v12H4z" class="fill-current"/>
-                <text x="12" y="16" text-anchor="middle" fill="white" font-size="10" font-weight="bold">$</text>
-              </svg>
-            </div>
-            <p class="text-s text-center max-w-[12.5rem] text-slate-700 font-semibold">
-              Spent by lower-income families
-            </p>
-          </div>
-
-          <!-- 3.5× Icon Group -->
-          <div class="flex flex-col items-center justify-center space-y-2">
-            <div class="flex gap-1">
-              <!-- 3 Full Dollar Icons -->
-              <svg xmlns="http://www.w3.org/2000/svg" class="hover:scale-110 transform transition-all duration-300 w-12 h-12 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M2 4h20v16H2z" opacity="0.2"/>
-                <path d="M4 6h16v12H4z" class="fill-current"/>
-                <text x="12" y="16" text-anchor="middle" fill="white" font-size="10" font-weight="bold">$</text>
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" class="hover:scale-110 transform transition-all duration-300 w-12 h-12 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M2 4h20v16H2z" opacity="0.2"/>
-                <path d="M4 6h16v12H4z" class="fill-current"/>
-                <text x="12" y="16" text-anchor="middle" fill="white" font-size="10" font-weight="bold">$</text>
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" class="hover:scale-110 transform transition-all duration-300 w-12 h-12 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M2 4h20v16H2z" opacity="0.2"/>
-                <path d="M4 6h16v12H4z" class="fill-current"/>
-                <text x="12" y="16" text-anchor="middle" fill="white" font-size="10" font-weight="bold">$</text>
-              </svg>
-              <!-- 0.5 Dimmed Dollar Icon -->
-              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
-                <!-- Left half: vivid dollar (purple-600) -->
-                <g>
-                  <clipPath id="leftHalf">
-                    <rect x="0" y="0" width="24" height="48"/>
-                  </clipPath>
-                  <g clip-path="url(#leftHalf)">
-                    <rect x="0" y="0" width="48" height="48" fill="none"/>
-                    <g transform="scale(2)">
-                      <path d="M2 4h20v16H2z" fill="currentColor" opacity="0.2"/>
-                      <path d="M4 6h16v12H4z" fill="#9333ea"/>
-                      <text x="12" y="16" text-anchor="middle" fill="white" font-size="10" font-weight="bold" font-family="sans-serif">$</text>
-                    </g>
-                  </g>
-                </g>
-                <!-- Right half: dimmed dollar (purple-400, opacity-0.5) -->
-                <g>
-                  <clipPath id="rightHalf">
-                    <rect x="24" y="0" width="24" height="48"/>
-                  </clipPath>
-                  <g clip-path="url(#rightHalf)" opacity="0.5">
-                    <rect x="0" y="0" width="48" height="48" fill="none"/>
-                    <g transform="scale(2)">
-                      <path d="M2 4h20v16H2z" fill="currentColor" opacity="0.2"/>
-                      <path d="M4 6h16v12H4z" fill="#a78bfa"/>
-                      <text x="12" y="16" text-anchor="middle" fill="white" font-size="10" font-weight="bold" font-family="sans-serif">$</text>
-                    </g>
-                  </g>
-                </g>
-              </svg>
-            </div>
-            <p class="text-s text-center max-w-[12.5rem] text-slate-700 font-semibold">
-              Spent by higher-income families
-            </p>
-          </div>
+        <div class="enrichment-comparison" aria-label="Relative spending on out-of-school enrichment">
+          <div><span>Lower-income families</span><div class="comparison-track"><span style="width:28.57%"></span></div><strong>1×</strong></div>
+          <div><span>Higher-income families</span><div class="comparison-track"><span style="width:100%"></span></div><strong>3.5×</strong></div>
         </div>
         <h2 class="font-semibold text-purple-950 text-xl">
           RISE is tackling this divide by making engaging, hands-on STEM learning accessible to everyone.
@@ -639,7 +323,7 @@
             <img decoding="async" loading="lazy"
                     src="/optimized/enpeng_holding_bucket.jpeg.webp"
                     alt="STEM Learning"
-                    class="object-cover w-full h-full rounded-2xl min-h-[350px] min-w-[300px]"
+                    class="object-cover w-full h-full rounded-2xl min-h-[260px]"
             >
           </div>
           <!-- Right: Content -->
@@ -657,7 +341,7 @@
         </div>
         <button
                 onclick="window.location.href='/what-we-do';"
-                class="px-8 py-4 mb-4 text-white font-bold bg-purple-950 rounded-full transform transition duration-300 hover:scale-110 hover:text-white w-max"
+                class="block mx-auto px-8 py-4 mb-4 text-white font-bold bg-purple-950 rounded-full transform transition duration-300 hover:scale-105 hover:bg-purple-900 max-w-full"
         >
           Continue Reading About Our Work
         </button>
@@ -675,7 +359,7 @@
         <li id="fn5">Afterschool Alliance. <em>Students Learn More with Afterschool STEM</em>. April 2018. <a href="https://docs.wixstatic.com/ugd/e45463_e14ee6fac98d405e950c66fe28de9bf8.pdf" class="underline" target="_blank" rel="noopener">PDF</a> <a href="#fnref5" title="Jump back to content">↩</a></li>
         <li id="fn6">NSTA. <em>Connected Science Learning – Science Club</em>. <a href="https://www.nsta.org/connected-science-learning/connected-science-learning-march-2016/science-club" class="underline" target="_blank" rel="noopener">nsta.org</a> <a href="#fnref6" title="Jump back to content">↩</a></li>
         <li id="fn7">The Clubhouse Network. <a href="https://theclubhousenetwork.org/" class="underline" target="_blank" rel="noopener">theclubhousenetwork.org</a> <a href="#fnref7" title="Jump back to content">↩</a></li>
-        <li id="fn8">American Sociological Association. <em>Income Inequality is Changing How Parents Invest in Their Kids</em>. <a href="https://www.asanet.org/news_item/income-inequality-changing-how-parents-invest-their-kids-widening-class-divides-us/?utm_source=chatgpt.com" class="underline" target="_blank" rel="noopener">asanet.org</a> <a href="#fnref8" title="Jump back to content">↩</a></li>
+        <li id="fn8">American Sociological Association. <em>Income Inequality is Changing How Parents Invest in Their Kids</em>. <a href="https://www.asanet.org/news_item/income-inequality-changing-how-parents-invest-their-kids-widening-class-divides-us/" class="underline" target="_blank" rel="noopener">asanet.org</a> <a href="#fnref8" title="Jump back to content">↩</a></li>
       </ol>
     </div>
 

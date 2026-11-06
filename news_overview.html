@@ -143,7 +143,7 @@ async function loadAllNews() {
         <div class="flex flex-col md:flex-row">
           <div class="flex-1 px-10 py-16">
             <div class="text-4xl font-bold text-purple-950 mb-4 group-hover:text-purple-700 transition-colors duration-300 cursor-pointer">${articlesData[i].title}</div>
-            <div class="text-gray-500 text-lg">${formatNewsDate(u.datetime)}</div>
+            <div class="text-gray-500 text-lg">Published ${formatNewsDate(u.datetime)}</div>
           </div>
           ${articlesData[i].image ? `
             <div class="flex-shrink-0 w-full md:w-80 p-4 md:py-6 md:pr-10 md:pl-0">
@@ -158,7 +158,7 @@ async function loadAllNews() {
 
 function formatNewsDate(dt) {
   if (!dt) return '';
-  const dateObj = new Date(dt);
+  const dateObj = new Date(dt + 'T12:00:00');
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   return `${months[dateObj.getMonth()]} ${dateObj.getDate()}, ${dateObj.getFullYear()}`;
 }
