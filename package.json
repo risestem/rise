@@ -1,5 +1,5 @@
 {
-  "name": "untitled16",
+  "name": "rise-stem",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,12 +10,12 @@
     "test:browser": "node tests/site-smoke.cjs"
   },
   "devDependencies": {
-    "playwright": "^1.64.0",
-    "vite": "^6.1.0"
+    "@tailwindcss/vite": "^4.3.4",
+    "playwright": "^1.65.0",
+    "tailwindcss": "^4.3.4",
+    "vite": "^8.3.6"
   },
-  "dependencies": {
-    "@tailwindcss/vite": "^4.0.5",
-    "flowbite": "^3.1.2",
-    "tailwindcss": "^4.0.5"
+  "engines": {
+    "node": ">=24"
   }
 }

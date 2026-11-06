@@ -297,42 +297,11 @@
           ? headingMatch[1].trim()
           : mdFile.split("/").pop().replace(".md", "");
 
-        // 2) If updates.json gave us a datetime, format it for “Updated: …”
-        let updatedDate = "";
-        if (updatesList.length) {
-          latestUpdateObj = updatesList.find(
-            (u) => u.file === mdFile || u.file === "./" + mdFile
-          );
-          if (latestUpdateObj && latestUpdateObj.datetime) {
-            const dateObj = new Date(latestUpdateObj.datetime);
-            const months = [
-              "January",
-              "February",
-              "March",
-              "April",
-              "May",
-              "June",
-              "July",
-              "August",
-              "September",
-              "October",
-              "November",
-              "December",
-            ];
-            let hours = dateObj.getHours();
-            const minutes = dateObj.getMinutes().toString().padStart(2, "0");
-            const ampm = hours >= 12 ? "PM" : "AM";
-            hours = hours % 12;
-            hours = hours ? hours : 12; // 0 → 12
-            updatedDate = `${months[dateObj.getMonth()]} ${dateObj.getDate()}, ${
-              dateObj.getFullYear()
-            }, ${hours}:${minutes} ${ampm}`;
-          }
-        }
-
-        // 3) Populate “Updated: …” line (if we have one)
-        if (updatedDate) {
-          document.getElementById("news-updated-date").textContent = `Updated: ${updatedDate}`;
+        // Publication dates are calendar dates, independent of visitor timezone.
+        const article = updatesList.find(u => u.file.replace(/^\.\//, '') === mdFile);
+        if (article?.datetime) {
+          const published = new Date(article.datetime + 'T12:00:00');
+          document.getElementById("news-updated-date").textContent = `Published: ${published.toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}`;
         }
 
         // 4) Populate breadcrumb current title

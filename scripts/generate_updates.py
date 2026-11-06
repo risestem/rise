@@ -1,50 +1,27 @@
-import os
+"""Build the news index from stable, explicit publication dates.
+
+Dates belong to the article, never to its latest Git commit or the build clock.
+"""
 import json
-import subprocess
-from datetime import datetime
+import re
+from datetime import date
+from pathlib import Path
 
-directory = 'news_updates'
-updates_file = 'updates.json'
-updates_dict = {}
+ROOT = Path(__file__).resolve().parents[1]
 
-for file in os.listdir(directory):
-    if file.endswith('.md'):
-        path = os.path.join(directory, file)
-        
-        try:
-            result = subprocess.run(
-                ['git', 'log', '-1', '--format=%H', '--', path],
-                capture_output=True, text=True, check=True
-            )
-            
-            if result.stdout.strip():
-                commit_hash = result.stdout.strip()
-                
-                date_result = subprocess.run(
-                    ['git', 'show', '-s', '--format=%cI', commit_hash],
-                    capture_output=True, text=True, check=True
-                )
-                git_date = date_result.stdout.strip()
-                
-            else:
-                git_date = datetime.now().astimezone().isoformat()
-                
-        except subprocess.CalledProcessError as e:
-            print(f"Error getting git info for {path}: {e}")
-            git_date = datetime.now().astimezone().isoformat()
-        
-        updates_dict[path] = {
-            'file': path,
-            'datetime': git_date
-        }
 
-updates_list = list(updates_dict.values())
-updates_list.sort(key=lambda x: x['datetime'], reverse=True)
+def generate(root=ROOT):
+    updates = []
+    for path in sorted((root / 'news_updates').glob('*.md')):
+        match = re.search(r'^<!-- published: (\d{4}-\d{2}-\d{2}) -->$', path.read_text(), re.M)
+        if not match:
+            raise ValueError(f'{path.name}: add <!-- published: YYYY-MM-DD -->')
+        published = date.fromisoformat(match[1]).isoformat()
+        updates.append({'file': path.relative_to(root).as_posix(), 'datetime': published})
+    updates.sort(key=lambda item: (item['datetime'], item['file']), reverse=True)
+    (root / 'updates.json').write_text(json.dumps(updates, indent=2) + '\n')
+    return updates
 
-with open(updates_file, 'w') as f:
-    json.dump(updates_list, f, indent=2)
 
-print("updates.json updated with real last modification times!")
-print(f"Found {len(updates_list)} files:")
-for update in updates_list:
-    print(f"  {update['file']}: {update['datetime']}")
+if __name__ == '__main__':
+    generate()

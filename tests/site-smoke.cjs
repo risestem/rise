@@ -164,6 +164,19 @@ async function main() {
     check(true, 'Reduced motion keeps a static turtle frame');
     await page.close();
   }
+  if (!process.env.SMOKE_TURTLE_ONLY) {
+    for (const timezoneId of ['America/Los_Angeles', 'Pacific/Kiritimati']) {
+      const page = await browser.newPage({ timezoneId, viewport: { width: 390, height: 844 } });
+      await page.goto(`${base}/home`, { waitUntil: 'networkidle' });
+      check((await page.locator('#news-cards-container').innerText()).includes('Published Jul 5, 2025'), `${timezoneId}: home publication date`);
+      await page.goto(`${base}/news_overview`, { waitUntil: 'networkidle' });
+      check((await page.locator('#news-list-container').innerText()).includes('Published Jul 5, 2025'), `${timezoneId}: news list publication date`);
+      await page.goto(`${base}/news_updates?updates=news_updates/RISEcampjune2025.md`, { waitUntil: 'networkidle' });
+      check(await page.locator('#news-updated-date').innerText() === 'Published: July 5, 2025', `${timezoneId}: article publication date`);
+      check(await page.locator('#news-markdown a[href="/RISE%20STEM%20Camp%20Report.pdf"]').count() === 1, 'Camp report uses local download');
+      await page.close();
+    }
+  }
   console.log(`${passed} browser checks passed (${new URL(base).host}).`);
 }
 main().catch(error => { console.error(error); process.exitCode = 1; }).finally(async () => {

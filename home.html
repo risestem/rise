@@ -313,7 +313,7 @@
             <div class="text-2xl font-bold text-purple-950 mb-2 group-hover:text-purple-700 transition-colors duration-300 cursor-pointer text-center">
               ${articlesData[i].title}
             </div>
-            <div class="text-gray-500 text-sm text-center">${formatNewsDate(u.datetime)}</div>
+            <div class="text-gray-500 text-sm text-center">Published ${formatNewsDate(u.datetime)}</div>
             ${articlesData[i].image ? `
               <div class="w-full flex items-center justify-center mt-2 mb-2">
                 <img loading="lazy" decoding="async" onerror="this.onerror=null;this.src='/logo1.svg'" src="${articlesData[i].image}" alt="${articlesData[i].title}" class="w-full max-w-md h-32 md:h-40 object-cover rounded-lg group-hover:opacity-90 transition-opacity duration-300 mx-auto" />
@@ -326,7 +326,7 @@
           }
           function formatNewsDate(dt) {
             if (!dt) return '';
-            const dateObj = new Date(dt);
+            const dateObj = new Date(dt + 'T12:00:00');
             const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
             return `${months[dateObj.getMonth()]} ${dateObj.getDate()}, ${dateObj.getFullYear()}`;
           }
