@@ -45,6 +45,15 @@
       </div>
     </div>
 
+    <section aria-labelledby="past-members-heading">
+      <div class="container max-w-md mx-auto mt-8 mb-8 flex flex-col items-center">
+        <h3 id="past-members-heading" class="text-3xl font-normal text-purple-950">Past <span class="font-extrabold">Members</span></h3>
+      </div>
+      <div class="px-6 sm:px-12 md:px-24 lg:px-32 pb-12 flex justify-center">
+        <div id="past-team-cards" class="grid grid-cols-1 z-30 md:grid-cols-3 gap-6 w-full max-w-screen-lg"></div>
+      </div>
+    </section>
+
     <div class="container max-w-md mx-auto mt-8 mb-8 flex flex-col items-center">
       <h3 class="text-3xl font-normal text-purple-950">
         Our <span class="font-extrabold">Story</span>
@@ -199,7 +208,7 @@
     {
       name: 'Joshua Luo',
       img: '/optimized/josh.jpeg.webp',
-      desc: 'Operations Director',
+      desc: 'Finance & Administration',
       left: 'ATL',
       right: 'founder',
       profile: 'profiles/josh.md'
@@ -207,7 +216,7 @@
     {
       name: 'Enpeng Jiang',
       img: '/optimized/enpeng.png.webp',
-      desc: 'Education Director',
+      desc: 'Atlanta Director',
       left: 'ATL',
       right: 'founder',
       profile: 'profiles/enpeng.md'
@@ -215,7 +224,7 @@
     {
       name: 'Owen Lahiji',
       img: '/optimized/owen.jpeg.webp',
-      desc: 'Software Lead',
+      desc: 'Team Member',
       left: 'ATL',
       right: 'member',
       profile: 'profiles/owen.md'
@@ -232,23 +241,24 @@
       name: 'Max Lin',
       img: '/optimized/MaxLin2.jpeg.webp',
       desc: 'Curriculum Designer',
+      past: true,
       left: 'ATL',
-      right: 'member',
+      right: 'past member',
       profile: 'profiles/maxL.md'
     },
     {
       name: 'Andrew Fang',
       img: '/optimized/andy.jpg.webp',
-      desc: 'Talent Acqusition',
+      desc: 'Team Member',
       left: 'ATL',
       right: 'member',
       profile: 'profiles/andy.md',
     }
   ];
 
-  function renderTeamCards() {
-    const container = document.getElementById('team-cards');
-    container.innerHTML = teamMembers.map((member, idx) => `
+  function renderTeamCards(containerId, members) {
+    const container = document.getElementById(containerId);
+    container.innerHTML = members.map((member, idx) => `
     <div class="flex flex-col items-center bg-white rounded-xl shadow-xl border border-gray-200 p-0 pb-10 max-w-xs mx-auto relative group team-profile-card overflow-hidden cursor-pointer" style="min-width:260px;" data-profile="${member.profile}" data-idx="${idx}" role="button" tabindex="0" aria-label="Read about ${member.name}" aria-haspopup="dialog">
 
       <div class="w-full aspect-[3/2] flex items-center justify-center bg-[#fcfbfd] rounded-t-xl overflow-hidden" style="border-bottom: 0;">
@@ -273,7 +283,7 @@
   `).join('');
 
     // Add click event listeners to cards
-    document.querySelectorAll('#team-cards > div[data-profile]').forEach(card => {
+    container.querySelectorAll('[data-profile]').forEach(card => {
       card.addEventListener('keydown', function(event) {
         if (event.key === 'Enter' || event.key === ' ') {
           event.preventDefault();
@@ -310,14 +320,18 @@
     const content = modal.querySelector('#profile-markdown');
     fetch(profilePath)
       .then(res => {
-        if (!res.ok) throw new Error('Profile unavailable');
+        if (!res.ok || res.headers.get('content-type')?.includes('text/html')) throw new Error('Profile unavailable');
         return res.text();
       })
-      .then(md => { content.innerHTML = window.marked.parse(md); })
+      .then(md => {
+        if (!md.trimStart().startsWith('#')) throw new Error('Profile unavailable');
+        content.innerHTML = window.marked.parse(md);
+      })
       .catch(() => { content.textContent = 'This profile could not be loaded. Please try again.'; });
   }
 
-  renderTeamCards();
+  renderTeamCards('team-cards', teamMembers.filter(member => !member.past));
+  renderTeamCards('past-team-cards', teamMembers.filter(member => member.past));
 </script>
 <!-- Add Marked.js for markdown rendering -->
 <script src="/vendor/marked-18.1.0.umd.js"></script>
