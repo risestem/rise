@@ -11,6 +11,10 @@
     html {
       scroll-behavior: smooth;
     }
+    @media (max-width: 767px) {
+      .team-hero { height: 75vw; margin-top: 96px; background-position: center; }
+      .team-hero h1 { margin-top: 0; }
+    }
   </style>
 </head>
 <body>
@@ -20,9 +24,9 @@
 <!-- Main content - About Us section -->
 <section class="min-h-screen bg-gray-50 w-full ">
   <section class="bg-white w-full">
-    <div class="w-full h-[60vh] bg-[url('/optimized/RISEVolunteer.jpeg.webp')] bg-cover bg-[position:50%_60%] bg-no-repeat flex items-center justify-center relative">
+    <div class="team-hero w-full h-[60vh] bg-[url('/optimized/team-group.jpeg')] bg-cover bg-[position:50%_20%] bg-no-repeat flex items-center justify-center relative">
       <!-- Gradient Overlay -->
-      <div class="h-[60vh] absolute inset-0 bg-black opacity-50"></div>
+      <div class="absolute inset-0 bg-black opacity-50"></div>
       <div class="flex flex-col text-center items-center justify-center px-6 sm:px-16 md:px-32 z-10">
         <h1 class="mt-16 text-3xl font-extrabold text-white md:text-4xl xl:text-5xl justify-center">
           Who We Are
