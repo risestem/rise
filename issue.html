@@ -13,78 +13,6 @@
     html {
       scroll-behavior: smooth;
     }
-    .flip-card .flip-card-inner {
-      perspective: 1000px;
-    }
-    .flip-card .flip-card-front,
-    .flip-card .flip-card-back {
-      backface-visibility: hidden;
-    }
-    .flip-card .flip-card-back {
-      transform: rotateY(180deg);
-    }
-    .flip-card {
-      transition: transform 0.3s ease;
-    }
-    .flip-card:hover {
-      transform: translateY(-10px);
-    }
-    .flip-card-front {
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-    }
-    .flip-card:hover .flip-card-front {
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    }
-    .flip-card-back {
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-    }
-    .flip-card:hover .flip-card-back {
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
-    }
-    .flip-card img {
-      transition: transform 0.3s ease;
-    }
-    .flip-card:hover img {
-      transform: scale(1.1);
-    }
-    @media (min-width: 768px) {
-      .flip-card {
-        min-width: 380px;
-        max-width: 460px;
-        width: 100%;
-      }
-      .flip-card-inner {
-        min-width: 380px;
-        max-width: 460px;
-        width: 100%;
-      }
-    }
-    @media (min-width: 1024px) {
-      .flip-card {
-        min-width: 420px;
-        max-width: 520px;
-        width: 100%;
-      }
-      .flip-card-inner {
-        min-width: 420px;
-        max-width: 520px;
-        width: 100%;
-      }
-    }
-    .flip-card,
-    .flip-card-inner,
-    .flip-card-front,
-    .flip-card-back {
-      min-width: 0;
-      box-sizing: border-box;
-    }
-    .flip-card-front, .flip-card-back {
-      word-break: break-word;
-      padding-left: 1.25rem;
-      padding-right: 1.25rem;
-    }
   </style>
 </head>
 <body>
@@ -110,92 +38,10 @@
 
   <!-- The Issue Section -->
 
-  <section id="Issue" class="w-full px-6 sm:px-6 md:px-16 lg:px-24 -mt-8 z-20 relative pb-12 scroll-mt-24">
-    <!--
-  <div class="bg-white p-4 rounded-2xl border border-gray-300 shadow-md justify-center">
-    <div class="flex justify-center text-center">
-      <h2 class="text-3xl md:text-4xl font-poppins font-bold text-purple-950">
-        The Issue in Brief
-      </h2>
-    </div>
+  <section id="Issue" class="issue-content w-full px-6 sm:px-6 md:px-16 lg:px-24 -mt-8 z-20 relative pb-12 scroll-mt-24">
 
-    <div class="flex justify-center items-center pt-8 sm:px-16 lg:px-32 flex-col">
 
-      <div class="bg-white w-full py-12">
-        <div class="max-w-6xl mx-auto px-6">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-            <div class="flip-card group bg-transparent rounded-xl flex flex-col items-center">
-              <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-                <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden">
-              <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">
-                code_blocks
-              </span>
-                  <h3 class="text-3xl font-bold text-purple-900 mb-2 text-center">STEM Access Gaps</h3>
-                </div>
-                <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden">
-                  <p class="text-gray-500 text-center">Many students, especially those from low-income or underrepresented backgrounds, lack access to quality STEM education. This gap limits their opportunities to explore, develop, and excel in critical fields like science, technology, engineering, and math, creating disparities in future careers and innovation potential.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="flip-card group bg-transparent rounded-xl flex flex-col items-center">
-              <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-                <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden">
-              <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">
-                group
-              </span>
-                  <h3 class="text-3xl font-bold text-purple-900 mb-2 text-center">Confidence</h3>
-                </div>
-                <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden">
-                  <p class="text-gray-500 text-center">Many students, particularly from marginalized communities, face confidence gaps in STEM subjects. Without encouragement and support, they may doubt their abilities, leading to disengagement and limiting their future opportunities in these critical fields.</p>
-                </div>
-              </div>
-            </div>
-
-            <div class="flip-card group bg-transparent rounded-xl flex flex-col items-center">
-              <div class="flip-card-inner relative w-full h-80 transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
-                <div class="flip-card-front absolute w-full h-full bg-white rounded-xl shadow-lg flex flex-col items-center p-8 backface-hidden">
-              <span class="material-symbols-outlined text-purple-900 w-24 h-24 text-[96px] mb-4">
-                engineering
-              </span>
-                  <h3 class="text-3xl font-bold text-purple-900 mb-2 text-center">Skills Gap</h3>
-                </div>
-                <div class="flip-card-back absolute w-full h-full bg-[#fcfbfd] rounded-xl shadow-lg flex flex-col items-center justify-center p-8 [transform:rotateY(180deg)] backface-hidden">
-                  <p class="text-gray-500 text-center">As technology evolves, there's a growing demand for STEM skills. Unfortunately, many students, especially those in underserved schools, lack access to the resources and hands-on experiences needed to develop these crucial skills, widening the gap between academic learning and workforce readiness.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="pt-10 flex justify-center">
-          <button
-                  id="continueReadingBtn"
-                  type="button"
-                  class="flex items-center gap-2 px-6 py-3 border border-gray-300 rounded-xl bg-white shadow-sm text-gray-500 transition active:translate-y-0.5 hover:scale-110 hover:border-gray-300 focus:outline-none"
-          >
-            Continue reading to learn more
-
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-            </svg>
-          </button>
-        </div>
-        <script>
-          document.getElementById('continueReadingBtn').addEventListener('click', function(event) {
-            const target = document.getElementById('stem-skills');
-            if (target) {
-              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-          });
-        </script>
-      </div>
-    </div>
-  </div>
-  -->
-
-    <div class="bg-white p-8 rounded-2xl border border-gray-300 -mt-8 z-30 shadow-md flex flex-col items-center justify-center">
+    <div class="bg-white p-8 rounded-2xl border border-gray-300 z-30 shadow-md flex flex-col items-center justify-center">
 
       <h3 id="stem-skills" class="text-3xl font-bold text-center text-purple-950 mb-2">STEM Skills Are in High Demand<sup id="fnref1"><a href="#fn1" class="text-purple-700">[1]</a></sup></h3>
       <div class="flex flex-col items-center text-gray-500">
@@ -509,7 +355,7 @@
         <!-- STEM Impact Cards with Tailwind CSS -->
         <div class="flex flex-col sm:flex-row justify-center gap-6 w-full my-8">
           <!-- Card 1 -->
-          <div class="bg-white rounded-xl border border-gray-300 shadow-sm flex flex-col items-center w-full sm:w-[270px] h-[300px] min-w-[0] max-w-full sm:min-w-[230px] sm:max-w-[320px] min-h-[200px] max-h-[280px] overflow-hidden mb-6 sm:mb-0">
+          <div class="bg-white rounded-xl border border-gray-300 shadow-sm flex flex-col items-center w-full sm:w-[270px] h-auto min-w-[0] max-w-full sm:min-w-[230px] sm:max-w-[320px] min-h-[200px] overflow-hidden mb-6 sm:mb-0">
             <img decoding="async" src="/optimized/kid_doing_reaction.jpeg.webp" alt="STEM Interest and Identity" class="w-full h-28 object-cover">
             <div class="px-4 py-3 flex-1 flex flex-col justify-start items-center text-center">
               <h3 class="text-lg font-semibold mb-1 text-purple-950">STEM Interest and Identity</h3>
@@ -519,7 +365,7 @@
             </div>
           </div>
           <!-- Card 2 -->
-          <div class="bg-white rounded-xl border border-gray-300 shadow-sm flex flex-col items-center w-full sm:w-[270px] h-[300px] min-w-[0] max-w-full sm:min-w-[230px] sm:max-w-[320px] min-h-[200px] max-h-[280px] overflow-hidden mb-6 sm:mb-0">
+          <div class="bg-white rounded-xl border border-gray-300 shadow-sm flex flex-col items-center w-full sm:w-[270px] h-auto min-w-[0] max-w-full sm:min-w-[230px] sm:max-w-[320px] min-h-[200px] overflow-hidden mb-6 sm:mb-0">
             <img decoding="async" loading="lazy" src="/optimized/enpeng_atoms_2.jpeg.webp" alt="Career Awareness and Readiness" class="w-full h-28 object-cover">
             <div class="px-4 py-3 flex-1 flex flex-col justify-start items-center text-center">
               <h3 class="text-lg font-semibold mb-1 text-purple-950">Career Awareness and Readiness</h3>
@@ -529,7 +375,7 @@
             </div>
           </div>
           <!-- Card 3 -->
-          <div class="bg-white rounded-xl border border-gray-300 shadow-sm flex flex-col items-center w-full sm:w-[270px] h-[300px] min-w-[0] max-w-full sm:min-w-[230px] sm:max-w-[320px] min-h-[200px] max-h-[280px] overflow-hidden">
+          <div class="bg-white rounded-xl border border-gray-300 shadow-sm flex flex-col items-center w-full sm:w-[270px] h-auto min-w-[0] max-w-full sm:min-w-[230px] sm:max-w-[320px] min-h-[200px] overflow-hidden">
             <img decoding="async" loading="lazy" src="/optimized/2_kids_holding_bridge.jpeg.webp" alt="Problem-Solving and Perseverance" class="w-full h-28 object-cover">
             <div class="px-4 py-3 flex-1 flex flex-col justify-start items-center text-center">
               <h3 class="text-lg font-semibold mb-1 text-purple-950">Problem-Solving and Perseverance</h3>
@@ -557,77 +403,9 @@
         <p>
           Wealthier families invest over <strong>3.5x more</strong> in out-of-school enrichment than lower-income families. This is how STEM access gaps widen.
         </p>
-        <div class="flex items-center justify-center gap-12 my-8">
-          <!-- 1× Icon Group -->
-          <div class="flex flex-col items-center justify-center space-y-2">
-            <div class="flex gap-1">
-              <!-- 1 Full Dollar Icon -->
-              <svg xmlns="http://www.w3.org/2000/svg" class="hover:scale-110 transform transition-all duration-300 w-12 h-12 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M2 4h20v16H2z" opacity="0.2"/>
-                <path d="M4 6h16v12H4z" class="fill-current"/>
-                <text x="12" y="16" text-anchor="middle" fill="white" font-size="10" font-weight="bold">$</text>
-              </svg>
-            </div>
-            <p class="text-s text-center max-w-[12.5rem] text-slate-700 font-semibold">
-              Spent by lower-income families
-            </p>
-          </div>
-
-          <!-- 3.5× Icon Group -->
-          <div class="flex flex-col items-center justify-center space-y-2">
-            <div class="flex gap-1">
-              <!-- 3 Full Dollar Icons -->
-              <svg xmlns="http://www.w3.org/2000/svg" class="hover:scale-110 transform transition-all duration-300 w-12 h-12 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M2 4h20v16H2z" opacity="0.2"/>
-                <path d="M4 6h16v12H4z" class="fill-current"/>
-                <text x="12" y="16" text-anchor="middle" fill="white" font-size="10" font-weight="bold">$</text>
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" class="hover:scale-110 transform transition-all duration-300 w-12 h-12 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M2 4h20v16H2z" opacity="0.2"/>
-                <path d="M4 6h16v12H4z" class="fill-current"/>
-                <text x="12" y="16" text-anchor="middle" fill="white" font-size="10" font-weight="bold">$</text>
-              </svg>
-              <svg xmlns="http://www.w3.org/2000/svg" class="hover:scale-110 transform transition-all duration-300 w-12 h-12 text-purple-600" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M2 4h20v16H2z" opacity="0.2"/>
-                <path d="M4 6h16v12H4z" class="fill-current"/>
-                <text x="12" y="16" text-anchor="middle" fill="white" font-size="10" font-weight="bold">$</text>
-              </svg>
-              <!-- 0.5 Dimmed Dollar Icon -->
-              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
-                <!-- Left half: vivid dollar (purple-600) -->
-                <g>
-                  <clipPath id="leftHalf">
-                    <rect x="0" y="0" width="24" height="48"/>
-                  </clipPath>
-                  <g clip-path="url(#leftHalf)">
-                    <rect x="0" y="0" width="48" height="48" fill="none"/>
-                    <g transform="scale(2)">
-                      <path d="M2 4h20v16H2z" fill="currentColor" opacity="0.2"/>
-                      <path d="M4 6h16v12H4z" fill="#9333ea"/>
-                      <text x="12" y="16" text-anchor="middle" fill="white" font-size="10" font-weight="bold" font-family="sans-serif">$</text>
-                    </g>
-                  </g>
-                </g>
-                <!-- Right half: dimmed dollar (purple-400, opacity-0.5) -->
-                <g>
-                  <clipPath id="rightHalf">
-                    <rect x="24" y="0" width="24" height="48"/>
-                  </clipPath>
-                  <g clip-path="url(#rightHalf)" opacity="0.5">
-                    <rect x="0" y="0" width="48" height="48" fill="none"/>
-                    <g transform="scale(2)">
-                      <path d="M2 4h20v16H2z" fill="currentColor" opacity="0.2"/>
-                      <path d="M4 6h16v12H4z" fill="#a78bfa"/>
-                      <text x="12" y="16" text-anchor="middle" fill="white" font-size="10" font-weight="bold" font-family="sans-serif">$</text>
-                    </g>
-                  </g>
-                </g>
-              </svg>
-            </div>
-            <p class="text-s text-center max-w-[12.5rem] text-slate-700 font-semibold">
-              Spent by higher-income families
-            </p>
-          </div>
+        <div class="enrichment-comparison" aria-label="Relative spending on out-of-school enrichment">
+          <div><span>Lower-income families</span><div class="comparison-track"><span style="width:28.57%"></span></div><strong>1×</strong></div>
+          <div><span>Higher-income families</span><div class="comparison-track"><span style="width:100%"></span></div><strong>3.5×</strong></div>
         </div>
         <h2 class="font-semibold text-purple-950 text-xl">
           RISE is tackling this divide by making engaging, hands-on STEM learning accessible to everyone.
@@ -639,7 +417,7 @@
             <img decoding="async" loading="lazy"
                     src="/optimized/enpeng_holding_bucket.jpeg.webp"
                     alt="STEM Learning"
-                    class="object-cover w-full h-full rounded-2xl min-h-[350px] min-w-[300px]"
+                    class="object-cover w-full h-full rounded-2xl min-h-[260px]"
             >
           </div>
           <!-- Right: Content -->
@@ -657,7 +435,7 @@
         </div>
         <button
                 onclick="window.location.href='/what-we-do';"
-                class="px-8 py-4 mb-4 text-white font-bold bg-purple-950 rounded-full transform transition duration-300 hover:scale-110 hover:text-white w-max"
+                class="px-8 py-4 mb-4 text-white font-bold bg-purple-950 rounded-full transition duration-300 hover:bg-purple-900 max-w-full"
         >
           Continue Reading About Our Work
         </button>
