@@ -189,7 +189,8 @@
   const teamMembers = [
     {
       name: 'Brayden Watt',
-      img: '/optimized/image.jpeg.webp',
+      img: '/optimized/brayden-hiking.jpeg',
+      imagePosition: '60% 55%',
       desc: 'Executive Director',
       left: 'ATL',
       right: 'founder',
@@ -248,11 +249,11 @@
   function renderTeamCards() {
     const container = document.getElementById('team-cards');
     container.innerHTML = teamMembers.map((member, idx) => `
-    <div class="flex flex-col items-center bg-white rounded-xl shadow-xl border border-gray-200 p-0 pb-10 max-w-xs mx-auto relative group transition-transform duration-300 hover:scale-105 hover:shadow-2xl overflow-hidden cursor-pointer" style="min-width:260px;" data-profile="${member.profile}" data-idx="${idx}">
-      <!-- Removed the full-card diagonal sheen on hover -->
+    <div class="flex flex-col items-center bg-white rounded-xl shadow-xl border border-gray-200 p-0 pb-10 max-w-xs mx-auto relative group team-profile-card overflow-hidden cursor-pointer" style="min-width:260px;" data-profile="${member.profile}" data-idx="${idx}" role="button" tabindex="0" aria-label="Read about ${member.name}" aria-haspopup="dialog">
+
       <div class="w-full aspect-[3/2] flex items-center justify-center bg-[#fcfbfd] rounded-t-xl overflow-hidden" style="border-bottom: 0;">
         <div class="w-[90%] h-[90%] overflow-hidden flex items-center justify-center" style="box-sizing:border-box;">
-          <img src="${member.img}" alt="${member.name}" class="object-cover w-full h-full rounded-md" style="aspect-ratio:3/2;" />
+          <img src="${member.img}" alt="${member.name}" class="object-cover w-full h-full rounded-md" style="aspect-ratio:3/2; object-position:${member.imagePosition || 'center'};" />
         </div>
       </div>
       <div class="w-full px-6 pt-6 flex flex-col items-start">
@@ -267,11 +268,18 @@
           <span class="px-1.5 py-0 text-purple-800 font-semibold text-xs">${member.right}</span>
         </div>
       </div>
+      <span class="profile-card-hint absolute right-6 bottom-4 text-xs text-gray-400">Read bio</span>
     </div>
   `).join('');
 
     // Add click event listeners to cards
     document.querySelectorAll('#team-cards > div[data-profile]').forEach(card => {
+      card.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter' || event.key === ' ') {
+          event.preventDefault();
+          this.click();
+        }
+      });
       card.addEventListener('click', function() {
         const profilePath = this.getAttribute('data-profile');
         openProfileModal(profilePath);
@@ -316,6 +324,12 @@
 
 <!-- Footer -->
 <style>
+  .team-profile-card { transition: border-color 220ms ease, box-shadow 220ms ease; }
+  .team-profile-card:hover, .team-profile-card:focus-visible { border-color: #a78bca; box-shadow: 0 10px 24px rgba(60, 3, 102, .13); }
+  .team-profile-card:focus-visible { outline: 2px solid #7e22ce; outline-offset: 4px; }
+  .profile-card-hint { opacity: 0; transition: opacity 180ms ease; }
+  .team-profile-card:hover .profile-card-hint, .team-profile-card:focus-visible .profile-card-hint { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) { .team-profile-card { transition: none; } }
   /* Define Tailwind prose variables for consistent text coloring */
   #profile-markdown {
     /* make “body” and “lead” both #1f2937 */

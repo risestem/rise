@@ -16,3 +16,29 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+
+/* Keep the familiar purple contact section, with more room to write. */
+#contact { padding: 48px 24px; }
+.contact-inner { max-width: 640px; margin: 0 auto; }
+.contact-intro { color: #e9d5ff; text-align: center; line-height: 1.75; margin: 12px auto 28px; max-width: 480px; font-size: .95rem; }
+.contact-form { display: grid; gap: 20px; }
+.contact-form label { display: block; color: #f3e8ff; font-size: .875rem; font-weight: 500; margin-bottom: 8px; }
+.contact-form input, .contact-form textarea { display: block; width: 100%; padding: 12px 14px; border: 1px solid #ddd6e4; border-radius: 6px; background: #fff; color: #26212b; font: inherit; font-size: .95rem; }
+.contact-form textarea { resize: vertical; min-height: 144px; }
+.contact-form input::placeholder, .contact-form textarea::placeholder { color: #8c8593; }
+.contact-form input:focus-visible, .contact-form textarea:focus-visible { outline: 3px solid #c4b5fd; outline-offset: 3px; }
+.contact-form-bottom { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+.contact-form-bottom a { color: #e9d5ff; font-size: .8rem; text-underline-offset: 4px; }
+.contact-form-bottom a:hover { text-decoration: underline; }
+.contact-form button { border: 1px solid #fff; border-radius: 6px; background: white; color: #3b0764; padding: 11px 22px; font-size: .875rem; font-weight: 600; transition: background-color 180ms ease; }
+.contact-form button:hover { background: #f3e8ff; }
+.contact-form button:focus-visible { outline: 3px solid #c4b5fd; outline-offset: 3px; }
+
+#home .home-welcome { padding: 28px 24px; }
+#home .home-welcome p { line-height: 1.85; }
+#home .news-card > a { display: block; width: 100%; }
+#home .news-card:focus-within { outline: 2px solid #a78bfa; outline-offset: 3px; }
+#home .news-card:hover { box-shadow: 0 4px 18px rgba(80, 0, 120, .18); }
+@media (max-width: 400px) {
+    #home .news-card { min-width: 0; flex-basis: 100%; }
+}
