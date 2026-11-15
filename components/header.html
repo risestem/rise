@@ -23,15 +23,16 @@
             <a href="/home" class="px-4 py-2 font-bold text-gray-500 hover:text-purple-950">Home</a>
           </li>
           <!-- Projects dropdown for desktop -->
-          <li class="group hidden md:flex md:flex-col relative items-center">
-            <a href="/projects" class="px-4 py-2 font-bold text-gray-500 hover:text-purple-950 cursor-pointer flex items-center group">
+          <li data-nav-dropdown class="hidden md:flex md:flex-col relative items-center">
+            <button type="button" data-nav-toggle aria-expanded="false" aria-controls="projects-submenu" class="px-4 py-2 font-bold text-gray-500 hover:text-purple-950 cursor-pointer flex items-center">
               Projects
-              <svg class="w-4 h-4 ml-1 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <svg class="w-4 h-4 ml-1 transition-transform duration-200" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M19 9l-7 7-7-7"></path>
               </svg>
-            </a>
+            </button>
             <!-- Dropdown -->
-            <div class="absolute left-0 top-full mt-0 py-1 bg-white shadow-lg rounded-b-lg z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-out transform translate-y-2 group-hover:translate-y-0 min-w-[180px]">
+            <div id="projects-submenu" hidden class="absolute left-0 top-full py-1 bg-white shadow-lg rounded-b-lg z-10 min-w-[180px]">
+              <a href="/projects" class="block px-4 py-3 font-bold text-gray-500 hover:text-purple-950">All Projects</a>
               <a href="/curriculum" class="block px-4 py-3 font-bold text-gray-500 hover:text-purple-950 duration-200">
                 Curriculum
               </a>
@@ -62,15 +63,16 @@
             <a href="/issue" class="px-4 py-2 font-bold text-gray-500 hover:text-purple-950">The Issue</a>
           </li>
           <!-- About dropdown for desktop -->
-          <li class="group hidden md:flex md:flex-col relative items-center">
-            <a href="/about" class="px-4 py-2 font-bold text-gray-500 hover:text-purple-950 cursor-pointer flex items-center group">
+          <li data-nav-dropdown class="hidden md:flex md:flex-col relative items-center">
+            <button type="button" data-nav-toggle aria-expanded="false" aria-controls="about-submenu" class="px-4 py-2 font-bold text-gray-500 hover:text-purple-950 cursor-pointer flex items-center">
               About Us
-              <svg class="w-4 h-4 ml-1 transition-transform duration-200 group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <svg class="w-4 h-4 ml-1 transition-transform duration-200" aria-hidden="true" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M19 9l-7 7-7-7"></path>
               </svg>
-            </a>
+            </button>
             <!-- Dropdown -->
-            <div class="absolute left-0 top-full mt-0 py-1 bg-white shadow-lg rounded-b-lg z-10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-out transform translate-y-2 group-hover:translate-y-0 min-w-[180px]">
+            <div id="about-submenu" hidden class="absolute left-0 top-full py-1 bg-white shadow-lg rounded-b-lg z-10 min-w-[180px]">
+              <a href="/about" class="block px-4 py-3 font-bold text-gray-500 hover:text-purple-950">About Us</a>
               <a href="/what-we-do" class="block px-4 py-3 font-bold text-gray-500 hover:text-purple-950 duration-200">
                 Our Work
               </a>
@@ -108,21 +110,7 @@
   </nav>
 </header>
 <style>
-/* Completely remove any background effects from dropdown items */
-.group .absolute a {
-  background-color: transparent !important;
-  background: transparent !important;
-}
-.group .absolute a:hover {
-  background-color: transparent !important;
-  background: transparent !important;
-}
-.group .absolute a:focus {
-  background-color: transparent !important;
-  background: transparent !important;
-}
-.group .absolute a:active {
-  background-color: transparent !important;
-  background: transparent !important;
+[data-nav-toggle][aria-expanded="true"] svg {
+  transform: rotate(180deg);
 }
 </style>
