@@ -31,9 +31,41 @@ function initializeHeader() {
     });
   }
 
-  // Highlight current page
+  setupDropdowns(navbar);
   highlightCurrentPage();
 
+}
+
+function setupDropdowns(navbar) {
+  if (!navbar) return;
+  const toggles = [...navbar.querySelectorAll('[data-nav-toggle]')];
+
+  function setExpanded(toggle, expanded) {
+    toggle.setAttribute('aria-expanded', String(expanded));
+    document.getElementById(toggle.getAttribute('aria-controls')).hidden = !expanded;
+  }
+
+  toggles.forEach(toggle => {
+    const dropdown = toggle.closest('[data-nav-dropdown]');
+    toggle.addEventListener('click', () => {
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggles.forEach(other => setExpanded(other, other === toggle && !expanded));
+    });
+    dropdown.addEventListener('focusout', event => {
+      if (!dropdown.contains(event.relatedTarget)) setExpanded(toggle, false);
+    });
+    dropdown.addEventListener('keydown', event => {
+      if (event.key !== 'Escape' || toggle.getAttribute('aria-expanded') !== 'true') return;
+      setExpanded(toggle, false);
+      toggle.focus();
+    });
+  });
+
+  document.addEventListener('click', event => {
+    toggles.forEach(toggle => {
+      if (!toggle.closest('[data-nav-dropdown]').contains(event.target)) setExpanded(toggle, false);
+    });
+  });
 }
 
 // Compare normalized local routes, never an external link's pathname.
@@ -52,7 +84,7 @@ function highlightCurrentPage() {
     if (active) {
       link.classList.remove('text-gray-500');
       link.setAttribute('aria-current', 'page');
-      const parent = link.closest('li.group')?.querySelector(':scope > a');
+      const parent = link.closest('[data-nav-dropdown]')?.querySelector('[data-nav-toggle]');
       if (parent) {
         parent.classList.add('text-purple-950');
         parent.classList.remove('text-gray-500');
